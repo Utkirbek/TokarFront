@@ -1,1 +1,1 @@
-export { default } from "@modules/dashboard/modules/admins";
+export { default } from "@modules/dashboard/submodules/admins";
