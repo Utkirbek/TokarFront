@@ -1,5 +1,5 @@
-import React from "react";
 import { Table } from "@mantine/core";
+import React from "react";
 
 const elements = [
   { position: 6, mass: 12.011, symbol: "C", name: "Carbon" },

@@ -1,13 +1,21 @@
+import useUser from "@hooks/shared/useUser";
+import { Box, Button, Group, PasswordInput, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { PasswordInput, Group, Button, Box, TextInput } from "@mantine/core";
+import authFetchers from "@services/api/authFetchers";
+import { RequestQueryKeys } from "@utils/constants";
+import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
+import { useSWRConfig } from "swr";
 
 function SignIn() {
+  const { mutate } = useSWRConfig();
+  const { authorize } = useUser();
+
   const router = useRouter();
   const form = useForm({
     initialValues: {
-      password: "secret",
-      email: "test@test.com",
+      password: "",
+      email: "",
     },
 
     validate: {
@@ -16,33 +24,16 @@ function SignIn() {
     },
   });
 
-  const handleSubmit = (values: { password: string; email: string }) => {
-    let headers = new Headers();
-    headers.append("Accept", "application/json");
-    headers.append("Content-Type", "application/json");
-
-    let body = JSON.stringify(values);
-
-    let requestOptions = {
-      method: "POST",
-      headers,
-      body,
-      redirect: "follow",
-    };
-
-    fetch(
-      "https://toker-mevqk13mg-utkirbek.vercel.app/api/admin/login",
-      requestOptions as any
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        // TODO implement
-        console.log(result);
-        if (result.token) {
-          router.push("/");
-        }
-      })
-      .catch((error) => console.log("error", error));
+  const handleSubmit = async (values: { password: string; email: string }) => {
+    const res = await mutate(
+      RequestQueryKeys.login,
+      authFetchers.login(values),
+      false
+    );
+    setCookie("token", res.token);
+    delete res.token;
+    authorize(res);
+    router.push("/");
   };
 
   return (

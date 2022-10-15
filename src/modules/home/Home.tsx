@@ -1,27 +1,20 @@
-import axios from "axios";
-import React from "react";
+import useUser from "@hooks/shared/useUser";
+import adminFetchers from "@services/api/adminFetchers";
+import { RequestQueryKeys } from "@utils/constants";
 import useSWR from "swr";
 
-type Props = {};
+const Home = () => {
+  const { name } = useUser();
 
-const requests = axios.create({
-  baseURL: "https://toker-mevqk13mg-utkirbek.vercel.app/api",
-});
-
-const getUsers = async () => {
-  const res = await requests.get("/admin");
-  return res.data;
-};
-
-const Home = (props: Props) => {
-  const { data, error } = useSWR("admins", getUsers);
+  const { data, error } = useSWR(
+    RequestQueryKeys.getAdmins,
+    adminFetchers.getAdmins
+  );
 
   if (error) return <div>ошибка загрузки</div>;
   if (!data) return <div>загрузка...</div>;
 
-  console.log(data);
-
-  return <div>Home</div>;
+  return <div>Welcome {name}</div>;
 };
 
 export default Home;
