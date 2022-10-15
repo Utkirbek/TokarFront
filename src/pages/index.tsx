@@ -71,3 +71,4 @@
 
 // export default Home
 export { default } from "@modules/home";
+// export { default } from "@components/table/index"
