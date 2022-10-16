@@ -1,11 +1,14 @@
 import "../styles/globals.css";
 
 import ProtectedRoute from "@components/smart/ProtectedRoute";
+import { RouterTransition } from "@components/smart/RouterTransition";
 import {
   ColorScheme,
   ColorSchemeProvider,
   MantineProvider,
 } from "@mantine/core";
+import { ModalsProvider } from "@mantine/modals";
+import { NotificationsProvider } from "@mantine/notifications";
 import type { AppProps } from "next/app";
 import { useState } from "react";
 import { SWRConfig } from "swr";
@@ -20,12 +23,19 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       <SWRConfig>
         <ColorSchemeProvider
           colorScheme={colorScheme}
-          toggleColorScheme={toggleColorScheme}>
+          toggleColorScheme={toggleColorScheme}
+        >
           <MantineProvider
             theme={{ colorScheme }}
             withGlobalStyles
-            withNormalizeCSS>
-            <Component {...pageProps} />
+            withNormalizeCSS
+          >
+            <RouterTransition />
+            <ModalsProvider>
+              <NotificationsProvider>
+                <Component {...pageProps} />
+              </NotificationsProvider>
+            </ModalsProvider>
           </MantineProvider>
         </ColorSchemeProvider>
       </SWRConfig>

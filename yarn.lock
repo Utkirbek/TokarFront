@@ -287,7 +287,7 @@
 
 "@mantine/nprogress@^5.5.5":
   version "5.5.5"
-  resolved "https://registry.npmjs.org/@mantine/nprogress/-/nprogress-5.5.5.tgz"
+  resolved "https://registry.yarnpkg.com/@mantine/nprogress/-/nprogress-5.5.5.tgz#15108c50528e1032956a569b0fb48ab68fb0cbed"
   integrity sha512-wlqeZec19BU7udnIKbs5ghR2lTKLdjmTCUx4MYRtHvOwsOJnpbA+1XU7FHwVtlufj1HF2ATx2ODiT56P2GAbtQ==
   dependencies:
     "@mantine/utils" "5.5.5"
