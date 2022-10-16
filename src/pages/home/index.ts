@@ -1,1 +1,1 @@
-export { default } from "@modules/home";
+export { default } from "@modules/layout/DashLayout";

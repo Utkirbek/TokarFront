@@ -26,10 +26,8 @@ const responseBody = <T>(response: { data: T }) => response.data;
 
 const requests = {
   get: (url: string) => instance.get(url).then(responseBody),
-
   post: <T>(url: string, body: T) =>
     instance.post(url, body).then(responseBody),
-
   put: <T>(url: string, body: T) => instance.put(url, body).then(responseBody),
   delete: <T>(url: string, body?: T) =>
     instance.delete(url, body || {}).then(responseBody),
