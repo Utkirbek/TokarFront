@@ -14,7 +14,7 @@ const Home = () => {
   if (error) return <div>ошибка загрузки</div>;
   if (!data) return <div>загрузка...</div>;
 
-  return <div>Welcome {name}</div>;
+  return <div>Home</div>;
 };
 
 export default Home;
