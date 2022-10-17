@@ -1,4 +1,3 @@
-import Table from "@components/table";
 import useUser from "@hooks/shared/useUser";
 import { Button, Text } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
@@ -64,7 +63,6 @@ const Home = () => {
 
   return (
     <DashLayout>
-      <Table />
       <Button onClick={openModal}>Udalit</Button>
     </DashLayout>
   );
