@@ -18,9 +18,9 @@ export default function DrawerNew() {
         onClose={() => setOpened(false)}
         padding="xl"
         size="xl"
-        position="right">
+        position="right"
+        sx={{ overflow: "scroll" }}>
         {/* Drawer content */}
-
         <FormProduct />
       </Drawer>
 

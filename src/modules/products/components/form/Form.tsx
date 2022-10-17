@@ -5,6 +5,8 @@ import { RequestQueryKeys } from "@utils/constants";
 import { useRouter } from "next/router";
 import { useSWRConfig } from "swr";
 
+import ImageUploader from "./ImageUploader";
+
 const FormProduct = () => {
   const { mutate } = useSWRConfig();
 
@@ -62,9 +64,14 @@ const FormProduct = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: 440, overflow: "inherit" }} mx="auto">
+    <Box sx={{ maxWidth: 440 }} mx="auto">
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <Text sx={{ fontSize: "32px", textAlign: "center", fontWeight: 700 }}>
+        <Text
+          sx={{
+            fontSize: "24px",
+            textAlign: "center",
+            fontWeight: 700,
+          }}>
           Yangi Mahsulot qo&apos;shish
         </Text>
         <TextInput
@@ -72,43 +79,43 @@ const FormProduct = () => {
           label="Mahsulot Nomi"
           placeholder="Mahsulot nomini kiriting"
           {...form.getInputProps("title")}
-          sx={{ margin: "20px 0" }}
+          sx={{ margin: "15px 0" }}
           required
         />
 
         {/* bu yerda rasm yuklash */}
-        {/* <Box sx={{ maxHeight: "150px" }}>
-          <ImageUploader sx={{ marginBlock: 10 }} />
+        <Box sx={{ maxHeight: "150px" }}>
+          <ImageUploader sx={{ marginBlock: 5 }} />
           <Button variant="outline" sx={{ float: "right", margin: "10px 0" }}>
             Rasmni Olib Tashlash
           </Button>
-        </Box> */}
+        </Box>
         <TextInput
           label="Mahsulot Kodi"
           placeholder="Mahsulot Kodi"
           {...form.getInputProps("code")}
-          sx={{ margin: "25px 0" }}
+          sx={{ margin: "15px 0" }}
           required
         />
         <TextInput
           label="Mahsulot Narxi"
           placeholder="Mahsulot Narxi"
           {...form.getInputProps("price")}
-          sx={{ margin: "20px 0" }}
+          sx={{ margin: "15px 0" }}
           required
         />
         <TextInput
           label="Nechta mahsulot borligi"
           placeholder="Nechta mahsulot borligi"
           {...form.getInputProps("quantity")}
-          sx={{ margin: "20px 0" }}
+          sx={{ margin: "15px 0" }}
           required
         />
         <TextInput
           label="Tarif"
           placeholder="Mahsulotga tarif"
           {...form.getInputProps("description")}
-          sx={{ margin: "20px 0" }}
+          sx={{ margin: "15px 0" }}
           required
         />
         <Group position="right" mt="md">
