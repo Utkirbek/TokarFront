@@ -33,7 +33,7 @@ function ProducTable() {
 
     return (
       <tr key={item._id}>
-        <td>{item._id}</td>
+        <td>{item.code}</td>
         <td>{item.title}</td>
         <td>${item.price}</td>
         <td>{item.quantity}</td>
@@ -46,7 +46,7 @@ function ProducTable() {
       <Table striped>
         <thead>
           <tr>
-            <th>ID</th>
+            <th>Kodi</th>
             <th>Nomi</th>
             <th>Narxi</th>
             <th>Jami soni</th>

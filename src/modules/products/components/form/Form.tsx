@@ -29,7 +29,7 @@ const FormProduct = () => {
       ],
     },
     validate: {
-      title: (value) => (value.length >= 8 ? null : "name is not valid"),
+      title: (value) => (value.length >= 0 ? null : "name is not valid"),
       code: (value) => (value.length >= 1 ? null : "code is not valid"),
       price: (value) => (value.length >= 0 ? null : "price is not valid"),
       quantity: (value) => (value.length >= 0 ? null : "quantity is not valid"),
