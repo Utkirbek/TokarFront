@@ -35,7 +35,7 @@ function ProducTable() {
       <tr key={item._id}>
         <td>{item._id}</td>
         <td>{item.title}</td>
-        <td>{item.price}</td>
+        <td>${item.price}</td>
         <td>{item.quantity}</td>
       </tr>
     );
@@ -59,3 +59,10 @@ function ProducTable() {
 }
 
 export default ProducTable;
+function getProducts(
+  getProducts: RequestQueryKeys,
+  getProducts1: () => Promise<any>,
+  arg2: { revalidate: boolean }
+) {
+  throw new Error("Function not implemented.");
+}
