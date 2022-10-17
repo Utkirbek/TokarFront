@@ -1,5 +1,12 @@
 import useUser from "@hooks/shared/useUser";
-import { Box, Button, Group, PasswordInput, TextInput } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Group,
+  PasswordInput,
+  Text,
+  TextInput,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 import authFetchers from "@services/api/authFetchers";
 import { RequestQueryKeys } from "@utils/constants";
@@ -37,18 +44,24 @@ function SignIn() {
   };
 
   return (
-    <Box sx={{ maxWidth: 340 }} mx="auto">
+    <Box sx={{ maxWidth: 340, margin: "10% 0" }} mx="auto">
       <form onSubmit={form.onSubmit(handleSubmit)}>
+        <Text sx={{ fontSize: "24px", textAlign: "center", fontWeight: 700 }}>
+          Platformaga Kirish
+        </Text>
         <TextInput
           withAsterisk
           label="Email"
           placeholder="your@email.com"
           {...form.getInputProps("email")}
+          sx={{ margin: "20px 0" }}
+          required
         />
         <PasswordInput
-          label="Password"
+          label="Parol"
           placeholder="Password"
           {...form.getInputProps("password")}
+          required
         />
         <Group position="right" mt="md">
           <Button type="submit">Submit</Button>
