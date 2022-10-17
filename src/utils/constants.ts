@@ -6,8 +6,8 @@ export const appRoutes = {
 };
 
 export enum RequestQueryKeys {
-  getAdmins = "admins",
   login = "login",
+  getAdmins = "admins",
   deleteAdmin = "deleteAdmin",
   addProduct = "addProduct",
   deleteProduct = "deleteProduct",
