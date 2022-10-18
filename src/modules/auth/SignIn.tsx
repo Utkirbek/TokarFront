@@ -46,7 +46,7 @@ function SignIn() {
   return (
     <Box sx={{ maxWidth: 340, margin: "10% 0" }} mx="auto">
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <Text sx={{ fontSize: "24px", textAlign: "center", fontWeight: 700 }}>
+        <Text sx={{ fontSize: "24px", textAlign: "center", fontWeight: 600 }}>
           Platformaga Kirish
         </Text>
         <TextInput
