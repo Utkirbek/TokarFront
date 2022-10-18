@@ -33,9 +33,8 @@ function TableCard() {
     updateNotification({
       id: "load-data",
       color: "teal",
-      title: "Data was loaded",
-      message:
-        "Notification will close in 2 seconds, you can close this notification now",
+      title: "Oʻchirildi",
+      message: "Foydalanuvchi udalit qilindi",
       icon: <IconCheck size={16} />,
       autoClose: 2000,
     });
@@ -45,7 +44,7 @@ function TableCard() {
 
   const openDeleteModal = (id: string, name: string) =>
     openConfirmModal({
-      title: "Delete your profile",
+      title: "Siz ushbu foydalanuvchini o'chirmoqchimisiz",
       centered: true,
       children: (
         <Text size="sm">
@@ -59,8 +58,8 @@ function TableCard() {
         showNotification({
           id: "load-data",
           loading: true,
-          title: "Loading your data",
-          message: "dsklmqpoa",
+          title: "Iltimos kuting",
+          message: "Foydalanuvchi udalit qilinyabdi",
           autoClose: false,
           disallowClose: true,
         });
@@ -84,12 +83,6 @@ function TableCard() {
         <td>{item.email}</td>
         <td>{item.phone}</td>
         <td>
-          {/* <IconTrash
-            onClick={() => openDeleteModal(item._id, item.name)}
-            // onClick={() => handleDelete(item._id)}
-            // onClick={() => openDeleteModal(item._id)}
-            style={{ color: "red", cursor: "pointer" }}
-          /> */}
           {item.name == name ? (
             <IconTrash style={{ color: "red", cursor: "no-drop" }} />
           ) : (
