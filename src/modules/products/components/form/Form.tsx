@@ -42,19 +42,15 @@ const FormProduct = () => {
 
   console.log(form.values);
 
-  const handleSubmit = async (
-    values: {
-      code: string;
-      title: string;
-      image: string;
-      price: string;
-      quantity: string;
-      description: string;
-      discounts: any;
-    },
-    event: any
-  ) => {
-    event.preventDefault();
+  const handleSubmit = async (values: {
+    code: string;
+    title: string;
+    image: string;
+    price: string;
+    quantity: string;
+    description: string;
+    discounts: any;
+  }) => {
     const res = await mutate(
       RequestQueryKeys.addProduct,
       productFetchers.addProduct(values),
@@ -86,7 +82,10 @@ const FormProduct = () => {
         {/* bu yerda rasm yuklash */}
         <Box sx={{ maxHeight: "150px" }}>
           <ImageUploader sx={{ marginBlock: 5 }} />
-          <Button variant="outline" sx={{ float: "right", margin: "10px 0" }}>
+          <Button
+            variant="outline"
+            sx={{ float: "right", margin: "10px 0" }}
+            hidden>
             Rasmni Olib Tashlash
           </Button>
         </Box>
@@ -126,6 +125,3 @@ const FormProduct = () => {
   );
 };
 export default FormProduct;
-function authorize(res: any) {
-  throw new Error("Function not implemented.");
-}

@@ -1,3 +1,4 @@
+import useUser from "@hooks/shared/useUser";
 import {
   Avatar,
   Checkbox,
@@ -8,9 +9,12 @@ import {
   Table,
   Text,
 } from "@mantine/core";
+import { openConfirmModal } from "@mantine/modals";
+import { showNotification, updateNotification } from "@mantine/notifications";
 import productFetchers from "@services/api/productFetchers";
-import { IconEdit, IconTrash } from "@tabler/icons";
+import { IconCheck, IconEdit, IconTrash } from "@tabler/icons";
 import { RequestQueryKeys } from "@utils/constants";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
 
@@ -24,6 +28,67 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export default function FormMantine() {
+  // delete modal window start
+  const router = useRouter();
+
+  const { mutate: deleteProduct } = useSWRConfig();
+
+  const { name, _id } = useUser();
+
+  const handleDelete = async function (id: string) {
+    const res = await deleteProduct(
+      RequestQueryKeys.deleteProduct,
+      productFetchers.deleteProduct(id),
+      {
+        revalidate: true,
+      }
+    );
+
+    refetch();
+  };
+  const openDeleteModal = (id: string) =>
+    openConfirmModal({
+      title: "Mahsulotni o'chirish",
+      centered: true,
+      children: (
+        <Text size="sm">
+          Siz bu mahsulotni chindanham o&apos;chirmoqchimisiz
+        </Text>
+      ),
+      labels: { confirm: "O'chirish", cancel: "Orqaga qaytish" },
+      confirmProps: { color: "red" },
+      onConfirm: () => {
+        showNotification({
+          id: "load-data",
+          loading: true,
+          title: "Mahsulot o'chirilmoqda",
+          message:
+            "Bu malumot o'chirilgandn keyin qayta yuklashni iloji yo'q.Yangi mahsulot qo'shasiz",
+          autoClose: false,
+          disallowClose: true,
+        });
+
+        updateNotification({
+          id: "load-data",
+          color: "teal",
+          title: "Oʻchirildi",
+          message: "Mahsulot o'chirib tashlandi",
+          icon: <IconCheck size={16} />,
+          autoClose: 2000,
+        });
+
+        handleDelete(id);
+      },
+      onCancel: () => {
+        showNotification({
+          title: "Siz bekor qildingiz",
+          message: "Hey there, your code is awesome! 🤥",
+        });
+      },
+    });
+
+  // delete modal window end
+
   const { classes, cx } = useStyles();
   const [selection, setSelection] = useState(["1"]);
   const toggleRow = (id: string) =>
@@ -37,31 +102,36 @@ export default function FormMantine() {
       current.length === data.length ? [] : data.map((item: any) => item._id)
     );
 
-  const { mutate } = useSWRConfig();
-
   const {
     data,
     error,
-    mutate: refresh,
+    mutate: refetch,
   } = useSWR(RequestQueryKeys.getProducts, productFetchers.getProducts);
 
-  if (error) return <div>yuklash xatosi</div>;
+  if (error)
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: "15%",
+          flexDirection: "column",
+          fontSize: "18px",
+          color: "red",
+        }}>
+        <Text sx={{ fontSize: "40px" }}>Xato !</Text>
+        <Text sx={{ fontSize: "18px" }}>
+          Malumot Yuklash xatosi! Iltimos internet borligini tekshiring
+        </Text>
+      </div>
+    );
   if (!data)
     return (
       <div>
-        <Loader />
+        <Loader sx={{ margin: "15%  45%" }} size={"xl"} />
       </div>
     );
-
-  const handleDelete = async function () {
-    const res = await getProducts(
-      RequestQueryKeys.getProducts,
-      productFetchers.getProducts,
-      {
-        revalidate: true,
-      }
-    );
-  };
 
   const rows = data.map((item: any) => {
     const selected = selection.includes(item._id);
@@ -90,6 +160,7 @@ export default function FormMantine() {
           <IconTrash
             color="#e0331f"
             style={{ margin: "0  20px", cursor: "pointer" }}
+            onClick={() => openDeleteModal(item._id)}
           />
           <IconEdit style={{ cursor: "pointer" }} />
         </td>
@@ -124,11 +195,4 @@ export default function FormMantine() {
       </Table>
     </ScrollArea>
   );
-}
-function getProducts(
-  getProducts: RequestQueryKeys,
-  getProducts1: () => Promise<any>,
-  arg2: { revalidate: boolean }
-) {
-  throw new Error("Function not implemented.");
 }

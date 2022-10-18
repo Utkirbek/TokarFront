@@ -1,4 +1,4 @@
-import { Button, Drawer, Group, Text, useMantineTheme } from "@mantine/core";
+import { Button, Drawer, Group, useMantineTheme } from "@mantine/core";
 import { useState } from "react";
 
 import FormProduct from "../form/Form";
@@ -19,7 +19,7 @@ export default function DrawerNew() {
         padding="xl"
         size="xl"
         position="right"
-        sx={{ overflow: "scroll" }}>
+        sx={{ height: "120vh" }}>
         {/* Drawer content */}
         <FormProduct />
       </Drawer>
