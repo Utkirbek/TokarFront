@@ -1,14 +1,23 @@
 import { Box, Button, Group, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { showNotification, updateNotification } from "@mantine/notifications";
 import productFetchers from "@services/api/productFetchers";
+import { IconCheck } from "@tabler/icons";
 import { RequestQueryKeys } from "@utils/constants";
 import { useRouter } from "next/router";
-import { useSWRConfig } from "swr";
+import useSWR, { useSWRConfig } from "swr";
 
 import ImageUploader from "./ImageUploader";
 
-const FormProduct = () => {
+const FormProduct: React.FC<{ handleClose: () => void }> = ({
+  handleClose,
+}) => {
   const { mutate } = useSWRConfig();
+  const {
+    data,
+    error,
+    mutate: refetch,
+  } = useSWR(RequestQueryKeys.getProducts, productFetchers.getProducts);
 
   const router = useRouter();
   const form = useForm({
@@ -31,16 +40,14 @@ const FormProduct = () => {
       ],
     },
     validate: {
-      title: (value) => (value.length >= 0 ? null : "name is not valid"),
+      title: (value) => (value.length >= 1 ? null : "name is not valid"),
       code: (value) => (value.length >= 1 ? null : "code is not valid"),
       price: (value) => (value.length >= 0 ? null : "price is not valid"),
       quantity: (value) => (value.length >= 0 ? null : "quantity is not valid"),
       description: (value) =>
-        value.length >= 8 ? null : "decription is not valid",
+        value.length >= 0 ? null : "decription is not valid",
     },
   });
-
-  console.log(form.values);
 
   const handleSubmit = async (values: {
     code: string;
@@ -51,12 +58,36 @@ const FormProduct = () => {
     description: string;
     discounts: any;
   }) => {
+    showNotification({
+      id: "load-data",
+      loading: true,
+      title: "Iltimos kuting",
+      message: "Sizning mahsuloringiz qo'shilmoqda iltimos kuting",
+      autoClose: false,
+      disallowClose: true,
+    });
+
+    handleClose();
     const res = await mutate(
       RequestQueryKeys.addProduct,
       productFetchers.addProduct(values),
-      false
+      {
+        revalidate: true,
+      }
     );
-    console.log(res);
+    updateNotification({
+      id: "load-data",
+      color: "teal",
+      title: "Muaffaqiyatli",
+      message: "Sizning mahsuloringiz qo'shildi",
+      icon: <IconCheck size={16} />,
+      autoClose: 2000,
+    });
+    refetch();
+  };
+
+  const isDisabled = (obj: Object) => {
+    Object.values(obj).some((value) => value === "");
   };
 
   return (

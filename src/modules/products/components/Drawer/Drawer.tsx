@@ -6,6 +6,7 @@ import FormProduct from "../form/Form";
 export default function DrawerNew() {
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
+
   return (
     <>
       <Drawer
@@ -20,8 +21,7 @@ export default function DrawerNew() {
         size="xl"
         position="right"
         sx={{ height: "120vh" }}>
-        {/* Drawer content */}
-        <FormProduct />
+        <FormProduct handleClose={() => setOpened(false)} />
       </Drawer>
 
       <Group position="right" mx={"xl"}>

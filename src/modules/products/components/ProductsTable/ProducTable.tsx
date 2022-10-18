@@ -30,12 +30,20 @@ const useStyles = createStyles((theme) => ({
 export default function FormMantine() {
   // delete modal window start
   const router = useRouter();
-
   const { mutate: deleteProduct } = useSWRConfig();
-
   const { name, _id } = useUser();
 
   const handleDelete = async function (id: string) {
+    showNotification({
+      id: "load-data",
+      loading: true,
+      title: "Mahsulot o'chirilmoqda",
+      message:
+        "Bu malumot o'chirilgandn keyin qayta yuklashni iloji yo'q.Yangi mahsulot qo'shasiz",
+      autoClose: 2000,
+      disallowClose: true,
+    });
+
     const res = await deleteProduct(
       RequestQueryKeys.deleteProduct,
       productFetchers.deleteProduct(id),
@@ -43,8 +51,15 @@ export default function FormMantine() {
         revalidate: true,
       }
     );
-
     refetch();
+    updateNotification({
+      id: "load-data",
+      color: "teal",
+      title: "Oʻchirildi",
+      message: "Mahsulot o'chirib tashlandi",
+      icon: <IconCheck size={16} />,
+      autoClose: 2000,
+    });
   };
   const openDeleteModal = (id: string) =>
     openConfirmModal({
@@ -58,25 +73,6 @@ export default function FormMantine() {
       labels: { confirm: "O'chirish", cancel: "Orqaga qaytish" },
       confirmProps: { color: "red" },
       onConfirm: () => {
-        showNotification({
-          id: "load-data",
-          loading: true,
-          title: "Mahsulot o'chirilmoqda",
-          message:
-            "Bu malumot o'chirilgandn keyin qayta yuklashni iloji yo'q.Yangi mahsulot qo'shasiz",
-          autoClose: false,
-          disallowClose: true,
-        });
-
-        updateNotification({
-          id: "load-data",
-          color: "teal",
-          title: "Oʻchirildi",
-          message: "Mahsulot o'chirib tashlandi",
-          icon: <IconCheck size={16} />,
-          autoClose: 2000,
-        });
-
         handleDelete(id);
       },
       onCancel: () => {
@@ -135,6 +131,7 @@ export default function FormMantine() {
 
   const rows = data.map((item: any) => {
     const selected = selection.includes(item._id);
+
     return (
       <tr key={item._id} className={cx({ [classes.rowSelected]: selected })}>
         <td>
