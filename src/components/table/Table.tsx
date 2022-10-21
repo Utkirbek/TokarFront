@@ -1,18 +1,20 @@
 import useUser from "@hooks/shared/useUser";
-import { Table, Text } from "@mantine/core";
+import { Drawer,Table, Text } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import adminFetchers from "@services/api/adminFetchers";
-import { IconCheck, IconTrash } from "@tabler/icons";
+import { IconCheck, IconPencil,IconTrash } from "@tabler/icons";
 import { RequestQueryKeys } from "@utils/constants";
+import { useState } from "react";
 import useSWR, { mutate, useSWRConfig } from "swr";
+
+import OpenDrawer from "./OpenDrawer";
 
 function TableCard() {
   const { mutate: deleteAdmin } = useSWRConfig();
-  const { name, _id } = useUser();
-  console.log(name);
-  console.log(name);
-
+  const { name } = useUser();
+  const [opened, setOpened] = useState(false);
+  const [editItem, setEditItem] = useState({});
   const {
     data,
     error,
@@ -21,6 +23,11 @@ function TableCard() {
 
   if (error) return <div>yuklash xatosi</div>;
   if (!data) return <div>yuklanmoqda...</div>;
+
+  const handleClick = () => {
+    setOpened(true);
+    setEditItem({});
+  };
 
   const handleDelete = async function (id: string) {
     const res = await deleteAdmin(
@@ -75,8 +82,6 @@ function TableCard() {
     });
 
   const rows = data.map((item: any) => {
-    console.log(item._id);
-
     return (
       <tr key={item._id}>
         <td>{item.name}</td>
@@ -91,6 +96,16 @@ function TableCard() {
               style={{ color: "red", cursor: "pointer" }}
             />
           )}
+          <IconPencil
+            onClick={() => {
+              setOpened(true);
+              setEditItem(item);
+            }}
+            style={{
+              cursor: "pointer",
+              marginLeft: "20px",
+            }}
+          />
         </td>
       </tr>
     );
@@ -109,6 +124,20 @@ function TableCard() {
         </thead>
         <tbody>{rows}</tbody>
       </Table>
+      <Drawer
+        opened={opened}
+        onClose={() => setOpened(false)}
+        padding="xl"
+        size="30%"
+        position="right"
+      >
+        <OpenDrawer
+          editItem={editItem}
+          handleClose={() => {
+            setOpened(false);
+          }}
+        />
+      </Drawer>
     </>
   );
 }

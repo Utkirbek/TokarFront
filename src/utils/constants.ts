@@ -7,4 +7,8 @@ export enum RequestQueryKeys {
   getAdmins = "admins",
   login = "login",
   deleteAdmin = "deleteAdmin",
+  updeteAdmin = "updeteAdmin",
+  addAdmin = "addAdmin",
+  addProduct = "addProduct",
+  getProducts = "getProducts",
 }
