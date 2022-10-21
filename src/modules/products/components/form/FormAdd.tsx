@@ -5,9 +5,8 @@ import productFetchers from "@services/api/productFetchers";
 import { IconCheck } from "@tabler/icons";
 import { RequestQueryKeys } from "@utils/constants";
 import { useRouter } from "next/router";
-import { title } from "process";
 import { useRef } from "react";
-import useSWR, { mutate, useSWRConfig } from "swr";
+import useSWR, { useSWRConfig } from "swr";
 
 import ImageUploader from "./ImageUploader";
 
@@ -24,22 +23,7 @@ const FormProduct: React.FC<{
     mutate: refetch,
   } = useSWR(RequestQueryKeys.getProducts, productFetchers.getProducts);
 
-  // const handleUpdate = async (id: string) => {
-  //   const res = await mutate(
-  //     RequestQueryKeys.updateProducts,
-  //     productFetchers.updateProducts(id, ""),
-  //     {
-  //       revalidate: true,
-  //     }
-  //   );
-  //   refetch();
-  //   console.log(res);
-  // };
-
   const imageRef = useRef<string | null>(null);
-
-  // console.log(imageRef);
-
   const form = useForm({
     initialValues: {
       title: editItem?.title ?? "",
@@ -166,10 +150,7 @@ const FormProduct: React.FC<{
 
         {/* bu yerda rasm yuklash */}
         <Box sx={{ maxHeight: "150px" }}>
-          <ImageUploader
-            sx={{ marginBlock: 5 }}
-            // imageRef={imageRef}
-          />
+          <ImageUploader sx={{ marginBlock: 5 }} />
           <Button
             variant="outline"
             sx={{ float: "right", margin: "10px 0" }}
