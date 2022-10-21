@@ -9,9 +9,6 @@ type Props = {};
 const Products = (props: Props) => {
   return (
     <DashLayout>
-      <Box sx={{ margin: "20px 0" }}>
-        <DrawerNew />
-      </Box>
       <ProductsTable />
     </DashLayout>
   );
