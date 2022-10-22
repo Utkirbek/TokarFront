@@ -54,8 +54,7 @@ const OpenDrawer: React.FC<{
     email: string;
     role: string;
     password: string;
-    phone: string;
-    image: string;
+    phone: Number | string;
   }) => {
     showNotification({
       id: "load-data",
