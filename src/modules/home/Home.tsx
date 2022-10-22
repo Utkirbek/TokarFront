@@ -59,8 +59,6 @@ const Home = () => {
   if (error) return <div>ошибка загрузки</div>;
   if (!data) return <div>загрузка...</div>;
 
-  console.log(data);
-
   return (
     <DashLayout>
       <Button onClick={openModal}>Udalit</Button>

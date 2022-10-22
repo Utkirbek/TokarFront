@@ -10,8 +10,6 @@ import useSWR, { mutate, useSWRConfig } from "swr";
 function TableCard() {
   const { mutate: deleteAdmin } = useSWRConfig();
   const { name, _id } = useUser();
-  console.log(name);
-  console.log(name);
 
   const {
     data,
@@ -39,7 +37,6 @@ function TableCard() {
       autoClose: 2000,
     });
     refetch();
-    console.log(res);
   };
 
   const openDeleteModal = (id: string, name: string) =>
@@ -75,8 +72,6 @@ function TableCard() {
     });
 
   const rows = data.map((item: any) => {
-    console.log(item._id);
-
     return (
       <tr key={item._id}>
         <td>{item.name}</td>
