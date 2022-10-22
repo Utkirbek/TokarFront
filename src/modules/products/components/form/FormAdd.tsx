@@ -1,4 +1,11 @@
-import { Box, Button, Group, Text, TextInput } from "@mantine/core";
+import {
+  Box,
+  Button,
+  createStyles,
+  Group,
+  Text,
+  TextInput,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import productFetchers from "@services/api/productFetchers";
@@ -9,6 +16,7 @@ import { useRef } from "react";
 import useSWR, { useSWRConfig } from "swr";
 
 import ImageUploader from "./ImageUploader";
+import useStyles from "./style/inputStyle";
 
 const FormProduct: React.FC<{
   handleClose: () => void;
@@ -16,7 +24,7 @@ const FormProduct: React.FC<{
 }> = ({ handleClose, editItem }) => {
   const { mutate } = useSWRConfig();
   const router = useRouter();
-
+  const { classes, cx } = useStyles();
   const {
     data,
     error,
@@ -75,16 +83,13 @@ const FormProduct: React.FC<{
         disallowClose: true,
       });
       handleClose();
-
       const res = await mutate(
         RequestQueryKeys.updateProducts,
-        productFetchers.updateProducts(editItem._id, editItem),
+        productFetchers.updateProducts(editItem._id, values),
         {
           revalidate: true,
         }
       );
-
-      console.log(res);
 
       refetch();
       updateNotification({
@@ -124,10 +129,6 @@ const FormProduct: React.FC<{
     }
   };
 
-  const isDisabled = (obj: Object) => {
-    Object.values(obj).some((value) => value === "");
-  };
-
   return (
     <Box sx={{ maxWidth: 440 }} mx="auto">
       <form onSubmit={form.onSubmit(handleSubmit)}>
@@ -140,11 +141,11 @@ const FormProduct: React.FC<{
           {!editItem._id ? "Yangi Mahsulot qo'shish" : "Tahrirlash"}
         </Text>
         <TextInput
+          className={classes.inputStyle}
           withAsterisk
           label="Mahsulot Nomi"
           placeholder="Mahsulot nomini kiriting"
           {...form.getInputProps("title")}
-          sx={{ margin: "15px 0" }}
           required
         />
 
@@ -159,36 +160,37 @@ const FormProduct: React.FC<{
           </Button>
         </Box>
         <TextInput
+          className={classes.inputStyle}
           label="Mahsulot Kodi"
           placeholder="Mahsulot Kodi"
           {...form.getInputProps("code")}
-          sx={{ margin: "15px 0" }}
           required
         />
         <TextInput
+          className={classes.inputStyle}
           label="Mahsulot Narxi"
           placeholder="Mahsulot Narxi"
           {...form.getInputProps("price")}
-          sx={{ margin: "15px 0" }}
           required
         />
         <TextInput
+          className={classes.inputStyle}
           label="Nechta mahsulot borligi"
           placeholder="Nechta mahsulot borligi"
           {...form.getInputProps("quantity")}
-          sx={{ margin: "15px 0" }}
           required
         />
         <TextInput
+          className={classes.inputStyle}
           label="Tarif"
           placeholder="Mahsulotga tarif"
           {...form.getInputProps("description")}
-          sx={{ margin: "15px 0" }}
+          sx={{}}
           required
         />
         <Group position="right" mt="md">
           <Button type="submit">
-            {!editItem ? "Saqlash" : "Ro'yxatga Qo'shish"}
+            {!editItem._id ? "Ro'yxatga Qo'shish" : "Saqlash"}
           </Button>
         </Group>
       </form>

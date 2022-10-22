@@ -3,7 +3,6 @@ import {
   Avatar,
   Button,
   Checkbox,
-  createStyles,
   Drawer,
   Group,
   Loader,
@@ -22,15 +21,9 @@ import { useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
 
 import FormProduct from "../form/FormAdd";
-
-const useStyles = createStyles((theme) => ({
-  rowSelected: {
-    backgroundColor:
-      theme.colorScheme === "dark"
-        ? theme.fn.rgba(theme.colors[theme.primaryColor][7], 0.2)
-        : theme.colors[theme.primaryColor][0],
-  },
-}));
+import Error from "./components/Error";
+import tableHead from "./const/constTableHeadName";
+import useStyles from "./ProductTableStyle";
 
 export default function FormMantine() {
   const router = useRouter();
@@ -112,30 +105,10 @@ export default function FormMantine() {
     mutate: refetch,
   } = useSWR(RequestQueryKeys.getProducts, productFetchers.getProducts);
 
-  if (error)
-    return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          marginTop: "15%",
-          flexDirection: "column",
-          fontSize: "18px",
-          color: "red",
-        }}>
-        <Text sx={{ fontSize: "40px" }}>Xato !</Text>
-        <Text sx={{ fontSize: "18px" }}>
-          Malumot Yuklash xatosi! Iltimos internet borligini tekshiring
-        </Text>
-      </div>
-    );
-  if (!data)
-    return (
-      <div>
-        <Loader sx={{ margin: "15%  45%" }} size={"xl"} />
-      </div>
-    );
+  if (error) {
+    return <Error />;
+  }
+  if (!data) return <Loader sx={{ margin: "20%  45%" }} size={"xl"} />;
 
   const rows = data.map((item: any) => {
     const selected = selection.includes(item._id);
@@ -184,6 +157,7 @@ export default function FormMantine() {
     setOpened(true);
     setEditItem({});
   };
+
   return (
     <>
       <Drawer
@@ -207,7 +181,7 @@ export default function FormMantine() {
       </Drawer>
 
       <Group position="right" mx={"xl"}>
-        <Button onClick={handleClick} variant={"outline"} sx={{}}>
+        <Button onClick={handleClick} variant={"outline"}>
           + Yangi mahsulot qo&apos;shish
         </Button>
       </Group>
@@ -225,12 +199,12 @@ export default function FormMantine() {
                   transitionDuration={0}
                 />
               </th>
-              <th>Mahsulot Nomi</th>
-              <th>Kodi</th>
-              <th>Narxi</th>
-              <th>Jami</th>
-              <th>Chegirma</th>
-              <th>O&apos;chirish /Tahrirlash</th>
+              <th>{tableHead.name}</th>
+              <th>{tableHead.code}</th>
+              <th>{tableHead.price}</th>
+              <th>{tableHead.quantity}</th>
+              <th>{tableHead.discount}</th>
+              <th>{tableHead.action}</th>
             </tr>
           </thead>
           <tbody>{rows}</tbody>
