@@ -13,12 +13,11 @@ import { IconCheck } from "@tabler/icons";
 import { RequestQueryKeys } from "@utils/constants";
 import useSWR, { useSWRConfig } from "swr";
 
-const OpenDrawer: React.FC<{
+const TableDrawer: React.FC<{
   handleClose: () => void;
   editItem: any;
 }> = ({ handleClose, editItem }) => {
   const { mutate } = useSWRConfig();
-  console.log(editItem.phone);
 
   const {
     data,
@@ -42,9 +41,9 @@ const OpenDrawer: React.FC<{
         role: (value: string | any[]) =>
           value.length >= 0 ? null : "rol yaroqsiz",
         password: (value: string | any[]) =>
-          value.length >= 0 ? null : "parolingiz yaroqsiz",
+          value.length >= 8 ? null : "parolingiz yaroqsiz",
         phone: (value: string | any[]) =>
-          value.length >= 0 ? null : "telefon yaroqsiz",
+          value.length >= 9 ? null : "telefon yaroqsiz",
       },
     },
   });
@@ -131,4 +130,4 @@ const OpenDrawer: React.FC<{
     </Box>
   );
 };
-export default OpenDrawer;
+export default TableDrawer;
