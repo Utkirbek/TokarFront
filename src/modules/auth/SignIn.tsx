@@ -12,11 +12,13 @@ import authFetchers from "@services/api/authFetchers";
 import { RequestQueryKeys } from "@utils/constants";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
+import { useErrorHandler } from "react-error-boundary";
 import { useSWRConfig } from "swr";
 
 function SignIn() {
   const { mutate } = useSWRConfig();
   const { authorize } = useUser();
+  const handleError = useErrorHandler();
 
   const router = useRouter();
   const form = useForm({
@@ -32,15 +34,19 @@ function SignIn() {
   });
 
   const handleSubmit = async (values: { password: string; email: string }) => {
-    const res = await mutate(
-      RequestQueryKeys.login,
-      authFetchers.login(values),
-      false
-    );
-    setCookie("token", res.token);
-    delete res.token;
-    authorize(res);
-    router.push("/");
+    try {
+      const res = await mutate(
+        RequestQueryKeys.login,
+        authFetchers.login(values),
+        false
+      );
+      setCookie("token", res.token);
+      delete res.token;
+      authorize(res);
+      router.push("/");
+    } catch (err) {
+      handleError(err);
+    }
   };
 
   return (

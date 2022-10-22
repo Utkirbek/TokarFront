@@ -1,14 +1,17 @@
 export const appRoutes = {
   home: "/",
   login: "/auth/sign-in",
+  addProduct: "/products",
+  getProducts: "/products",
+  updateProducts: "/products",
 };
 
 export enum RequestQueryKeys {
-  getAdmins = "admins",
   login = "login",
+  getAdmins = "admins",
   deleteAdmin = "deleteAdmin",
-  updeteAdmin = "updeteAdmin",
-  addAdmin = "addAdmin",
   addProduct = "addProduct",
+  deleteProduct = "deleteProduct",
   getProducts = "getProducts",
+  updateProducts = "updateProducts",
 }

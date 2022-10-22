@@ -2,45 +2,57 @@ import "../styles/globals.css";
 
 import ProtectedRoute from "@components/smart/ProtectedRoute";
 import { RouterTransition } from "@components/smart/RouterTransition";
+import ErrorFallback from "@layouts/ErrorFallback";
 import {
   ColorScheme,
   ColorSchemeProvider,
   MantineProvider,
 } from "@mantine/core";
+import { useForceUpdate, useHotkeys, useLocalStorage } from "@mantine/hooks";
 import { ModalsProvider } from "@mantine/modals";
 import { NotificationsProvider } from "@mantine/notifications";
 import type { AppProps } from "next/app";
 import { useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { SWRConfig } from "swr";
 
 function MyApp({ Component, pageProps, router }: AppProps) {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
+  const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
+    key: "mantine-color-scheme",
+    defaultValue: "light",
+    getInitialValueInEffect: true,
+  });
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 
+  useHotkeys([["mod+J", () => toggleColorScheme()]]);
+
+  const forceUpdate = useForceUpdate();
+
   return (
-    <ProtectedRoute router={router}>
-      <SWRConfig>
-        <ColorSchemeProvider
-          colorScheme={colorScheme}
-          toggleColorScheme={toggleColorScheme}
-        >
-          <MantineProvider
-            theme={{ colorScheme }}
-            withGlobalStyles
-            withNormalizeCSS
+    <ErrorBoundary FallbackComponent={ErrorFallback} onReset={forceUpdate}>
+      <ProtectedRoute router={router}>
+        <SWRConfig>
+          <ColorSchemeProvider
+            colorScheme={colorScheme}
+            toggleColorScheme={toggleColorScheme}
           >
-            <RouterTransition />
-            <ModalsProvider>
-              <NotificationsProvider>
-                <Component {...pageProps} />
-              </NotificationsProvider>
-            </ModalsProvider>
-          </MantineProvider>
-        </ColorSchemeProvider>
-      </SWRConfig>
-    </ProtectedRoute>
+            <MantineProvider
+              theme={{ colorScheme }}
+              withGlobalStyles
+              withNormalizeCSS
+            >
+              <RouterTransition />
+              <ModalsProvider>
+                <NotificationsProvider>
+                  <Component {...pageProps} />
+                </NotificationsProvider>
+              </ModalsProvider>
+            </MantineProvider>
+          </ColorSchemeProvider>
+        </SWRConfig>
+      </ProtectedRoute>
+    </ErrorBoundary>
   );
 }
-
 export default MyApp;
