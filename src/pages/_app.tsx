@@ -11,10 +11,13 @@ import {
 import { useForceUpdate, useHotkeys, useLocalStorage } from "@mantine/hooks";
 import { ModalsProvider } from "@mantine/modals";
 import { NotificationsProvider } from "@mantine/notifications";
+import flattenMessages from "@utils/flattenMessages";
 import type { AppProps } from "next/app";
-import { useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { IntlProvider } from "react-intl";
 import { SWRConfig } from "swr";
+
+import uz from "@/translations/uz";
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
@@ -45,7 +48,13 @@ function MyApp({ Component, pageProps, router }: AppProps) {
               <RouterTransition />
               <ModalsProvider>
                 <NotificationsProvider>
-                  <Component {...pageProps} />
+                  <IntlProvider
+                    messages={flattenMessages(uz)}
+                    locale="uz"
+                    defaultLocale="uz"
+                  >
+                    <Component {...pageProps} />
+                  </IntlProvider>
                 </NotificationsProvider>
               </ModalsProvider>
             </MantineProvider>

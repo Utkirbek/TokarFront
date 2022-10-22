@@ -6,6 +6,7 @@ import DashLayout from "@modules/layout/DashLayout";
 import adminFetchers from "@services/api/adminFetchers";
 import { IconCheck } from "@tabler/icons";
 import { RequestQueryKeys } from "@utils/constants";
+import { FormattedMessage } from "react-intl";
 import useSWR from "swr";
 
 const Home = () => {
@@ -56,12 +57,25 @@ const Home = () => {
     adminFetchers.getAdmins
   );
 
-  if (error) return <div>ошибка загрузки</div>;
-  if (!data) return <div>загрузка...</div>;
+  if (error)
+    return (
+      <Text>
+        <FormattedMessage id="home.errorLoading" />
+      </Text>
+    );
+  if (!data)
+    return (
+      <Text>
+        {" "}
+        <FormattedMessage id="loading" />
+      </Text>
+    );
 
   return (
     <DashLayout>
-      <Button onClick={openModal}>Udalit</Button>
+      <Button onClick={openModal}>
+        <FormattedMessage id="delete" />
+      </Button>
     </DashLayout>
   );
 };

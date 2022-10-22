@@ -23,6 +23,7 @@
       "@layouts": ["src/layouts/index"],
       "@layouts/*": ["src/layouts/*"],
       "@styles/*": ["src/styles/*"],
+      "@utils": ["src/utils/index"],
       "@utils/*": ["src/utils/*"],
       "@assets/*": ["src/assets/*"],
       "@services/*": ["src/services/*"],
