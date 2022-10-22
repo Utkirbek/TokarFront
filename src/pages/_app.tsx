@@ -14,7 +14,7 @@ import { useState } from "react";
 import { SWRConfig } from "swr";
 
 function MyApp({ Component, pageProps, router }: AppProps) {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
+  const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 
@@ -23,13 +23,11 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       <SWRConfig>
         <ColorSchemeProvider
           colorScheme={colorScheme}
-          toggleColorScheme={toggleColorScheme}
-        >
+          toggleColorScheme={toggleColorScheme}>
           <MantineProvider
             theme={{ colorScheme }}
             withGlobalStyles
-            withNormalizeCSS
-          >
+            withNormalizeCSS>
             <RouterTransition />
             <ModalsProvider>
               <NotificationsProvider>
