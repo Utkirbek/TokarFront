@@ -35,15 +35,15 @@ const TableDrawer: React.FC<{
 
       validate: {
         name: (value: string | any[]) =>
-          value.length >= 1 ? null : "Ism yaroqsiz",
+          value.length < 2 ? "Name must have at least 2 letters" : null,
         email: (value: string) =>
-          /^\S+@\S+$/.test(value) ? null : "Email yaroqsiz",
-        role: (value: string | any[]) =>
-          value.length >= 0 ? null : "rol yaroqsiz",
-        password: (value: string | any[]) =>
-          value.length >= 8 ? null : "parolingiz yaroqsiz",
+          /^\S+@\S+$/.test(value) ? null : "Invalid email",
         phone: (value: string | any[]) =>
-          value.length >= 9 ? null : "telefon yaroqsiz",
+          value.length < 9 ? "Name must have at least 2 letters" : null,
+        password: (value: string | any[]) =>
+          value.length < 8 ? "Name must have at least 2 letters" : null,
+        rol: (value: string | any[]) =>
+          value.length < 2 ? "Name must have at least 2 letters" : null,
       },
     },
   });
@@ -110,6 +110,13 @@ const TableDrawer: React.FC<{
           label="Admin"
           placeholder="Qandey darajada"
           {...form.getInputProps("role")}
+          my={"sm"}
+          required
+        />
+        <TextInput
+          label="Telefo'n no'mer"
+          placeholder="Telefo'n nomerizni kirting"
+          {...form.getInputProps("phone")}
           my={"sm"}
           required
         />

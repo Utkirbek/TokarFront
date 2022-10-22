@@ -1,9 +1,9 @@
 import useUser from "@hooks/shared/useUser";
-import { Drawer,Table, Text } from "@mantine/core";
+import { Drawer, Table, Text } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import adminFetchers from "@services/api/adminFetchers";
-import { IconCheck, IconPencil,IconTrash } from "@tabler/icons";
+import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
 import { RequestQueryKeys } from "@utils/constants";
 import { useState } from "react";
 import useSWR, { mutate, useSWRConfig } from "swr";
@@ -113,7 +113,7 @@ function TableCard() {
 
   return (
     <>
-      <Table striped>
+      <Table highlightOnHover>
         <thead>
           <tr>
             <th>Ismi</th>
@@ -124,6 +124,7 @@ function TableCard() {
         </thead>
         <tbody>{rows}</tbody>
       </Table>
+
       <Drawer
         opened={opened}
         onClose={() => setOpened(false)}
