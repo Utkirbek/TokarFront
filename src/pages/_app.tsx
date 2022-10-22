@@ -8,7 +8,7 @@ import {
   ColorSchemeProvider,
   MantineProvider,
 } from "@mantine/core";
-import { useForceUpdate } from "@mantine/hooks";
+import { useForceUpdate, useHotkeys, useLocalStorage } from "@mantine/hooks";
 import { ModalsProvider } from "@mantine/modals";
 import { NotificationsProvider } from "@mantine/notifications";
 import type { AppProps } from "next/app";
@@ -17,9 +17,16 @@ import { ErrorBoundary } from "react-error-boundary";
 import { SWRConfig } from "swr";
 
 function MyApp({ Component, pageProps, router }: AppProps) {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
+  const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
+    key: "mantine-color-scheme",
+    defaultValue: "light",
+    getInitialValueInEffect: true,
+  });
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+
+  useHotkeys([["mod+J", () => toggleColorScheme()]]);
+
   const forceUpdate = useForceUpdate();
 
   return (
@@ -48,5 +55,4 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     </ErrorBoundary>
   );
 }
-
 export default MyApp;
