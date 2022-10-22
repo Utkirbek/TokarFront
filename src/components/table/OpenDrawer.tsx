@@ -35,15 +35,15 @@ const TableDrawer: React.FC<{
 
       validate: {
         name: (value: string | any[]) =>
-          value.length < 2 ? "Name must have at least 2 letters" : null,
+          value.length < 2 ? "Ismingiz 2ta belgidan ko'p bo'lishi kerak" : null,
         email: (value: string) =>
           /^\S+@\S+$/.test(value) ? null : "Invalid email",
         phone: (value: string | any[]) =>
-          value.length < 9 ? "Name must have at least 2 letters" : null,
+          value.length < 9 ? "No'mer yaroqsiz" : null,
         password: (value: string | any[]) =>
-          value.length < 8 ? "Name must have at least 2 letters" : null,
+          value.length < 8 ? "Parol yaroqsiz" : null,
         rol: (value: string | any[]) =>
-          value.length < 2 ? "Name must have at least 2 letters" : null,
+          value.length < 2 ? "Yetarli emas" : null,
       },
     },
   });

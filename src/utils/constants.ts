@@ -14,4 +14,5 @@ export enum RequestQueryKeys {
   deleteProduct = "deleteProduct",
   getProducts = "getProducts",
   updateProducts = "updateProducts",
+  updeteAdmin = "updeteAdmin",
 }
