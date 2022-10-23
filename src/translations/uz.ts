@@ -4,6 +4,8 @@ const uz = {
   home: {
     errorLoading: "Yuklashda xatolik",
   },
+
+  logout: "Profildan chiqish",
 };
 
 export default uz;

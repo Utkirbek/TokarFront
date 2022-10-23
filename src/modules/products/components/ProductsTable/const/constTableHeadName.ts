@@ -3,8 +3,8 @@ const tableHead = {
   code: "Kodi",
   price: "Narxi",
   quantity: "Jami",
-  discount: "Chegitma",
-  action: "Yahrirlash / O'chirish",
+  discount: "Chegirma",
+  action: "Tahrirlash / O'chirish",
 };
 
 export default tableHead;

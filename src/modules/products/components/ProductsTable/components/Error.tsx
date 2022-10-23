@@ -14,7 +14,7 @@ const Error = () => {
       }}>
       <Text sx={{ fontSize: "32px" }}>Xato !</Text>
       <Text sx={{ fontSize: "24px" }}>
-        Malumot topilmadi.Iltimos boshqatdan urinb ko&acop;ring{" "}
+        Malumot topilmadi.Iltimos boshqatdan urinb ko&acop;ring
       </Text>
     </Box>
   );
