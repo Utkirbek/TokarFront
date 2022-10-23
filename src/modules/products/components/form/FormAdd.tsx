@@ -1,11 +1,5 @@
-import {
-  Box,
-  Button,
-  createStyles,
-  Group,
-  Text,
-  TextInput,
-} from "@mantine/core";
+import ImageUploader from "@components/ImageUploader";
+import { Box, Button, Group, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import productFetchers from "@services/api/productFetchers";
@@ -15,13 +9,13 @@ import { useRouter } from "next/router";
 import { useRef } from "react";
 import useSWR, { useSWRConfig } from "swr";
 
-import ImageUploader from "./ImageUploader";
 import useStyles from "./style/inputStyle";
 
 const FormProduct: React.FC<{
   handleClose: () => void;
   editItem: any;
 }> = ({ handleClose, editItem }) => {
+  const imagesRef = useRef<string[]>([]);
   const { mutate } = useSWRConfig();
   const router = useRouter();
   const { classes, cx } = useStyles();
@@ -31,11 +25,10 @@ const FormProduct: React.FC<{
     mutate: refetch,
   } = useSWR(RequestQueryKeys.getProducts, productFetchers.getProducts);
 
-  const imageRef = useRef<string | null>(null);
   const form = useForm({
     initialValues: {
       title: editItem?.title ?? "",
-      image: editItem?.image ?? imageRef.current,
+      image: editItem?.image ?? "",
       code: editItem?.code ?? "",
       price: editItem?.price ?? "",
       quantity: editItem?.quantity ?? "",
@@ -85,7 +78,10 @@ const FormProduct: React.FC<{
       handleClose();
       const res = await mutate(
         RequestQueryKeys.updateProducts,
-        productFetchers.updateProducts(editItem._id, values),
+        productFetchers.updateProducts(editItem._id, {
+          ...values,
+          image: imagesRef.current?.join(","),
+        }),
         {
           revalidate: true,
         }
@@ -112,7 +108,10 @@ const FormProduct: React.FC<{
       handleClose();
       const res = await mutate(
         RequestQueryKeys.addProduct,
-        productFetchers.addProduct(values),
+        productFetchers.addProduct({
+          ...values,
+          image: imagesRef.current?.join(","),
+        }),
         {
           revalidate: true,
         }
@@ -137,7 +136,8 @@ const FormProduct: React.FC<{
             fontSize: "24px",
             textAlign: "center",
             fontWeight: 700,
-          }}>
+          }}
+        >
           {!editItem._id ? "Yangi Mahsulot qo'shish" : "Tahrirlash"}
         </Text>
         <TextInput
@@ -150,12 +150,19 @@ const FormProduct: React.FC<{
         />
 
         {/* bu yerda rasm yuklash */}
-        <Box sx={{ maxHeight: "150px" }}>
-          <ImageUploader sx={{ marginBlock: 5 }} />
+        <Box sx={{ maxHeight: "160px" }}>
+          <ImageUploader
+            urlsRef={imagesRef}
+            dropzoneProps={{
+              sx: {},
+              pb: 0,
+            }}
+          />
           <Button
             variant="outline"
             sx={{ float: "right", margin: "10px 0" }}
-            hidden>
+            hidden
+          >
             Rasmni Olib Tashlash
           </Button>
         </Box>

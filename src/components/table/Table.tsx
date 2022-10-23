@@ -41,7 +41,6 @@ function TableCard() {
       autoClose: 2000,
     });
     refetch();
-    console.log(res);
   };
 
   const openDeleteModal = (id: string, name: string) =>

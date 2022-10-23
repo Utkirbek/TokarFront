@@ -1,4 +1,3 @@
-import useUser from "@hooks/shared/useUser";
 import {
   Avatar,
   Button,
@@ -16,7 +15,7 @@ import { showNotification, updateNotification } from "@mantine/notifications";
 import productFetchers from "@services/api/productFetchers";
 import { IconCheck, IconEdit, IconTrash } from "@tabler/icons";
 import { RequestQueryKeys } from "@utils/constants";
-import { useRouter } from "next/router";
+import { getCoverImage } from "@utils/getters";
 import { useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
 
@@ -31,7 +30,6 @@ export default function FormMantine() {
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
 
-  // delete modal window start
   const handleDelete = async function (id: string) {
     showNotification({
       id: "load-data",
@@ -123,7 +121,7 @@ export default function FormMantine() {
         </td>
         <td>
           <Group spacing="sm">
-            <Avatar size={26} src={item.image} radius={26} />
+            <Avatar size={40} src={getCoverImage(item.image)} radius={26} />
             <Text size="sm" weight={500}>
               {item.title}
             </Text>

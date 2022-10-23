@@ -4,17 +4,20 @@ import { IconPhoto, IconUpload, IconX } from "@tabler/icons";
 
 export default function ImageUploader(props: Partial<DropzoneProps>) {
   const theme = useMantineTheme();
+
   return (
     <Dropzone
       onDrop={(files: any) => console.log("accepted files", files)}
       onReject={(files: any) => console.log("rejected files", files)}
       maxSize={3 * 1024 ** 2}
       accept={IMAGE_MIME_TYPE}
-      {...props}>
+      {...props}
+    >
       <Group
         position="center"
         spacing="xl"
-        style={{ minHeight: 100, pointerEvents: "none" }}>
+        style={{ minHeight: 100, pointerEvents: "none" }}
+      >
         <Dropzone.Accept>
           <IconUpload
             size={30}
