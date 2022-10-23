@@ -1,5 +1,5 @@
 import useUser from "@hooks/shared/useUser";
-import { Drawer, Table, Text } from "@mantine/core";
+import { Avatar, Drawer, Group, Table, Text } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import adminFetchers from "@services/api/adminFetchers";
@@ -23,11 +23,6 @@ function TableCard() {
 
   if (error) return <div>yuklash xatosi</div>;
   if (!data) return <div>yuklanmoqda...</div>;
-
-  const handleClick = () => {
-    setOpened(true);
-    setEditItem({});
-  };
 
   const handleDelete = async function (id: string) {
     const res = await deleteAdmin(
@@ -84,9 +79,14 @@ function TableCard() {
   const rows = data.map((item: any) => {
     return (
       <tr key={item._id}>
-        <td>{item.name}</td>
+        <td>
+          <Group spacing="sm">
+            <Avatar size={28} src={item.image} radius={26} />
+            {item.name}
+          </Group>
+        </td>
         <td>{item.email}</td>
-        <td>{item.phone}</td>
+
         <td>
           {item.name == name ? (
             <IconTrash style={{ color: "red", cursor: "no-drop" }} />
@@ -103,7 +103,7 @@ function TableCard() {
             }}
             style={{
               cursor: "pointer",
-              marginLeft: "20px",
+              marginLeft: "30px",
             }}
           />
         </td>
@@ -118,7 +118,6 @@ function TableCard() {
           <tr>
             <th>Ismi</th>
             <th>Elektron po&lsquo;chta</th>
-            <th>Telefon nomeri</th>
             <th>o&lsquo;chirish va tahrirlash</th>
           </tr>
         </thead>

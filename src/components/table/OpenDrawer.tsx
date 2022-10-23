@@ -38,10 +38,8 @@ const TableDrawer: React.FC<{
           value.length < 2 ? "Ismingiz 2ta belgidan ko'p bo'lishi kerak" : null,
         email: (value: string) =>
           /^\S+@\S+$/.test(value) ? null : "Invalid email",
-        phone: (value: string | any[]) =>
-          value.length < 9 ? "No'mer yaroqsiz" : null,
         password: (value: string | any[]) =>
-          value.length < 8 ? "Parol yaroqsiz" : null,
+          value.length >= 8 ? null : "Password is not valid",
         rol: (value: string | any[]) =>
           value.length < 2 ? "Yetarli emas" : null,
       },
@@ -53,7 +51,6 @@ const TableDrawer: React.FC<{
     email: string;
     role: string;
     password: string;
-    phone: Number | string;
   }) => {
     showNotification({
       id: "load-data",
@@ -98,7 +95,6 @@ const TableDrawer: React.FC<{
           my={"sm"}
           required
         />
-
         <TextInput
           label="Elektron pochta"
           placeholder="Elektron pochtangizni kirting"
@@ -110,13 +106,6 @@ const TableDrawer: React.FC<{
           label="Admin"
           placeholder="Qandey darajada"
           {...form.getInputProps("role")}
-          my={"sm"}
-          required
-        />
-        <TextInput
-          label="Telefo'n no'mer"
-          placeholder="Telefo'n nomerizni kirting"
-          {...form.getInputProps("phone")}
           my={"sm"}
           required
         />
