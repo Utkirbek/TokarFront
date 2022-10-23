@@ -1,46 +1,51 @@
 import useUser from "@hooks/shared/useUser";
 import { Avatar, Drawer, Group, Table, Text } from "@mantine/core";
+import { useToggle } from "@mantine/hooks";
 import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
-import adminFetchers from "@services/api/adminFetchers";
+import useAdmins from "@services/hooks/useAdmins";
 import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
-import { RequestQueryKeys } from "@utils/constants";
 import { useState } from "react";
-import useSWR, { mutate, useSWRConfig } from "swr";
+import { FormattedMessage, useIntl } from "react-intl";
 
-import OpenDrawer from "./OpenDrawer";
+import WithLoading from "@/hoc/WithLoading";
+
+import AdminsDrawer from "./AdminsDrawer";
 
 function TableCard() {
-  const { mutate: deleteAdmin } = useSWRConfig();
   const { name } = useUser();
-  const [opened, setOpened] = useState(false);
+  const intl = useIntl();
+  const [drawerOpen, toggleDrawerOpen] = useToggle();
   const [editItem, setEditItem] = useState({});
-  const {
-    data,
-    error,
-    mutate: refetch,
-  } = useSWR(RequestQueryKeys.getAdmins, adminFetchers.getAdmins);
 
-  if (error) return <div>yuklash xatosi</div>;
-  if (!data) return <div>yuklanmoqda...</div>;
+  const { useFetchAdmins, deleteAdmin, editAdmin } = useAdmins();
+
+  const getAdminsQuery = useFetchAdmins();
+  const { data: admins } = getAdminsQuery;
 
   const handleDelete = async function (id: string) {
-    const res = await deleteAdmin(
-      RequestQueryKeys.deleteAdmin,
-      adminFetchers.deleteAdmin(id),
-      {
-        revalidate: true,
-      }
-    );
-    updateNotification({
-      id: "load-data",
-      color: "teal",
-      title: "Oʻchirildi",
-      message: "Foydalanuvchi udalit qilindi",
-      icon: <IconCheck size={16} />,
-      autoClose: 2000,
+    deleteAdmin(id, {
+      onSuccess: () => {
+        updateNotification({
+          id: "load-data",
+          color: "teal",
+          title: intl.formatMessage({ id: "admin.deleteSuccessTitle" }),
+          message: "Foydalanuvchi udalit qilindi",
+          icon: <IconCheck size={16} />,
+          autoClose: 2000,
+        });
+      },
+      onError: () => {
+        updateNotification({
+          id: "load-data",
+          color: "red",
+          title: "Xatolik",
+          message: intl.formatMessage({ id: "sthWentWrong" }),
+          autoClose: false,
+          disallowClose: false,
+        });
+      },
     });
-    refetch();
   };
 
   const openDeleteModal = (id: string, name: string) =>
@@ -49,8 +54,7 @@ function TableCard() {
       centered: true,
       children: (
         <Text size="sm">
-          {name} Ushbu ishchingiz sizni tizimdan o&apos;chib ketadi, bu ishni
-          ortga qaytarib bo&apos;lmaydi, shunda ham ishonchingiz komilmi?
+          <FormattedMessage id="admins.deleteConfirmation" values={{ name }} />
         </Text>
       ),
       labels: { confirm: "Tasdiqlash", cancel: "Bekor qilish" },
@@ -75,7 +79,17 @@ function TableCard() {
       },
     });
 
-  const rows = data.map((item: any) => {
+  const onEditClick = (item: any) => {
+    setEditItem(item);
+    toggleDrawerOpen();
+  };
+
+  const onClose = () => {
+    toggleDrawerOpen();
+    setEditItem({});
+  };
+
+  const rows = admins?.map((item: any) => {
     return (
       <tr key={item._id}>
         <td>
@@ -96,10 +110,7 @@ function TableCard() {
             />
           )}
           <IconPencil
-            onClick={() => {
-              setOpened(true);
-              setEditItem(item);
-            }}
+            onClick={onEditClick.bind(null, item)}
             style={{
               cursor: "pointer",
               marginLeft: "30px",
@@ -111,7 +122,7 @@ function TableCard() {
   });
 
   return (
-    <>
+    <WithLoading query={getAdminsQuery}>
       <Table highlightOnHover>
         <thead>
           <tr>
@@ -124,20 +135,19 @@ function TableCard() {
       </Table>
 
       <Drawer
-        opened={opened}
-        onClose={() => setOpened(false)}
+        opened={drawerOpen}
+        onClose={onClose}
         padding="xl"
         size="30%"
         position="right"
       >
-        <OpenDrawer
+        <AdminsDrawer
           editItem={editItem}
-          handleClose={() => {
-            setOpened(false);
-          }}
+          handleClose={onClose}
+          onEdit={editAdmin}
         />
       </Drawer>
-    </>
+    </WithLoading>
   );
 }
 

@@ -77,7 +77,7 @@ const ImageUploader: React.FC<Props> = ({ urlsRef, sx, dropzoneProps }) => {
     <Box sx={sx}>
       <Dropzone
         accept={IMAGE_MIME_TYPE}
-        onReject={(files) => console.log("rejected files", files)}
+        onReject={(files) => console.warn("rejected files", files)}
         onDrop={setFiles}
         loading={status === "loading"}
         {...dropzoneProps}

@@ -8,22 +8,13 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { showNotification, updateNotification } from "@mantine/notifications";
-import adminFetchers from "@services/api/adminFetchers";
 import { IconCheck } from "@tabler/icons";
-import { RequestQueryKeys } from "@utils/constants";
-import useSWR, { useSWRConfig } from "swr";
 
-const TableDrawer: React.FC<{
+const AdminsDrawer: React.FC<{
   handleClose: () => void;
   editItem: any;
-}> = ({ handleClose, editItem }) => {
-  const { mutate } = useSWRConfig();
-
-  const {
-    data,
-    error,
-    mutate: refetch,
-  } = useSWR(RequestQueryKeys.getAdmins, adminFetchers.getAdmins);
+  onEdit: (data: { id: string; values: any }, options: any) => void;
+}> = ({ handleClose, editItem, onEdit }) => {
   const form = useForm({
     initialValues: {
       name: editItem?.name ?? "",
@@ -61,24 +52,26 @@ const TableDrawer: React.FC<{
       disallowClose: true,
     });
     handleClose();
-    const res = await mutate(
-      RequestQueryKeys.updeteAdmin,
-      adminFetchers.updeteAdmin(editItem._id, values),
-      {
-        revalidate: true,
-      }
-    );
-
-    refetch();
-
-    updateNotification({
-      id: "load-data",
-      color: "teal",
-      title: "Muaffaqiyatli",
-      message: "Sizning mahsuloringiz Yangilandi",
-      icon: <IconCheck size={16} />,
-      autoClose: 2000,
-    });
+    if (editItem) {
+      onEdit(
+        {
+          id: editItem._id,
+          values,
+        },
+        {
+          onSuccess: () => {
+            updateNotification({
+              id: "load-data",
+              color: "teal",
+              title: "Muaffaqiyatli",
+              message: "Sizning mahsuloringiz Yangilandi",
+              icon: <IconCheck size={16} />,
+              autoClose: 2000,
+            });
+          },
+        }
+      );
+    }
   };
 
   return (
@@ -126,4 +119,4 @@ const TableDrawer: React.FC<{
     </Box>
   );
 };
-export default TableDrawer;
+export default AdminsDrawer;

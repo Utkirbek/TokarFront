@@ -30,6 +30,7 @@
       "@hooks/*": ["src/hooks/*"],
       "@appTypes": ["src/appTypes/index"],
       "@appTypes/*": ["src/appTypes/*"],
+      "@hoc/*": ["src/hoc/*"],
       "@/*": ["src/*"]
     }
   },

@@ -33,35 +33,31 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   const forceUpdate = useForceUpdate();
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback} onReset={forceUpdate}>
-      <ProtectedRoute router={router}>
-        <SWRConfig>
-          <ColorSchemeProvider
-            colorScheme={colorScheme}
-            toggleColorScheme={toggleColorScheme}
-          >
-            <MantineProvider
-              theme={{ colorScheme }}
-              withGlobalStyles
-              withNormalizeCSS
+    <IntlProvider messages={flattenMessages(uz)} locale="uz" defaultLocale="uz">
+      <ErrorBoundary FallbackComponent={ErrorFallback} onReset={forceUpdate}>
+        <ProtectedRoute router={router}>
+          <SWRConfig>
+            <ColorSchemeProvider
+              colorScheme={colorScheme}
+              toggleColorScheme={toggleColorScheme}
             >
-              <RouterTransition />
-              <ModalsProvider>
-                <NotificationsProvider>
-                  <IntlProvider
-                    messages={flattenMessages(uz)}
-                    locale="uz"
-                    defaultLocale="uz"
-                  >
+              <MantineProvider
+                theme={{ colorScheme }}
+                withGlobalStyles
+                withNormalizeCSS
+              >
+                <RouterTransition />
+                <ModalsProvider>
+                  <NotificationsProvider>
                     <Component {...pageProps} />
-                  </IntlProvider>
-                </NotificationsProvider>
-              </ModalsProvider>
-            </MantineProvider>
-          </ColorSchemeProvider>
-        </SWRConfig>
-      </ProtectedRoute>
-    </ErrorBoundary>
+                  </NotificationsProvider>
+                </ModalsProvider>
+              </MantineProvider>
+            </ColorSchemeProvider>
+          </SWRConfig>
+        </ProtectedRoute>
+      </ErrorBoundary>
+    </IntlProvider>
   );
 }
 export default MyApp;

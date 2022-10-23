@@ -7,8 +7,8 @@ export default function ImageUploader(props: Partial<DropzoneProps>) {
 
   return (
     <Dropzone
-      onDrop={(files: any) => console.log("accepted files", files)}
-      onReject={(files: any) => console.log("rejected files", files)}
+      onDrop={(files: any) => console.warn("accepted files", files)}
+      onReject={(files: any) => console.warn("rejected files", files)}
       maxSize={3 * 1024 ** 2}
       accept={IMAGE_MIME_TYPE}
       {...props}

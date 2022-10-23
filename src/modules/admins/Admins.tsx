@@ -1,13 +1,14 @@
-import Table from "@components/table";
 import DashLayout from "@modules/layout/DashLayout";
 import React from "react";
+
+import AdminsTable from "./components/AdminsTable";
 
 type Props = {};
 
 const Admins = (props: Props) => {
   return (
     <DashLayout>
-      <Table />
+      <AdminsTable />
     </DashLayout>
   );
 };
