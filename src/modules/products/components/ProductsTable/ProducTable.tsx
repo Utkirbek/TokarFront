@@ -13,7 +13,7 @@ import {
 import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import productFetchers from "@services/api/productFetchers";
-import { IconCheck, IconEdit, IconTrash } from "@tabler/icons";
+import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
 import { RequestQueryKeys } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
 import { useState } from "react";
@@ -131,13 +131,14 @@ export default function FormMantine() {
         <td>${item.price}</td>
         <td>{item.quantity}</td>
         <td>{item.discount}%</td>
-        <td>
+        <td style={{ display: "flex", alignItems: "center" }}>
+          <IconPencil style={{ cursor: "pointer" }} onClick={handEdit} />
           <IconTrash
             color="red"
             style={{ margin: "0  20px", cursor: "pointer" }}
             onClick={() => openDeleteModal(item._id)}
           />
-          <IconEdit style={{ cursor: "pointer" }} onClick={handEdit} />
+          <Button>Sotish</Button>
         </td>
       </tr>
     );
@@ -161,8 +162,7 @@ export default function FormMantine() {
         padding="xl"
         size="xl"
         position="right"
-        sx={{ height: "120vh" }}
-      >
+        sx={{ height: "120vh" }}>
         <FormProduct
           handleClose={() => {
             setOpened(false);

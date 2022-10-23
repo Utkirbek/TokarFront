@@ -7,6 +7,8 @@ type User = {
   image?: string;
   createdAt?: string;
   updatedAt?: string;
+  permissions: string[];
+  isLoggedIn: boolean;
 };
 
 export default User;

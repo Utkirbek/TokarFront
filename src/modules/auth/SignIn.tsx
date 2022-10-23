@@ -61,12 +61,18 @@ function SignIn() {
           placeholder="your@email.com"
           {...form.getInputProps("email")}
           sx={{ margin: "20px 0" }}
+          id="email"
+          name="email"
+          type="email"
           required
         />
         <PasswordInput
           label="Parol"
           placeholder="Password"
           {...form.getInputProps("password")}
+          id="password"
+          name="password"
+          type="password"
           required
         />
         <Group position="right" mt="md">

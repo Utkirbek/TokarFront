@@ -1,7 +1,7 @@
 import ButtonToggleDark from "@components/darkmode/Darkmode";
+import Logout from "@components/smart/Logout";
 import {
   AppShell,
-  Avatar,
   Box,
   Burger,
   Header,
@@ -33,7 +33,8 @@ function Dashboard({ children }: any) {
       <a
         className={cx(classes.link, {
           [classes.linkActive]: item.label === active,
-        })}>
+        })}
+      >
         <item.icon className={classes.linkIcon} stroke={1.5} />
         <span>{item.label}</span>
       </a>
@@ -58,14 +59,16 @@ function Dashboard({ children }: any) {
             p="md"
             hiddenBreakpoint="sm"
             hidden={!opened}
-            width={{ sm: 200, lg: 300 }}>
+            width={{ sm: 200, lg: 300 }}
+          >
             <div className={classes.container}>{links}</div>
           </Navbar>
         }
         header={
           <Header height={70} p="md">
             <div
-              style={{ display: "flex", alignItems: "center", height: "100%" }}>
+              style={{ display: "flex", alignItems: "center", height: "100%" }}
+            >
               <MediaQuery largerThan="sm" styles={{ display: "none" }}>
                 <Burger
                   opened={opened}
@@ -87,24 +90,19 @@ function Dashboard({ children }: any) {
                     alignItems: "center",
                     justifyContent: "space-between",
                     gap: 5,
-                  }}>
+                  }}
+                >
                   <TextInput
                     sx={{ width: "92%" }}
                     placeholder="Nima qidiryapsiz...?"
                   />
-
-                  <Avatar
-                    component="a"
-                    href="/"
-                    target="_blank"
-                    radius="xl"
-                    size="lg"
-                  />
+                  <Logout />
                 </Box>
               </div>
             </div>
           </Header>
-        }>
+        }
+      >
         {children}
       </AppShell>
     </Box>
