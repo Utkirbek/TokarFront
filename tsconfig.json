@@ -31,6 +31,7 @@
       "@appTypes": ["src/appTypes/index"],
       "@appTypes/*": ["src/appTypes/*"],
       "@hoc/*": ["src/hoc/*"],
+      "@icons/*": ["src/assets/icons/*"],
       "@/*": ["src/*"]
     }
   },

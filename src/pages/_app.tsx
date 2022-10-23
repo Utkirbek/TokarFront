@@ -13,6 +13,7 @@ import { ModalsProvider } from "@mantine/modals";
 import { NotificationsProvider } from "@mantine/notifications";
 import flattenMessages from "@utils/flattenMessages";
 import type { AppProps } from "next/app";
+import Script from "next/script";
 import { ErrorBoundary } from "react-error-boundary";
 import { IntlProvider } from "react-intl";
 import { SWRConfig } from "swr";
@@ -57,6 +58,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
           </SWRConfig>
         </ProtectedRoute>
       </ErrorBoundary>
+      <Script src="https://cdn.lordicon.com/qjzruarw.js" />
     </IntlProvider>
   );
 }
