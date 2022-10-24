@@ -14,8 +14,9 @@ import {
 import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import productFetchers from "@services/api/productFetchers";
-import { IconCheck, IconEdit, IconTrash } from "@tabler/icons";
+import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
 import { RequestQueryKeys } from "@utils/constants";
+import { getCoverImage } from "@utils/getters";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
@@ -33,7 +34,6 @@ export default function FormMantine() {
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
 
-  // delete modal window start
   const handleDelete = async function (id: string) {
     showNotification({
       id: "load-data",
@@ -84,8 +84,6 @@ export default function FormMantine() {
       },
     });
 
-  // delete modal window end
-
   const { classes, cx } = useStyles();
   const [selection, setSelection] = useState(["1"]);
   const toggleRow = (id: string) =>
@@ -105,9 +103,7 @@ export default function FormMantine() {
     mutate: refetch,
   } = useSWR(RequestQueryKeys.getProducts, productFetchers.getProducts);
 
-  if (error) {
-    return <Error />;
-  }
+  if (error) return <Error />;
   if (!data) return <Loader sx={{ margin: "20%  45%" }} size={"xl"} />;
 
   const rows = data.map((item: any) => {
@@ -119,37 +115,36 @@ export default function FormMantine() {
     };
 
     return (
-      <>
-        <tr key={item._id} className={cx({ [classes.rowSelected]: selected })}>
-          <td>
-            <Checkbox
-              checked={selection.includes(item._id)}
-              onChange={() => toggleRow(item._id)}
-              transitionDuration={0}
-            />
-          </td>
-          <td>
-            <Group spacing="sm">
-              <Avatar size={26} src={item.image} radius={26} />
-              <Text size="sm" weight={500}>
-                {item.title}
-              </Text>
-            </Group>
-          </td>
-          <td>{item.code}</td>
-          <td>${item.price}</td>
-          <td>{item.quantity}</td>
-          <td>{item.discount}%</td>
-          <td>
-            <IconTrash
-              color="#e0331f"
-              style={{ margin: "0  20px", cursor: "pointer" }}
-              onClick={() => openDeleteModal(item._id)}
-            />
-            <IconEdit style={{ cursor: "pointer" }} onClick={handEdit} />
-          </td>
-        </tr>
-      </>
+      <tr key={item._id} className={cx({ [classes.rowSelected]: selected })}>
+        <td>
+          <Checkbox
+            checked={selection.includes(item._id)}
+            onChange={() => toggleRow(item._id)}
+            transitionDuration={0}
+          />
+        </td>
+        <td>
+          <Group spacing="sm">
+            <Avatar size={40} src={getCoverImage(item.image)} radius={26} />
+            <Text size="sm" weight={500}>
+              {item.title}
+            </Text>
+          </Group>
+        </td>
+        <td>{item.code}</td>
+        <td>${item.price}</td>
+        <td>{item.quantity}</td>
+        <td>{item.discount}%</td>
+        <td style={{ display: "flex", alignItems: "center" }}>
+          <IconPencil style={{ cursor: "pointer" }} onClick={handEdit} />
+          <IconTrash
+            color="red"
+            style={{ margin: "0  20px", cursor: "pointer" }}
+            onClick={() => openDeleteModal(item._id)}
+          />
+          <Button>Sotish</Button>
+        </td>
+      </tr>
     );
   });
 
@@ -186,7 +181,7 @@ export default function FormMantine() {
         </Button>
       </Group>
       <ScrollArea>
-        <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
+        <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
           <thead>
             <tr>
               <th style={{ width: 40 }}>

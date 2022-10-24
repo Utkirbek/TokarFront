@@ -12,11 +12,13 @@ import authFetchers from "@services/api/authFetchers";
 import { RequestQueryKeys } from "@utils/constants";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
+import { useErrorHandler } from "react-error-boundary";
 import { useSWRConfig } from "swr";
 
 function SignIn() {
   const { mutate } = useSWRConfig();
   const { authorize } = useUser();
+  const handleError = useErrorHandler();
 
   const router = useRouter();
   const form = useForm({
@@ -32,21 +34,25 @@ function SignIn() {
   });
 
   const handleSubmit = async (values: { password: string; email: string }) => {
-    const res = await mutate(
-      RequestQueryKeys.login,
-      authFetchers.login(values),
-      false
-    );
-    setCookie("token", res.token);
-    delete res.token;
-    authorize(res);
-    router.push("/");
+    try {
+      const res = await mutate(
+        RequestQueryKeys.login,
+        authFetchers.login(values),
+        false
+      );
+      setCookie("token", res.token);
+      delete res.token;
+      authorize(res);
+      router.push("/");
+    } catch (err) {
+      handleError(err);
+    }
   };
 
   return (
     <Box sx={{ maxWidth: 340, margin: "10% 0" }} mx="auto">
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <Text sx={{ fontSize: "24px", textAlign: "center", fontWeight: 700 }}>
+        <Text sx={{ fontSize: "24px", textAlign: "center", fontWeight: 600 }}>
           Platformaga Kirish
         </Text>
         <TextInput
@@ -55,12 +61,18 @@ function SignIn() {
           placeholder="your@email.com"
           {...form.getInputProps("email")}
           sx={{ margin: "20px 0" }}
+          id="email"
+          name="email"
+          type="email"
           required
         />
         <PasswordInput
           label="Parol"
           placeholder="Password"
           {...form.getInputProps("password")}
+          id="password"
+          name="password"
+          type="password"
           required
         />
         <Group position="right" mt="md">

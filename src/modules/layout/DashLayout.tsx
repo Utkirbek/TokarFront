@@ -1,7 +1,7 @@
 import ButtonToggleDark from "@components/darkmode/Darkmode";
+import Logout from "@components/smart/Logout";
 import {
   AppShell,
-  Avatar,
   Box,
   Burger,
   Header,
@@ -11,11 +11,10 @@ import {
   TextInput,
   useMantineTheme,
 } from "@mantine/core";
+import data from "@modules/layout/dataSidebar";
+import useStyles from "@modules/layout/style/dashStyle";
 import Link from "next/link";
 import { useState } from "react";
-
-import useStyles from "../components/dashStyle";
-import data from "../components/dataSidebar";
 
 function Dashboard({ children }: any) {
   const { classes, cx } = useStyles();
@@ -92,14 +91,7 @@ function Dashboard({ children }: any) {
                     sx={{ width: "92%" }}
                     placeholder="Nima qidiryapsiz...?"
                   />
-
-                  <Avatar
-                    component="a"
-                    href="/"
-                    target="_blank"
-                    radius="xl"
-                    size="lg"
-                  />
+                  <Logout />
                 </Box>
               </div>
             </div>

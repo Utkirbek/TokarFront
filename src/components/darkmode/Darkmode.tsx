@@ -1,5 +1,5 @@
 import { ActionIcon, useMantineColorScheme } from "@mantine/core";
-import { IconMoonStars,IconSun } from "@tabler/icons";
+import { IconMoonStars, IconSun } from "@tabler/icons";
 
 function BottonToogleDark() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
@@ -10,7 +10,8 @@ function BottonToogleDark() {
       variant="outline"
       color={dark ? "yellow" : "blue"}
       onClick={() => toggleColorScheme()}
-      title="Toggle color scheme">
+      title="Toggle color scheme"
+    >
       {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
     </ActionIcon>
   );
