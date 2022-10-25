@@ -13,56 +13,59 @@ import {
 } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
+import useStyles from "@modules/products/components/ProductsTable/ProductTableStyle";
 import productFetchers from "@services/api/productFetchers";
+import useProducts from "@services/hooks/useProducts";
 import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
 import { RequestQueryKeys } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import useSWR, { useSWRConfig } from "swr";
+import { useRef,useState  } from "react";
+import { useIntl } from "react-intl";
+import useSWR from "swr";
 
 import FormProduct from "../form/FormAdd";
 import Error from "./components/Error";
 import tableHead from "./const/constTableHeadName";
-import useStyles from "./ProductTableStyle";
 
 export default function FormMantine() {
   const router = useRouter();
-  const { mutate: deleteProduct } = useSWRConfig();
+  const intl = useIntl();
   const { name, _id } = useUser();
   const [editItem, setEditItem] = useState({});
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
+  const { useFetchProduct, deleteProducts } = useProducts();
+  const getAdminsQuery = useFetchProduct();
+  const { data: products } = getAdminsQuery;
+  const ref = useRef<HTMLInputElement>(null);
 
   const handleDelete = async function (id: string) {
-    showNotification({
-      id: "load-data",
-      loading: true,
-      title: "Mahsulot o'chirilmoqda",
-      message:
-        "Bu malumot o'chirilgandn keyin qayta yuklashni iloji yo'q.Yangi mahsulot qo'shasiz",
-      autoClose: 2000,
-      disallowClose: true,
-    });
-
-    const res = await deleteProduct(
-      RequestQueryKeys.deleteProduct,
-      productFetchers.deleteProduct(id),
-      {
-        revalidate: true,
-      }
-    );
-    refetch();
-    updateNotification({
-      id: "load-data",
-      color: "teal",
-      title: "Oʻchirildi",
-      message: "Mahsulot o'chirib tashlandi",
-      icon: <IconCheck size={16} />,
-      autoClose: 2000,
+    deleteProducts(id, {
+      onSuccess: () => {
+        updateNotification({
+          id: "load-data",
+          color: "teal",
+          title: "Mahsulot o'chirilmoqda",
+          message:
+            "Bu malumot o'chirilgandn keyin qayta yuklashni iloji yo'q.Yangi mahsulot qo'shasiz",
+          icon: <IconCheck size={16} />,
+          autoClose: 2000,
+        });
+      },
+      onError: () => {
+        updateNotification({
+          id: "load-data",
+          color: "red",
+          title: "Xatolik",
+          message: "Xatolik Yoz berdi",
+          autoClose: false,
+          disallowClose: false,
+        });
+      },
     });
   };
-  const openDeleteModal = (id: string) =>
+  const openDeleteModal = (id: string, title: string) =>
     openConfirmModal({
       title: "Mahsulotni o'chirish",
       centered: true,
@@ -106,7 +109,7 @@ export default function FormMantine() {
   if (error) return <Error />;
   if (!data) return <Loader sx={{ margin: "20%  45%" }} size={"xl"} />;
 
-  const rows = data.map((item: any) => {
+  const rows = products.map((item: any) => {
     const selected = selection.includes(item._id);
 
     const handEdit = () => {
@@ -134,15 +137,25 @@ export default function FormMantine() {
         <td>{item.code}</td>
         <td>${item.price}</td>
         <td>{item.quantity}</td>
-        <td>{item.discount}%</td>
+        {/* bu yerda chegirma bolyapti */}
+        <td>0 %</td>
+
         <td style={{ display: "flex", alignItems: "center" }}>
           <IconPencil style={{ cursor: "pointer" }} onClick={handEdit} />
           <IconTrash
             color="red"
             style={{ margin: "0  20px", cursor: "pointer" }}
-            onClick={() => openDeleteModal(item._id)}
+            onClick={() => openDeleteModal(item._id, item.title)}
           />
           <Button>Sotish</Button>
+        </td>
+        <td>
+          <Button
+            variant="outline"
+            sx={{ width: "100px", height: "30px" }}
+            radius={"xl"}>
+            Batafsil
+          </Button>
         </td>
       </tr>
     );
@@ -156,6 +169,7 @@ export default function FormMantine() {
   return (
     <>
       <Drawer
+        sx={{ maxHeight: "150vh" }}
         overlayColor={
           theme.colorScheme === "dark"
             ? theme.colors.dark[9]
@@ -165,17 +179,18 @@ export default function FormMantine() {
         onClose={() => setOpened(false)}
         padding="xl"
         size="xl"
-        position="right"
-        sx={{ height: "120vh" }}>
-        <FormProduct
-          handleClose={() => {
-            setOpened(false);
-          }}
-          editItem={editItem}
-        />
+        position="right">
+        <ScrollArea style={{ height: 560 }}>
+          <FormProduct
+            handleClose={() => {
+              setOpened(false);
+            }}
+            editItem={editItem}
+          />
+        </ScrollArea>
       </Drawer>
 
-      <Group position="right" mx={"xl"}>
+      <Group position="right" mx={"xl"} my={"xl"}>
         <Button onClick={handleClick} variant={"outline"}>
           + Yangi mahsulot qo&apos;shish
         </Button>
@@ -200,6 +215,7 @@ export default function FormMantine() {
               <th>{tableHead.quantity}</th>
               <th>{tableHead.discount}</th>
               <th>{tableHead.action}</th>
+              <th>{tableHead.details}</th>
             </tr>
           </thead>
           <tbody>{rows}</tbody>

@@ -2,12 +2,10 @@ import ImageUploader from "@components/ImageUploader";
 import { Box, Button, Group, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { showNotification, updateNotification } from "@mantine/notifications";
-import productFetchers from "@services/api/productFetchers";
+import useProducts from "@services/hooks/useProducts";
 import { IconCheck } from "@tabler/icons";
-import { RequestQueryKeys } from "@utils/constants";
 import { useRouter } from "next/router";
 import { useRef } from "react";
-import useSWR, { useSWRConfig } from "swr";
 
 import useStyles from "./style/inputStyle";
 
@@ -16,20 +14,13 @@ const FormProduct: React.FC<{
   editItem: any;
 }> = ({ handleClose, editItem }) => {
   const imagesRef = useRef<string[]>([]);
-  const { mutate } = useSWRConfig();
   const router = useRouter();
   const { classes, cx } = useStyles();
-  const {
-    data,
-    error,
-    mutate: refetch,
-  } = useSWR(RequestQueryKeys.getProducts, productFetchers.getProducts);
+  const { editProduct, addProduct } = useProducts();
 
-  const imageRef = useRef<string | null>(null);
   const form = useForm({
     initialValues: {
       title: editItem?.title ?? "",
-      image: editItem?.image ?? imageRef.current,
       code: editItem?.code ?? "",
       price: editItem?.price ?? "",
       quantity: editItem?.quantity ?? "",
@@ -37,33 +28,21 @@ const FormProduct: React.FC<{
       discounts: editItem?.discounts ?? [
         {
           price: "25",
-          quantity: "30",
+          quantity: "100",
         },
         {
-          price: "25",
-          quantity: "30",
+          price: "12",
+          quantity: "20",
         },
       ],
-
-      validate: {
-        title: (value: string | any[]) =>
-          value.length >= 1 ? null : "name is not valid",
-        price: (value: string | any[]) =>
-          value.length >= 0 ? null : "price is not valid",
-        quantity: (value: string | any[]) =>
-          value.length >= 0 ? null : "quantity is not valid",
-        description: (value: string | any[]) =>
-          value.length >= 0 ? null : "decription is not valid",
-      },
     },
   });
 
   const handleSubmit = async (values: {
     title: string;
-    image: string;
-    code: string;
-    price: string;
-    quantity: string;
+    code: string | Number;
+    price: string | Number;
+    quantity: string | Number;
     description: string;
     discounts: any;
   }) => {
@@ -77,56 +56,60 @@ const FormProduct: React.FC<{
         disallowClose: true,
       });
       handleClose();
-      const res = await mutate(
-        RequestQueryKeys.updateProducts,
-        productFetchers.updateProducts(editItem._id, {
-          ...values,
-          image: imagesRef.current?.join(","),
-        }),
+      editProduct(
         {
-          revalidate: true,
+          id: editItem._id,
+          values,
+        },
+        {
+          onSuccess: () => {
+            updateNotification({
+              id: "load-data",
+              color: "teal",
+              title: "Muaffaqiyatli",
+              message: "Sizning mahsuloringiz Yangilandi",
+              icon: <IconCheck size={16} />,
+              autoClose: 2000,
+            });
+          },
         }
       );
-
-      refetch();
-      updateNotification({
-        id: "load-data",
-        color: "teal",
-        title: "Muaffaqiyatli",
-        message: "Sizning mahsuloringiz Yangilandi",
-        icon: <IconCheck size={16} />,
-        autoClose: 2000,
-      });
     } else {
-      showNotification({
-        id: "load-data",
-        loading: true,
-        title: "Iltimos kuting",
-        message: "Sizning mahsuloringiz qo'shilmoqda iltimos kuting",
-        autoClose: false,
-        disallowClose: true,
-      });
       handleClose();
-      const res = await mutate(
-        RequestQueryKeys.addProduct,
-        productFetchers.addProduct({
-          ...values,
-          image: imagesRef.current?.join(","),
-        }),
+      addProduct(
+        { ...values, image: imagesRef.current?.join(",") ?? "" },
         {
-          revalidate: true,
+          onSuccess: () => {
+            updateNotification({
+              id: "load-data",
+              color: "teal",
+              title: "Muaffaqiyatli",
+              message: "Sizning mahsuloringiz Qo'shildi",
+              icon: <IconCheck size={16} />,
+              autoClose: 2000,
+            });
+          },
+          onError: () => {
+            updateNotification({
+              id: "load-data",
+              color: "red",
+              title: "Xatolik",
+              message: "Xatolik! Mahsulot Qo'shilmadi",
+              autoClose: 2000,
+              disallowClose: false,
+            });
+          },
         }
       );
-      refetch();
-      updateNotification({
-        id: "load-data",
-        color: "teal",
-        title: "Muaffaqiyatli",
-        message: "Sizning mahsuloringiz qo'shildi",
-        icon: <IconCheck size={16} />,
-        autoClose: 2000,
-      });
     }
+    showNotification({
+      id: "load-data",
+      loading: true,
+      title: "Iltimos kuting",
+      message: "Sizning mahsuloringiz qo'shilmoqda iltimos kuting",
+      autoClose: false,
+      disallowClose: true,
+    });
   };
 
   return (

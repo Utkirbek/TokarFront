@@ -5,6 +5,7 @@ const tableHead = {
   quantity: "Jami",
   discount: "Chegirma",
   action: "Tahrirlash / O'chirish",
+  details: "Ko'prog'ini Ko'rish",
 };
 
 export default tableHead;
