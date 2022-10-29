@@ -1,4 +1,3 @@
-import useUser from "@hooks/shared/useUser";
 import {
   Avatar,
   Button,
@@ -7,6 +6,7 @@ import {
   Group,
   Loader,
   ScrollArea,
+  Select,
   Table,
   Text,
   useMantineTheme,
@@ -16,29 +16,37 @@ import { showNotification, updateNotification } from "@mantine/notifications";
 import useStyles from "@modules/products/components/ProductsTable/ProductTableStyle";
 import productFetchers from "@services/api/productFetchers";
 import useProducts from "@services/hooks/useProducts";
-import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
+import {
+  IconCheck,
+  IconChevronDown,
+  IconPencil,
+  IconTrash,
+} from "@tabler/icons";
 import { RequestQueryKeys } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
-import { useRouter } from "next/router";
-import { useRef,useState  } from "react";
-import { useIntl } from "react-intl";
+import { useRef, useState } from "react";
+import { useCart } from "react-use-cart";
 import useSWR from "swr";
 
+import BuyCart from "../buyCart/BuyCart";
+import Detail from "../details/Detail";
 import FormProduct from "../form/FormAdd";
 import Error from "./components/Error";
 import tableHead from "./const/constTableHeadName";
 
 export default function FormMantine() {
-  const router = useRouter();
-  const intl = useIntl();
-  const { name, _id } = useUser();
   const [editItem, setEditItem] = useState({});
   const [opened, setOpened] = useState(false);
+  const [openBuyCart, setBuyCart] = useState(false);
+  const [tableWidth, setTableWidth] = useState("100%");
   const theme = useMantineTheme();
   const { useFetchProduct, deleteProducts } = useProducts();
   const getAdminsQuery = useFetchProduct();
   const { data: products } = getAdminsQuery;
   const ref = useRef<HTMLInputElement>(null);
+  const [dates, setData]: any = useState([]);
+
+  const { addItem } = useCart();
 
   const handleDelete = async function (id: string) {
     deleteProducts(id, {
@@ -117,6 +125,13 @@ export default function FormMantine() {
       setOpened(true);
     };
 
+    const handleOpenCartBuy = (el: any) => {
+      setBuyCart(true);
+      setEditItem(item);
+      addItem({ id: el._id, ...el });
+      setTableWidth("85%");
+    };
+
     return (
       <tr key={item._id} className={cx({ [classes.rowSelected]: selected })}>
         <td>
@@ -138,24 +153,31 @@ export default function FormMantine() {
         <td>${item.price}</td>
         <td>{item.quantity}</td>
         {/* bu yerda chegirma bolyapti */}
-        <td>0 %</td>
+        <td>
+          <Select
+            sx={{ width: "100px" }}
+            rightSection={<IconChevronDown size={14} />}
+            rightSectionWidth={30}
+            styles={{ rightSection: { pointerEvents: "none" } }}
+            data={["0", "0-50 ----  shuncha", "0-100 ------ shuncha"]}
+            defaultValue="0"
+          />
+        </td>
 
-        <td style={{ display: "flex", alignItems: "center" }}>
-          <IconPencil style={{ cursor: "pointer" }} onClick={handEdit} />
+        <td>
+          <IconPencil
+            style={{ cursor: "pointer", marginTop: "5px" }}
+            onClick={handEdit}
+          />
           <IconTrash
             color="red"
             style={{ margin: "0  20px", cursor: "pointer" }}
             onClick={() => openDeleteModal(item._id, item.title)}
           />
-          <Button>Sotish</Button>
+          <Button onClick={() => handleOpenCartBuy(item)}>Sotish</Button>
         </td>
         <td>
-          <Button
-            variant="outline"
-            sx={{ width: "100px", height: "30px" }}
-            radius={"xl"}>
-            Batafsil
-          </Button>
+          <Detail infoProduct={editItem} />
         </td>
       </tr>
     );
@@ -180,7 +202,7 @@ export default function FormMantine() {
         padding="xl"
         size="xl"
         position="right">
-        <ScrollArea style={{ height: 560 }}>
+        <ScrollArea style={{ height: 560 }} scrollbarSize={2}>
           <FormProduct
             handleClose={() => {
               setOpened(false);
@@ -189,17 +211,16 @@ export default function FormMantine() {
           />
         </ScrollArea>
       </Drawer>
-
       <Group position="right" mx={"xl"} my={"xl"}>
         <Button onClick={handleClick} variant={"outline"}>
           + Yangi mahsulot qo&apos;shish
         </Button>
       </Group>
       <ScrollArea>
-        <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
+        <Table sx={{ width: tableWidth }} verticalSpacing="sm" highlightOnHover>
           <thead>
             <tr>
-              <th style={{ width: 40 }}>
+              <th style={{ width: 10 }}>
                 <Checkbox
                   onChange={toggleAll}
                   checked={selection.length === data.length}
@@ -221,6 +242,15 @@ export default function FormMantine() {
           <tbody>{rows}</tbody>
         </Table>
       </ScrollArea>
+      {!!openBuyCart ? (
+        <BuyCart
+          handleCloseCartBuy={() => {
+            setBuyCart(false);
+            setTableWidth("100%");
+          }}
+          dates={dates}
+        />
+      ) : null}
     </>
   );
 }

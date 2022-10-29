@@ -11,8 +11,10 @@ import {
   TextInput,
   useMantineTheme,
 } from "@mantine/core";
+import { useMouse } from "@mantine/hooks";
 import data from "@modules/layout/dataSidebar";
 import useStyles from "@modules/layout/style/dashStyle";
+import { IconArrowsLeftRight } from "@tabler/icons";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -42,6 +44,7 @@ function Dashboard({ children }: any) {
   return (
     <Box sx={{ display: "flex" }}>
       <AppShell
+        sx={{ width: "100%" }}
         styles={{
           main: {
             background:
@@ -57,14 +60,18 @@ function Dashboard({ children }: any) {
             p="md"
             hiddenBreakpoint="sm"
             hidden={!opened}
-            width={{ sm: 200, lg: 300 }}>
+            width={{ sm: 200, lg: 270 }}>
             <div className={classes.container}>{links}</div>
           </Navbar>
         }
         header={
           <Header height={70} p="md">
             <div
-              style={{ display: "flex", alignItems: "center", height: "100%" }}>
+              style={{
+                display: "flex",
+                alignItems: "center",
+                height: "100%",
+              }}>
               <MediaQuery largerThan="sm" styles={{ display: "none" }}>
                 <Burger
                   opened={opened}

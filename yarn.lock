@@ -301,6 +301,13 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
+"@mantine/carousel@^5.6.2":
+  version "5.6.2"
+  resolved "https://registry.yarnpkg.com/@mantine/carousel/-/carousel-5.6.2.tgz#088e802f4a7822c302417172c685393362ff6ee3"
+  integrity sha512-WnKWni51TJwJqqLfrrg8O+RUaVSzfJ/rxwlvWamLRSoy8W7I4Q0e0/+PjE361cA46ynDy7nE6NPTtsfi91YTtw==
+  dependencies:
+    "@mantine/utils" "5.6.2"
+
 "@mantine/core@^5.5.5":
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/@mantine/core/-/core-5.6.0.tgz#084cfadcb22c9ea20eccfce508da8227b8798fc4"
@@ -318,14 +325,6 @@
   integrity sha512-0+mobBdoTd9kS/5WNkxHU/UxTr6GsOMDFCwplt7NovxDKfbdYBu4+wR3knIREN0llcmaxDc/eINOjGaRm+kYFw==
   dependencies:
     "@mantine/utils" "5.6.0"
-
-"@mantine/dropzone@^5.5.5":
-  version "5.5.5"
-  resolved "https://registry.yarnpkg.com/@mantine/dropzone/-/dropzone-5.5.5.tgz#9f21c23a22c4f14c850bfbc4c30475c3771cc436"
-  integrity sha512-YzR8zRATAMvgO7gG9MPtnUsl7/W/ig/8eksoOsiNi3hmU+vL+si3DRYmmvNP2FL25OwJdVPR7VT5bUTgqmFqhQ==
-  dependencies:
-    "@mantine/utils" "5.5.5"
-    react-dropzone "14.2.2"
 
 "@mantine/dropzone@^5.5.5":
   version "5.5.5"
@@ -403,6 +402,11 @@
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.6.0.tgz#e0515e9071704c3f91509cb0629383dbc677c86c"
   integrity sha512-HFe/B/Z6R9j7n0pcumaAl0yYeM+EbRPlZht0t5CP79nZcgz0ANUsnp3f3SGJA/Bc2spO0hd1Cr0daBb1liBMRg==
+
+"@mantine/utils@5.6.2":
+  version "5.6.2"
+  resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.6.2.tgz#72ffa0e6c8a0c69554aa4c43b6f52663f87d785f"
+  integrity sha512-oWBVtewwIiqqKMCw8JahrHsDb1h68Eq878RWhnH+wOC1FOz1oV0ZXz0+5/gMUFZGss0duWEZXTVXafkBnD2HZA==
 
 "@next/env@12.3.1":
   version "12.3.1"
@@ -2343,6 +2347,11 @@ react-transition-group@4.4.2:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-use-cart@^1.13.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/react-use-cart/-/react-use-cart-1.13.0.tgz#af7f4306612bdb9c7563e59fbee299ee2f8fe278"
+  integrity sha512-V3jrNOgBXxTn/RWh1HCEdrQk/jx2xCixdkX1c7Vyl4zxEf9jOuniUnjZSTALO7rQ5226onqmvXxKz1eu0Yz6Iw==
 
 react@18.2.0:
   version "18.2.0"
