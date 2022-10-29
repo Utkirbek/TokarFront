@@ -1983,6 +1983,16 @@ loose-envify@^1.1.0, loose-envify@^1.4.0:
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
+lord-icon-element@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/lord-icon-element/-/lord-icon-element-4.0.0.tgz#b3a181a77f0cf86dc63cb3b5e13605745ed0ded9"
+  integrity sha512-5VFHwnTtcD2u29POw7e57eifWCK0v1ZkQFyIJ/yyMOBiAiZL4z5PQSnEvbp0lPr9X4E1zC1pk53xuQLfIV+qTA==
+
+lottie-web@^5.9.6:
+  version "5.9.6"
+  resolved "https://registry.yarnpkg.com/lottie-web/-/lottie-web-5.9.6.tgz#62ae68563355d3e04aa75d53dec3dd4bea0e57c9"
+  integrity sha512-JFs7KsHwflugH5qIXBpB4905yC1Sub2MZWtl/elvO/QC6qj1ApqbUZJyjzJseJUtVpgiDaXQLjBlIJGS7UUUXA==
+
 lru-cache@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-6.0.0.tgz#6d6fe6570ebd96aaf90fcad1dafa3b2566db3a94"

@@ -1,3 +1,4 @@
+import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import {
   Avatar,
   Button,
@@ -187,7 +188,6 @@ export default function FormMantine() {
     setOpened(true);
     setEditItem({});
   };
-
   return (
     <>
       <Drawer
@@ -217,30 +217,36 @@ export default function FormMantine() {
         </Button>
       </Group>
       <ScrollArea>
-        <Table sx={{ width: tableWidth }} verticalSpacing="sm" highlightOnHover>
-          <thead>
-            <tr>
-              <th style={{ width: 10 }}>
-                <Checkbox
-                  onChange={toggleAll}
-                  checked={selection.length === data.length}
-                  indeterminate={
-                    selection.length > 0 && selection.length !== data.length
-                  }
-                  transitionDuration={0}
-                />
-              </th>
-              <th>{tableHead.name}</th>
-              <th>{tableHead.code}</th>
-              <th>{tableHead.price}</th>
-              <th>{tableHead.quantity}</th>
-              <th>{tableHead.discount}</th>
-              <th>{tableHead.action}</th>
-              <th>{tableHead.details}</th>
-            </tr>
-          </thead>
-          <tbody>{rows}</tbody>
-        </Table>
+        {data.length === 0 ? (
+          <EmptyBox />
+        ) : (
+          <Table
+            sx={{ width: tableWidth }}
+            verticalSpacing="sm"
+            highlightOnHover>
+            <thead>
+              <tr>
+                <th style={{ width: 40 }}>
+                  <Checkbox
+                    onChange={toggleAll}
+                    checked={selection.length === data.length}
+                    indeterminate={
+                      selection.length > 0 && selection.length !== data.length
+                    }
+                    transitionDuration={0}
+                  />
+                </th>
+                <th>{tableHead.name}</th>
+                <th>{tableHead.code}</th>
+                <th>{tableHead.price}</th>
+                <th>{tableHead.quantity}</th>
+                <th>{tableHead.discount}</th>
+                <th>{tableHead.action}</th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
+        )}
       </ScrollArea>
       {!!openBuyCart ? (
         <BuyCart

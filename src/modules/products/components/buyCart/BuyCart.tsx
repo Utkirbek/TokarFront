@@ -87,13 +87,6 @@ const BuyCart: React.FC<{
                         <Text>{item.title}</Text>
                         <Text>{item.price}</Text>
                         <Box className={classes.boxGroupCountTrash}>
-                          {/* <NumberInput
-                          width="50px"
-                          defaultValue={1}
-                          size="md"
-                          withAsterisk
-                          value={item.quantity}
-                        /> */}
                           <Box className={classes.counter}>
                             <button
                               onClick={() =>
