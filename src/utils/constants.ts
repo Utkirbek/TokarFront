@@ -4,6 +4,7 @@ export const appRoutes = {
   addProduct: "/products",
   getProducts: "/products",
   updateProducts: "/products",
+  addAdmin: "/admin",
 };
 
 export enum RequestQueryKeys {
@@ -15,4 +16,5 @@ export enum RequestQueryKeys {
   getProducts = "getProducts",
   updateProducts = "updateProducts",
   updeteAdmin = "updeteAdmin",
+  addAdmin = "addAdmin",
 }

@@ -10,8 +10,12 @@ const en = {
 
   admins: {
     deleteConfirmation:
-      "{name} Ushbu ishchingiz sizni tizimdan o'chib ketadi, bu ishni ortga qaytarib bo&apos;lmaydi, shunda ham ishonchingiz komilmi?",
-    deleteSuccessTitle: "Muvaffaqiyatli o'chirildi",
+      "{name} This worker will log you out, it can't be undone, are you sure?",
+    deleteSuccessMessage: "The user has been removed",
+    addAdmins: "+ Add admin",
+    name: "Name",
+    email: "Email",
+    deletEdit: "Delete and edit",
   },
   emptyBox: {
     boxTitle: "There is no product left in your work",

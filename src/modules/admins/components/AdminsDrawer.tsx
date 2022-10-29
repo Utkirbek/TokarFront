@@ -8,32 +8,31 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { showNotification, updateNotification } from "@mantine/notifications";
-import { IconCheck } from "@tabler/icons";
+import useAdmins from "@services/hooks/useAdmins";
+import { IconCheck, IconLock } from "@tabler/icons";
 
 const AdminsDrawer: React.FC<{
   handleClose: () => void;
   editItem: any;
-  onEdit: (data: { id: string; values: any }, options: any) => void;
-}> = ({ handleClose, editItem, onEdit }) => {
+}> = ({ handleClose, editItem }) => {
+  const { editAdmin, addAdmin } = useAdmins();
+
   const form = useForm({
     initialValues: {
       name: editItem?.name ?? "",
       email: editItem?.email ?? "",
       role: editItem?.role ?? "",
       password: editItem?.password ?? "",
-      phone: editItem?.phone ?? "",
-      image: editItem?.image ?? "",
-
-      validate: {
-        name: (value: string | any[]) =>
-          value.length < 2 ? "Ismingiz 2ta belgidan ko'p bo'lishi kerak" : null,
-        email: (value: string) =>
-          /^\S+@\S+$/.test(value) ? null : "Invalid email",
-        password: (value: string | any[]) =>
-          value.length >= 8 ? null : "Password is not valid",
-        rol: (value: string | any[]) =>
-          value.length < 2 ? "Yetarli emas" : null,
-      },
+    },
+    validate: {
+      name: (value: string | any[]) =>
+        value.length < 2 ? "Ismingiz 2ta belgidan ko'p bo'lishi kerak" : null,
+      email: (value: string) =>
+        /^\S+@\S+$/.test(value) ? null : "Invalid email",
+      role: (value: string | null[]) =>
+        value.length < 2 ? "Ismingiz 2ta belgidan ko'p bo'lishi kerak" : null,
+      password: (value: string | null[]) =>
+        value.length >= 8 ? null : "Password is not valid",
     },
   });
 
@@ -43,17 +42,9 @@ const AdminsDrawer: React.FC<{
     role: string;
     password: string;
   }) => {
-    showNotification({
-      id: "load-data",
-      loading: true,
-      title: "Iltimos kuting",
-      message: "Sizning mahsuloringiz yangilanmoqda iltimos kuting",
-      autoClose: false,
-      disallowClose: true,
-    });
-    handleClose();
-    if (editItem) {
-      onEdit(
+    if (!!editItem._id) {
+      handleClose();
+      editAdmin(
         {
           id: editItem._id,
           values,
@@ -72,8 +63,28 @@ const AdminsDrawer: React.FC<{
         }
       );
     }
-  };
+    showNotification({
+      id: "load-data",
+      loading: true,
+      title: "Iltimos kuting",
+      message: "Sizning mahsuloringiz qo'shilmoqda iltimos kuting",
+      autoClose: false,
+      disallowClose: true,
+    });
 
+    addAdmin(values, {
+      onSuccess: () => {
+        updateNotification({
+          id: "load-data",
+          color: "teal",
+          title: "Muaffaqiyatli",
+          message: "Sizning mahsuloringiz Qo'shildi",
+          icon: <IconCheck size={16} />,
+          autoClose: 2000,
+        });
+      },
+    });
+  };
   return (
     <Box mx="auto">
       <form onSubmit={form.onSubmit(handleSubmit)}>
@@ -82,6 +93,7 @@ const AdminsDrawer: React.FC<{
         </Text>
         <TextInput
           withAsterisk
+          name="name"
           label="Ismi"
           placeholder="Admin ismini kirting"
           {...form.getInputProps("name")}
@@ -103,11 +115,11 @@ const AdminsDrawer: React.FC<{
           required
         />
         <PasswordInput
-          placeholder="Parol"
-          label="Parolni kirting"
+          label="Parolingizni kirting"
+          placeholder="Parolingizni kirting"
+          name="password"
+          icon={<IconLock size={16} />}
           {...form.getInputProps("password")}
-          my={"sm"}
-          withAsterisk
         />
 
         <Group position="right" mt="md">
