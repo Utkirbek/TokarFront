@@ -46,6 +46,10 @@ const uz = {
     title: "Chiqish",
     description: "Profildan chiqish",
   },
+
+  roles: {
+    title: "Rollar"
+  }
 };
 
 export default uz;

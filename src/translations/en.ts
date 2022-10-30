@@ -23,6 +23,9 @@ const en = {
   settings: {
     title: "Settings",
   },
+  roles: {
+    title: "Roles",
+  }
 };
 
 export default en;
