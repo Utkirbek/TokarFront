@@ -1,4 +1,5 @@
 import { SpotlightProvider } from "@mantine/spotlight";
+import useSearch from "@services/hooks/useSearch";
 import { useNavActions } from "@services/spotlight";
 import React from "react";
 
@@ -17,7 +18,6 @@ const AppWrapper = ({ children }: Props) => {
       translate="yes"
       searchPlaceholder="Qidirish"
       highlightQuery
-      onQueryChange={(query) => console.log(query)}
     >
       {children}
     </SpotlightProvider>

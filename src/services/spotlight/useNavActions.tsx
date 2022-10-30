@@ -33,7 +33,7 @@ const useNavActions = () => {
       icon: <IconHome size={18} />,
     },
     {
-      title: intl.formatMessage({ id: "logout" }),
+      title: intl.formatMessage({ id: "logout.title" }),
       description: intl.formatMessage({ id: "logout.description" }),
       onTrigger: () => router.push("/settings"),
       icon: <IconHome size={18} />,

@@ -1,7 +1,6 @@
 const uz = {
   loading: "Yuklanmoqda",
   delete: "O'chirish",
-  logout: "Profildan chiqish",
   sthWentWrong: "Xatolik yuz berdi",
 
   home: {
@@ -41,6 +40,11 @@ const uz = {
   orders: {
     title: "Buyurtmalar",
     description: "Buyurtmalar haqida ma'lumotlar portali",
+  },
+
+  logout: {
+    title: "Chiqish",
+    description: "Profildan chiqish",
   },
 };
 

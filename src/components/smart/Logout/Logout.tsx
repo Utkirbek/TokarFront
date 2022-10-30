@@ -2,6 +2,7 @@ import useUser from "@hooks/shared/useUser";
 import { Avatar, Menu, Text } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { showNotification } from "@mantine/notifications";
+import { useSpotlight } from "@mantine/spotlight";
 import {
   IconLogout,
   IconReportMoney,
@@ -13,6 +14,7 @@ import { FormattedMessage } from "react-intl";
 
 const Logout = () => {
   const { logout } = useUser();
+  const spotlight = useSpotlight();
 
   const openNotifDelete = () => {
     openConfirmModal({
@@ -58,6 +60,7 @@ const Logout = () => {
                 ⌘K
               </Text>
             }
+            onClick={() => spotlight.openSpotlight()}
           >
             Qidiruv
           </Menu.Item>
@@ -68,7 +71,7 @@ const Logout = () => {
             onClick={openNotifDelete}
             icon={<IconLogout size={18} />}
           >
-            <FormattedMessage id="logout" />
+            <FormattedMessage id="logout.title" />
           </Menu.Item>
         </Menu.Dropdown>
       </Menu>
