@@ -1,4 +1,4 @@
-import "../styles/globals.css";
+import "../styles/globals.scss";
 
 import ProtectedRoute from "@components/smart/ProtectedRoute";
 import { RouterTransition } from "@components/smart/RouterTransition";

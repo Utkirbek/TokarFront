@@ -71,6 +71,7 @@ const ImageUploader: React.FC<Props> = ({ urlsRef, sx, dropzoneProps }) => {
           });
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [files]);
 
   return (
