@@ -14,8 +14,6 @@ const useStyles = createStyles(() => {
       },
       shadowOpacity: 0.22,
       shadowRadius: 2.22,
-
-      elevation: 3,
     },
 
     card: {
@@ -30,7 +28,7 @@ const useStyles = createStyles(() => {
       boxShadow: "2px 0 0  3px rgba(0, 0, 0, 0.2)",
     },
     CardBox: {
-      marginTop: "50px",
+      marginTop: "20px",
       width: "100%",
       height: "250px",
     },

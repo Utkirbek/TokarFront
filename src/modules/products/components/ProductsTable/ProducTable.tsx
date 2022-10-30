@@ -256,8 +256,7 @@ export default function FormMantine() {
         position="right"
         padding="xl"
         size="27%"
-        withOverlay={false}
-        zIndex={10}>
+        withOverlay={false}>
         <BuyCart />
       </Drawer>
     </>
