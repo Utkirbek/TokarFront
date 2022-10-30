@@ -15,7 +15,7 @@ import flattenMessages from "@utils/flattenMessages";
 import type { AppProps } from "next/app";
 import Script from "next/script";
 import { ErrorBoundary } from "react-error-boundary";
-import { IntlProvider } from "react-intl";
+import { FormattedMessage, IntlProvider } from "react-intl";
 import { SWRConfig } from "swr";
 
 import uz from "@/translations/uz";
