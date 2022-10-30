@@ -13,6 +13,9 @@ const en = {
       "{name} Ushbu ishchingiz sizni tizimdan o'chib ketadi, bu ishni ortga qaytarib bo&apos;lmaydi, shunda ham ishonchingiz komilmi?",
     deleteSuccessTitle: "Muvaffaqiyatli o'chirildi",
   },
+  settings: {
+    title: "Settings",
+  },
 };
 
 export default en;

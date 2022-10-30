@@ -13,6 +13,7 @@ import {
 } from "@mantine/core";
 import Link from "next/link";
 import { useState } from "react";
+import { FormattedMessage } from "react-intl";
 
 import useStyles from "../components/dashStyle";
 import data from "../components/dataSidebar";
@@ -29,15 +30,17 @@ function Dashboard({ children }: any) {
   }, 2000);
 
   const links = data.map((item) => (
-    <Link href={item.link} key={item.label}>
-      <a
-        className={cx(classes.link, {
-          [classes.linkActive]: item.label === active,
-        })}
-      >
-        <item.icon className={classes.linkIcon} stroke={1.5} />
-        <span>{item.label}</span>
-      </a>
+    <Link
+      href={item.link}
+      key={item.label}
+      className={cx(classes.link, {
+        [classes.linkActive]: item.label === active,
+      })}
+    >
+      <item.icon className={classes.linkIcon} stroke={1.5} />
+      <span>
+        <FormattedMessage id={item.label} defaultMessage={item.label} />
+      </span>
     </Link>
   ));
 
