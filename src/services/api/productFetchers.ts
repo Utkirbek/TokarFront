@@ -6,6 +6,9 @@ const productFetchers = {
   getProducts: async () => requests.get(`/products`),
   updateProducts: async (id: string, body: any | Object) =>
     requests.put(`/products/${id}`, body),
+  getProductById: async (id: string) => requests.get(`/products/${id}`),
+  getProductByTitle: async (title: string) =>
+    requests.get(`/products/search/${title}`),
 };
 
 export default productFetchers;

@@ -1,7 +1,8 @@
-import "../styles/globals.css";
+import "../styles/globals.scss";
 
 import ProtectedRoute from "@components/smart/ProtectedRoute";
 import { RouterTransition } from "@components/smart/RouterTransition";
+import AppWrapper from "@layouts/AppWrapper";
 import ErrorFallback from "@layouts/ErrorFallback";
 import {
   ColorScheme,
@@ -35,27 +36,31 @@ function MyApp({ Component, pageProps, router }: AppProps) {
 
   return (
     <IntlProvider messages={flattenMessages(uz)} locale="uz" defaultLocale="uz">
-      <ErrorBoundary FallbackComponent={ErrorFallback} onReset={forceUpdate}>
-        <ProtectedRoute router={router}>
-          <SWRConfig>
-            <ColorSchemeProvider
-              colorScheme={colorScheme}
-              toggleColorScheme={toggleColorScheme}>
-              <MantineProvider
-                theme={{ colorScheme }}
-                withGlobalStyles
-                withNormalizeCSS>
-                <RouterTransition />
-                <ModalsProvider>
-                  <NotificationsProvider>
-                    <Component {...pageProps} />
-                  </NotificationsProvider>
-                </ModalsProvider>
-              </MantineProvider>
-            </ColorSchemeProvider>
-          </SWRConfig>
-        </ProtectedRoute>
-      </ErrorBoundary>
+      <AppWrapper>
+        <ErrorBoundary FallbackComponent={ErrorFallback} onReset={forceUpdate}>
+          <ProtectedRoute router={router}>
+            <SWRConfig>
+              <ColorSchemeProvider
+                colorScheme={colorScheme}
+                toggleColorScheme={toggleColorScheme}
+              >
+                <MantineProvider
+                  theme={{ colorScheme }}
+                  withGlobalStyles
+                  withNormalizeCSS
+                >
+                  <RouterTransition />
+                  <ModalsProvider>
+                    <NotificationsProvider>
+                      <Component {...pageProps} />
+                    </NotificationsProvider>
+                  </ModalsProvider>
+                </MantineProvider>
+              </ColorSchemeProvider>
+            </SWRConfig>
+          </ProtectedRoute>
+        </ErrorBoundary>
+      </AppWrapper>
       <Script src="https://cdn.lordicon.com/qjzruarw.js" />
     </IntlProvider>
   );

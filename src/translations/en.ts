@@ -20,6 +20,9 @@ const en = {
   emptyBox: {
     boxTitle: "There is no product left in your work",
   },
+  settings: {
+    title: "Settings",
+  },
 };
 
 export default en;

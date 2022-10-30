@@ -12,10 +12,14 @@ import authFetchers from "@services/api/authFetchers";
 import { RequestQueryKeys } from "@utils/constants";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { useErrorHandler } from "react-error-boundary";
 import { useSWRConfig } from "swr";
 
 function SignIn() {
+  const [status, setStatus] = useState<
+    "idle" | "success" | "error" | "loading"
+  >("idle");
   const { mutate } = useSWRConfig();
   const { authorize } = useUser();
   const handleError = useErrorHandler();
@@ -34,18 +38,24 @@ function SignIn() {
   });
 
   const handleSubmit = async (values: { password: string; email: string }) => {
+    setStatus("loading");
     try {
       const res = await mutate(
         RequestQueryKeys.login,
         authFetchers.login(values),
         false
       );
-      setCookie("token", res.token);
+      // set expires to 1 day
+      setCookie("token", res.token, {
+        expires: new Date(Date.now() + 86400000),
+      });
       delete res.token;
       authorize(res);
       router.push("/");
+      setStatus("success");
     } catch (err) {
       handleError(err);
+      setStatus("error");
     }
   };
 
@@ -76,7 +86,9 @@ function SignIn() {
           required
         />
         <Group position="right" mt="md">
-          <Button type="submit">Submit</Button>
+          <Button loading={status === "loading"} type="submit">
+            Submit
+          </Button>
         </Group>
       </form>
     </Box>
