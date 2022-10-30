@@ -15,25 +15,15 @@ import { useState } from "react";
 
 import useStyles from "./styleDetail/styleDetail";
 
-const elements = [{ position: 6, mass: 12.011, symbol: "C", name: "Carbon" }];
 const Detail: React.FC<{
   infoProduct: any;
 }> = ({ infoProduct }) => {
   const { classes, cx } = useStyles();
   const [opened, setOpened] = useState(false);
 
-  const rows = elements.map((element) => (
-    <tr key={element.name}>
-      <td>{element.position}</td>
-      <td>{element.name}</td>
-      <td>{element.name}</td>
-      <td>{element.position}</td>
-      <td>{element.name}</td>
-      <td>{element.name}</td>
-      <td>{element.symbol}</td>
-      <td>{element.mass}</td>
-    </tr>
-  ));
+  // const rows = infoProduct.map((infoProduct) => (
+
+  // ));
   return (
     <>
       <Modal size="90%" opened={opened} onClose={() => setOpened(false)}>
@@ -64,7 +54,18 @@ const Detail: React.FC<{
                     <th>Tarifi</th>
                   </tr>
                 </thead>
-                <tbody>{rows}</tbody>
+                <tbody>
+                  <tr key={infoProduct.name}>
+                    <td>{infoProduct.position}</td>
+                    <td>{infoProduct.name}</td>
+                    <td>{infoProduct.name}</td>
+                    <td>{infoProduct.position}</td>
+                    <td>{infoProduct.name}</td>
+                    <td>{infoProduct.name}</td>
+                    <td>{infoProduct.symbol}</td>
+                    <td>{infoProduct.mass}</td>
+                  </tr>
+                </tbody>
               </Table>
             </Card.Section>
           </Card>

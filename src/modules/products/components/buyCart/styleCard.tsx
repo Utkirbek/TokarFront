@@ -8,8 +8,6 @@ const useStyles = createStyles(() => {
       right: 10,
       width: "400px",
       height: "90vh",
-      backgroundColor: "#1A1B1E ",
-      shadowColor: "#000",
       shadowOffset: {
         width: 0,
         height: 1,
@@ -28,16 +26,19 @@ const useStyles = createStyles(() => {
       justifyContent: "space-between",
       gap: "20",
       borderRadius: 10,
-      margin: "20px  0",
+      marginBottom: "20px",
+      boxShadow: "2px 0 0  3px rgba(0, 0, 0, 0.2)",
     },
     CardBox: {
+      marginTop: "50px",
       width: "100%",
-      height: "280px",
+      height: "250px",
     },
     cardPrice: {
       width: "100%",
-      height: "200px",
+      height: "280px",
       borderRadius: 10,
+      boxShadow: "2px 0 0  3px rgba(0, 0, 0, 0.2)",
     },
     buyBtn: {
       width: "100%",
@@ -55,12 +56,12 @@ const useStyles = createStyles(() => {
       justifyContent: "space-between",
       gap: "10px",
     },
-    info: {
+    totalpriceGrup: {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      gap: "15",
-      margin: "15px 0",
+      gap: "5",
+      marginBottom: "10px",
     },
     payMoney: {
       display: "flex",
@@ -71,7 +72,7 @@ const useStyles = createStyles(() => {
     payCardTitle: {
       textAlign: "center",
       fontWeight: 700,
-      margin: "10px 0",
+      margin: "5px 0",
     },
 
     payCard: {
@@ -84,13 +85,13 @@ const useStyles = createStyles(() => {
       borderRadius: 10,
       cursor: "pointer",
     },
+
     empty: {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       fontSize: 22,
       fontWeight: 700,
-      marginTop: "15%",
       padding: "30%  0",
     },
     counter: {
@@ -99,11 +100,7 @@ const useStyles = createStyles(() => {
       justifyContent: "space-around",
     },
     btnCount: {
-      backgroundColor: "#25262B",
-      border: "1px solid #1971C2",
-      color: "#fff",
-      padding: "3px  10px",
-      margin: "0 5px ",
+      margin: "0  5px",
     },
   };
 });

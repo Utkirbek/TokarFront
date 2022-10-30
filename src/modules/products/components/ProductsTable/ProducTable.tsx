@@ -211,11 +211,13 @@ export default function FormMantine() {
           />
         </ScrollArea>
       </Drawer>
+
       <Group position="right" mx={"xl"} my={"xl"}>
         <Button onClick={handleClick} variant={"outline"}>
           + Yangi mahsulot qo&apos;shish
         </Button>
       </Group>
+
       <ScrollArea>
         {data.length === 0 ? (
           <EmptyBox />
@@ -248,15 +250,19 @@ export default function FormMantine() {
           </Table>
         )}
       </ScrollArea>
-      {!!openBuyCart ? (
-        <BuyCart
-          handleCloseCartBuy={() => {
-            setBuyCart(false);
-            setTableWidth("100%");
-          }}
-          dates={dates}
-        />
-      ) : null}
+
+      <Drawer
+        opened={openBuyCart}
+        onClose={() => {
+          setTableWidth("100%"), setBuyCart(false);
+        }}
+        position="right"
+        padding="xl"
+        size="27%"
+        withOverlay={false}
+        zIndex={10}>
+        <BuyCart />
+      </Drawer>
     </>
   );
 }

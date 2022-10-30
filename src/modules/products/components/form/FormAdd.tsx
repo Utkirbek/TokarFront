@@ -1,9 +1,9 @@
 import ImageUploader from "@components/ImageUploader";
-import { Box, Button, Group, Text, TextInput } from "@mantine/core";
+import { Box, Button, Group, Select, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import useProducts from "@services/hooks/useProducts";
-import { IconCheck } from "@tabler/icons";
+import { IconCheck, IconChevronDown } from "@tabler/icons";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 
@@ -113,7 +113,7 @@ const FormProduct: React.FC<{
   };
 
   return (
-    <Box sx={{ maxWidth: 440 }} mx="auto">
+    <Box sx={{ maxWidth: 440, height: "auto" }} mx="auto">
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Text
           sx={{
@@ -175,6 +175,16 @@ const FormProduct: React.FC<{
           placeholder="Mahsulotga tarif"
           {...form.getInputProps("description")}
           sx={{}}
+          required
+        />
+        <Select
+          sx={{ width: "100%", margin: "20px  0" }}
+          rightSection={<IconChevronDown size={14} />}
+          rightSectionWidth={30}
+          styles={{ rightSection: { pointerEvents: "none" } }}
+          label={"Pull Birligini kiriting"}
+          data={["UZS", "USD", "RUS", "EUR"]}
+          defaultValue="1 hafta"
           required
         />
         <Group position="right" mt="md">

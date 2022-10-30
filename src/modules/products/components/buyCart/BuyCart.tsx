@@ -2,9 +2,9 @@ import {
   Box,
   Button,
   Card,
-  CloseButton,
   Container,
   ScrollArea,
+  Select,
   Text,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
@@ -12,6 +12,7 @@ import { showNotification, updateNotification } from "@mantine/notifications";
 import {
   IconCashBanknote,
   IconCheck,
+  IconChevronDown,
   IconCreditCard,
   IconTrash,
   IconWallet,
@@ -21,12 +22,10 @@ import { useCart } from "react-use-cart";
 
 import useStyles from "./styleCard";
 
-const BuyCart: React.FC<{
-  handleCloseCartBuy: () => void;
-  dates: any;
-}> = ({ handleCloseCartBuy, dates }) => {
+const BuyCart: React.FC<{}> = () => {
   const { classes, cx } = useStyles();
-  const [count, setCount] = useState(1);
+  const [wallet, setWallet] = useState(false);
+  const [cardMoney, setCardMoney] = useState(false);
   const {
     isEmpty,
     totalUniqueItems,
@@ -63,16 +62,12 @@ const BuyCart: React.FC<{
     });
   };
 
+  const clickWallet = () => {
+    setWallet(!wallet);
+  };
+
   return (
     <Box className={classes.boxHead}>
-      <CloseButton
-        title="Close popover"
-        size="xl"
-        iconSize={20}
-        my={"ms"}
-        sx={{ marginLeft: "340px" }}
-        onClick={() => handleCloseCartBuy()}
-      />
       <Container>
         <Box>
           <Box className={classes.CardBox}>
@@ -88,21 +83,23 @@ const BuyCart: React.FC<{
                         <Text>{item.price}</Text>
                         <Box className={classes.boxGroupCountTrash}>
                           <Box className={classes.counter}>
-                            <button
+                            <Button
                               onClick={() =>
                                 updateItemQuantity(item.id, item.quantity - 1)
                               }
-                              className={classes.btnCount}>
+                              className={classes.btnCount}
+                              variant={"outline"}>
                               -
-                            </button>
+                            </Button>
                             <Text>{item.quantity}</Text>
-                            <button
+                            <Button
                               onClick={() =>
                                 updateItemQuantity(item.id, item.quantity + 1)
                               }
-                              className={classes.btnCount}>
+                              className={classes.btnCount}
+                              variant={"outline"}>
                               +
-                            </button>
+                            </Button>
                           </Box>
                           <IconTrash
                             className={classes.trash}
@@ -116,16 +113,11 @@ const BuyCart: React.FC<{
               </ScrollArea>
             )}
           </Box>
-          {isEmpty ? null : (
-            <Button onClick={() => emptyCart()} mb={"lg"} variant="outline">
-              Xammasini Tozalash
-            </Button>
-          )}
 
           <Box>
             <Card className={classes.cardPrice}>
-              <Box className={classes.info}>
-                <Text sx={{ fontSize: "20px", fontWeight: 900 }}>
+              <Box className={classes.totalpriceGrup}>
+                <Text sx={{ fontSize: "18px", fontWeight: 900 }}>
                   Umumiy Narxi
                 </Text>
                 <Text sx={{ fontSize: "20px", fontWeight: 900 }}>
@@ -151,14 +143,40 @@ const BuyCart: React.FC<{
                     Bo&apos;lib To&apos;lash
                   </Text>
                   <div className={classes.payCard}>
-                    <IconWallet size={44} />
+                    <IconWallet size={44} onClick={() => clickWallet()} />
                   </div>
                 </div>
               </Box>
+              {!!wallet ? (
+                <Box>
+                  <Select
+                    sx={{ width: "100%", margin: "20px  0" }}
+                    rightSection={<IconChevronDown size={14} />}
+                    rightSectionWidth={30}
+                    styles={{ rightSection: { pointerEvents: "none" } }}
+                    data={[
+                      "1 hafta",
+                      "1 oy",
+                      " 1-3 oy",
+                      "3-6 oy",
+                      "6 dan yuqori",
+                    ]}
+                    defaultValue="1 hafta"
+                  />
+                  <Select
+                    placeholder="Kimga "
+                    data={[
+                      { value: "react", label: "React" },
+                      { value: "ng", label: "Angular" },
+                      { value: "svelte", label: "Svelte" },
+                      { value: "vue", label: "Vue" },
+                    ]}
+                  />
+                </Box>
+              ) : null}
             </Card>
           </Box>
           <Button className={classes.buyBtn} onClick={() => buy()}>
-            {" "}
             Sotish
           </Button>
         </Box>
