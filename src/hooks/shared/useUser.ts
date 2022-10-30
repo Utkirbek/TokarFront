@@ -8,7 +8,11 @@ const initalState: User = {
   name: "",
   email: "",
   phone: "",
-  role: "",
+  role: {
+    _id: "",
+    name: "",
+    permissions: [],
+  },
   image: "",
   createdAt: "",
   updatedAt: "",
@@ -27,10 +31,18 @@ const useUser = create(
   persist<User & UserAction>(
     (set, get) => ({
       ...initalState,
-
       updateUser: (user) => set({ ...user }),
-      authorize: (user) => set({ ...user, isLoggedIn: true }),
-      hasPerm: (perm) => get().permissions.includes(perm),
+      authorize: (user: any) =>
+        set({
+          isLoggedIn: true,
+          image: user.image,
+          name: user.admin.name,
+          email: user.admin.email,
+          orders: user.admin.orders,
+          permissions: user.admin.role.permissions,
+          role: user.admin.role,
+        }),
+      hasPerm: (perm) => get().permissions.some((p) => p.name === perm),
       logout: () => set({ ...initalState }),
     }),
     {

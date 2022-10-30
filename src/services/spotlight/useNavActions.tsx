@@ -1,5 +1,6 @@
 import { SpotlightAction } from "@mantine/spotlight";
 import { IconHome } from "@tabler/icons";
+import { removeCookies } from "cookies-next";
 import { useRouter } from "next/router";
 import { useIntl } from "react-intl";
 
@@ -35,7 +36,10 @@ const useNavActions = () => {
     {
       title: intl.formatMessage({ id: "logout.title" }),
       description: intl.formatMessage({ id: "logout.description" }),
-      onTrigger: () => router.push("/settings"),
+      onTrigger: () => {
+        removeCookies("token");
+        router.push("/auth/sign-in");
+      },
       icon: <IconHome size={18} />,
     },
   ] as SpotlightAction[];

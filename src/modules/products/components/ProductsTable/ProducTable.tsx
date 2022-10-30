@@ -1,9 +1,11 @@
 import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
+import If from "@components/smart/If";
 import {
   Avatar,
   Button,
   Checkbox,
   Drawer,
+  Grid,
   Group,
   Loader,
   ScrollArea,
@@ -25,7 +27,7 @@ import {
 } from "@tabler/icons";
 import { RequestQueryKeys } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useCart } from "react-use-cart";
 import useSWR from "swr";
 
@@ -38,14 +40,11 @@ import tableHead from "./const/constTableHeadName";
 export default function FormMantine() {
   const [editItem, setEditItem] = useState({});
   const [opened, setOpened] = useState(false);
-  const [openBuyCart, setBuyCart] = useState(false);
-  const [tableWidth, setTableWidth] = useState("100%");
   const theme = useMantineTheme();
   const { useFetchProduct, deleteProducts } = useProducts();
   const getProductsQuery = useFetchProduct();
   const { data: products } = getProductsQuery;
-  const ref = useRef<HTMLInputElement>(null);
-  const { addItem } = useCart();
+  const { addItem, isEmpty } = useCart();
 
   const handleDelete = async function (id: string) {
     deleteProducts(id, {
@@ -107,14 +106,14 @@ export default function FormMantine() {
       current.length === data.length ? [] : data.map((item: any) => item._id)
     );
 
-  const {
-    data,
-    error,
-    mutate: refetch,
-  } = useSWR(RequestQueryKeys.getProducts, productFetchers.getProducts);
+  const { data, error } = useSWR(
+    RequestQueryKeys.getProducts,
+    productFetchers.getProducts
+  );
 
   if (error) return <Error />;
   if (!data) return <Loader sx={{ margin: "20%  45%" }} size={"xl"} />;
+  if (data?.length === 0) return <EmptyBox />;
 
   const rows = products.map((item: any) => {
     const selected = selection.includes(item._id);
@@ -125,9 +124,7 @@ export default function FormMantine() {
     };
 
     const handleOpenCartBuy = (el: any) => {
-      setBuyCart(true);
       addItem({ id: el._id, ...el });
-      setTableWidth("85%");
     };
 
     return (
@@ -198,7 +195,8 @@ export default function FormMantine() {
         onClose={() => setOpened(false)}
         padding="xl"
         size="xl"
-        position="right">
+        position="right"
+      >
         <ScrollArea style={{ height: 560 }} scrollbarSize={2}>
           <FormProduct
             handleClose={() => {
@@ -209,56 +207,47 @@ export default function FormMantine() {
         </ScrollArea>
       </Drawer>
 
-      <Group position="right" mx={"xl"} my={"xl"}>
-        <Button onClick={handleClick} variant={"outline"}>
-          + Yangi mahsulot qo&apos;shish
-        </Button>
-      </Group>
-
-      <ScrollArea>
-        {data.length === 0 ? (
-          <EmptyBox />
-        ) : (
-          <Table
-            sx={{ width: tableWidth }}
-            verticalSpacing="sm"
-            highlightOnHover>
-            <thead>
-              <tr>
-                <th style={{ width: 40 }}>
-                  <Checkbox
-                    onChange={toggleAll}
-                    checked={selection.length === data.length}
-                    indeterminate={
-                      selection.length > 0 && selection.length !== data.length
-                    }
-                    transitionDuration={0}
-                  />
-                </th>
-                <th>{tableHead.name}</th>
-                <th>{tableHead.code}</th>
-                <th>{tableHead.price}</th>
-                <th>{tableHead.quantity}</th>
-                <th>{tableHead.discount}</th>
-                <th>{tableHead.action}</th>
-              </tr>
-            </thead>
-            <tbody>{rows}</tbody>
-          </Table>
+      <If hasPerm={"products.create"}>
+        <Group position="right" mx={"xl"} my={"xl"}>
+          <Button onClick={handleClick} variant={"outline"}>
+            + Yangi mahsulot qo&apos;shish
+          </Button>
+        </Group>
+      </If>
+      <Grid>
+        <Grid.Col span={isEmpty ? 12 : 8}>
+          <ScrollArea>
+            <Table verticalSpacing="sm" highlightOnHover>
+              <thead>
+                <tr>
+                  <th style={{ width: 40 }}>
+                    <Checkbox
+                      onChange={toggleAll}
+                      checked={selection.length === data.length}
+                      indeterminate={
+                        selection.length > 0 && selection.length !== data.length
+                      }
+                      transitionDuration={0}
+                    />
+                  </th>
+                  <th>{tableHead.name}</th>
+                  <th>{tableHead.code}</th>
+                  <th>{tableHead.price}</th>
+                  <th>{tableHead.quantity}</th>
+                  <th>{tableHead.discount}</th>
+                  <th>{tableHead.action}</th>
+                </tr>
+              </thead>
+              <tbody>{rows}</tbody>
+            </Table>
+          </ScrollArea>
+        </Grid.Col>
+        {!isEmpty && (
+          <Grid.Col span={4}>
+            <BuyCart />
+          </Grid.Col>
         )}
-      </ScrollArea>
-
-      <Drawer
-        opened={openBuyCart}
-        onClose={() => {
-          setTableWidth("100%"), setBuyCart(false);
-        }}
-        position="right"
-        padding="xl"
-        size="27%"
-        withOverlay={false}>
-        <BuyCart />
-      </Drawer>
+      </Grid>
     </>
   );
 }

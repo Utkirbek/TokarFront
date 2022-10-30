@@ -23,7 +23,12 @@ const Products = (props: Props) => {
               id: item._id,
               title: item.title,
               description: item.description,
-              onTrigger: () => router.push(`/products?details=${item._id}`),
+              onTrigger: () =>
+                router.push("/products", {
+                  query: {
+                    details: item._id,
+                  },
+                }),
               icon: <IconHome size={18} />,
             }));
 

@@ -3,19 +3,12 @@ import { createStyles } from "@mantine/core";
 const useStyles = createStyles(() => {
   return {
     boxHead: {
-      position: "absolute",
-      top: "10%",
-      right: 10,
-      width: "400px",
-      height: "90vh",
+      width: "100%",
       shadowOffset: {
         width: 0,
         height: 1,
       },
-      shadowOpacity: 0.22,
-      shadowRadius: 2.22,
     },
-
     card: {
       width: "100%",
       height: "60px",

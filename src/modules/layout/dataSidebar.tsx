@@ -1,10 +1,17 @@
-import { IconBrandProducthunt, IconChartLine, IconUsers } from "@tabler/icons";
+import {
+  IconBarcode,
+  IconBrandProducthunt,
+  IconChartLine,
+  IconSettingsAutomation,
+  IconUserCircle,
+  IconUsers,
+} from "@tabler/icons";
 
 const data = [
   { link: "/", label: "statistics.title", icon: IconChartLine },
   { link: "/admins", label: "admins.title", icon: IconUsers },
-  { link: "/users", label: "customers.title", icon: IconUsers },
-  { link: "/products", label: "products.title", icon: IconBrandProducthunt },
-  { link: "/settings", label: "settings.title", icon: IconBrandProducthunt },
+  { link: "/users", label: "customers.title", icon: IconUserCircle },
+  { link: "/products", label: "products.title", icon: IconBarcode },
+  { link: "/settings", label: "settings.title", icon: IconSettingsAutomation },
 ];
 export default data;

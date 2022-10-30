@@ -19,4 +19,12 @@ export enum RequestQueryKeys {
   updeteAdmin = "updeteAdmin",
   addAdmin = "addAdmin",
   searchProduct = "searchProduct",
+  getAllPermissions = "getAllPermissions",
+  addPermission = "addPermission",
+  updatePermission = "updatePermission",
+  deletePermission = "deletePermission",
+  getAllRoles = "getAllRoles",
+  addRole = "addRole",
+  updateRole = "updateRole",
+  deleteRole = "deleteRole",
 }
