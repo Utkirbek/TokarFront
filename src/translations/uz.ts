@@ -10,7 +10,7 @@ const uz = {
   admins: {
     title: "Adminlar",
     deleteConfirmation:
-      "{name} Ushbu ishchingiz sizni tizimdan o'chib ketadi, bu ishni ortga qaytarib bo&apos;lmaydi, shunda ham ishonchingiz komilmi?",
+      "{name} Ushbu ishchingiz sizni tizimdan o'chib ketadi, bu ishni ortga qaytarib bo'lmaydi, shunda ham ishonchingiz komilmi?",
     deleteSuccessMessage: "Foydalanuvchi udalit qilindi",
     addAdmins: "+ Admin qo'shish",
     name: "Ismi",
@@ -48,7 +48,14 @@ const uz = {
   },
 
   roles: {
-    title: "Rollar"
+    title: "Rollar",
+    addRole: "+ Rol qo'shish",
+    name: "Ismi",
+    deleteConfirmation:
+      "{name} Ushbu ishchingiz sizni tizimdan o'chib ketadi, bu ishni ortga qaytarib bo'lmaydi, shunda ham ishonchingiz komilmi?",
+    deleteSuccessMessage: "Foydalanuvchi udalit qilindi",
+    deletEdit: "O'chirish va tahrirlash",
+
   }
 };
 

@@ -25,6 +25,12 @@ const en = {
   },
   roles: {
     title: "Roles",
+    addRole: "+ Add role",
+    name: "Name",
+    deleteConfirmation:
+      "{name} This worker will log you out, it can't be undone, are you sure?",
+    deleteSuccessMessage: "The user has been removed",
+    deletEdit: "Delete and edit",
   }
 };
 
