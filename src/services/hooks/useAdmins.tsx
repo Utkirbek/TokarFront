@@ -8,6 +8,34 @@ const useAdmins = () => {
   return {
     useFetchAdmins: () =>
       useSWR(RequestQueryKeys.getAdmins, adminFetchers.getAdmins),
+    addAdmin: async function (
+      body: {
+        name: string;
+        email: string;
+        role: string;
+        password: string;
+      },
+      options?: {
+        onSuccess?: (data: any) => void;
+        onError?: (error: any) => void;
+      }
+    ) {
+      try {
+        const res = await mutate(
+          RequestQueryKeys.addAdmin,
+          adminFetchers.addAdmin(body),
+          {
+            revalidate: true,
+          }
+        );
+        options?.onSuccess && options.onSuccess(res);
+        mutate(RequestQueryKeys.getAdmins);
+        return res;
+      } catch (error) {
+        console.error(error);
+        options?.onError && options.onError(error);
+      }
+    },
     editAdmin: async (
       data: {
         id: string;

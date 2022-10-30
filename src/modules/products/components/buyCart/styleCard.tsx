@@ -102,6 +102,9 @@ const useStyles = createStyles(() => {
     btnCount: {
       margin: "0  5px",
     },
+    user: {
+      marginTop: "20px 0",
+    },
   };
 });
 export default useStyles;

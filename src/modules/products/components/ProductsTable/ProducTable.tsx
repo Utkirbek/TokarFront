@@ -42,11 +42,9 @@ export default function FormMantine() {
   const [tableWidth, setTableWidth] = useState("100%");
   const theme = useMantineTheme();
   const { useFetchProduct, deleteProducts } = useProducts();
-  const getAdminsQuery = useFetchProduct();
-  const { data: products } = getAdminsQuery;
+  const getProductsQuery = useFetchProduct();
+  const { data: products } = getProductsQuery;
   const ref = useRef<HTMLInputElement>(null);
-  const [dates, setData]: any = useState([]);
-
   const { addItem } = useCart();
 
   const handleDelete = async function (id: string) {
@@ -128,7 +126,6 @@ export default function FormMantine() {
 
     const handleOpenCartBuy = (el: any) => {
       setBuyCart(true);
-      setEditItem(item);
       addItem({ id: el._id, ...el });
       setTableWidth("85%");
     };

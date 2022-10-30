@@ -1,5 +1,5 @@
 import useUser from "@hooks/shared/useUser";
-import { Avatar, Drawer, Group, Table, Text } from "@mantine/core";
+import { Button, Drawer, Group, Table, Text } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
@@ -18,8 +18,7 @@ function TableCard() {
   const [drawerOpen, toggleDrawerOpen] = useToggle();
   const [editItem, setEditItem] = useState({});
 
-  const { useFetchAdmins, deleteAdmin, editAdmin } = useAdmins();
-
+  const { useFetchAdmins, deleteAdmin } = useAdmins();
   const getAdminsQuery = useFetchAdmins();
   const { data: admins } = getAdminsQuery;
 
@@ -30,7 +29,7 @@ function TableCard() {
           id: "load-data",
           color: "teal",
           title: intl.formatMessage({ id: "admin.deleteSuccessTitle" }),
-          message: "Foydalanuvchi udalit qilindi",
+          message: intl.formatMessage({ id: "admin.deleteSuccessMessage" }),
           icon: <IconCheck size={16} />,
           autoClose: 2000,
         });
@@ -39,8 +38,8 @@ function TableCard() {
         updateNotification({
           id: "load-data",
           color: "red",
-          title: "Xatolik",
-          message: intl.formatMessage({ id: "sthWentWrong" }),
+          title: "Muvaffaqiyatli o'chirildi",
+          message: "O'chirishda xatolik ro'y berdi",
           autoClose: false,
           disallowClose: false,
         });
@@ -57,7 +56,10 @@ function TableCard() {
           <FormattedMessage id="admins.deleteConfirmation" values={{ name }} />
         </Text>
       ),
-      labels: { confirm: "Tasdiqlash", cancel: "Bekor qilish" },
+      labels: {
+        confirm: "Tasdiqlash",
+        cancel: "Bekor qilish",
+      },
       confirmProps: { color: "red" },
       onConfirm: async () => {
         showNotification({
@@ -74,11 +76,10 @@ function TableCard() {
       onCancel: () => {
         showNotification({
           title: "Siz bekor qildingiz",
-          message: "Hey there, your code is awesome! 🤥",
+          message: "Siz foydalanuvchini o'chirmadiz 🤥",
         });
       },
     });
-
   const onEditClick = (item: any) => {
     setEditItem(item);
     toggleDrawerOpen();
@@ -93,10 +94,7 @@ function TableCard() {
     return (
       <tr key={item._id}>
         <td>
-          <Group spacing="sm">
-            <Avatar size={28} src={item.image} radius={26} />
-            {item.name}
-          </Group>
+          <Group spacing="sm">{item.name}</Group>
         </td>
         <td>{item.email}</td>
 
@@ -123,12 +121,23 @@ function TableCard() {
 
   return (
     <WithLoading query={getAdminsQuery}>
+      <Group position="right" mx={"xl"} my={"xl"}>
+        <Button onClick={onClose} variant={"outline"}>
+          <FormattedMessage id="admins.addAdmins" />
+        </Button>
+      </Group>
       <Table highlightOnHover>
         <thead>
           <tr>
-            <th>Ismi</th>
-            <th>Elektron po&lsquo;chta</th>
-            <th>o&lsquo;chirish va tahrirlash</th>
+            <th>
+              <FormattedMessage id="admins.name" />
+            </th>
+            <th>
+              <FormattedMessage id="admins.email" />
+            </th>
+            <th>
+              <FormattedMessage id="admins.deletEdit" />
+            </th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
@@ -141,11 +150,7 @@ function TableCard() {
         size="30%"
         position="right"
       >
-        <AdminsDrawer
-          editItem={editItem}
-          handleClose={onClose}
-          onEdit={editAdmin}
-        />
+        <AdminsDrawer editItem={editItem} handleClose={onClose} />
       </Drawer>
     </WithLoading>
   );

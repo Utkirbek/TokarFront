@@ -26,6 +26,7 @@ const BuyCart: React.FC<{}> = () => {
   const { classes, cx } = useStyles();
   const [wallet, setWallet] = useState(false);
   const [cardMoney, setCardMoney] = useState(false);
+
   const {
     isEmpty,
     totalUniqueItems,
@@ -147,32 +148,26 @@ const BuyCart: React.FC<{}> = () => {
                   </div>
                 </div>
               </Box>
+              <Select
+                sx={{ margin: "20px 0" }}
+                placeholder="Kimga "
+                data={[{ value: "users", label: "Foydalanuvchilar chiqadi" }]}
+              />
               {!!wallet ? (
-                <Box>
-                  <Select
-                    sx={{ width: "100%", margin: "20px  0" }}
-                    rightSection={<IconChevronDown size={14} />}
-                    rightSectionWidth={30}
-                    styles={{ rightSection: { pointerEvents: "none" } }}
-                    data={[
-                      "1 hafta",
-                      "1 oy",
-                      " 1-3 oy",
-                      "3-6 oy",
-                      "6 dan yuqori",
-                    ]}
-                    defaultValue="1 hafta"
-                  />
-                  <Select
-                    placeholder="Kimga "
-                    data={[
-                      { value: "react", label: "React" },
-                      { value: "ng", label: "Angular" },
-                      { value: "svelte", label: "Svelte" },
-                      { value: "vue", label: "Vue" },
-                    ]}
-                  />
-                </Box>
+                <Select
+                  sx={{ width: "100%", margin: "10px  0" }}
+                  rightSection={<IconChevronDown size={14} />}
+                  rightSectionWidth={30}
+                  styles={{ rightSection: { pointerEvents: "none" } }}
+                  data={[
+                    "1 hafta",
+                    "1 oy",
+                    " 1-3 oy",
+                    "3-6 oy",
+                    "6 dan yuqori",
+                  ]}
+                  defaultValue="1 hafta"
+                />
               ) : null}
             </Card>
           </Box>
