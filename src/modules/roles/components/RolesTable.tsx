@@ -10,7 +10,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 
 import WithLoading from "@/hoc/WithLoading";
 
-// import AdminsDrawer from "./AdminsDrawer";
+import RolesDrawer from "./RolesDrawer";
 
 function TableCard() {
   const { name } = useUser();
@@ -28,8 +28,8 @@ function TableCard() {
         updateNotification({
           id: "load-data",
           color: "teal",
-          title: intl.formatMessage({ id: "admin.deleteSuccessTitle" }),
-          message: intl.formatMessage({ id: "admin.deleteSuccessMessage" }),
+          title: intl.formatMessage({ id: "role.deleteSuccessTitle" }),
+          message: intl.formatMessage({ id: "role.deleteSuccessMessage" }),
           icon: <IconCheck size={16} />,
           autoClose: 2000,
         });
@@ -49,7 +49,7 @@ function TableCard() {
 
   const openDeleteModal = (id: string, name: string) =>
     openConfirmModal({
-      title: "Siz ushbu foydalanuvchini o'chirmoqchimisiz",
+      title: "Siz ushbu Rolni o'chirmoqchimisiz",
       centered: true,
       children: (
         <Text size="sm">
@@ -66,7 +66,7 @@ function TableCard() {
           id: "load-data",
           loading: true,
           title: "Iltimos kuting",
-          message: "Foydalanuvchi udalit qilinyabdi",
+          message: "Rol udalit qilinyabdi",
           autoClose: false,
           disallowClose: true,
         });
@@ -76,7 +76,7 @@ function TableCard() {
       onCancel: () => {
         showNotification({
           title: "Siz bekor qildingiz",
-          message: "Siz foydalanuvchini o'chirmadiz 🤥",
+          message: "Siz Rolni o'chirmadiz 🤥",
         });
       },
     });
@@ -121,17 +121,17 @@ function TableCard() {
     <WithLoading query={getAdminsQuery}>
       <Group position="right" mx={"xl"} my={"xl"}>
         <Button onClick={onClose} variant={"outline"}>
-          <FormattedMessage id="admins.addAdmins" />
+          <FormattedMessage id="roles.addRoles" />
         </Button>
       </Group>
       <Table highlightOnHover>
         <thead>
           <tr>
             <th>
-              <FormattedMessage id="admins.name" />
+              <FormattedMessage id="roles.name" />
             </th>
             <th>
-              <FormattedMessage id="admins.deletEdit" />
+              <FormattedMessage id="roles.deletEdit" />
             </th>
           </tr>
         </thead>
@@ -145,7 +145,7 @@ function TableCard() {
         size="30%"
         position="right"
       >
-        {/* <AdminsDrawer editItem={editItem} handleClose={onClose} /> */}
+        <RolesDrawer editItem={editItem} handleClose={onClose} />
       </Drawer>
     </WithLoading>
   );

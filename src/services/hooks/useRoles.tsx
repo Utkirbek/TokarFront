@@ -34,7 +34,7 @@ const useRoles = () => {
         options?.onError && options.onError(error);
       }
     },
-    editAdmin: async (
+    editRole: async (
       data: {
         id: string;
         values: any;
