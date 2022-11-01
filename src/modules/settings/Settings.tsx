@@ -3,10 +3,8 @@ import { Card, Grid, Loader, Text, TextInput } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import DashLayout from "@modules/layout/DashLayout";
 import useSettings from "@services/hooks/useSettings";
-import { RequestQueryKeys } from "@utils/constants";
 import { NextPage } from "next";
 import { useRef } from "react";
-import { mutate } from "swr";
 
 const Settings: NextPage = () => {
   const newPermRef = useRef<HTMLInputElement>(null);
