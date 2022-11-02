@@ -25,13 +25,13 @@ function DashLayout({ children }: any) {
   const [opened, setOpened] = useState(false);
 
   const links = data.map((item, index) => (
+    // bu yerda If permission  quyilishi  kerak
     <Link
       href={item.link}
       key={item.label}
       className={cx(classes.link, "test", {
         sidebarLink: item.link === router.pathname,
-      })}
-    >
+      })}>
       <item.icon className={classes.linkIcon} stroke={1.5} />
       <span>
         <FormattedMessage id={item.label} />
@@ -56,16 +56,14 @@ function DashLayout({ children }: any) {
           p="md"
           hiddenBreakpoint="sm"
           hidden={!opened}
-          width={{ sm: 200, lg: 270 }}
-        >
+          width={{ sm: 200, lg: 270 }}>
           <div className={classes.container}>{links}</div>
         </Navbar>
       }
       header={
         <Header height={70} p="md">
           <div
-            style={{ display: "flex", alignItems: "center", height: "100%" }}
-          >
+            style={{ display: "flex", alignItems: "center", height: "100%" }}>
             <MediaQuery largerThan="sm" styles={{ display: "none" }}>
               <Burger
                 opened={opened}
@@ -87,8 +85,7 @@ function DashLayout({ children }: any) {
                   alignItems: "center",
                   justifyContent: "space-between",
                   gap: 5,
-                }}
-              >
+                }}>
                 <TextInput
                   sx={{ width: "92%" }}
                   placeholder="Nima qidiryapsiz...?"
@@ -98,8 +95,7 @@ function DashLayout({ children }: any) {
             </div>
           </div>
         </Header>
-      }
-    >
+      }>
       {children}
     </AppShell>
   );
