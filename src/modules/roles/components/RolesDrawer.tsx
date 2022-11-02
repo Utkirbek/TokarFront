@@ -2,7 +2,7 @@ import {
     Box,
     Button,
     Group,
-    PasswordInput,
+    MultiSelect,
     Text,
     TextInput,
   } from "@mantine/core";
@@ -90,10 +90,6 @@ import {
             my={"sm"}
             required
           />
-
-
-
-  
           <Group position="right" mt="md">
             <Button type="submit">
               {!editItem._id ? "Ro'yxatga Qo'shish" : "Saqlash"}
