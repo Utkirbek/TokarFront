@@ -1,5 +1,6 @@
+import If from "@components/smart/If";
 import DashLayout from "@modules/layout/DashLayout";
-import React from "react";
+import { Permissions } from "@utils/constants";
 
 import AdminsTable from "./components/AdminsTable";
 
@@ -8,7 +9,9 @@ type Props = {};
 const Admins = (props: Props) => {
   return (
     <DashLayout>
-      <AdminsTable />
+      <If hasPerm={Permissions.admins.view}>
+        <AdminsTable />
+      </If>
     </DashLayout>
   );
 };

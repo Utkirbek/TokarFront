@@ -25,7 +25,7 @@ import {
   IconPencil,
   IconTrash,
 } from "@tabler/icons";
-import { RequestQueryKeys } from "@utils/constants";
+import { Permissions, RequestQueryKeys } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
 import { useRouter } from "next/router";
 import { memo, useState } from "react";
@@ -163,15 +163,19 @@ function ProductsTable() {
         </td>
 
         <td>
-          <IconPencil
-            style={{ cursor: "pointer", marginTop: "5px" }}
-            onClick={handEdit}
-          />
-          <IconTrash
-            color="red"
-            style={{ margin: "0  20px", cursor: "pointer" }}
-            onClick={() => openDeleteModal(item._id, item.title)}
-          />
+          <If hasPerm={Permissions.products.edit}>
+            <IconPencil
+              style={{ cursor: "pointer", marginTop: "5px" }}
+              onClick={handEdit}
+            />
+          </If>
+          <If hasPerm={Permissions.products.delete}>
+            <IconTrash
+              color="red"
+              style={{ margin: "0  20px", cursor: "pointer" }}
+              onClick={() => openDeleteModal(item._id, item.title)}
+            />
+          </If>
           <Button onClick={() => handleOpenCartBuy(item)}>Sotish</Button>
         </td>
         <td>
@@ -211,8 +215,7 @@ function ProductsTable() {
         onClose={() => setOpened(false)}
         padding="xl"
         size="xl"
-        position="right"
-      >
+        position="right">
         <ScrollArea style={{ height: 560 }} scrollbarSize={2}>
           <FormProduct
             handleClose={() => {
@@ -223,7 +226,7 @@ function ProductsTable() {
         </ScrollArea>
       </Drawer>
 
-      <If hasPerm={"products.create"}>
+      <If hasPerm={Permissions.products.create}>
         <Group position="right" mx={"xl"} my={"xl"}>
           <Button onClick={handleClick} variant={"outline"}>
             + Yangi mahsulot qo&apos;shish
