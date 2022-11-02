@@ -27,20 +27,23 @@ import {
 } from "@tabler/icons";
 import { RequestQueryKeys } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { memo, useState } from "react";
+import { FormattedMessage } from "react-intl";
 import { useCart } from "react-use-cart";
 import useSWR from "swr";
 
 import BuyCart from "../buyCart/BuyCart";
-import Detail from "../details/Detail";
 import FormProduct from "../form/FormAdd";
 import Error from "./components/Error";
+import ProductDetails from "./components/ProductDetails";
 import tableHead from "./const/constTableHeadName";
 
-export default function FormMantine() {
+function ProductsTable() {
   const [editItem, setEditItem] = useState({});
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
+  const router = useRouter();
   const { useFetchProduct, deleteProducts } = useProducts();
   const getProductsQuery = useFetchProduct();
   const { data: products } = getProductsQuery;
@@ -172,7 +175,20 @@ export default function FormMantine() {
           <Button onClick={() => handleOpenCartBuy(item)}>Sotish</Button>
         </td>
         <td>
-          <Detail infoProduct={editItem} />
+          <Button
+            variant="outline"
+            sx={{ width: "100px", height: "30px" }}
+            radius={"xl"}
+            onClick={() => {
+              router.push("/products", {
+                query: {
+                  details: item._id,
+                },
+              });
+            }}
+          >
+            <FormattedMessage id="products.details" />
+          </Button>
         </td>
       </tr>
     );
@@ -248,6 +264,9 @@ export default function FormMantine() {
           </Grid.Col>
         )}
       </Grid>
+      <ProductDetails products={data} />
     </>
   );
 }
+
+export default memo(ProductsTable);

@@ -23,6 +23,9 @@ const en = {
   settings: {
     title: "Settings",
   },
+  products: {
+    details: "Details",
+  },
 };
 
 export default en;

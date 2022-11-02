@@ -31,6 +31,7 @@ const uz = {
   products: {
     title: "Mahsulotlar",
     description: "Mahsulotlar boshqaruv paneli",
+    details: "Batafsil",
   },
   statistics: {
     title: "Statistika",

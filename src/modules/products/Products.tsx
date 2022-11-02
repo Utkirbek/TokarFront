@@ -16,7 +16,7 @@ const Products = (props: Props) => {
 
   useEffect(() => {
     if (spotlight.opened) {
-      if (spotlight.query) {
+      if (spotlight.query && spotlight.query.length % 3 === 0) {
         productFetchers.getProductByTitle(spotlight.query).then((res) => {
           if (!!res && res?.length > 0) {
             const newActions: SpotlightAction[] = res.map((item: any) => ({
@@ -38,7 +38,7 @@ const Products = (props: Props) => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [spotlight.opened, spotlight.query, spotlight.registerActions]);
+  }, [spotlight.query]);
 
   return (
     <DashLayout>
