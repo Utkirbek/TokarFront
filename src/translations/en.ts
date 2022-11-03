@@ -1,7 +1,6 @@
 const en = {
   loading: "Loading",
   delete: "Delete",
-  logout: "Logout",
   sthWentWrong: "Something went wrong",
 
   home: {
@@ -22,7 +21,31 @@ const en = {
   },
   settings: {
     title: "Settings",
+    description: "Program Settings",
   },
+  customers: {
+    title: "Clients",
+    description: "Customer Control Panel",
+  },
+  products: {
+    title: "Products",
+    description: "Products Dashboard",
+  },
+  stats: {
+    title: "Statistics",
+    description: "Statistical information",
+  },
+
+  orders: {
+    title: "Orders",
+    description: "Order information portal",
+  },
+
+  logout: {
+    title: "Exit",
+    description: "Logout",
+  },
+  perm: {},
 };
 
 export default en;

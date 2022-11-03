@@ -64,8 +64,8 @@ const useSettings = () => {
     },
 
     updatePermission: async (updatedPermission: {
-      name: string;
-      id: string;
+      name: string | any;
+      id: string | any;
     }) => {
       return await mutate(
         [RequestQueryKeys.updatePermission],
@@ -79,14 +79,28 @@ const useSettings = () => {
       );
     },
 
-    deletePermission: async (id: string) => {
-      return await mutate(
-        [RequestQueryKeys.deletePermission],
-        settingsFetchers.deletePermission(id),
-        {
-          revalidate: true,
-        }
-      );
+    deletePermission: async (
+      id: string,
+      options?: {
+        onSuccess?: (data: any) => void;
+        onError?: (error: any) => void;
+      }
+    ) => {
+      try {
+        const res = await mutate(
+          RequestQueryKeys.deletePermission,
+          settingsFetchers.deletePermission(id),
+          {
+            revalidate: true,
+          }
+        );
+        options?.onSuccess && options.onSuccess(res);
+        mutate(RequestQueryKeys.getAllPermissions);
+        return res;
+      } catch (err) {
+        console.error(err);
+        options?.onError && options.onError(err);
+      }
     },
   };
 };

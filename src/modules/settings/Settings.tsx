@@ -1,22 +1,29 @@
 import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import { Card, Grid, Loader, Text, TextInput } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
+import { showNotification, updateNotification } from "@mantine/notifications";
 import DashLayout from "@modules/layout/DashLayout";
 import useSettings from "@services/hooks/useSettings";
+import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
 import { NextPage } from "next";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const Settings: NextPage = () => {
   const newPermRef = useRef<HTMLInputElement>(null);
 
-  const { useGetAllPermissions, addPermission } = useSettings();
+  const {
+    useGetAllPermissions,
+    addPermission,
+    deletePermission,
+    updatePermission,
+  } = useSettings();
   const { data: permissions, error, mutate: refetch } = useGetAllPermissions();
 
   if (!permissions) return <Loader />;
   if (error) return <div>error</div>;
   if (permissions?.length === 0) return <EmptyBox />;
 
-  const handleNewPermissionClick = () => {
+  const handleUPermissionAdd = () => {
     openConfirmModal({
       title: "Yangi huquq qo'shish",
       children: (
@@ -25,6 +32,7 @@ const Settings: NextPage = () => {
           placeholder="Huquq nomini kiriting"
           data-autofocus
           ref={newPermRef}
+          required
         />
       ),
       onConfirm: async () => {
@@ -42,14 +50,94 @@ const Settings: NextPage = () => {
     });
   };
 
+  const handlePermissionUpdate = (name: string, id: string) => {
+    openConfirmModal({
+      title: "Huquqni o'zgartirish.",
+      children: (
+        <TextInput
+          label="Huquq nomini o'zgartirish"
+          placeholder="Yangi huquq nomini kiriting"
+          data-autofocus
+          ref={newPermRef}
+          required
+          defaultValue={name}
+        />
+      ),
+      onConfirm: async () => {
+        await updatePermission({
+          name: newPermRef.current?.value,
+          id: id,
+        });
+        refetch();
+      },
+      labels: {
+        confirm: "Saqlash",
+        cancel: "Bekor qilish",
+      },
+    });
+  };
+
+  const handleDelete = async function (id: string) {
+    deletePermission(id, {
+      onSuccess: () => {
+        updateNotification({
+          id: "load-data",
+          color: "teal",
+          title: "Mahsulot o'chirilmoqda",
+          message:
+            "Bu malumot o'chirilgandan keyin qayta yuklashni iloji yo'q.Yangi mahsulot qo'shasiz",
+          icon: <IconCheck size={16} />,
+          autoClose: 2000,
+        });
+      },
+      onError: () => {
+        updateNotification({
+          id: "load-data",
+          color: "red",
+          title: "Xatolik",
+          message: "Xatolik Yoz berdi",
+          autoClose: false,
+          disallowClose: false,
+        });
+      },
+    });
+  };
+  const openDeleteModal = (id: string) =>
+    openConfirmModal({
+      title: "Mahsulotni o'chirish",
+      centered: true,
+      children: (
+        <Text size="sm">
+          Siz bu mahsulotni chindanham o&apos;chirmoqchimisiz
+        </Text>
+      ),
+      labels: { confirm: "O'chirish", cancel: "Orqaga qaytish" },
+      confirmProps: { color: "red" },
+      onConfirm: () => {
+        handleDelete(id);
+        refetch();
+      },
+      onCancel: () => {
+        showNotification({
+          title: "Siz bekor qildingiz",
+          message: "Hey there, your code is awesome! 🤥",
+        });
+      },
+    });
+
   return (
     <DashLayout>
       <h1>Ruxsat Etilgan Amallar</h1>
       <Grid>
         <Grid.Col span={3} lg={2} md={3} xs={12} sm={6}>
           <Card
-            sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
-            onClick={handleNewPermissionClick}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              cursor: "pointer",
+              height: 105,
+            }}
+            onClick={handleUPermissionAdd}
           >
             <Text>Yangi ruxsat</Text>
             <lord-icon
@@ -65,7 +153,24 @@ const Settings: NextPage = () => {
         </Grid.Col>
         {permissions.map((permission: { name: string; _id: string }) => (
           <Grid.Col key={permission._id} span={3} lg={2} md={3} xs={12} sm={6}>
-            <Card>
+            <Card px={25} py={20} style={{ textAlign: "center" }}>
+              <IconPencil
+                onClick={() =>
+                  handlePermissionUpdate(permission.name, permission._id)
+                }
+                cursor={"pointer"}
+                style={{
+                  position: "absolute",
+                  right: 20,
+                  marginRight: 40,
+                  marginBottom: 10,
+                }}
+              />
+              <IconTrash
+                onClick={() => openDeleteModal(permission._id)}
+                cursor={"pointer"}
+                style={{ marginLeft: 120, marginBottom: 10 }}
+              />
               <Text>{permission.name}</Text>
             </Card>
           </Grid.Col>
