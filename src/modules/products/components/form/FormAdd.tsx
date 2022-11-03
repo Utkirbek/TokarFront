@@ -135,7 +135,8 @@ const FormProduct: React.FC<{
             fontSize: "24px",
             textAlign: "center",
             fontWeight: 700,
-          }}>
+          }}
+        >
           {!editItem._id ? "Yangi Mahsulot qo'shish" : "Tahrirlash"}
         </Text>
         <TextInput
@@ -159,7 +160,8 @@ const FormProduct: React.FC<{
           <Button
             variant="outline"
             sx={{ float: "right", margin: "10px 0" }}
-            hidden>
+            hidden
+          >
             Rasmni Olib Tashlash
           </Button>
         </Box>

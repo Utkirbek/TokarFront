@@ -1,5 +1,5 @@
 import ErrorFallbackUI from "@components/ErrorFallbackUI";
-import { Loader } from "@mantine/core";
+import FallbackLoadingUi from "@components/FallBackLoadingUi";
 import React from "react";
 import { SWRResponse } from "swr";
 
@@ -14,7 +14,7 @@ const WithLoading = (props: Props) => {
   const {
     children,
     query,
-    FallbackLoadingUI = Loader,
+    FallbackLoadingUI = FallbackLoadingUi,
     FallbackErrorUI = ErrorFallbackUI,
   } = props;
 
