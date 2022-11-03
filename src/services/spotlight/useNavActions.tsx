@@ -45,6 +45,7 @@ const useNavActions = () => {
         icon: <IconHome size={18} />,
       },
     ];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return actions;
