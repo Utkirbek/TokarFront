@@ -1,6 +1,7 @@
 const tableHead = {
   name: "Mahsulot Nomi",
   code: "Kodi",
+  originalPrice: "Asl Narxi",
   price: "Narxi",
   quantity: "Jami",
   discount: "Chegirma",

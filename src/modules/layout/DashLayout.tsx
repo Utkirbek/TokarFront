@@ -1,4 +1,5 @@
 import ButtonToggleDark from "@components/darkmode/Darkmode";
+import If from "@components/smart/If";
 import Logout from "@components/smart/Logout";
 import {
   AppShell,
@@ -15,28 +16,29 @@ import data from "@modules/layout/dataSidebar";
 import useStyles from "@modules/layout/style/dashStyle";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import React, { useState } from "react";
 import { FormattedMessage } from "react-intl";
 
-function DashLayout({ children }: any) {
+function DashLayout({ children }: { children: React.ReactNode }) {
   const { classes, cx } = useStyles();
   const theme = useMantineTheme();
   const router = useRouter();
   const [opened, setOpened] = useState(false);
 
-  const links = data.map((item, index) => (
-    <Link
-      href={item.link}
-      key={item.label}
-      className={cx(classes.link, "test", {
-        sidebarLink: item.link === router.pathname,
-      })}
-    >
-      <item.icon className={classes.linkIcon} stroke={1.5} />
-      <span>
-        <FormattedMessage id={item.label} />
-      </span>
-    </Link>
+  const links = data.map((item) => (
+    <If hasPerm={item.permission} key={item.label}>
+      <Link
+        href={item.link}
+        className={cx(classes.link, "test", {
+          sidebarLink: item.link === router.pathname,
+        })}
+      >
+        <item.icon className={classes.linkIcon} stroke={1.5} />
+        <span>
+          <FormattedMessage id={item.label} />
+        </span>
+      </Link>
+    </If>
   ));
 
   return (
@@ -77,8 +79,8 @@ function DashLayout({ children }: any) {
             </MediaQuery>
             <div className={classes.navDesh}>
               <ButtonToggleDark />
-              <Link href="">
-                <Text className={classes.title}>Tokar.uz</Text>
+              <Link href="/">
+                <Text className={classes.title}>Tokar</Text>
               </Link>
               <Box
                 sx={{

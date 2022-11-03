@@ -45,7 +45,6 @@ function SignIn() {
         authFetchers.login(values),
         false
       );
-      // set expires to 1 day
       setCookie("token", res.token, {
         expires: new Date(Date.now() + 86400000),
       });

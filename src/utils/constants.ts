@@ -36,3 +36,34 @@ export enum RequestQueryKeys {
   updateRole = "updateRole",
   deleteRole = "deleteRole",
 }
+
+export const Permissions = {
+  products: {
+    edit: "products.edit",
+    create: "products.create",
+    delete: "products.delete",
+    sell: "products.sell",
+  },
+  admins: {
+    view: "admins.read",
+    delete: "admins.delete",
+    create: "admins.create",
+    edit: "admins.edit",
+  },
+  users: {
+    view: "admins.view",
+    create: "admins.create",
+    edit: "admins.edit",
+    delete: "admins.delete",
+    action: "action.view",
+  },
+  statistica: {
+    view: "statistics.view",
+  },
+  settings: {
+    view: "settings.view",
+  },
+  accounting: {
+    view: "accounting.view",
+  },
+};

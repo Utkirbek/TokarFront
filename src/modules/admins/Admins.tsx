@@ -1,14 +1,21 @@
-import DashLayout from "@modules/layout/DashLayout";
-import React from "react";
+import If from "@components/smart/If";
+import { Permissions } from "@utils/constants";
+import dynamic from "next/dynamic";
 
 import AdminsTable from "./components/AdminsTable";
+
+const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
+  ssr: false,
+});
 
 type Props = {};
 
 const Admins = (props: Props) => {
   return (
     <DashLayout>
-      <AdminsTable />
+      <If hasPerm={Permissions.admins.view}>
+        <AdminsTable />
+      </If>
     </DashLayout>
   );
 };

@@ -1,3 +1,4 @@
+import { getCookie } from "cookies-next";
 import React, { ReactElement } from "react";
 
 import useUser from "@/hooks/shared/useUser";
@@ -10,6 +11,7 @@ const ProtectedRoute: React.FC<{ router: any; children: ReactElement }> = ({
   children,
 }) => {
   const { isLoggedIn } = useUser();
+  const token = getCookie("token");
 
   let unprotectedRoutes = [appRoutes.login];
 
@@ -18,7 +20,7 @@ const ProtectedRoute: React.FC<{ router: any; children: ReactElement }> = ({
    */
   let pathIsProtected = unprotectedRoutes.indexOf(router.pathname) === -1;
 
-  if (isBrowser() && !isLoggedIn && pathIsProtected) {
+  if (isBrowser() && !isLoggedIn && pathIsProtected && !token) {
     router.push(appRoutes.login);
   }
 

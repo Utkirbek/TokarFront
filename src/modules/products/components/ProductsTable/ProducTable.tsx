@@ -16,6 +16,7 @@ import {
 } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
+// import useStyles from "@modules/products/components/details/styleDetail/styleDetail";
 import useStyles from "@modules/products/components/ProductsTable/ProductTableStyle";
 import productFetchers from "@services/api/productFetchers";
 import useProducts from "@services/hooks/useProducts";
@@ -25,26 +26,30 @@ import {
   IconPencil,
   IconTrash,
 } from "@tabler/icons";
-import { RequestQueryKeys } from "@utils/constants";
+import { Permissions, RequestQueryKeys } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { memo, useState } from "react";
+import { FormattedMessage } from "react-intl";
 import { useCart } from "react-use-cart";
 import useSWR from "swr";
 
 import BuyCart from "../buyCart/BuyCart";
-import Detail from "../details/Detail";
 import FormProduct from "../form/FormAdd";
 import Error from "./components/Error";
+import ProductDetails from "./components/ProductDetails";
 import tableHead from "./const/constTableHeadName";
 
-export default function FormMantine() {
+function ProductsTable() {
   const [editItem, setEditItem] = useState({});
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
+  const router = useRouter();
   const { useFetchProduct, deleteProducts } = useProducts();
   const getProductsQuery = useFetchProduct();
   const { data: products } = getProductsQuery;
   const { addItem, isEmpty } = useCart();
+  const [info, setInfo] = useState({});
 
   const handleDelete = async function (id: string) {
     deleteProducts(id, {
@@ -127,6 +132,10 @@ export default function FormMantine() {
       addItem({ id: el._id, ...el });
     };
 
+    const dataDiscount = item.discounts.map((el: any) => {
+      return el.price + "/" + el.quantity;
+    });
+
     return (
       <tr key={item._id} className={cx({ [classes.rowSelected]: selected })}>
         <td>
@@ -145,34 +154,54 @@ export default function FormMantine() {
           </Group>
         </td>
         <td>{item.code}</td>
+        <If hasPerm={Permissions.accounting.view}>
+          <td>${item.originalPrice}</td>
+        </If>
         <td>${item.price}</td>
         <td>{item.quantity}</td>
-        {/* bu yerda chegirma bolyapti */}
         <td>
           <Select
-            sx={{ width: "100px" }}
-            rightSection={<IconChevronDown size={14} />}
+            sx={{ width: "150px" }}
+            rightSection={<IconChevronDown size={8} />}
             rightSectionWidth={30}
             styles={{ rightSection: { pointerEvents: "none" } }}
-            data={["0", "0-50 ----  shuncha", "0-100 ------ shuncha"]}
-            defaultValue="0"
+            data={[`${dataDiscount}`]}
+            defaultValue={`${dataDiscount}`}
           />
         </td>
 
         <td>
-          <IconPencil
-            style={{ cursor: "pointer", marginTop: "5px" }}
-            onClick={handEdit}
-          />
-          <IconTrash
-            color="red"
-            style={{ margin: "0  20px", cursor: "pointer" }}
-            onClick={() => openDeleteModal(item._id, item.title)}
-          />
-          <Button onClick={() => handleOpenCartBuy(item)}>Sotish</Button>
+          <If hasPerm={Permissions.products.edit}>
+            <IconPencil
+              style={{ cursor: "pointer", marginTop: "5px" }}
+              onClick={handEdit}
+            />
+          </If>
+          <If hasPerm={Permissions.products.delete}>
+            <IconTrash
+              color="red"
+              style={{ margin: "0  20px", cursor: "pointer" }}
+              onClick={() => openDeleteModal(item._id, item.title)}
+            />
+          </If>
+          <If hasPerm={Permissions.products.sell}>
+            <Button onClick={() => handleOpenCartBuy(item)}>Sotish</Button>
+          </If>
         </td>
         <td>
-          <Detail infoProduct={editItem} />
+          <Button
+            variant="outline"
+            sx={{ width: "100px", height: "30px" }}
+            radius={"xl"}
+            onClick={() => {
+              router.push("/products", {
+                query: {
+                  details: item._id,
+                },
+              });
+            }}>
+            <FormattedMessage id="products.details" />
+          </Button>
         </td>
       </tr>
     );
@@ -207,7 +236,7 @@ export default function FormMantine() {
         </ScrollArea>
       </Drawer>
 
-      <If hasPerm={"products.create"}>
+      <If hasPerm={Permissions.products.create}>
         <Group position="right" mx={"xl"} my={"xl"}>
           <Button onClick={handleClick} variant={"outline"}>
             + Yangi mahsulot qo&apos;shish
@@ -220,7 +249,7 @@ export default function FormMantine() {
             <Table verticalSpacing="sm" highlightOnHover>
               <thead>
                 <tr>
-                  <th style={{ width: 40 }}>
+                  <th>
                     <Checkbox
                       onChange={toggleAll}
                       checked={selection.length === data.length}
@@ -232,6 +261,9 @@ export default function FormMantine() {
                   </th>
                   <th>{tableHead.name}</th>
                   <th>{tableHead.code}</th>
+                  <If hasPerm={Permissions.accounting.view}>
+                    <th>{tableHead.originalPrice}</th>
+                  </If>
                   <th>{tableHead.price}</th>
                   <th>{tableHead.quantity}</th>
                   <th>{tableHead.discount}</th>
@@ -248,6 +280,9 @@ export default function FormMantine() {
           </Grid.Col>
         )}
       </Grid>
+      <ProductDetails products={data} />
     </>
   );
 }
+
+export default memo(ProductsTable);
