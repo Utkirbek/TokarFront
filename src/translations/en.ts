@@ -40,6 +40,9 @@ const en = {
   },
   products: {
     details: "Details",
+    form: {
+      currencyPlaceholder: "Currency ",
+    },
   },
   addProductsForm: {
     showNotifTitle: "Please wait....",

@@ -16,7 +16,6 @@ import {
 } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
-// import useStyles from "@modules/products/components/details/styleDetail/styleDetail";
 import useStyles from "@modules/products/components/ProductsTable/ProductTableStyle";
 import productFetchers from "@services/api/productFetchers";
 import useProducts from "@services/hooks/useProducts";
@@ -49,7 +48,6 @@ function ProductsTable() {
   const getProductsQuery = useFetchProduct();
   const { data: products } = getProductsQuery;
   const { addItem, isEmpty } = useCart();
-  const [info, setInfo] = useState({});
 
   const handleDelete = async function (id: string) {
     deleteProducts(id, {
@@ -123,7 +121,7 @@ function ProductsTable() {
   const rows = products.map((item: any) => {
     const selected = selection.includes(item._id);
 
-    const handEdit = () => {
+    const handleEdit = () => {
       setEditItem(item);
       setOpened(true);
     };
@@ -157,7 +155,9 @@ function ProductsTable() {
         <If hasPerm={Permissions.accounting.view}>
           <td>${item.originalPrice}</td>
         </If>
-        <td>${item.price}</td>
+        <td>
+          {item.price} {item.currency?.name}
+        </td>
         <td>{item.quantity}</td>
         <td>
           <Select
@@ -174,7 +174,7 @@ function ProductsTable() {
           <If hasPerm={Permissions.products.edit}>
             <IconPencil
               style={{ cursor: "pointer", marginTop: "5px" }}
-              onClick={handEdit}
+              onClick={handleEdit}
             />
           </If>
           <If hasPerm={Permissions.products.delete}>
@@ -199,7 +199,8 @@ function ProductsTable() {
                   details: item._id,
                 },
               });
-            }}>
+            }}
+          >
             <FormattedMessage id="products.details" />
           </Button>
         </td>
@@ -211,6 +212,7 @@ function ProductsTable() {
     setOpened(true);
     setEditItem({});
   };
+
   return (
     <>
       <Drawer
@@ -226,7 +228,10 @@ function ProductsTable() {
         size="xl"
         position="right"
       >
-        <ScrollArea style={{ height: 560 }} scrollbarSize={2}>
+        <ScrollArea
+          style={{ height: "100%", paddingBottom: 60 }}
+          scrollbarSize={2}
+        >
           <FormProduct
             handleClose={() => {
               setOpened(false);
