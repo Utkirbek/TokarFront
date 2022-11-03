@@ -45,7 +45,7 @@ const useNavActions = () => {
         icon: <IconHome size={18} />,
       },
     ];
-  }, []);
+  }, [intl, router]);
 
   return actions;
 };
