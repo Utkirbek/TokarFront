@@ -1,11 +1,20 @@
 import ImageUploader from "@components/ImageUploader";
-import { Box, Button, Group, Select, Text, TextInput } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Group,
+  NumberInput,
+  Select,
+  Text,
+  TextInput,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import useProducts from "@services/hooks/useProducts";
 import { IconCheck, IconChevronDown } from "@tabler/icons";
 import { useRouter } from "next/router";
 import { useRef } from "react";
+import { useIntl } from "react-intl";
 
 import useStyles from "./style/inputStyle";
 
@@ -17,41 +26,35 @@ const FormProduct: React.FC<{
   const router = useRouter();
   const { classes, cx } = useStyles();
   const { editProduct, addProduct } = useProducts();
+  const intl = useIntl();
 
   const form = useForm({
     initialValues: {
       title: editItem?.title ?? "",
       code: editItem?.code ?? "",
+      originalPrice: editItem?.originalPrice ?? "",
       price: editItem?.price ?? "",
       quantity: editItem?.quantity ?? "",
       description: editItem?.description ?? "",
-      discounts: editItem?.discounts ?? [
-        {
-          price: "25",
-          quantity: "100",
-        },
-        {
-          price: "12",
-          quantity: "20",
-        },
-      ],
+      discounts: [{ price: 0, quantity: 0 }],
     },
   });
 
   const handleSubmit = async (values: {
-    title: string;
-    code: string | Number;
-    price: string | Number;
-    quantity: string | Number;
-    description: string;
+    title: any;
+    code: any;
+    originalPrice: any;
+    price: any;
+    quantity: any;
+    description: any;
     discounts: any;
   }) => {
     if (!!editItem._id) {
       showNotification({
         id: "load-data",
         loading: true,
-        title: "Iltimos kuting",
-        message: "Sizning mahsuloringiz yangilanmoqda iltimos kuting",
+        title: intl.formatMessage({ id: "addProductsForm.showNotifTitle" }),
+        message: intl.formatMessage({ id: "addProductsForm.showNotifMessage" }),
         autoClose: false,
         disallowClose: true,
       });
@@ -66,8 +69,12 @@ const FormProduct: React.FC<{
             updateNotification({
               id: "load-data",
               color: "teal",
-              title: "Muaffaqiyatli",
-              message: "Sizning mahsuloringiz Yangilandi",
+              title: intl.formatMessage({
+                id: "addProductsForm.updateNotifTitle",
+              }),
+              message: intl.formatMessage({
+                id: "addProductsForm.updateNotifMessage",
+              }),
               icon: <IconCheck size={16} />,
               autoClose: 2000,
             });
@@ -83,8 +90,12 @@ const FormProduct: React.FC<{
             updateNotification({
               id: "load-data",
               color: "teal",
-              title: "Muaffaqiyatli",
-              message: "Sizning mahsuloringiz Qo'shildi",
+              title: intl.formatMessage({
+                id: "addProductsForm.updateNotifTitle",
+              }),
+              message: intl.formatMessage({
+                id: "addProductsForm.updateNotifMessage",
+              }),
               icon: <IconCheck size={16} />,
               autoClose: 2000,
             });
@@ -93,8 +104,12 @@ const FormProduct: React.FC<{
             updateNotification({
               id: "load-data",
               color: "red",
-              title: "Xatolik",
-              message: "Xatolik! Mahsulot Qo'shilmadi",
+              title: intl.formatMessage({
+                id: "addProductsForm.updataNotifError",
+              }),
+              message: intl.formatMessage({
+                id: "addProductsForm.updataNotifErrorMessage",
+              }),
               autoClose: 2000,
               disallowClose: false,
             });
@@ -105,8 +120,8 @@ const FormProduct: React.FC<{
     showNotification({
       id: "load-data",
       loading: true,
-      title: "Iltimos kuting",
-      message: "Sizning mahsuloringiz qo'shilmoqda iltimos kuting",
+      title: intl.formatMessage({ id: "addProductsForm.showNotifTitle" }),
+      message: intl.formatMessage({ id: "addProductsForm.showNotifMessage" }),
       autoClose: false,
       disallowClose: true,
     });
@@ -155,26 +170,19 @@ const FormProduct: React.FC<{
           {...form.getInputProps("code")}
           required
         />
+
         <TextInput
           className={classes.inputStyle}
-          label="Mahsulot Narxi"
+          label="Mahsulot Asl Narxi"
+          placeholder="Mahsulot Asl narxi"
+          {...form.getInputProps("originalPrice")}
+        />
+
+        <TextInput
+          className={classes.inputStyle}
+          label="Mahsulot Sotuvdagi Narxi"
           placeholder="Mahsulot Narxi"
           {...form.getInputProps("price")}
-          required
-        />
-        <TextInput
-          className={classes.inputStyle}
-          label="Nechta mahsulot borligi"
-          placeholder="Nechta mahsulot borligi"
-          {...form.getInputProps("quantity")}
-          required
-        />
-        <TextInput
-          className={classes.inputStyle}
-          label="Tarif"
-          placeholder="Mahsulotga tarif"
-          {...form.getInputProps("description")}
-          sx={{}}
           required
         />
         <Select
@@ -185,8 +193,34 @@ const FormProduct: React.FC<{
           label={"Pull Birligini kiriting"}
           data={["UZS", "USD", "RUS", "EUR"]}
           defaultValue="1 hafta"
+        />
+        <TextInput
+          className={classes.inputStyle}
+          label="Nechta mahsulot borligi"
+          placeholder="Nechta mahsulot borligi"
+          {...form.getInputProps("quantity")}
           required
         />
+        <TextInput
+          className={classes.inputStyle}
+          label="Mahsulotga tarif"
+          placeholder="Mahsulotga tarif"
+          {...form.getInputProps("description")}
+          required
+        />
+        <Box>
+          <NumberInput
+            label="Chegirmadagi Narxi"
+            placeholder="Chegirmadagi Narxiini kiriting"
+            {...form.getInputProps("discounts.price")}
+          />
+          <NumberInput
+            label="Chegirmadagi Soni"
+            placeholder="Chegirmadagi soni"
+            {...form.getInputProps("discounts.quantity")}
+          />
+        </Box>
+
         <Group position="right" mt="md">
           <Button type="submit">
             {!editItem._id ? "Ro'yxatga Qo'shish" : "Saqlash"}

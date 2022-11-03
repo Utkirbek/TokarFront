@@ -130,6 +130,9 @@ function ProductsTable() {
       addItem({ id: el._id, ...el });
     };
 
+    const dataDiscount = item.discounts.map((el: any) => {
+      return el.price + "/" + el.quantity;
+    });
     return (
       <tr key={item._id} className={cx({ [classes.rowSelected]: selected })}>
         <td>
@@ -148,17 +151,19 @@ function ProductsTable() {
           </Group>
         </td>
         <td>{item.code}</td>
+        <If hasPerm={"products.originalPrice"}>
+          <td>${item.originalPrice}</td>
+        </If>
         <td>${item.price}</td>
         <td>{item.quantity}</td>
-        {/* bu yerda chegirma bolyapti */}
         <td>
           <Select
-            sx={{ width: "100px" }}
-            rightSection={<IconChevronDown size={14} />}
+            sx={{ width: "150px" }}
+            rightSection={<IconChevronDown size={8} />}
             rightSectionWidth={30}
             styles={{ rightSection: { pointerEvents: "none" } }}
-            data={["0", "0-50 ----  shuncha", "0-100 ------ shuncha"]}
-            defaultValue="0"
+            data={[`${dataDiscount}`]}
+            defaultValue={`${dataDiscount}`}
           />
         </td>
 
@@ -239,7 +244,7 @@ function ProductsTable() {
             <Table verticalSpacing="sm" highlightOnHover>
               <thead>
                 <tr>
-                  <th style={{ width: 40 }}>
+                  <th>
                     <Checkbox
                       onChange={toggleAll}
                       checked={selection.length === data.length}
@@ -251,6 +256,9 @@ function ProductsTable() {
                   </th>
                   <th>{tableHead.name}</th>
                   <th>{tableHead.code}</th>
+                  <If hasPerm={"products.originalPrice"}>
+                    <th>{tableHead.originalPrice}</th>
+                  </If>
                   <th>{tableHead.price}</th>
                   <th>{tableHead.quantity}</th>
                   <th>{tableHead.discount}</th>

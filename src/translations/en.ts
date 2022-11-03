@@ -26,6 +26,14 @@ const en = {
   products: {
     details: "Details",
   },
+  addProductsForm: {
+    showNotifTitle: "Please wait....",
+    showNotifMessage: "Your product is being updated please wait",
+    updateNotifTitle: "Successful",
+    updateNotifMessage: "Your product has been updated",
+    updataNotifError: "Error",
+    updataNotifErrorMessage: "Error! Product Not Added",
+  },
 };
 
 export default en;

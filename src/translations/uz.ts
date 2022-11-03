@@ -33,6 +33,14 @@ const uz = {
     description: "Mahsulotlar boshqaruv paneli",
     details: "Batafsil",
   },
+  addProductsForm: {
+    showNotifTitle: "Iltimos kuting...",
+    showNotifMessage: "Sizning mahsuloringiz yangilanmoqda iltimos kuting",
+    updateNotifTitle: "Muaffaqiyatli",
+    updateNotifMessage: "Sizning mahsuloringiz Yangilandi",
+    updataNotifErrorTitle: "Xatolik",
+    updataNotifErrorMessage: "Xatolik! Mahsulot Qo'shilmadi",
+  },
   statistics: {
     title: "Statistika",
     description: "Statistika ma'lumotlari",
