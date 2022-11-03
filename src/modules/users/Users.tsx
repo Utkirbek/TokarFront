@@ -1,3 +1,4 @@
+import If from "@components/smart/If";
 import {
   Avatar,
   Button,
@@ -17,7 +18,7 @@ import Error from "@modules/products/components/ProductsTable/components/Error";
 import useStyles from "@modules/products/components/ProductsTable/ProductTableStyle";
 import userFetcher from "@services/api/userFetcher";
 import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
-import { RequestQueryKeys } from "@utils/constants";
+import { Permissions, RequestQueryKeys } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
 import { useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
@@ -129,12 +130,16 @@ const Users = () => {
         <td>{item.workplace}</td>
         <td>{item.extra}</td>
         <td>
-          <IconTrash
-            color="red"
-            style={{ margin: "0  20px", cursor: "pointer" }}
-            onClick={() => openDeleteModal(item._id)}
-          />
-          <IconPencil style={{ cursor: "pointer" }} onClick={handEdit} />
+          <If hasPerm={Permissions.users.delete}>
+            <IconTrash
+              color="red"
+              style={{ margin: "0  20px", cursor: "pointer" }}
+              onClick={() => openDeleteModal(item._id)}
+            />
+          </If>
+          <If hasPerm={Permissions.users.edit}>
+            <IconPencil style={{ cursor: "pointer" }} onClick={handEdit} />
+          </If>
         </td>
       </tr>
     );
@@ -159,8 +164,7 @@ const Users = () => {
           padding="xl"
           size="xl"
           position="right"
-          sx={{ height: "120vh" }}
-        >
+          sx={{ height: "120vh" }}>
           <NewUser
             handleClose={() => {
               setOpened(false);
@@ -169,9 +173,11 @@ const Users = () => {
           />
         </Drawer>
         <Group position="right" mx={"xl"}>
-          <Button onClick={handleClick} variant={"outline"}>
-            + Yangi Foydalanuvchi qo&apos;shish
-          </Button>
+          <If hasPerm={Permissions.users.create}>
+            <Button onClick={handleClick} variant={"outline"}>
+              + Yangi Foydalanuvchi qo&apos;shish
+            </Button>
+          </If>
         </Group>
         <ScrollArea>
           <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
@@ -192,7 +198,9 @@ const Users = () => {
                 <th>Raqami</th>
                 <th>Ish joyi</th>
                 <th>Qoshimcha malumot</th>
-                <th> Ochirish / Tahrirlash</th>
+                <If hasPerm={Permissions.users.action}>
+                  <th> Ochirish / Tahrirlash</th>
+                </If>
               </tr>
             </thead>
             <tbody>{rows}</tbody>

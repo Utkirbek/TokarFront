@@ -1,3 +1,4 @@
+import If from "@components/smart/If";
 import useUser from "@hooks/shared/useUser";
 import { Button, Drawer, Group, Table, Text } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
@@ -9,6 +10,7 @@ import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import WithLoading from "@/hoc/WithLoading";
+import { Permissions } from "@/utils/constants";
 
 import AdminsDrawer from "./AdminsDrawer";
 
@@ -102,18 +104,22 @@ function TableCard() {
           {item.name == name ? (
             <IconTrash style={{ color: "red", cursor: "no-drop" }} />
           ) : (
-            <IconTrash
-              onClick={() => openDeleteModal(item._id, item.name)}
-              style={{ color: "red", cursor: "pointer" }}
-            />
+            <If hasPerm={Permissions.admins.delete}>
+              <IconTrash
+                onClick={() => openDeleteModal(item._id, item.name)}
+                style={{ color: "red", cursor: "pointer" }}
+              />
+            </If>
           )}
-          <IconPencil
-            onClick={onEditClick.bind(null, item)}
-            style={{
-              cursor: "pointer",
-              marginLeft: "30px",
-            }}
-          />
+          <If hasPerm={Permissions.admins.edit}>
+            <IconPencil
+              onClick={onEditClick.bind(null, item)}
+              style={{
+                cursor: "pointer",
+                marginLeft: "30px",
+              }}
+            />
+          </If>
         </td>
       </tr>
     );
@@ -121,11 +127,13 @@ function TableCard() {
 
   return (
     <WithLoading query={getAdminsQuery}>
-      <Group position="right" mx={"xl"} my={"xl"}>
-        <Button onClick={onClose} variant={"outline"}>
-          <FormattedMessage id="admins.addAdmins" />
-        </Button>
-      </Group>
+      <If hasPerm={Permissions.admins.create}>
+        <Group position="right" mx={"xl"} my={"xl"}>
+          <Button onClick={onClose} variant={"outline"}>
+            <FormattedMessage id="admins.addAdmins" />
+          </Button>
+        </Group>
+      </If>
       <Table highlightOnHover>
         <thead>
           <tr>
@@ -148,8 +156,7 @@ function TableCard() {
         onClose={onClose}
         padding="xl"
         size="30%"
-        position="right"
-      >
+        position="right">
         <AdminsDrawer editItem={editItem} handleClose={onClose} />
       </Drawer>
     </WithLoading>

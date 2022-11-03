@@ -151,7 +151,7 @@ function ProductsTable() {
           </Group>
         </td>
         <td>{item.code}</td>
-        <If hasPerm={"products.originalPrice"}>
+        <If hasPerm={Permissions.accounting.view}>
           <td>${item.originalPrice}</td>
         </If>
         <td>${item.price}</td>
@@ -181,7 +181,9 @@ function ProductsTable() {
               onClick={() => openDeleteModal(item._id, item.title)}
             />
           </If>
-          <Button onClick={() => handleOpenCartBuy(item)}>Sotish</Button>
+          <If hasPerm={Permissions.products.sell}>
+            <Button onClick={() => handleOpenCartBuy(item)}>Sotish</Button>
+          </If>
         </td>
         <td>
           <Button
@@ -220,7 +222,8 @@ function ProductsTable() {
         onClose={() => setOpened(false)}
         padding="xl"
         size="xl"
-        position="right">
+        position="right"
+      >
         <ScrollArea style={{ height: 560 }} scrollbarSize={2}>
           <FormProduct
             handleClose={() => {
@@ -256,7 +259,7 @@ function ProductsTable() {
                   </th>
                   <th>{tableHead.name}</th>
                   <th>{tableHead.code}</th>
-                  <If hasPerm={"products.originalPrice"}>
+                  <If hasPerm={Permissions.accounting.view}>
                     <th>{tableHead.originalPrice}</th>
                   </If>
                   <th>{tableHead.price}</th>

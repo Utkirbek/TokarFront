@@ -1,4 +1,5 @@
 import ButtonToggleDark from "@components/darkmode/Darkmode";
+import If from "@components/smart/If";
 import Logout from "@components/smart/Logout";
 import {
   AppShell,
@@ -15,28 +16,29 @@ import data from "@modules/layout/dataSidebar";
 import useStyles from "@modules/layout/style/dashStyle";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import React, { useState } from "react";
 import { FormattedMessage } from "react-intl";
 
-function DashLayout({ children }: any) {
+function DashLayout({ children }: { children: React.ReactNode }) {
   const { classes, cx } = useStyles();
   const theme = useMantineTheme();
   const router = useRouter();
   const [opened, setOpened] = useState(false);
 
-  const links = data.map((item, index) => (
-    // bu yerda If permission  quyilishi  kerak
-    <Link
-      href={item.link}
-      key={item.label}
-      className={cx(classes.link, "test", {
-        sidebarLink: item.link === router.pathname,
-      })}>
-      <item.icon className={classes.linkIcon} stroke={1.5} />
-      <span>
-        <FormattedMessage id={item.label} />
-      </span>
-    </Link>
+  const links = data.map((item) => (
+    <If hasPerm={item.permission} key={item.label}>
+      <Link
+        href={item.link}
+        className={cx(classes.link, "test", {
+          sidebarLink: item.link === router.pathname,
+        })}
+      >
+        <item.icon className={classes.linkIcon} stroke={1.5} />
+        <span>
+          <FormattedMessage id={item.label} />
+        </span>
+      </Link>
+    </If>
   ));
 
   return (
@@ -56,14 +58,16 @@ function DashLayout({ children }: any) {
           p="md"
           hiddenBreakpoint="sm"
           hidden={!opened}
-          width={{ sm: 200, lg: 270 }}>
+          width={{ sm: 200, lg: 270 }}
+        >
           <div className={classes.container}>{links}</div>
         </Navbar>
       }
       header={
         <Header height={70} p="md">
           <div
-            style={{ display: "flex", alignItems: "center", height: "100%" }}>
+            style={{ display: "flex", alignItems: "center", height: "100%" }}
+          >
             <MediaQuery largerThan="sm" styles={{ display: "none" }}>
               <Burger
                 opened={opened}
@@ -85,7 +89,8 @@ function DashLayout({ children }: any) {
                   alignItems: "center",
                   justifyContent: "space-between",
                   gap: 5,
-                }}>
+                }}
+              >
                 <TextInput
                   sx={{ width: "92%" }}
                   placeholder="Nima qidiryapsiz...?"
@@ -95,7 +100,8 @@ function DashLayout({ children }: any) {
             </div>
           </div>
         </Header>
-      }>
+      }
+    >
       {children}
     </AppShell>
   );
