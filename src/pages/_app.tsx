@@ -81,8 +81,8 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         <link rel="manifest" href="/manifest.json"></link>
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
-      <AppWrapper>
-        <ErrorBoundary FallbackComponent={ErrorFallback} onReset={forceUpdate}>
+      <ErrorBoundary FallbackComponent={ErrorFallback} onReset={forceUpdate}>
+        <AppWrapper>
           <ProtectedRoute router={router}>
             <SWRConfig>
               <ColorSchemeProvider
@@ -104,8 +104,8 @@ function MyApp({ Component, pageProps, router }: AppProps) {
               </ColorSchemeProvider>
             </SWRConfig>
           </ProtectedRoute>
-        </ErrorBoundary>
-      </AppWrapper>
+        </AppWrapper>
+      </ErrorBoundary>
       <Script src="https://cdn.lordicon.com/qjzruarw.js" />
     </IntlProvider>
   );

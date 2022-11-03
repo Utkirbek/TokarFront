@@ -133,6 +133,7 @@ function ProductsTable() {
     const dataDiscount = item.discounts.map((el: any) => {
       return el.price + "/" + el.quantity;
     });
+
     return (
       <tr key={item._id} className={cx({ [classes.rowSelected]: selected })}>
         <td>

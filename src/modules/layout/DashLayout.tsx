@@ -79,8 +79,8 @@ function DashLayout({ children }: { children: React.ReactNode }) {
             </MediaQuery>
             <div className={classes.navDesh}>
               <ButtonToggleDark />
-              <Link href="">
-                <Text className={classes.title}>Tokar.uz</Text>
+              <Link href="/">
+                <Text className={classes.title}>Tokar</Text>
               </Link>
               <Box
                 sx={{

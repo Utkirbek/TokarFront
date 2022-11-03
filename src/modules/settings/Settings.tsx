@@ -2,11 +2,15 @@ import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import If from "@components/smart/If";
 import { Card, Grid, Loader, Text, TextInput } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
-import DashLayout from "@modules/layout/DashLayout";
 import useSettings from "@services/hooks/useSettings";
 import { Permissions } from "@utils/constants";
 import { NextPage } from "next";
+import dynamic from "next/dynamic";
 import { useRef } from "react";
+
+const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
+  ssr: false,
+});
 
 const Settings: NextPage = () => {
   const newPermRef = useRef<HTMLInputElement>(null);
@@ -52,7 +56,8 @@ const Settings: NextPage = () => {
           <Grid.Col span={3} lg={2} md={3} xs={12} sm={6}>
             <Card
               sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
-              onClick={handleNewPermissionClick}>
+              onClick={handleNewPermissionClick}
+            >
               <Text>Yangi ruxsat</Text>
               <lord-icon
                 src="https://cdn.lordicon.com/zgogqkqu.json"
@@ -61,7 +66,8 @@ const Settings: NextPage = () => {
                   width: "1.6rem",
                   height: "1.6rem",
                   marginLeft: "auto",
-                }}></lord-icon>
+                }}
+              ></lord-icon>
             </Card>
           </Grid.Col>
           {permissions.map((permission: { name: string; _id: string }) => (
@@ -71,7 +77,8 @@ const Settings: NextPage = () => {
               lg={2}
               md={3}
               xs={12}
-              sm={6}>
+              sm={6}
+            >
               <Card>
                 <Text>{permission.name}</Text>
               </Card>

@@ -55,6 +55,13 @@ const uz = {
     title: "Chiqish",
     description: "Profildan chiqish",
   },
+
+  notification: {
+    loading: "Yuklanmoqda",
+    loadingMessage: "Iltimos kuting...",
+    success: "Muaffaqiyatli bajarildi.",
+    successMessage: "Muvaffaqiyatli amalga oshirildi hammasi!",
+  },
 };
 
 export default uz;

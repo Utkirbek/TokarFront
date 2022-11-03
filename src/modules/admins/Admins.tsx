@@ -1,8 +1,12 @@
 import If from "@components/smart/If";
-import DashLayout from "@modules/layout/DashLayout";
 import { Permissions } from "@utils/constants";
+import dynamic from "next/dynamic";
 
 import AdminsTable from "./components/AdminsTable";
+
+const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
+  ssr: false,
+});
 
 type Props = {};
 

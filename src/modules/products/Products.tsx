@@ -1,12 +1,16 @@
 import { SpotlightAction, useSpotlight } from "@mantine/spotlight";
-import DashLayout from "@modules/layout/DashLayout";
 import productFetchers from "@services/api/productFetchers";
 import { IconHome } from "@tabler/icons";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { CartProvider } from "react-use-cart";
 
 import ProductsTable from "./components/ProductsTable";
+
+const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
+  ssr: false,
+});
 
 type Props = {};
 

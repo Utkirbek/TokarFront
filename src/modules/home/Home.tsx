@@ -1,7 +1,11 @@
 import If from "@components/smart/If";
-import DashLayout from "@modules/layout/DashLayout";
 import Statistica from "@modules/statistica";
 import { Permissions } from "@utils/constants";
+import dynamic from "next/dynamic";
+
+const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
+  ssr: false,
+});
 
 const Home = () => {
   return (

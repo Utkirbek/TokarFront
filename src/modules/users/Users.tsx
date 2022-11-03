@@ -13,17 +13,21 @@ import {
 } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
-import Dashboard from "@modules/layout/DashLayout";
 import Error from "@modules/products/components/ProductsTable/components/Error";
 import useStyles from "@modules/products/components/ProductsTable/ProductTableStyle";
 import userFetcher from "@services/api/userFetcher";
 import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
 import { Permissions, RequestQueryKeys } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
-import { useState } from "react";
+import dynamic from "next/dynamic";
+import { useCallback, useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
 
 import NewUser from "./NewUser/NewUser";
+
+const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
+  ssr: false,
+});
 
 const Users = () => {
   const { mutate: deleteUsers } = useSWRConfig();
@@ -89,16 +93,24 @@ const Users = () => {
 
   const { classes, cx } = useStyles();
   const [selection, setSelection] = useState(["1"]);
-  const toggleRow = (id: string) =>
-    setSelection((current) =>
-      current.includes(id)
-        ? current.filter((item) => item !== id)
-        : [...current, id]
-    );
-  const toggleAll = () =>
-    setSelection((current) =>
-      current.length === data.length ? [] : data.map((item: any) => item._id)
-    );
+
+  const toggleRow = useCallback(
+    (id: string) =>
+      setSelection((current) =>
+        current.includes(id)
+          ? current.filter((item) => item !== id)
+          : [...current, id]
+      ),
+    []
+  );
+
+  const toggleAll = useCallback(
+    () =>
+      setSelection((current) =>
+        current.length === data.length ? [] : data.map((item: any) => item._id)
+      ),
+    [data]
+  );
 
   if (error) return <Error />;
   if (!data) return <Loader sx={{ margin: "20%  45%" }} size={"xl"} />;
@@ -152,7 +164,7 @@ const Users = () => {
 
   return (
     <>
-      <Dashboard>
+      <DashLayout>
         <Drawer
           overlayColor={
             theme.colorScheme === "dark"
@@ -164,7 +176,8 @@ const Users = () => {
           padding="xl"
           size="xl"
           position="right"
-          sx={{ height: "120vh" }}>
+          sx={{ height: "120vh" }}
+        >
           <NewUser
             handleClose={() => {
               setOpened(false);
@@ -206,7 +219,7 @@ const Users = () => {
             <tbody>{rows}</tbody>
           </Table>
         </ScrollArea>
-      </Dashboard>
+      </DashLayout>
     </>
   );
 };
