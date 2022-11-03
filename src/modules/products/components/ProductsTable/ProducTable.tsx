@@ -16,6 +16,7 @@ import {
 } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
+// import useStyles from "@modules/products/components/details/styleDetail/styleDetail";
 import useStyles from "@modules/products/components/ProductsTable/ProductTableStyle";
 import productFetchers from "@services/api/productFetchers";
 import useProducts from "@services/hooks/useProducts";
@@ -48,6 +49,7 @@ function ProductsTable() {
   const getProductsQuery = useFetchProduct();
   const { data: products } = getProductsQuery;
   const { addItem, isEmpty } = useCart();
+  const [info, setInfo] = useState({});
 
   const handleDelete = async function (id: string) {
     deleteProducts(id, {
@@ -197,8 +199,7 @@ function ProductsTable() {
                   details: item._id,
                 },
               });
-            }}
-          >
+            }}>
             <FormattedMessage id="products.details" />
           </Button>
         </td>

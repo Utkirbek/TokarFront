@@ -55,7 +55,21 @@ const uz = {
     title: "Chiqish",
     description: "Profildan chiqish",
   },
-
+  detailProduct: {
+    productName: "Mahsulot Nemi:",
+  },
+  productDetail: {
+    titleHead: "Mahsulot haqida Batafsil Malumotlar",
+    productName: "Mahsulot Nomi",
+    productCode: "Mahsulot Kodi",
+    productPrice: "Mahsulot Narxi",
+    productTotal: "Ombordagi Soni",
+    createProduct: "Yaratilgan Vaqti",
+    updateProduct: "Yangilangan Vaqti",
+    buyProductTime: "Sotilgan Vaqti",
+    soldCurrency: "Qaysi Valyutada sotilganligi",
+    purchesCurrency: "Qaysi Valyutada olinganligi",
+  },
   notification: {
     loading: "Yuklanmoqda",
     loadingMessage: "Iltimos kuting...",

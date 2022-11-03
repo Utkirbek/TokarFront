@@ -23,6 +23,21 @@ const en = {
   settings: {
     title: "Settings",
   },
+  detailProduct: {
+    productName: "Product Name",
+  },
+  productDetail: {
+    titleHead: "Product details",
+    productName: "Product Name",
+    productCode: "Product Code",
+    productPrice: "Product Price",
+    productTotal: "Total Products",
+    createProduct: "Created Time",
+    updateProduct: "Updated Time",
+    buyProductTime: "Time Of Sale",
+    soldCurrency: "In which currency it was sold",
+    purchesCurrency: "In which currency it was purchased",
+  },
   products: {
     details: "Details",
   },
