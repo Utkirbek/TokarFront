@@ -70,4 +70,5 @@ export const Permissions = {
   accounting: {
     view: "accounting.view",
   },
+  all: "permissions.all",
 };
