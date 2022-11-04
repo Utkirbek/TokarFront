@@ -133,6 +133,7 @@ const Settings: NextPage = () => {
         });
       },
     });
+  console.log(permissions, error);
 
   return (
     <DashLayout>
@@ -147,7 +148,7 @@ const Settings: NextPage = () => {
                 display: "flex",
                 alignItems: "center",
                 cursor: "pointer",
-                height: 95,
+                height: 93,
               }}
               onClick={handleUPermissionAdd}
             >
@@ -174,7 +175,15 @@ const Settings: NextPage = () => {
               xs={12}
               sm={6}
             >
-              <Card>
+              <Card
+                style={{
+                  background:
+                    "linear-gradient( 45deg, #13005a 40%, #350042 60%)",
+                  textAlign: "center",
+                  fontFamily: "revert",
+                  padding: "10px 20px 20px",
+                }}
+              >
                 <IconPencil
                   onClick={() =>
                     handlePermissionUpdate(permission.name, permission._id)
@@ -183,14 +192,14 @@ const Settings: NextPage = () => {
                   style={{
                     position: "absolute",
                     right: 20,
-                    marginRight: 40,
+                    marginRight: 20,
                     marginBottom: 10,
                   }}
                 />
                 <IconTrash
                   onClick={() => openDeleteModal(permission._id)}
                   cursor={"pointer"}
-                  style={{ marginLeft: 120, marginBottom: 10 }}
+                  style={{ marginLeft: 140, marginBottom: 10, color: "red" }}
                 />
                 <Text>{permission.name}</Text>
               </Card>

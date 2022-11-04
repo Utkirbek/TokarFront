@@ -16,6 +16,7 @@ import {
 } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
+// import useStyles from "@modules/products/components/details/styleDetail/styleDetail";
 import useStyles from "@modules/products/components/ProductsTable/ProductTableStyle";
 import productFetchers from "@services/api/productFetchers";
 import useProducts from "@services/hooks/useProducts";
@@ -29,7 +30,7 @@ import { Permissions, RequestQueryKeys } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
 import { useRouter } from "next/router";
 import { memo, useState } from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { useCart } from "react-use-cart";
 import useSWR from "swr";
 
@@ -37,6 +38,7 @@ import BuyCart from "../buyCart/BuyCart";
 import FormProduct from "../form/FormAdd";
 import Error from "./components/Error";
 import ProductDetails from "./components/ProductDetails";
+import tableHead from "./const/constTableHeadName";
 
 function ProductsTable() {
   const [editItem, setEditItem] = useState({});
@@ -47,7 +49,7 @@ function ProductsTable() {
   const getProductsQuery = useFetchProduct();
   const { data: products } = getProductsQuery;
   const { addItem, isEmpty } = useCart();
-  const intl = useIntl();
+  const [info, setInfo] = useState({});
 
   const handleDelete = async function (id: string) {
     deleteProducts(id, {
@@ -80,20 +82,12 @@ function ProductsTable() {
       centered: true,
       children: (
         <Text size="sm">
-          <FormattedMessage id="openDeleteModal.title" />
+          Siz bu mahsulotni chindanham o&apos;chirmoqchimisiz
         </Text>
       ),
       labels: { confirm: "O'chirish", cancel: "Orqaga qaytish" },
       confirmProps: { color: "red" },
-      onConfirm: async () => {
-        showNotification({
-          id: "load-data",
-          loading: true,
-          title: "Iltimos kuting",
-          message: "Foydalanuvchi udalit qilinyabdi",
-          autoClose: false,
-          disallowClose: true,
-        });
+      onConfirm: () => {
         handleDelete(id);
       },
       onCancel: () => {
@@ -129,7 +123,7 @@ function ProductsTable() {
   const rows = products.map((item: any) => {
     const selected = selection.includes(item._id);
 
-    const handleEdit = () => {
+    const handEdit = () => {
       setEditItem(item);
       setOpened(true);
     };
@@ -161,11 +155,9 @@ function ProductsTable() {
         </td>
         <td>{item.code}</td>
         <If hasPerm={Permissions.accounting.view}>
-          <td>${item.originalPrice}</td>
+          <td>{item.originalPrice}</td>
         </If>
-        <td>
-          {item.price} {item.currency?.name}
-        </td>
+        <td>{item.price}</td>
         <td>{item.quantity}</td>
         <td>
           <Select
@@ -182,7 +174,7 @@ function ProductsTable() {
           <If hasPerm={Permissions.products.edit}>
             <IconPencil
               style={{ cursor: "pointer", marginTop: "5px" }}
-              onClick={handleEdit}
+              onClick={handEdit}
             />
           </If>
           <If hasPerm={Permissions.products.delete}>
@@ -193,14 +185,14 @@ function ProductsTable() {
             />
           </If>
           <If hasPerm={Permissions.products.sell}>
-            <Button onClick={() => handleOpenCartBuy(item)}>
-              <FormattedMessage id="buyCart.sotish" />
-            </Button>
+            <Button onClick={() => handleOpenCartBuy(item)}>Sotish</Button>
           </If>
         </td>
         <td>
           <Button
             variant="outline"
+            sx={{ width: "100px", height: "30px" }}
+            radius={"xl"}
             onClick={() => {
               router.push("/products", {
                 query: {
@@ -220,7 +212,6 @@ function ProductsTable() {
     setOpened(true);
     setEditItem({});
   };
-
   return (
     <>
       <Drawer
@@ -236,10 +227,7 @@ function ProductsTable() {
         size="xl"
         position="right"
       >
-        <ScrollArea
-          style={{ height: "100%", paddingBottom: 60 }}
-          scrollbarSize={2}
-        >
+        <ScrollArea style={{ height: 560 }} scrollbarSize={2}>
           <FormProduct
             handleClose={() => {
               setOpened(false);
@@ -252,7 +240,7 @@ function ProductsTable() {
       <If hasPerm={Permissions.products.create}>
         <Group position="right" mx={"xl"} my={"xl"}>
           <Button onClick={handleClick} variant={"outline"}>
-            <FormattedMessage id="openDeleteModal.add" />
+            + Yangi mahsulot qo&apos;shish
           </Button>
         </Group>
       </If>
@@ -272,30 +260,15 @@ function ProductsTable() {
                       transitionDuration={0}
                     />
                   </th>
-                  <th>
-                    <FormattedMessage id="tableHead.name" />
-                  </th>
-                  <th>
-                    <FormattedMessage id="tableHead.code" />
-                  </th>
-                  <th>
-                    <FormattedMessage id="tableHead.price" />
-                  </th>
+                  <th>{tableHead.name}</th>
+                  <th>{tableHead.code}</th>
                   <If hasPerm={Permissions.accounting.view}>
-                    <th>
-                      <FormattedMessage id="tableHead.price" />
-                    </th>
+                    <th>{tableHead.price}</th>
                   </If>
-                  <th>
-                    <FormattedMessage id="tableHead.quantity" />
-                  </th>
-                  <th>
-                    <FormattedMessage id="tableHead.discount" />
-                  </th>
-                  <th>
-                    <FormattedMessage id="tableHead.action" />
-                  </th>
-                  <th></th>
+                  <th>{tableHead.price}</th>
+                  <th>{tableHead.quantity}</th>
+                  <th>{tableHead.discount}</th>
+                  <th>{tableHead.action}</th>
                 </tr>
               </thead>
               <tbody>{rows}</tbody>
