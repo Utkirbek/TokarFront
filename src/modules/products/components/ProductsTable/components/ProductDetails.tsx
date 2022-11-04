@@ -28,7 +28,7 @@ const ProductDetails = ({ products }: Props) => {
             width="500px"
             height="400px"
             sx={{ objectFit: "cover", borderRadius: "20px" }}
-            alt={"error"}
+            alt={"Bu yerda Mahsulot rasmi bolishi kerak"}
           />
         </Box>
 
@@ -51,15 +51,6 @@ const ProductDetails = ({ products }: Props) => {
             </Text>
             <Text>
               <FormattedMessage id="productDetail.updateProduct" />
-            </Text>
-            <Text>
-              <FormattedMessage id="productDetail.buyProductTime" />
-            </Text>
-            <Text>
-              <FormattedMessage id="productDetail.soldCurrency" />
-            </Text>
-            <Text>
-              <FormattedMessage id="productDetail.purchesCurrency" />
             </Text>
           </Box>
           <Box className={classes.reight}>

@@ -1,6 +1,7 @@
 import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import If from "@components/smart/If";
-import { Card, Grid, Loader, Text, TextInput } from "@mantine/core";
+import WithLoading from "@hoc/WithLoading";
+import { Card, Grid, Text, TextInput } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import useSettings from "@services/hooks/useSettings";
@@ -11,6 +12,8 @@ import dynamic from "next/dynamic";
 import { useRef } from "react";
 import { FormattedMessage } from "react-intl";
 
+import Roles from "./components/Roles";
+
 const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
   ssr: false,
 });
@@ -18,17 +21,10 @@ const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
 const Settings: NextPage = () => {
   const newPermRef = useRef<HTMLInputElement>(null);
 
-  const {
-    useGetAllPermissions,
-    addPermission,
-    deletePermission,
-    updatePermission,
-  } = useSettings();
+  const { useGetAllPermissions, addPermission } = useSettings();
   const { data: permissions, error, mutate: refetch } = useGetAllPermissions();
 
-  if (!permissions) return <Loader />;
-  if (error) return <div>error</div>;
-  if (permissions?.length === 0) return <EmptyBox />;
+  if (permissionsQuery.data?.length === 0) return <EmptyBox />;
 
   const handleUPermissionAdd = () => {
     openConfirmModal({
@@ -47,7 +43,7 @@ const Settings: NextPage = () => {
           await addPermission({
             name: newPermRef.current?.value,
           });
-          refetch();
+          permissionsQuery.mutate();
         }
       },
       labels: {
@@ -135,23 +131,14 @@ const Settings: NextPage = () => {
   return (
     <DashLayout>
       <If hasPerm={Permissions.settings.view}>
-        <h1>
-          <FormattedMessage id="perm.allow" />
-        </h1>
+        <h1>Ruxsat Etilgan Amallar</h1>
         <Grid>
           <Grid.Col span={3} lg={2} md={3} xs={12} sm={6}>
             <Card
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                cursor: "pointer",
-                height: 95,
-              }}
-              onClick={handleUPermissionAdd}
+              sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+              onClick={handleNewPermissionClick}
             >
-              <Text>
-                <FormattedMessage id="perm.newAllow" />
-              </Text>
+              <Text>Yangi ruxsat</Text>
               <lord-icon
                 src="https://cdn.lordicon.com/zgogqkqu.json"
                 trigger="hover"
@@ -172,34 +159,7 @@ const Settings: NextPage = () => {
               xs={12}
               sm={6}
             >
-              <Card
-                style={{
-                  background: "linear-gradient( to right, #ff9494, #9aa2ff)",
-                  color: "black",
-                  textAlign: "center",
-                }}
-              >
-                <IconPencil
-                  onClick={() =>
-                    handlePermissionUpdate(permission.name, permission._id)
-                  }
-                  cursor={"pointer"}
-                  style={{
-                    position: "absolute",
-                    right: 20,
-                    marginRight: 40,
-                    marginBottom: 10,
-                  }}
-                />
-                <IconTrash
-                  onClick={() => openDeleteModal(permission._id)}
-                  cursor={"pointer"}
-                  style={{
-                    marginLeft: 120,
-                    marginBottom: 10,
-                    color: "red",
-                  }}
-                />
+              <Card>
                 <Text>{permission.name}</Text>
               </Card>
             </Grid.Col>

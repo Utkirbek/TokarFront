@@ -35,6 +35,10 @@ export enum RequestQueryKeys {
   addRole = "addRole",
   updateRole = "updateRole",
   deleteRole = "deleteRole",
+  getCurrency = "getCurrency",
+  addCurrency = "addCurrency",
+  updateCurrency = "updateCurrency",
+  deleteCurrency = "deleteCurrency",
 }
 
 export const Permissions = {
@@ -66,4 +70,5 @@ export const Permissions = {
   accounting: {
     view: "accounting.view",
   },
+  all: "permissions.all",
 };

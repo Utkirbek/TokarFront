@@ -1,3 +1,4 @@
+import { Permissions } from "@utils/constants";
 import create from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -42,7 +43,9 @@ const useUser = create(
           permissions: user.admin.role.permissions,
           role: user.admin.role,
         }),
-      hasPerm: (perm) => get().permissions.some((p) => p.name === perm),
+      hasPerm: (perm) =>
+        get().permissions.some((p) => p.name === perm) ||
+        perm === Permissions.all,
       logout: () => set({ ...initalState }),
     }),
     {

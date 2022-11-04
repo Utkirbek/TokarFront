@@ -1,18 +1,20 @@
 import ImageUploader from "@components/ImageUploader";
+import If from "@components/smart/If";
 import {
   Box,
   Button,
   Group,
   NumberInput,
   Select,
+  Skeleton,
   Text,
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { showNotification, updateNotification } from "@mantine/notifications";
+import useCurrency from "@services/hooks/useCurrency";
 import useProducts from "@services/hooks/useProducts";
 import { IconCheck, IconChevronDown } from "@tabler/icons";
-import { useRouter } from "next/router";
 import { useRef } from "react";
 import { useIntl } from "react-intl";
 
@@ -23,10 +25,12 @@ const FormProduct: React.FC<{
   editItem: any;
 }> = ({ handleClose, editItem }) => {
   const imagesRef = useRef<string[]>([]);
-  const router = useRouter();
-  const { classes, cx } = useStyles();
+  const { classes } = useStyles();
   const { editProduct, addProduct } = useProducts();
   const intl = useIntl();
+  const { useFetchCurrency } = useCurrency();
+  const getCurrencyQuery = useFetchCurrency();
+  const { data: currencies, error: currencyError } = getCurrencyQuery;
 
   const form = useForm({
     initialValues: {
@@ -36,11 +40,13 @@ const FormProduct: React.FC<{
       price: editItem?.price ?? "",
       quantity: editItem?.quantity ?? "",
       description: editItem?.description ?? "",
-      discounts: [{ price: 0, quantity: 0 }],
+      discounts: editItem?.discounts ?? [{ price: 0, quantity: 0 }],
+      currency: editItem?.currency ?? "63635d7850b0f6000826a6ac",
     },
   });
 
   const handleSubmit = async (values: {
+    currency: any;
     title: any;
     code: any;
     originalPrice: any;
@@ -84,7 +90,10 @@ const FormProduct: React.FC<{
     } else {
       handleClose();
       addProduct(
-        { ...values, image: imagesRef.current?.join(",") ?? "" },
+        {
+          ...values,
+          image: imagesRef.current?.join(",") ?? "",
+        },
         {
           onSuccess: () => {
             updateNotification({
@@ -135,7 +144,8 @@ const FormProduct: React.FC<{
             fontSize: "24px",
             textAlign: "center",
             fontWeight: 700,
-          }}>
+          }}
+        >
           {!editItem._id ? "Yangi Mahsulot qo'shish" : "Tahrirlash"}
         </Text>
         <TextInput
@@ -147,7 +157,6 @@ const FormProduct: React.FC<{
           required
         />
 
-        {/* bu yerda rasm yuklash */}
         <Box sx={{ maxHeight: "160px" }}>
           <ImageUploader
             urlsRef={imagesRef}
@@ -159,7 +168,8 @@ const FormProduct: React.FC<{
           <Button
             variant="outline"
             sx={{ float: "right", margin: "10px 0" }}
-            hidden>
+            hidden
+          >
             Rasmni Olib Tashlash
           </Button>
         </Box>
@@ -185,15 +195,27 @@ const FormProduct: React.FC<{
           {...form.getInputProps("price")}
           required
         />
-        <Select
-          sx={{ width: "100%", margin: "20px  0" }}
-          rightSection={<IconChevronDown size={14} />}
-          rightSectionWidth={30}
-          styles={{ rightSection: { pointerEvents: "none" } }}
-          label={"Pull Birligini kiriting"}
-          data={["UZS", "USD", "RUS", "EUR"]}
-          defaultValue="1 hafta"
-        />
+
+        <If
+          condition={!!currencies}
+          elseChildren={<Skeleton width="100%" height="30px" />}
+        >
+          <Select
+            sx={{ width: "100%", margin: "20px  0" }}
+            rightSection={<IconChevronDown size={14} />}
+            rightSectionWidth={30}
+            placeholder={intl.formatMessage({
+              id: "products.form.currencyPlaceholder",
+            })}
+            styles={{ rightSection: { pointerEvents: "none" } }}
+            label={intl.formatMessage({ id: "products.form.currencyLabel" })}
+            data={currencies?.map((item: any) => ({
+              value: item._id,
+              label: item.name,
+            }))}
+            {...form.getInputProps("currency")}
+          />
+        </If>
         <TextInput
           className={classes.inputStyle}
           label="Nechta mahsulot borligi"
@@ -203,8 +225,8 @@ const FormProduct: React.FC<{
         />
         <TextInput
           className={classes.inputStyle}
-          label="Mahsulotga tarif"
-          placeholder="Mahsulotga tarif"
+          label="Mahsulotga tavsif"
+          placeholder="Mahsulotga tavsif"
           {...form.getInputProps("description")}
           required
         />

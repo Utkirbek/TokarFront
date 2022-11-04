@@ -32,6 +32,11 @@ const uz = {
     title: "Mahsulotlar",
     description: "Mahsulotlar boshqaruv paneli",
     details: "Batafsil",
+
+    form: {
+      currencyPlaceholder: "Valyuta turini tanlang",
+      currencyLabel: "Valyuta",
+    },
   },
   addProductsForm: {
     showNotifTitle: "Iltimos kuting...",

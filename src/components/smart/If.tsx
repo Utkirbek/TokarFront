@@ -5,6 +5,7 @@ type Props = {
   condition: boolean;
   children: React.ReactNode;
   hasPerm?: string | string[];
+  elseChildren?: React.ReactNode;
 };
 
 const If: React.FC<
@@ -13,8 +14,9 @@ const If: React.FC<
       condition?: boolean;
       hasPerm: string | string[];
       children: React.ReactNode;
+      elseChildren?: React.ReactNode;
     }
-> = ({ children, hasPerm, condition }) => {
+> = ({ children, hasPerm, condition, elseChildren }) => {
   const { hasPerm: hasPermission } = useUser();
 
   if (condition) return <>{children}</>;
@@ -28,7 +30,7 @@ const If: React.FC<
     }
   }
 
-  return null;
+  return elseChildren ? <>{elseChildren}</> : null;
 };
 
 export default If;

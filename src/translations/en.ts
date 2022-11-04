@@ -62,7 +62,9 @@ const en = {
     soldCurrency: "In which currency it was sold",
     purchesCurrency: "In which currency it was purchased",
   },
-
+  form: {
+    currencyPlaceholder: "Currency ",
+  },
   addProductsForm: {
     showNotifTitle: "Please wait....",
     showNotifMessage: "Your product is being updated please wait",
