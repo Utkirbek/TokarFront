@@ -18,7 +18,6 @@ const useStyles = createStyles(() => {
       gap: "20",
       borderRadius: 10,
       marginBottom: "20px",
-      boxShadow: "2px 0 0  3px rgba(0, 0, 0, 0.2)",
     },
     CardBox: {
       marginTop: "20px",
@@ -29,7 +28,6 @@ const useStyles = createStyles(() => {
       width: "100%",
       height: "280px",
       borderRadius: 10,
-      boxShadow: "2px 0 0  3px rgba(0, 0, 0, 0.2)",
     },
     buyBtn: {
       width: "100%",
@@ -61,13 +59,23 @@ const useStyles = createStyles(() => {
       gap: "15",
     },
     payCardTitle: {
-      textAlign: "center",
-      fontWeight: 700,
+      fontWeight: 600,
       margin: "5px 0",
+      textAlign: "center",
+    },
+    cardSuma: {
+      width: "60px",
+      height: "60px",
+      cursor: "pointer",
+      textAlign: "center",
+      margin: "auto",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     },
 
     payCard: {
-      width: "100px",
+      width: "60px",
       height: "60px",
       display: "flex",
       alignItems: "center",
@@ -91,10 +99,20 @@ const useStyles = createStyles(() => {
       justifyContent: "space-around",
     },
     btnCount: {
-      margin: "0  5px",
+      margin: "0  10px",
+      padding: "0px 7px 5px 7px",
+      fontWeight: 700,
+      fontSize: 20,
+      display: "flex",
+      justifyContent: "center",
+      alignContent: "center",
     },
     user: {
       marginTop: "20px 0",
+    },
+    cardMoney: {
+      display: "flex",
+      justifyContent: "space-between",
     },
   };
 });

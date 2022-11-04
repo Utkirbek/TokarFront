@@ -23,26 +23,46 @@ const en = {
   settings: {
     title: "Settings",
   },
-  detailProduct: {
-    productName: "Product Name",
+  buyCart: {
+    datatitle: "Cash money",
+    dataterminal: "Terminal",
+    dataplastik: "Plastic",
+    databolibtolash: "Pay in installments",
+    jamiSuma: "Total Price",
+    sotish: "Selling",
+    kimga: "To whom",
+    maxsulotYoq: "You have no products left",
   },
-  productDetail: {
-    titleHead: "Product details",
-    productName: "Product Name",
-    productCode: "Product Code",
-    productPrice: "Product Price",
-    productTotal: "Total Products",
-    createProduct: "Created Time",
-    updateProduct: "Updated Time",
-    buyProductTime: "Time Of Sale",
-    soldCurrency: "In which currency it was sold",
-    purchesCurrency: "In which currency it was purchased",
+  detail: {
+    mahsulotNomi: "Product Name",
+    mahsulotKodi: "Product Code",
+    asilNarxi: "Original Price",
+    sotuvdagiNarx: "Sale price",
+    valyuta: "In which currency it was purchased",
+    obordagiSoni: "Number in warehouse",
+    sotilganVaqti: "Time Sold",
+    yangilanganVaqti: "Updated Time",
+    tarifBoyicha: "Tariff",
+    toliqMalumot: "More",
   },
-  products: {
-    details: "Details",
-    form: {
-      currencyPlaceholder: "Currency ",
-    },
+  tableHead: {
+    name: "Product Name",
+    code: "Cody",
+    price: "Cost",
+    quantity: "Total",
+    discount: "Discount",
+    valyuta: "Currency",
+    paymentType: "Payment type",
+    action: "Edit / Delete",
+    details: "See more",
+  },
+  sotish: {
+    sotiw: "Selling",
+  },
+  openDeleteModal: {
+    title: "Are you sure you want to delete this product?",
+
+    add: "+ Add new product",
   },
   addProductsForm: {
     showNotifTitle: "Please wait....",

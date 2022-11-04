@@ -60,26 +60,50 @@ const uz = {
     title: "Chiqish",
     description: "Profildan chiqish",
   },
-  detailProduct: {
-    productName: "Mahsulot Nemi:",
+  buyCart: {
+    datatitle: "Naqt pul",
+    dataterminal: "Terminal",
+    dataplastik: "Plastik",
+    databolibtolash: "Bo'lib to'lash",
+    jamiSuma: "Umumiy Narxi",
+    sotish: "Sotish",
+    kimga: "Kimga",
+    maxsulotYoq: "Sizda mahsulot qolmadi",
   },
-  productDetail: {
-    titleHead: "Mahsulot haqida Batafsil Malumotlar",
-    productName: "Mahsulot Nomi",
-    productCode: "Mahsulot Kodi",
-    productPrice: "Mahsulot Narxi",
-    productTotal: "Ombordagi Soni",
-    createProduct: "Yaratilgan Vaqti",
-    updateProduct: "Yangilangan Vaqti",
-    buyProductTime: "Sotilgan Vaqti",
-    soldCurrency: "Qaysi Valyutada sotilganligi",
-    purchesCurrency: "Qaysi Valyutada olinganligi",
+  detail: {
+    mahsulotNomi: "Mahsulot Nomi",
+    mahsulotKodi: "Mahsulot Kodi",
+    asilNarxi: "Asl Narxi",
+    sotuvdagiNarx: " Sotuvdagi Narxi",
+    valyuta: "Qaysi Valyutada sotib olingani",
+    obordagiSoni: "Ombordagi Soni",
+    sotilganVaqti: "Sotilgan Vaqti",
+    yangilanganVaqti: "Yangilangan Vaqti",
+    tarifBoyicha: "Tarifi",
+    toliqMalumot: "Batafsil",
   },
-  notification: {
-    loading: "Yuklanmoqda",
-    loadingMessage: "Iltimos kuting...",
-    success: "Muaffaqiyatli bajarildi.",
-    successMessage: "Muvaffaqiyatli amalga oshirildi hammasi!",
+  tableHead: {
+    name: "Mahsulot Nomi",
+    code: "Kodi",
+    price: "Narxi",
+    quantity: "Jami",
+    discount: "Chegirma",
+    valyuta: "Pul Birligi",
+    paymentType: "To'lov turi",
+    action: "Tahrirlash / O'chirish",
+    details: "Ko'prog'ini Ko'rish",
+  },
+  openDeleteModal: {
+    title: "Siz bu mahsulotni chindanham o'chirmoqchimisiz",
+
+    add: "+ Yangi mahsulot qo'shish",
+  },
+  sotish: {
+    sotiw: "Sotish",
+  },
+  foydalanuvchi: {
+    foydalanuv: "Foydalanuvchilar chiqadi",
+    kuni: "Necha kunga",
   },
 };
 
