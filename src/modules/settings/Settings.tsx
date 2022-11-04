@@ -21,8 +21,14 @@ const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
 const Settings: NextPage = () => {
   const newPermRef = useRef<HTMLInputElement>(null);
 
-  const { useGetAllPermissions, addPermission } = useSettings();
+  const {
+    useGetAllPermissions,
+    addPermission,
+    deletePermission,
+    updatePermission,
+  } = useSettings();
   const { data: permissions, error, mutate: refetch } = useGetAllPermissions();
+  const permissionsQuery = useGetAllPermissions();
 
   if (permissionsQuery.data?.length === 0) return <EmptyBox />;
 
@@ -131,14 +137,23 @@ const Settings: NextPage = () => {
   return (
     <DashLayout>
       <If hasPerm={Permissions.settings.view}>
-        <h1>Ruxsat Etilgan Amallar</h1>
+        <h1>
+          <FormattedMessage id="perm.allow" />
+        </h1>
         <Grid>
           <Grid.Col span={3} lg={2} md={3} xs={12} sm={6}>
             <Card
-              sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}
-              onClick={handleNewPermissionClick}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                cursor: "pointer",
+                height: 95,
+              }}
+              onClick={handleUPermissionAdd}
             >
-              <Text>Yangi ruxsat</Text>
+              <Text>
+                <FormattedMessage id="perm.newAllow" />
+              </Text>
               <lord-icon
                 src="https://cdn.lordicon.com/zgogqkqu.json"
                 trigger="hover"
@@ -160,6 +175,23 @@ const Settings: NextPage = () => {
               sm={6}
             >
               <Card>
+                <IconPencil
+                  onClick={() =>
+                    handlePermissionUpdate(permission.name, permission._id)
+                  }
+                  cursor={"pointer"}
+                  style={{
+                    position: "absolute",
+                    right: 20,
+                    marginRight: 40,
+                    marginBottom: 10,
+                  }}
+                />
+                <IconTrash
+                  onClick={() => openDeleteModal(permission._id)}
+                  cursor={"pointer"}
+                  style={{ marginLeft: 120, marginBottom: 10 }}
+                />
                 <Text>{permission.name}</Text>
               </Card>
             </Grid.Col>
