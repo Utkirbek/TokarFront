@@ -44,8 +44,9 @@ const useUser = create(
           role: user.admin.role,
         }),
       hasPerm: (perm) =>
-        get().permissions.some((p) => p.name === perm) ||
-        perm === Permissions.all,
+        get().permissions.some(
+          (p) => p.name === perm || p.name === Permissions.all
+        ),
       logout: () => set({ ...initalState }),
     }),
     {

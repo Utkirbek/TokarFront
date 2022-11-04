@@ -3,30 +3,26 @@ import {
   Button,
   Card,
   Container,
-  Divider,
   ScrollArea,
   Select,
   Text,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { showNotification, updateNotification } from "@mantine/notifications";
-import {
-  IconCashBanknote,
-  IconCheck,
-  IconChevronDown,
-  IconCreditCard,
-  IconTrash,
-  IconWallet,
-} from "@tabler/icons";
+import { IconCheck, IconChevronDown, IconTrash } from "@tabler/icons";
 import React, { useState } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useCart } from "react-use-cart";
 
+import datas from "./data";
 import useStyles from "./styleCard";
 
 const BuyCart: React.FC<{}> = () => {
   const { classes, cx } = useStyles();
   const [wallet, setWallet] = useState(false);
   const [cardMoney, setCardMoney] = useState(false);
+  const [activeId, setActiveId] = useState(null);
+  const intl = useIntl();
 
   const {
     isEmpty,
@@ -45,7 +41,14 @@ const BuyCart: React.FC<{}> = () => {
       status: "",
     },
   });
-
+  const activeStyle = {
+    background: "#1864AB",
+    color: "white",
+    borderRadius: "10px",
+  };
+  const handleClick = (id: any) => () => {
+    setActiveId(id);
+  };
   const buy = () => {
     showNotification({
       id: "load-data",
@@ -63,60 +66,58 @@ const BuyCart: React.FC<{}> = () => {
       autoClose: 2000,
     });
   };
-
-  const clickWallet = () => {
-    setWallet(!wallet);
+  const clickWallet = ({ item }: any) => {
+    item.bolin === true ? setWallet(!wallet) : "";
   };
 
   return (
     <>
-      {/* <Divider
-        orientation="vertical"
-        sx={{ height: "100%", position: "absolute" }}
-      /> */}
       <Box className={classes.boxHead}>
         <Container>
           <Box>
             <Box className={classes.CardBox}>
               {isEmpty ? (
-                <Text className={classes.empty}> Sizda mahsulot qolmadi </Text>
+                <Text className={classes.empty}>
+                  <FormattedMessage id="buyCart.maxsulotYoq" />
+                </Text>
               ) : (
                 <ScrollArea style={{ height: 350 }} scrollbarSize={4}>
                   {items.map((item: any) => {
                     return (
-                      <Box key={item._id}>
-                        <Card className={classes.card} key={item._id}>
-                          <Text>{item.title}</Text>
-                          <Text>{item.price}</Text>
-                          <Box className={classes.boxGroupCountTrash}>
-                            <Box className={classes.counter}>
-                              <Button
-                                onClick={() =>
-                                  updateItemQuantity(item.id, item.quantity - 1)
-                                }
-                                className={classes.btnCount}
-                                variant={"outline"}
-                              >
-                                -
-                              </Button>
-                              <Text>{item.quantity}</Text>
-                              <Button
-                                onClick={() =>
-                                  updateItemQuantity(item.id, item.quantity + 1)
-                                }
-                                className={classes.btnCount}
-                                variant={"outline"}
-                              >
-                                +
-                              </Button>
-                            </Box>
-                            <IconTrash
-                              className={classes.trash}
-                              onClick={() => removeItem(item.id)}
-                            />
+                      <Card className={classes.card} key={item._id}>
+                        <Text>{item.title}</Text>
+                        <Text>{item.price}</Text>
+
+                        <Box className={classes.boxGroupCountTrash}>
+                          <Box className={classes.counter}>
+                            <Button
+                              onClick={() =>
+                                updateItemQuantity(item.id, item.quantity - 1)
+                              }
+                              className={classes.btnCount}
+                              variant={"outline"}
+                              compact
+                            >
+                              -
+                            </Button>
+                            <Text size="xl">{item.quantity}</Text>
+                            <Button
+                              onClick={() =>
+                                updateItemQuantity(item.id, item.quantity + 1)
+                              }
+                              className={classes.btnCount}
+                              variant={"outline"}
+                              compact
+                            >
+                              +
+                            </Button>
                           </Box>
-                        </Card>
-                      </Box>
+                          <IconTrash
+                            className={classes.trash}
+                            onClick={() => removeItem(item.id)}
+                          />
+                        </Box>
+                      </Card>
                     );
                   })}
                 </ScrollArea>
@@ -127,7 +128,7 @@ const BuyCart: React.FC<{}> = () => {
               <Card className={classes.cardPrice}>
                 <Box className={classes.totalpriceGrup}>
                   <Text sx={{ fontSize: "18px", fontWeight: 900 }}>
-                    Umumiy Narxi
+                    <FormattedMessage id="buyCart.jamiSuma" />
                   </Text>
                   <Text sx={{ fontSize: "20px", fontWeight: 900 }}>
                     {cartTotal} USD
@@ -135,31 +136,37 @@ const BuyCart: React.FC<{}> = () => {
                 </Box>
 
                 <Box className={classes.payMoney}>
-                  <div>
-                    <Text className={classes.payCardTitle}>Naqt pul</Text>
-                    <div className={classes.payCard}>
-                      <IconCashBanknote size={44} />
-                    </div>
-                  </div>
-                  <div>
-                    <Text className={classes.payCardTitle}>Plastik </Text>
-                    <div className={classes.payCard}>
-                      <IconCreditCard size={44} />
-                    </div>
-                  </div>
-                  <div>
-                    <Text className={classes.payCardTitle}>
-                      Bo&apos;lib To&apos;lash
-                    </Text>
-                    <div className={classes.payCard}>
-                      <IconWallet size={44} onClick={() => clickWallet()} />
-                    </div>
-                  </div>
+                  {datas?.map((item: any, index: any) => {
+                    return (
+                      <div key={index}>
+                        <Text className={classes.payCardTitle} size="sm">
+                          <FormattedMessage id={item.title} />
+                        </Text>
+                        <Box
+                          className={classes.cardSuma}
+                          style={item.id === activeId ? activeStyle : {}}
+                          onClick={handleClick(item.id)}
+                        >
+                          <item.icon
+                            size={50}
+                            onClick={() => clickWallet({ item })}
+                          />
+                        </Box>
+                      </div>
+                    );
+                  })}
                 </Box>
                 <Select
                   sx={{ margin: "20px 0" }}
-                  placeholder="Kimga "
-                  data={[{ value: "users", label: "Foydalanuvchilar chiqadi" }]}
+                  placeholder={intl.formatMessage({ id: "buyCart.kimga" })}
+                  data={[
+                    {
+                      value: "users",
+                      label: intl.formatMessage({
+                        id: "foydalanuvchi.foydalanuv",
+                      }),
+                    },
+                  ]}
                 />
                 {!!wallet ? (
                   <Select
@@ -180,7 +187,7 @@ const BuyCart: React.FC<{}> = () => {
               </Card>
             </Box>
             <Button className={classes.buyBtn} onClick={() => buy()}>
-              Sotish
+              <FormattedMessage id="buyCart.sotish" />
             </Button>
           </Box>
         </Container>

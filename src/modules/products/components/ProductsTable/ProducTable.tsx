@@ -29,7 +29,7 @@ import { Permissions, RequestQueryKeys } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
 import { useRouter } from "next/router";
 import { memo, useState } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useCart } from "react-use-cart";
 import useSWR from "swr";
 
@@ -37,7 +37,6 @@ import BuyCart from "../buyCart/BuyCart";
 import FormProduct from "../form/FormAdd";
 import Error from "./components/Error";
 import ProductDetails from "./components/ProductDetails";
-import tableHead from "./const/constTableHeadName";
 
 function ProductsTable() {
   const [editItem, setEditItem] = useState({});
@@ -48,6 +47,7 @@ function ProductsTable() {
   const getProductsQuery = useFetchProduct();
   const { data: products } = getProductsQuery;
   const { addItem, isEmpty } = useCart();
+  const intl = useIntl();
 
   const handleDelete = async function (id: string) {
     deleteProducts(id, {
@@ -80,12 +80,20 @@ function ProductsTable() {
       centered: true,
       children: (
         <Text size="sm">
-          Siz bu mahsulotni chindanham o&apos;chirmoqchimisiz
+          <FormattedMessage id="openDeleteModal.title" />
         </Text>
       ),
       labels: { confirm: "O'chirish", cancel: "Orqaga qaytish" },
       confirmProps: { color: "red" },
-      onConfirm: () => {
+      onConfirm: async () => {
+        showNotification({
+          id: "load-data",
+          loading: true,
+          title: "Iltimos kuting",
+          message: "Foydalanuvchi udalit qilinyabdi",
+          autoClose: false,
+          disallowClose: true,
+        });
         handleDelete(id);
       },
       onCancel: () => {
@@ -185,14 +193,14 @@ function ProductsTable() {
             />
           </If>
           <If hasPerm={Permissions.products.sell}>
-            <Button onClick={() => handleOpenCartBuy(item)}>Sotish</Button>
+            <Button onClick={() => handleOpenCartBuy(item)}>
+              <FormattedMessage id="buyCart.sotish" />
+            </Button>
           </If>
         </td>
         <td>
           <Button
             variant="outline"
-            sx={{ width: "100px", height: "30px" }}
-            radius={"xl"}
             onClick={() => {
               router.push("/products", {
                 query: {
@@ -244,7 +252,7 @@ function ProductsTable() {
       <If hasPerm={Permissions.products.create}>
         <Group position="right" mx={"xl"} my={"xl"}>
           <Button onClick={handleClick} variant={"outline"}>
-            + Yangi mahsulot qo&apos;shish
+            <FormattedMessage id="openDeleteModal.add" />
           </Button>
         </Group>
       </If>
@@ -264,15 +272,30 @@ function ProductsTable() {
                       transitionDuration={0}
                     />
                   </th>
-                  <th>{tableHead.name}</th>
-                  <th>{tableHead.code}</th>
+                  <th>
+                    <FormattedMessage id="tableHead.name" />
+                  </th>
+                  <th>
+                    <FormattedMessage id="tableHead.code" />
+                  </th>
+                  <th>
+                    <FormattedMessage id="tableHead.price" />
+                  </th>
                   <If hasPerm={Permissions.accounting.view}>
-                    <th>{tableHead.originalPrice}</th>
+                    <th>
+                      <FormattedMessage id="tableHead.price" />
+                    </th>
                   </If>
-                  <th>{tableHead.price}</th>
-                  <th>{tableHead.quantity}</th>
-                  <th>{tableHead.discount}</th>
-                  <th>{tableHead.action}</th>
+                  <th>
+                    <FormattedMessage id="tableHead.quantity" />
+                  </th>
+                  <th>
+                    <FormattedMessage id="tableHead.discount" />
+                  </th>
+                  <th>
+                    <FormattedMessage id="tableHead.action" />
+                  </th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>{rows}</tbody>
