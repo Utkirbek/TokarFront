@@ -9,6 +9,7 @@ import { Permissions } from "@utils/constants";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
 import { useRef } from "react";
+import { FormattedMessage } from "react-intl";
 
 const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
   ssr: false,
@@ -134,7 +135,9 @@ const Settings: NextPage = () => {
   return (
     <DashLayout>
       <If hasPerm={Permissions.settings.view}>
-        <h1>Ruxsat Etilgan Amallar</h1>
+        <h1>
+          <FormattedMessage id="perm.allow" />
+        </h1>
         <Grid>
           <Grid.Col span={3} lg={2} md={3} xs={12} sm={6}>
             <Card
@@ -146,7 +149,9 @@ const Settings: NextPage = () => {
               }}
               onClick={handleUPermissionAdd}
             >
-              <Text>Yangi ruxsat</Text>
+              <Text>
+                <FormattedMessage id="perm.newAllow" />
+              </Text>
               <lord-icon
                 src="https://cdn.lordicon.com/zgogqkqu.json"
                 trigger="hover"
@@ -167,7 +172,13 @@ const Settings: NextPage = () => {
               xs={12}
               sm={6}
             >
-              <Card>
+              <Card
+                style={{
+                  background: "linear-gradient( to right, #ff9494, #9aa2ff)",
+                  color: "black",
+                  textAlign: "center",
+                }}
+              >
                 <IconPencil
                   onClick={() =>
                     handlePermissionUpdate(permission.name, permission._id)
@@ -183,7 +194,11 @@ const Settings: NextPage = () => {
                 <IconTrash
                   onClick={() => openDeleteModal(permission._id)}
                   cursor={"pointer"}
-                  style={{ marginLeft: 120, marginBottom: 10 }}
+                  style={{
+                    marginLeft: 120,
+                    marginBottom: 10,
+                    color: "red",
+                  }}
                 />
                 <Text>{permission.name}</Text>
               </Card>

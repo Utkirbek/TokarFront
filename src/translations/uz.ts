@@ -76,6 +76,11 @@ const uz = {
     success: "Muaffaqiyatli bajarildi.",
     successMessage: "Muvaffaqiyatli amalga oshirildi hammasi!",
   },
+
+  perm: {
+    allow: "Ruxsat Etilgan Amallar",
+    newAllow: "Yangi ruxsat",
+  },
 };
 
 export default uz;

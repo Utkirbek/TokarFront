@@ -71,6 +71,11 @@ const en = {
     updataNotifError: "Error",
     updataNotifErrorMessage: "Error! Product Not Added",
   },
+
+  perm: {
+    allow: "Allowed Permissions",
+    newAllow: "Add Permission",
+  },
 };
 
 export default en;
