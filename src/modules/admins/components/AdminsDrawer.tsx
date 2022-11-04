@@ -62,28 +62,29 @@ const AdminsDrawer: React.FC<{
           },
         }
       );
-    }
-    showNotification({
-      id: "load-data",
-      loading: true,
-      title: "Iltimos kuting",
-      message: "Sizning mahsuloringiz qo'shilmoqda iltimos kuting",
-      autoClose: false,
-      disallowClose: true,
-    });
+    } else {
+      showNotification({
+        id: "load-data",
+        loading: true,
+        title: "Iltimos kuting",
+        message: "Sizning mahsuloringiz qo'shilmoqda iltimos kuting",
+        autoClose: false,
+        disallowClose: true,
+      });
 
-    addAdmin(values, {
-      onSuccess: () => {
-        updateNotification({
-          id: "load-data",
-          color: "teal",
-          title: "Muaffaqiyatli",
-          message: "Sizning mahsuloringiz Qo'shildi",
-          icon: <IconCheck size={16} />,
-          autoClose: 2000,
-        });
-      },
-    });
+      addAdmin(values, {
+        onSuccess: () => {
+          updateNotification({
+            id: "load-data",
+            color: "teal",
+            title: "Muaffaqiyatli",
+            message: "Sizning mahsuloringiz Qo'shildi",
+            icon: <IconCheck size={16} />,
+            autoClose: 2000,
+          });
+        },
+      });
+    }
   };
   return (
     <Box mx="auto">

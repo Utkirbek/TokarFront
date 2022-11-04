@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
 } from "@mantine/core";
+import { useState } from "react";
 import WithLoading from "@/hoc/WithLoading";
 import { useForm } from "@mantine/form";
 import { showNotification, updateNotification } from "@mantine/notifications";
@@ -13,13 +14,11 @@ import useRoles from "@services/hooks/useRoles";
 import useSettings from "@services/hooks/useSettings";
 import { IconCheck } from "@tabler/icons";
 
-
-
 const RolesDrawer: React.FC<{
   handleClose: () => void;
   editItem: any;
 }> = ({ handleClose, editItem }) => {
-  console.log(editItem);
+  const [newPermissions, setNewPermissions] = useState<string[]>([]);
   const { editRole, addRole } = useRoles();
   const { useFetchAllPermissions } = useSettings();
   const getRolesQuery = useFetchAllPermissions();
@@ -28,10 +27,12 @@ const RolesDrawer: React.FC<{
   const DefaultPermissions = editItem?.permissions?.map(
     (permission: any) => permission._id
   );
+
   const Permissions = permissions?.map((permission: any) => ({
     label: permission.name,
     value: permission._id,
   }));
+
   const form = useForm({
     initialValues: {
       name: editItem?.name ?? "",
@@ -47,12 +48,12 @@ const RolesDrawer: React.FC<{
     name: string;
     permissions: string[];
   }) => {
-    if (!!editItem._id) {
+    if (!!editItem?._id) {
       handleClose();
       editRole(
         {
           id: editItem._id,
-          values,
+          values: { name: values?.name, permissions: newPermissions },
         },
         {
           onSuccess: () => {
@@ -67,28 +68,29 @@ const RolesDrawer: React.FC<{
           },
         }
       );
-    }
-    showNotification({
-      id: "load-data",
-      loading: true,
-      title: "Iltimos kuting",
-      message: "Sizning mahsuloringiz qo'shilmoqda iltimos kuting",
-      autoClose: false,
-      disallowClose: true,
-    });
+    } else {
+      showNotification({
+        id: "load-data",
+        loading: true,
+        title: "Iltimos kuting",
+        message: "Sizning mahsuloringiz qo'shilmoqda iltimos kuting",
+        autoClose: false,
+        disallowClose: true,
+      });
 
-    addRole(values, {
-      onSuccess: () => {
-        updateNotification({
-          id: "load-data",
-          color: "teal",
-          title: "Muaffaqiyatli",
-          message: "Sizning mahsuloringiz Qo'shildi",
-          icon: <IconCheck size={16} />,
-          autoClose: 2000,
-        });
-      },
-    });
+      addRole(values, {
+        onSuccess: () => {
+          updateNotification({
+            id: "load-data",
+            color: "teal",
+            title: "Muaffaqiyatli",
+            message: "Sizning mahsuloringiz Qo'shildi",
+            icon: <IconCheck size={16} />,
+            autoClose: 2000,
+          });
+        },
+      });
+    }
   };
   return (
     <WithLoading query={getRolesQuery}>
@@ -108,10 +110,11 @@ const RolesDrawer: React.FC<{
           />
           <MultiSelect
             defaultValue={DefaultPermissions ?? []}
-            name="permissions"
+            onChange={(value) => setNewPermissions(value)}
             data={Permissions}
             label="Rol uchun ruxsatlarni tanlang"
             placeholder="Ruxsatlarni tanlang"
+            maxDropdownHeight={200}
           />
           <Group position="right" mt="md">
             <Button type="submit">

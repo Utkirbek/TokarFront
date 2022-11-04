@@ -7,7 +7,7 @@ const useRoles = () => {
 
   return {
     useFetchRoles: () =>
-      useSWR(RequestQueryKeys.getAdmins, roleFetchers.getRoles),
+      useSWR(RequestQueryKeys.getAllRoles, roleFetchers.getRoles),
     addRole: async function (
       body: {
         name: string;
@@ -20,14 +20,14 @@ const useRoles = () => {
     ) {
       try {
         const res = await mutate(
-          RequestQueryKeys.addAdmin,
+          RequestQueryKeys.addRole,
           roleFetchers.addRole(body),
           {
             revalidate: true,
           }
         );
         options?.onSuccess && options.onSuccess(res);
-        mutate(RequestQueryKeys.getAdmins);
+        mutate(RequestQueryKeys.getAllRoles);
         return res;
       } catch (error) {
         console.error(error);
@@ -36,7 +36,7 @@ const useRoles = () => {
     },
     editRole: async (
       data: {
-        id: string;
+        id: any;
         values: any;
       },
       options?: {
@@ -46,14 +46,14 @@ const useRoles = () => {
     ) => {
       try {
         const res = await mutate(
-          RequestQueryKeys.updeteAdmin,
-          roleFetchers.updeteRole(data.id, data.values),
+          RequestQueryKeys.updateRole,
+          roleFetchers.updateRole(data.id, data.values),
           {
             revalidate: true,
           }
         );
         options?.onSuccess && options.onSuccess(res);
-        mutate(RequestQueryKeys.getAdmins);
+        mutate(RequestQueryKeys.getAllRoles);
         return res;
       } catch (error) {
         console.error(error);
@@ -69,14 +69,14 @@ const useRoles = () => {
     ) => {
       try {
         const res = await mutate(
-          RequestQueryKeys.deleteAdmin,
+          RequestQueryKeys.deleteRole,
           roleFetchers.deleteRole(id),
           {
             revalidate: true,
           }
         );
         options?.onSuccess && options.onSuccess(res);
-        mutate(RequestQueryKeys.getAdmins);
+        mutate(RequestQueryKeys.getAllRoles);
         return res;
       } catch (err) {
         console.error(err);
