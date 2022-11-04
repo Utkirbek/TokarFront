@@ -109,6 +109,25 @@ const uz = {
   perm: {
     allow: "Ruxsat Etilgan Amallar",
     newAllow: "Yangi ruxsat",
+    addTitle: "Yangi huquq qo'shish",
+    addInputLabel: "Huquq nomi",
+    addInputPlholder: "Huquq nomini kiriting",
+    updateTitle: "Huquqni o'zgartirish",
+    updateInputLabel: "Huquq nomini o'zgartirish",
+    updateInputPlholder: "Yangi huquq nomini kiriting",
+    yes: "Saqlash",
+    no: "Bekor qilish",
+    onSuccessTitle: "Ruxsat o'chirilmoqda",
+    onSuccessMessage:
+      "Bu malumot o'chirilgandan keyin qayta yuklashni iloji yo'q. Yangi ruxsat qo'shasiz",
+    onErrorTitle: "Xatolik",
+    onErrorMessage: "Xatolik Yuz berdi",
+    modalTitle: "Ruxsatni o'chirish",
+    modalText: "Siz bu mahsulotni chindanham o'chirmoqchimisiz",
+    // confirm: "O'chirish",
+    // cancel: "Orqaga qaytish",
+    // cancelTitle: "Siz bekor qildingiz",
+    // cancelMessage:"Siz bu amalni bekor qildingiz",
   },
 };
 

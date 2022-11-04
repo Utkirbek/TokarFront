@@ -10,7 +10,7 @@ import { Permissions } from "@utils/constants";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
 import { useRef } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import Roles from "./components/Roles";
 
@@ -20,6 +20,7 @@ const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
 
 const Settings: NextPage = () => {
   const newPermRef = useRef<HTMLInputElement>(null);
+  const intl = useIntl();
 
   const {
     useGetAllPermissions,
@@ -34,11 +35,11 @@ const Settings: NextPage = () => {
 
   const handleUPermissionAdd = () => {
     openConfirmModal({
-      title: "Yangi huquq qo'shish",
+      title: intl.formatMessage({ id: "perm.addTitle" }),
       children: (
         <TextInput
-          label="Huquq nomi"
-          placeholder="Huquq nomini kiriting"
+          label={intl.formatMessage({ id: "perm.addInputLabel" })}
+          placeholder={intl.formatMessage({ id: "perm.addInputPlholder" })}
           data-autofocus
           ref={newPermRef}
           required
@@ -53,19 +54,19 @@ const Settings: NextPage = () => {
         }
       },
       labels: {
-        confirm: "Saqlash",
-        cancel: "Bekor qilish",
+        confirm: intl.formatMessage({ id: "perm.yes" }),
+        cancel: intl.formatMessage({ id: "perm.no" }),
       },
     });
   };
 
   const handlePermissionUpdate = (name: string, id: string) => {
     openConfirmModal({
-      title: "Huquqni o'zgartirish.",
+      title: intl.formatMessage({ id: "perm.updateTitle" }),
       children: (
         <TextInput
-          label="Huquq nomini o'zgartirish"
-          placeholder="Yangi huquq nomini kiriting"
+          label={intl.formatMessage({ id: "perm.updateInputLabel" })}
+          placeholder={intl.formatMessage({ id: "perm.updateInputPlholder" })}
           data-autofocus
           ref={newPermRef}
           required
@@ -80,8 +81,8 @@ const Settings: NextPage = () => {
         refetch();
       },
       labels: {
-        confirm: "Saqlash",
-        cancel: "Bekor qilish",
+        confirm: intl.formatMessage({ id: "perm.yes" }),
+        cancel: intl.formatMessage({ id: "perm.no" }),
       },
     });
   };
@@ -92,9 +93,8 @@ const Settings: NextPage = () => {
         updateNotification({
           id: "load-data",
           color: "teal",
-          title: "Mahsulot o'chirilmoqda",
-          message:
-            "Bu malumot o'chirilgandan keyin qayta yuklashni iloji yo'q.Yangi mahsulot qo'shasiz",
+          title: intl.formatMessage({ id: "perm.onSuccessTitle" }),
+          message: intl.formatMessage({ id: "perm.onSuccessMessage" }),
           icon: <IconCheck size={16} />,
           autoClose: 2000,
         });
@@ -103,8 +103,8 @@ const Settings: NextPage = () => {
         updateNotification({
           id: "load-data",
           color: "red",
-          title: "Xatolik",
-          message: "Xatolik Yoz berdi",
+          title: intl.formatMessage({ id: "perm.onErrorTitle" }),
+          message: intl.formatMessage({ id: "perm.onErrorMessage" }),
           autoClose: false,
           disallowClose: false,
         });
@@ -113,11 +113,11 @@ const Settings: NextPage = () => {
   };
   const openDeleteModal = (id: string) =>
     openConfirmModal({
-      title: "Mahsulotni o'chirish",
+      title: intl.formatMessage({ id: "perm.modalTitle" }),
       centered: true,
       children: (
         <Text size="sm">
-          Siz bu mahsulotni chindanham o&apos;chirmoqchimisiz
+          <FormattedMessage id="perm.modalText" />
         </Text>
       ),
       labels: { confirm: "O'chirish", cancel: "Orqaga qaytish" },
@@ -199,7 +199,7 @@ const Settings: NextPage = () => {
                 <IconTrash
                   onClick={() => openDeleteModal(permission._id)}
                   cursor={"pointer"}
-                  style={{ marginLeft: 140, marginBottom: 10, color: "red" }}
+                  style={{ marginLeft: 150, marginBottom: 10, color: "red" }}
                 />
                 <Text>{permission.name}</Text>
               </Card>
