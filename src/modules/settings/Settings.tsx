@@ -11,8 +11,12 @@ import { mutate } from "swr";
 const Settings: NextPage = () => {
   const newPermRef = useRef<HTMLInputElement>(null);
 
-  const { useGetAllPermissions, addPermission } = useSettings();
-  const { data: permissions, error, mutate: refetch } = useGetAllPermissions();
+  const { useFetchAllPermissions, addPermission } = useSettings();
+  const {
+    data: permissions,
+    error,
+    mutate: refetch,
+  } = useFetchAllPermissions();
 
   if (!permissions) return <Loader />;
   if (error) return <div>error</div>;
