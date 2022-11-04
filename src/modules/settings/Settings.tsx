@@ -18,8 +18,10 @@ const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
 const Settings: NextPage = () => {
   const newPermRef = useRef<HTMLInputElement>(null);
 
-  const { useGetAllPermissions, addPermission } = useSettings();
-  const permissionsQuery = useGetAllPermissions();
+
+
+  const { useFetchAllPermissions, addPermission } = useSettings();
+  const permissionsQuery = useFetchAllPermissions();
 
   if (permissionsQuery.data?.length === 0) return <EmptyBox />;
 
