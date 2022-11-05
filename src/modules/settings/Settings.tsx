@@ -14,11 +14,14 @@ import { FormattedMessage, useIntl } from "react-intl";
 
 import Roles from "./components/Roles";
 
-const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
-  ssr: false,
-});
+// const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
+//   ssr: false,
+// });
 
 const Settings: NextPage = () => {
+  const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
+    ssr: false,
+  });
   const newPermRef = useRef<HTMLInputElement>(null);
   const intl = useIntl();
 
@@ -137,76 +140,79 @@ const Settings: NextPage = () => {
 
   return (
     <DashLayout>
-      <If hasPerm={Permissions.settings.view}>
-        <h1>
-          <FormattedMessage id="perm.allow" />
-        </h1>
-        <Grid>
-          <Grid.Col span={3} lg={2} md={3} xs={12} sm={6}>
-            <Card
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                cursor: "pointer",
-                height: 93,
-              }}
-              onClick={handleUPermissionAdd}
-            >
-              <Text>
-                <FormattedMessage id="perm.newAllow" />
-              </Text>
-              <lord-icon
-                src="https://cdn.lordicon.com/zgogqkqu.json"
-                trigger="hover"
-                style={{
-                  width: "1.6rem",
-                  height: "1.6rem",
-                  marginLeft: "auto",
-                }}
-              ></lord-icon>
-            </Card>
-          </Grid.Col>
-          {permissions.map((permission: { name: string; _id: string }) => (
-            <Grid.Col
-              key={permission._id}
-              span={3}
-              lg={2}
-              md={3}
-              xs={12}
-              sm={6}
-            >
+      <WithLoading query={permissionsQuery}>
+        <If hasPerm={Permissions.settings.view}>
+          <h1>
+            <FormattedMessage id="perm.allow" />
+          </h1>
+          <Grid>
+            <Grid.Col span={3} lg={2} md={3} xs={12} sm={6}>
               <Card
-                style={{
-                  background:
-                    "linear-gradient( 45deg, #13005a 40%, #350042 60%)",
-                  textAlign: "center",
-                  fontFamily: "revert",
-                  padding: "10px 20px 20px",
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  cursor: "pointer",
+                  height: 93,
                 }}
+                onClick={handleUPermissionAdd}
               >
-                <IconPencil
-                  onClick={() =>
-                    handlePermissionUpdate(permission.name, permission._id)
-                  }
-                  cursor={"pointer"}
+                <Text>
+                  <FormattedMessage id="perm.newAllow" />
+                </Text>
+                <lord-icon
+                  src="https://cdn.lordicon.com/zgogqkqu.json"
+                  trigger="hover"
                   style={{
-                    position: "absolute",
-                    right: 20,
-                    marginRight: 20,
-                    marginBottom: 10,
+                    width: "1.6rem",
+                    height: "1.6rem",
+                    marginLeft: "auto",
                   }}
-                />
-                <IconTrash
-                  onClick={() => openDeleteModal(permission._id)}
-                  cursor={"pointer"}
-                  style={{ marginLeft: 150, marginBottom: 10, color: "red" }}
-                />
-                <Text>{permission.name}</Text>
+                ></lord-icon>
               </Card>
             </Grid.Col>
-          ))}
-        </Grid>
-      </If>
+            {permissions.map((permission: { name: string; _id: string }) => (
+              <Grid.Col
+                key={permission._id}
+                span={3}
+                lg={2}
+                md={3}
+                xs={12}
+                sm={6}
+              >
+                <Card
+                  style={{
+                    background:
+                      "linear-gradient( 45deg, #13005a 40%, #350042 60%)",
+                    textAlign: "center",
+                    fontFamily: "revert",
+                    padding: "10px 20px 20px",
+                  }}
+                >
+                  <IconPencil
+                    onClick={() =>
+                      handlePermissionUpdate(permission.name, permission._id)
+                    }
+                    cursor={"pointer"}
+                    style={{
+                      position: "absolute",
+                      right: 20,
+                      marginRight: 20,
+                      marginBottom: 10,
+                    }}
+                  />
+                  <IconTrash
+                    onClick={() => openDeleteModal(permission._id)}
+                    cursor={"pointer"}
+                    style={{ marginLeft: 150, marginBottom: 10, color: "red" }}
+                  />
+                  <Text>{permission.name}</Text>
+                </Card>
+              </Grid.Col>
+            ))}
+          </Grid>
+          <Roles />
+        </If>
+      </WithLoading>
     </DashLayout>
   );
 };
