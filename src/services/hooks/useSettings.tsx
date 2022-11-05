@@ -6,7 +6,7 @@ const useSettings = () => {
   const { mutate } = useSWRConfig();
 
   return {
-    useGetAllPermissions: () => {
+    useFetchAllPermissions: () => {
       return useSWR(
         [RequestQueryKeys.getAllPermissions],
         settingsFetchers.getAllPermissions

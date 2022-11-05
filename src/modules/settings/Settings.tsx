@@ -26,13 +26,17 @@ const Settings: NextPage = () => {
   const intl = useIntl();
 
   const {
-    useGetAllPermissions,
+    useFetchAllPermissions,
     addPermission,
     deletePermission,
     updatePermission,
   } = useSettings();
-  const { data: permissions, error, mutate: refetch } = useGetAllPermissions();
-  const permissionsQuery = useGetAllPermissions();
+  const {
+    data: permissions,
+    error,
+    mutate: refetch,
+  } = useFetchAllPermissions();
+  const permissionsQuery = useFetchAllPermissions();
 
   if (permissionsQuery.data?.length === 0) return <EmptyBox />;
 
