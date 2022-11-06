@@ -1,7 +1,6 @@
 const en = {
   loading: "Loading",
   delete: "Delete",
-  logout: "Logout",
   sthWentWrong: "Something went wrong",
 
   home: {
@@ -31,6 +30,30 @@ const en = {
   },
   settings: {
     title: "Settings",
+    description: "Program Settings",
+  },
+  customers: {
+    title: "Clients",
+    description: "Customer Control Panel",
+  },
+  products: {
+    title: "Products",
+    description: "Products Dashboard",
+    details: "Details",
+  },
+  stats: {
+    title: "Statistics",
+    description: "Statistical information",
+  },
+
+  orders: {
+    title: "Orders",
+    description: "Order information portal",
+  },
+
+  logout: {
+    title: "Exit",
+    description: "Logout",
   },
   buyCart: {
     datatitle: "Cash money",
@@ -41,6 +64,22 @@ const en = {
     sotish: "Selling",
     kimga: "To whom",
     maxsulotYoq: "You have no products left",
+  },
+
+  productDetail: {
+    titleHead: "Product details",
+    productName: "Product Name",
+    productCode: "Product Code",
+    productPrice: "Product Price",
+    productTotal: "Total Products",
+    createProduct: "Created Time",
+    updateProduct: "Updated Time",
+    buyProductTime: "Time Of Sale",
+    soldCurrency: "In which currency it was sold",
+    purchesCurrency: "In which currency it was purchased",
+  },
+  form: {
+    currencyPlaceholder: "Currency ",
   },
   detail: {
     mahsulotNomi: "Product Name",
@@ -81,16 +120,7 @@ const en = {
     updataNotifError: "Error",
     updataNotifErrorMessage: "Error! Product Not Added",
   },
-  productDetail: {
-    titleHead: "Detailed product information",
-    productImage: "This should contain a Product Image",
-    productName: "Product Name",
-    productCode: "Product Code",
-    productPrice: "Product Price",
-    productTotal: "Product Quantity",
-    createProduct: "Created time",
-    updateProduct: "Updated Time",
-  },
+
   roles: {
     title: "Roles",
     addRole: "+ Add role",
