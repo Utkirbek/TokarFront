@@ -2,11 +2,9 @@ const uz = {
   loading: "Yuklanmoqda",
   delete: "O'chirish",
   sthWentWrong: "Xatolik yuz berdi",
-
   home: {
     errorLoading: "Yuklashda xatolik",
   },
-
   admins: {
     title: "Adminlar",
     deleteConfirmation:
@@ -50,12 +48,21 @@ const uz = {
     title: "Statistika",
     description: "Statistika ma'lumotlari",
   },
-
   orders: {
     title: "Buyurtmalar",
     description: "Buyurtmalar haqida ma'lumotlar portali",
   },
-
+  OrdersDetail: {
+    titleHead: "Buyurtmalar haqida batafsil ma'lumot",
+    ordersSalesmen: "Sotuvchi",
+    ordersProductId: "maxsulot codi",
+    ordersQuantity: "maxsulot soni",
+    ordersPrice: "maxsulot narxi",
+    createOrder: "Yaratilgan Vaqti",
+    updateOrder: "Yangilangan Vaqti",
+    paymentOrder : "jami narxi",
+    orderUser : "Xaridor",
+  },
   logout: {
     title: "Chiqish",
     description: "Profildan chiqish",

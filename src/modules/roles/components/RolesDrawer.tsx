@@ -6,13 +6,14 @@ import {
   Text,
   TextInput,
 } from "@mantine/core";
-import { useState } from "react";
-import WithLoading from "@/hoc/WithLoading";
 import { useForm } from "@mantine/form";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import useRoles from "@services/hooks/useRoles";
 import useSettings from "@services/hooks/useSettings";
 import { IconCheck } from "@tabler/icons";
+import { useState } from "react";
+
+import WithLoading from "@/hoc/WithLoading";
 
 const RolesDrawer: React.FC<{
   handleClose: () => void;
@@ -127,4 +128,3 @@ const RolesDrawer: React.FC<{
   );
 };
 export default RolesDrawer;
-  
