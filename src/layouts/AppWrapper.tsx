@@ -1,5 +1,6 @@
+import { ColorScheme } from "@mantine/core";
+import { useLocalStorage } from "@mantine/hooks";
 import { SpotlightProvider } from "@mantine/spotlight";
-import useSearch from "@services/hooks/useSearch";
 import { useNavActions } from "@services/spotlight";
 import React from "react";
 
@@ -8,6 +9,12 @@ type Props = {
 };
 
 const AppWrapper = ({ children }: Props) => {
+  const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
+    key: "mantine-color-scheme",
+    defaultValue: "light",
+    getInitialValueInEffect: true,
+  });
+
   const navActions = useNavActions();
 
   return (
@@ -18,6 +25,9 @@ const AppWrapper = ({ children }: Props) => {
       translate="yes"
       searchPlaceholder="Qidirish"
       highlightQuery
+      sx={{
+        colorScheme: "dark",
+      }}
     >
       {children}
     </SpotlightProvider>

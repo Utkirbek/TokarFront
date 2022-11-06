@@ -93,6 +93,7 @@ const RolesDrawer: React.FC<{
       });
     }
   };
+
   return (
     <WithLoading query={getRolesQuery}>
       <Box mx="auto">
@@ -127,4 +128,5 @@ const RolesDrawer: React.FC<{
     </WithLoading>
   );
 };
+
 export default RolesDrawer;

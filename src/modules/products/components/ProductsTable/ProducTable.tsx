@@ -161,7 +161,7 @@ function ProductsTable() {
         </td>
         <td>{item.code}</td>
         <If hasPerm={Permissions.accounting.view}>
-          <td>${item.originalPrice}</td>
+          <td>{item.originalPrice}</td>
         </If>
         <td>
           {item.price} {item.currency?.name}
@@ -236,7 +236,6 @@ function ProductsTable() {
         size="xl"
         position="right"
       >
-
         <ScrollArea
           style={{ height: "100%", paddingBottom: 60 }}
           scrollbarSize={2}
@@ -248,7 +247,6 @@ function ProductsTable() {
             editItem={editItem}
           />
         </ScrollArea>
-
       </Drawer>
 
       <If hasPerm={Permissions.products.create}>

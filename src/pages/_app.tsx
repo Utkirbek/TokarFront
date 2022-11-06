@@ -81,14 +81,14 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         <link rel="manifest" href="/manifest.json"></link>
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
-      <ErrorBoundary FallbackComponent={ErrorFallback} onReset={forceUpdate}>
-        <AppWrapper>
-          <ProtectedRoute router={router}>
-            <SWRConfig>
-              <ColorSchemeProvider
-                colorScheme={colorScheme}
-                toggleColorScheme={toggleColorScheme}
-              >
+      <ColorSchemeProvider
+        colorScheme={colorScheme}
+        toggleColorScheme={toggleColorScheme}
+      >
+        <ErrorBoundary FallbackComponent={ErrorFallback} onReset={forceUpdate}>
+          <AppWrapper>
+            <ProtectedRoute router={router}>
+              <SWRConfig>
                 <MantineProvider
                   theme={{ colorScheme }}
                   withGlobalStyles
@@ -101,11 +101,11 @@ function MyApp({ Component, pageProps, router }: AppProps) {
                     </NotificationsProvider>
                   </ModalsProvider>
                 </MantineProvider>
-              </ColorSchemeProvider>
-            </SWRConfig>
-          </ProtectedRoute>
-        </AppWrapper>
-      </ErrorBoundary>
+              </SWRConfig>
+            </ProtectedRoute>
+          </AppWrapper>
+        </ErrorBoundary>
+      </ColorSchemeProvider>
       <Script src="https://cdn.lordicon.com/qjzruarw.js" />
     </IntlProvider>
   );

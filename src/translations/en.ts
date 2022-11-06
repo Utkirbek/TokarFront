@@ -15,7 +15,16 @@ const en = {
     addAdmins: "+ Add admin",
     name: "Name",
     email: "Email",
+    role: "Role",
     deletEdit: "Delete and edit",
+    updateNotifTitle: "Deleted successfully",
+    updateNotifMessage: "An error occurred during deletion",
+    showNotifTitle: "Please wait",
+    showNotifMessage: "The user is being redirected",
+    deleteModalTitle: "Do you want to delete this user",
+    confirm: "Confirmation",
+    cancel: "Cancellation",
+    canselTitle: "You have canceled",
   },
   emptyBox: {
     boxTitle: "There is no product left in your work",
@@ -72,6 +81,16 @@ const en = {
     updataNotifError: "Error",
     updataNotifErrorMessage: "Error! Product Not Added",
   },
+  productDetail: {
+    titleHead: "Detailed product information",
+    productImage: "This should contain a Product Image",
+    productName: "Product Name",
+    productCode: "Product Code",
+    productPrice: "Product Price",
+    productTotal: "Product Quantity",
+    createProduct: "Created time",
+    updateProduct: "Updated Time",
+  },
   roles: {
     title: "Roles",
     addRole: "+ Add role",
@@ -80,7 +99,7 @@ const en = {
       "{name} This worker will log you out, it can't be undone, are you sure?",
     deleteSuccessMessage: "The user has been removed",
     deletEdit: "Delete and edit",
-  }
+  },
 };
 
 export default en;

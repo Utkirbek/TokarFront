@@ -39,6 +39,12 @@ const data = [
     permission: "settings.view",
   },
   {
+    link: "/roles",
+    label: "roles.title",
+    icon: IconSettingsAutomation,
+    permission: "roles.view",
+  },
+  {
     link: "/orders",
     label: "orders.title",
     icon: IconList,
