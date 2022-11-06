@@ -100,6 +100,29 @@ const en = {
     deleteSuccessMessage: "The user has been removed",
     deletEdit: "Delete and edit",
   },
+  perm: {
+    allow: "Allowed Permissions",
+    newAllow: "Add Permission",
+    addTitle: "Add New Permission",
+    addInputLabel: "Permission Name",
+    addInputPlholder: "Enter the right permission",
+    updateTitle: "Change permission",
+    updateInputLabel: "Change permission Name",
+    updateInputPlholder: "Enter new permission name",
+    yes: "Save",
+    no: "Cancel",
+    onSuccessTitle: "Removing permission",
+    onSuccessMessage:
+      "Unable to reload after this information is deleted. You will add a new permission",
+    onErrorTitle: "Error",
+    onErrorMessage: "An Error Occurred",
+    modalTitle: "Remove permission",
+    modalText: "Are you sure you want to delete this permission",
+    // confirm: "Delete",
+    // cancel: "Go back",
+    // cancelTitle: "You have canceled",
+    // cancelMessage:"You have canceled this action",
+  },
 };
 
 export default en;
