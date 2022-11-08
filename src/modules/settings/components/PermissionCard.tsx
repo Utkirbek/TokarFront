@@ -18,13 +18,18 @@ type Props = {
 const PermissionsCard: React.FC<Props> = ({ name }) => {
   const intl = useIntl();
   return (
-    <Grid.Col span="auto" lg={2} md={6} xs={10} sm={6}>
+    <Grid.Col span="auto" lg={4} md={9} xs={5} sm={6}>
       <Card
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          cursor: "pointer",
+        }}
         style={{
           background: "linear-gradient( 45deg, #13005a 40%, #350042 60%)",
           textAlign: "center",
+
           fontFamily: "revert",
-          padding: "10px 20px 20px",
         }}
       >
         {/* <IconPencil
