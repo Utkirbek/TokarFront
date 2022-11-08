@@ -161,7 +161,7 @@ function ProductsTable() {
         </td>
         <td>{item.code}</td>
         <If hasPerm={Permissions.accounting.view}>
-          <td>${item.originalPrice}</td>
+          <td>{item.originalPrice}</td>
         </If>
         <td>
           {item.price} {item.currency?.name}

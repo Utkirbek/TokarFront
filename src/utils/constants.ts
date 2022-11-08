@@ -35,6 +35,7 @@ export enum RequestQueryKeys {
   addRole = "addRole",
   updateRole = "updateRole",
   deleteRole = "deleteRole",
+  getOrders = "getOrders",
   getCurrency = "getCurrency",
   addCurrency = "addCurrency",
   updateCurrency = "updateCurrency",

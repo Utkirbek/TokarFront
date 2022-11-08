@@ -30,8 +30,8 @@ function TableCard() {
         updateNotification({
           id: "load-data",
           color: "teal",
-          title: intl.formatMessage({ id: "admin.deleteSuccessTitle" }),
-          message: intl.formatMessage({ id: "admin.deleteSuccessMessage" }),
+          title: intl.formatMessage({ id: "admins.deleteSuccessTitle" }),
+          message: intl.formatMessage({ id: "admins.deleteSuccessMessage" }),
           icon: <IconCheck size={16} />,
           autoClose: 2000,
         });
@@ -40,8 +40,8 @@ function TableCard() {
         updateNotification({
           id: "load-data",
           color: "red",
-          title: "Muvaffaqiyatli o'chirildi",
-          message: "O'chirishda xatolik ro'y berdi",
+          title: intl.formatMessage({ id: "admins.updateNotifTitle" }),
+          message: intl.formatMessage({ id: "admins.updateNotifMessage" }),
           autoClose: false,
           disallowClose: false,
         });
@@ -51,7 +51,7 @@ function TableCard() {
 
   const openDeleteModal = (id: string, name: string) =>
     openConfirmModal({
-      title: "Siz ushbu foydalanuvchini o'chirmoqchimisiz",
+      title: intl.formatMessage({ id: "admins.deleteModalTitle" }),
       centered: true,
       children: (
         <Text size="sm">
@@ -59,16 +59,16 @@ function TableCard() {
         </Text>
       ),
       labels: {
-        confirm: "Tasdiqlash",
-        cancel: "Bekor qilish",
+        confirm: intl.formatMessage({ id: "admins.confirm" }),
+        cancel: intl.formatMessage({ id: "admins.cancel" }),
       },
       confirmProps: { color: "red" },
       onConfirm: async () => {
         showNotification({
           id: "load-data",
           loading: true,
-          title: "Iltimos kuting",
-          message: "Foydalanuvchi udalit qilinyabdi",
+          title: intl.formatMessage({ id: "admins.showNotifTitle" }),
+          message: intl.formatMessage({ id: "admins.showNotifMessage" }),
           autoClose: false,
           disallowClose: true,
         });
@@ -77,8 +77,8 @@ function TableCard() {
 
       onCancel: () => {
         showNotification({
-          title: "Siz bekor qildingiz",
-          message: "Siz foydalanuvchini o'chirmadiz 🤥",
+          title: intl.formatMessage({ id: "admins. canselTitle" }),
+          message: intl.formatMessage({ id: "admins.cancel" }),
         });
       },
     });
@@ -98,7 +98,9 @@ function TableCard() {
         <td>
           <Group spacing="sm">{item.name}</Group>
         </td>
+
         <td>{item.email}</td>
+        <td>{item.role?.name}</td>
 
         <td>
           {item.name == name ? (
@@ -142,6 +144,9 @@ function TableCard() {
             </th>
             <th>
               <FormattedMessage id="admins.email" />
+            </th>
+            <th>
+              <FormattedMessage id="admins.role" />
             </th>
             <th>
               <FormattedMessage id="admins.deletEdit" />

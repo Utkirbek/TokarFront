@@ -1,6 +1,7 @@
 import {
   IconBarcode,
   IconChartLine,
+  IconList,
   IconSettingsAutomation,
   IconUserCircle,
   IconUsers,
@@ -23,7 +24,7 @@ const data = [
     link: "/users",
     label: "customers.title",
     icon: IconUserCircle,
-    permission: "customers.view",
+    permission: "users.view",
   },
   {
     link: "/products",
@@ -42,6 +43,12 @@ const data = [
     label: "roles.title",
     icon: IconSettingsAutomation,
     permission: "roles.view",
+  },
+  {
+    link: "/orders",
+    label: "orders.title",
+    icon: IconList,
+    permission: "orders.view",
   },
 ];
 export default data;

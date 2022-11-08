@@ -1,7 +1,7 @@
 import { Box, Image, Modal, Text } from "@mantine/core";
 import { useRouter } from "next/router";
 import queryString from "query-string";
-import { FormattedMessage } from "react-intl";
+import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 
 import useStyles from "../components/styleDetail/styleDetail";
 
@@ -28,10 +28,9 @@ const ProductDetails = ({ products }: Props) => {
             width="500px"
             height="400px"
             sx={{ objectFit: "cover", borderRadius: "20px" }}
-            alt={"Bu yerda Mahsulot rasmi bolishi kerak"}
+            alt={"Bu yerda mahsulot rasmi"}
           />
         </Box>
-
         <Box className={classes.info}>
           <Box className={classes.left}>
             <Text className={classes.title}>
@@ -58,8 +57,26 @@ const ProductDetails = ({ products }: Props) => {
             <Text>{item?.code}</Text>
             <Text> {item?.price}</Text>
             <Text> {item?.quantity}</Text>
-            <Text> {item?.createdAt}</Text>
-            <Text>{item?.updatedAt}</Text>
+            <Text>
+              <FormattedTime value={item?.createdAt} />
+              ,&nbsp;
+              <FormattedDate
+                value={item?.createdAt}
+                month="numeric"
+                year="numeric"
+                day="numeric"
+              />
+            </Text>
+            <Text>
+              <FormattedTime value={item?.updatedAt} />
+              ,&nbsp;
+              <FormattedDate
+                value={item?.updatedAt}
+                month="numeric"
+                year="numeric"
+                day="numeric"
+              />
+            </Text>
           </Box>
         </Box>
       </Box>

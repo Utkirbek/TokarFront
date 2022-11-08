@@ -40,11 +40,11 @@ const useUser = create(
           name: user.admin.name,
           email: user.admin.email,
           orders: user.admin.orders,
-          permissions: user.admin.role.permissions,
+          permissions: user.admin.role?.permissions,
           role: user.admin.role,
         }),
       hasPerm: (perm) =>
-        get().permissions.some(
+        get().permissions?.some(
           (p) => p.name === perm || p.name === Permissions.all
         ),
       logout: () => set({ ...initalState }),

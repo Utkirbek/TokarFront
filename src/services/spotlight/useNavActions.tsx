@@ -36,6 +36,12 @@ const useNavActions = () => {
         icon: <IconHome size={18} />,
       },
       {
+        title: intl.formatMessage({ id: "orders.title" }),
+        description: intl.formatMessage({ id: "orders.description" }),
+        onTrigger: () => router.push("/orders"),
+        icon: <IconHome size={18} />,
+      },
+      {
         title: intl.formatMessage({ id: "logout.title" }),
         description: intl.formatMessage({ id: "logout.description" }),
         onTrigger: () => {

@@ -123,7 +123,7 @@ export default data;
 
 export const dataStas = [
   {
-    title: "Adminlar",
+    title: "Ishchilar",
     icon: "receipt",
     value: "13,456",
     diff: 34,

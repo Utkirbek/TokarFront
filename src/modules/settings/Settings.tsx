@@ -18,8 +18,6 @@ const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
 const Settings: NextPage = () => {
   const newPermRef = useRef<HTMLInputElement>(null);
 
-
-
   const { useFetchAllPermissions, addPermission } = useSettings();
   const permissionsQuery = useFetchAllPermissions();
 
