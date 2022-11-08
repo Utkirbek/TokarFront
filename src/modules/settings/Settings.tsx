@@ -1,12 +1,10 @@
 import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
-import If from "@components/smart/If";
 import WithLoading from "@hoc/WithLoading";
 import { Card, Grid, Text, TextInput } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import useSettings from "@services/hooks/useSettings";
 import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
-import { Permissions } from "@utils/constants";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
 import { useRef } from "react";
@@ -93,17 +91,17 @@ const Settings: NextPage = () => {
   const handleDelete = async function (id: string) {
     deletePermission(id, {
       onSuccess: () => {
-        updateNotification({
+        showNotification({
           id: "load-data",
           color: "teal",
           title: intl.formatMessage({ id: "perm.onSuccessTitle" }),
           message: intl.formatMessage({ id: "perm.onSuccessMessage" }),
           icon: <IconCheck size={16} />,
-          autoClose: 200,
+          autoClose: 2000,
         });
       },
       onError: () => {
-        updateNotification({
+        showNotification({
           id: "load-data",
           color: "red",
           title: intl.formatMessage({ id: "perm.onErrorTitle" }),
@@ -136,7 +134,7 @@ const Settings: NextPage = () => {
         });
       },
     });
-  console.log(permissions, error);
+  console.log(permissions, error, handleDelete);
 
   return (
     <DashLayout>
@@ -172,10 +170,10 @@ const Settings: NextPage = () => {
             {permissions?.map((permission: { name: string; _id: string }) => (
               <Grid.Col
                 key={permission._id}
-                span={3}
+                span="auto"
                 lg={2}
-                md={3}
-                xs={12}
+                md={6}
+                xs={10}
                 sm={6}
               >
                 <Card
@@ -204,7 +202,7 @@ const Settings: NextPage = () => {
                     cursor={"pointer"}
                     style={{ marginLeft: 140, marginBottom: 10, color: "red" }}
                   />
-                  <Text>{permission.name}</Text>
+                  <Text><FormattedMessage /></Text>
                 </Card>
               </Grid.Col>
             ))}
