@@ -15,6 +15,7 @@ import { showNotification, updateNotification } from "@mantine/notifications";
 import useAdmins from "@services/hooks/useAdmins";
 import useSettings from "@services/hooks/useSettings";
 import { IconCheck, IconChevronDown, IconLock } from "@tabler/icons";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const AdminsDrawer: React.FC<{
   handleClose: () => void;
@@ -24,6 +25,8 @@ const AdminsDrawer: React.FC<{
   const { useGetAllRoles } = useSettings();
   const getRolesQuery = useGetAllRoles();
   const { data: roles } = getRolesQuery;
+
+  const intl = useIntl();
 
   const form = useForm({
     initialValues: {
@@ -36,9 +39,9 @@ const AdminsDrawer: React.FC<{
       name: (value: string | any[]) =>
         value.length < 2 ? "Ismingiz 2ta belgidan ko'p bo'lishi kerak" : null,
       email: (value: string) =>
-        /^\S+@\S+$/.test(value) ? null : "Invalid email",
+        /^\S+@\S+$/.test(value) ? null : "No to'g'ri email",
       password: (value: string | null[]) =>
-        value.length >= 8 ? null : "Password is not valid",
+        value.length >= 8 ? null : "Parol 8ta belgidan ko'p bo'lishi kerak",
     },
   });
 
@@ -60,31 +63,59 @@ const AdminsDrawer: React.FC<{
             updateNotification({
               id: "load-data",
               color: "teal",
-              title: "Muaffaqiyatli",
-              message: "Sizning mahsuloringiz Yangilandi",
+              title: intl.formatMessage({
+                id: "admins.update.success.ongoing",
+              }),
+              message: intl.formatMessage({
+                id: "admins.update.success.message",
+              }),
               icon: <IconCheck size={16} />,
               autoClose: 2000,
+            });
+          },
+          onError: () => {
+            updateNotification({
+              id: "load-data",
+              color: "red",
+              title: intl.formatMessage({
+                id: "admins.update.error.ongoing",
+              }),
+              message: intl.formatMessage({
+                id: "admins.update.error.message",
+              }),
+              autoClose: false,
+              disallowClose: false,
             });
           },
         }
       );
     } else {
       handleClose();
-      showNotification({
-        id: "load-data",
-        loading: true,
-        title: "Iltimos kuting",
-        message: "Sizning mahsuloringiz qo'shilmoqda iltimos kuting",
-        autoClose: false,
-        disallowClose: true,
-      });
       addAdmin(values, {
         onSuccess: () => {
           updateNotification({
             id: "load-data",
             color: "teal",
-            title: "Muaffaqiyatli",
-            message: "Sizning mahsuloringiz Qo'shildi",
+            title: intl.formatMessage({
+              id: "admins.add.success.ongoing",
+            }),
+            message: intl.formatMessage({
+              id: "admins.add.success.message",
+            }),
+            icon: <IconCheck size={16} />,
+            autoClose: 2000,
+          });
+        },
+        onError: () => {
+          updateNotification({
+            id: "load-data",
+            color: "teal",
+            title: intl.formatMessage({
+              id: "admins.add.error.ongoing",
+            }),
+            message: intl.formatMessage({
+              id: "admins.add.error.message",
+            }),
             icon: <IconCheck size={16} />,
             autoClose: 2000,
           });
@@ -97,34 +128,53 @@ const AdminsDrawer: React.FC<{
     <Box mx="auto">
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Text size={"xl"} weight={700}>
-          {!editItem._id ? "Yangi Admin qo'shish" : "Tahrirlash"}
+          {!editItem._id
+            ? intl.formatMessage({
+                id: "admins.form.add.title",
+              })
+            : intl.formatMessage({
+                id: "admins.form.edit.title",
+              })}
         </Text>
         <TextInput
           withAsterisk
           name="name"
-          label="Ismi"
-          placeholder="Admin ismini kirting"
+          label={intl.formatMessage({
+            id: "admins.form.input.name.label",
+          })}
+          placeholder={intl.formatMessage({
+            id: "admins.form.input.name.placeholder",
+          })}
           {...form.getInputProps("name")}
           my={"sm"}
           required
         />
         <TextInput
-          label="Elektron pochta"
-          placeholder="Elektron pochtangizni kirting"
+          label={intl.formatMessage({
+            id: "admins.form.input.email.label",
+          })}
+          placeholder={intl.formatMessage({
+            id: "admins.form.input.email.placeholder",
+          })}
           {...form.getInputProps("email")}
           my={"sm"}
           required
         />
         <If
           condition={!!roles}
-          elseChildren={<Skeleton width="100%" height="40px" />}>
+          elseChildren={<Skeleton width="100%" height="40px" />}
+        >
           <Select
             sx={{ width: "100%", margin: "20px  0" }}
             rightSection={<IconChevronDown size={14} />}
             rightSectionWidth={30}
             styles={{ rightSection: { pointerEvents: "none" } }}
-            label="Saytga kim bolib kirsin Rolini tanlang"
-            placeholder="Darajani tanlang"
+            label={intl.formatMessage({
+              id: "admins.form.input.role.label",
+            })}
+            placeholder={intl.formatMessage({
+              id: "admins.form.input.role.placeholder",
+            })}
             data={roles?.map((item: any) => ({
               value: item._id,
               label: item.name,
@@ -132,16 +182,14 @@ const AdminsDrawer: React.FC<{
             {...form.getInputProps("role")}
           />
         </If>
-        <TextInput
-          label="Admin"
-          placeholder="Qandey darajada"
-          {...form.getInputProps("role")}
-          my={"sm"}
-          required
-        />
+
         <PasswordInput
-          label="Parolingizni kirting"
-          placeholder="Parolingizni kirting"
+          label={intl.formatMessage({
+            id: "admins.form.input.password.label",
+          })}
+          placeholder={intl.formatMessage({
+            id: "admins.form.input.password.placeholder",
+          })}
           name="password"
           icon={<IconLock size={16} />}
           {...form.getInputProps("password")}
@@ -149,7 +197,13 @@ const AdminsDrawer: React.FC<{
 
         <Group position="right" mt="md">
           <Button type="submit">
-            {!editItem._id ? "Ro'yxatga Qo'shish" : "Saqlash"}
+            {!editItem._id
+              ? intl.formatMessage({
+                  id: "admins.form.add.submit",
+                })
+              : intl.formatMessage({
+                  id: "admins.form.edit.submit",
+                })}
           </Button>
         </Group>
       </form>

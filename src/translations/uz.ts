@@ -2,27 +2,83 @@ const uz = {
   loading: "Yuklanmoqda",
   delete: "O'chirish",
   sthWentWrong: "Xatolik yuz berdi",
-  home: {
-    errorLoading: "Yuklashda xatolik",
-  },
   admins: {
+    delete: {
+      success: {
+        ongoing: "O'chirish bajarilmoqda",
+        message: "Foydalanuvchi udalit qilindi",
+      },
+      error: {
+        ongoing: "O'chirishda xatolik",
+        message: "Foydalanuvchi o'chirilmadi",
+      },
+      modal: {
+        title: "Siz ushbu foydalanuvchini o'chirmoqchimisiz",
+        confirmation:
+          "{name} ismli ishchingiz sizni tizimdan o'chib ketadi, Rozimisiz?",
+        buttons: {
+          cancel: "Bekor qilish",
+          confirm: "O'chirish",
+        },
+      },
+    },
+    update: {
+      success: {
+        ongoing: "Yangilash bajarilmoqda",
+        message: "Foydalanuvchi yangilandi",
+      },
+      error: {
+        ongoing: "Yangilashda xatolik",
+        message: "Foydalanuvchi yangilanmadi",
+      },
+      modal: { title: "Foydalanuvchi ma'lumotlarini yangilash" },
+    },
+    add: {
+      title: "Yangi Admin qo'shish",
+      success: {
+        ongoing: "Qo'shish bajarilmoqda",
+        message: "Foydalanuvchi qo'shildi",
+      },
+      error: {
+        ongoing: "Qo'shishda xatolik",
+        message: "Foydalanuvchi qo'shilmadi",
+      },
+      modal: { title: "Yangi foydalanuvchi qo'shish" },
+    },
+    form: {
+      add: {
+        title: "Yangi Admin qo'shish",
+        submit: "Qo'shish",
+      },
+      update: {
+        title: "Admin ma'lumotlarini yangilash",
+        submit: "Yangilash",
+      },
+      input: {
+        name: {
+          label: "Ism",
+          placeholder: "Ismingizni kiriting",
+        },
+        email: {
+          label: "Email",
+          placeholder: "Emailingizni kiriting",
+        },
+        password: {
+          label: "Parol",
+          placeholder: "Parolingizni kiriting",
+        },
+        role: {
+          label: "Rol",
+          placeholder: "Rolingizni tanlang",
+        },
+      },
+    },
+
     title: "Adminlar",
-    deleteConfirmation:
-      "{name} Ushbu ishchingiz sizni tizimdan o'chib ketadi, bu ishni ortga qaytarib bo'lmaydi, shunda ham ishonchingiz komilmi?",
-    deleteSuccessMessage: "Foydalanuvchi udalit qilindi",
-    addAdmins: "+ Admin qo'shish",
-    name: "Ismi",
+    name: "Ism",
     email: "Elektron pochta",
-    role: "Darajasi",
-    deletEdit: "O'chirish va tahrirlash",
-    updateNotifTitle: "Muvaffaqiyatli o'chirildi",
-    updateNotifMessage: "O'chirishda xatolik ro'y berdi",
-    showNotifTitle: "Iltimos kuting",
-    showNotifMessage: "Foydalanuvchi udalit qilinyabdi",
-    deleteModalTitle: "Siz ushbu foydalanuvchini o'chirmoqchimisiz",
-    confirm: "Tasdiqlash",
-    cancel: "Bekor qilish",
-    canselTitle: "Siz bekor qildingiz",
+    role: "Rol",
+    deleteEdit: "O'chirish/tahrirlash",
   },
   emptyBox: {
     boxTitle: "Sizng obringizda maxsulot qolmadi",

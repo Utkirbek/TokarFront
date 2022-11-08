@@ -30,8 +30,8 @@ function TableCard() {
         updateNotification({
           id: "load-data",
           color: "teal",
-          title: intl.formatMessage({ id: "admins.deleteSuccessTitle" }),
-          message: intl.formatMessage({ id: "admins.deleteSuccessMessage" }),
+          title: intl.formatMessage({ id: "admins.delete.success.ongoing" }),
+          message: intl.formatMessage({ id: "admins.delete.success.message" }),
           icon: <IconCheck size={16} />,
           autoClose: 2000,
         });
@@ -40,8 +40,8 @@ function TableCard() {
         updateNotification({
           id: "load-data",
           color: "red",
-          title: intl.formatMessage({ id: "admins.updateNotifTitle" }),
-          message: intl.formatMessage({ id: "admins.updateNotifMessage" }),
+          title: intl.formatMessage({ id: "admins.delete.error.ongoing" }),
+          message: intl.formatMessage({ id: "admins.delete.error.message" }),
           autoClose: false,
           disallowClose: false,
         });
@@ -51,35 +51,35 @@ function TableCard() {
 
   const openDeleteModal = (id: string, name: string) =>
     openConfirmModal({
-      title: intl.formatMessage({ id: "admins.deleteModalTitle" }),
+      title: intl.formatMessage({ id: "admins.delete.modal.title" }),
       centered: true,
       children: (
         <Text size="sm">
-          <FormattedMessage id="admins.deleteConfirmation" values={{ name }} />
+          <FormattedMessage
+            id="admins.delete.modal.confirmation"
+            values={{ name }}
+          />
         </Text>
       ),
       labels: {
-        confirm: intl.formatMessage({ id: "admins.confirm" }),
-        cancel: intl.formatMessage({ id: "admins.cancel" }),
+        confirm: intl.formatMessage({
+          id: "admins.delete.modal.buttons.confirm",
+        }),
+        cancel: intl.formatMessage({
+          id: "admins.delete.modal.buttons.cancel",
+        }),
       },
       confirmProps: { color: "red" },
       onConfirm: async () => {
         showNotification({
           id: "load-data",
           loading: true,
-          title: intl.formatMessage({ id: "admins.showNotifTitle" }),
-          message: intl.formatMessage({ id: "admins.showNotifMessage" }),
+          title: intl.formatMessage({ id: "admins.delete.success.ongoing" }),
+          message: intl.formatMessage({ id: "admins.delete.success.message" }),
           autoClose: false,
           disallowClose: true,
         });
         handleDelete(id);
-      },
-
-      onCancel: () => {
-        showNotification({
-          title: intl.formatMessage({ id: "admins. canselTitle" }),
-          message: intl.formatMessage({ id: "admins.cancel" }),
-        });
       },
     });
   const onEditClick = (item: any) => {
@@ -132,7 +132,7 @@ function TableCard() {
       <If hasPerm={Permissions.admins.create}>
         <Group position="right" mx={"xl"} my={"xl"}>
           <Button onClick={onClose} variant={"outline"}>
-            <FormattedMessage id="admins.addAdmins" />
+            <FormattedMessage id="admins.add.title" />
           </Button>
         </Group>
       </If>
@@ -149,7 +149,7 @@ function TableCard() {
               <FormattedMessage id="admins.role" />
             </th>
             <th>
-              <FormattedMessage id="admins.deletEdit" />
+              <FormattedMessage id="admins.deleteEdit" />
             </th>
           </tr>
         </thead>
@@ -161,7 +161,8 @@ function TableCard() {
         onClose={onClose}
         padding="xl"
         size="30%"
-        position="right">
+        position="right"
+      >
         <AdminsDrawer editItem={editItem} handleClose={onClose} />
       </Drawer>
     </WithLoading>
