@@ -197,6 +197,50 @@ const uz = {
     deleteSuccessMessage: "Foydalanuvchi udalit qilindi",
     deletEdit: "O'chirish va tahrirlash",
   },
+  perms: {
+    permissions: {
+      view: "Ruxsatlarni ko'rish",
+      all: "Barcha ruxsatlar",
+      add: "Ruxsat qo'shish",
+      edit: "Ruxsatni tahrirlash",
+      delete: "Ruxsatni o'chirish",
+    },
+    accounting: { view: "Akkauntlarni ko'rish" },
+    products: {
+      originalPrice: "Mahsulotning asl narxi",
+      delete: "Mahsulotlarni o'chirish",
+      view: "Mahsulotlarni ko'rish",
+      edit: "Mahsulotlarni tahrirlash",
+      create: "Mahsulotlarni yaratish",
+      add: "Mahsulotlarni qo'shish",
+    },
+    settings: {
+      view: "Sozlamalarni ko'rish",
+      edit: "Sozlamalarni tahrirlash",
+      add: "Sozlamalarni qo'shish",
+      delete: "Sozlamalarni o'chirish",
+    },
+    admins: {
+      view: "Adminlarni ko'rish",
+      edit: "Adminlarni tahrirlash",
+      add: "Adminlarni qo'shish",
+      delete: "Adminlarni o'chirish",
+    },
+
+    statistics: {
+      view: "Statistikani ko'rish",
+      edit: "Statistikani tahrirlash",
+      add: "Statistikani qo'shish",
+      delete: "Statistikani o'chirish",
+      costs: "Xarajatlarni ko'rish",
+    },
+    users: {
+      view: "Foydalanuvchilarni ko'rish",
+      edit: "Foydalanuvchilarni tahrirlash",
+      add: "Foydalanuvchilarni qo'shish",
+      delete: "Foydalanuvchilarni o'chirish",
+    },
+  },
 };
 
 export default uz;
