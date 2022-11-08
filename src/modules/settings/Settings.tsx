@@ -36,7 +36,7 @@ const Settings: NextPage = () => {
 
   if (permissionsQuery.data?.length === 0) return <EmptyBox />;
 
-  const handleUPermissionAdd = () => {
+  const handleUPermissionAdd = () => {  
     openConfirmModal({
       title: intl.formatMessage({ id: "perm.addTitle" }),
       children: (
@@ -99,7 +99,7 @@ const Settings: NextPage = () => {
           title: intl.formatMessage({ id: "perm.onSuccessTitle" }),
           message: intl.formatMessage({ id: "perm.onSuccessMessage" }),
           icon: <IconCheck size={16} />,
-          autoClose: 2000,
+          autoClose: 200,
         });
       },
       onError: () => {
@@ -141,7 +141,6 @@ const Settings: NextPage = () => {
   return (
     <DashLayout>
       <WithLoading query={permissionsQuery}>
-        {/* <If hasPerm={Permissions.settings.view}> */}
           <h1>
             <FormattedMessage id="perm.allow" />
           </h1>
@@ -170,7 +169,7 @@ const Settings: NextPage = () => {
                 ></lord-icon>
               </Card>
             </Grid.Col>
-            {permissions.map((permission: { name: string; _id: string }) => (
+            {permissions?.map((permission: { name: string; _id: string }) => (
               <Grid.Col
                 key={permission._id}
                 span={3}
@@ -211,7 +210,6 @@ const Settings: NextPage = () => {
             ))}
           </Grid>
           <Roles />
-        {/* </If> */}
       </WithLoading>
     </DashLayout>
   );
