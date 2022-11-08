@@ -50,7 +50,7 @@ const uz = {
         title: "Yangi Admin qo'shish",
         submit: "Qo'shish",
       },
-      update: {
+      edit: {
         title: "Admin ma'lumotlarini yangilash",
         submit: "Yangilash",
       },
