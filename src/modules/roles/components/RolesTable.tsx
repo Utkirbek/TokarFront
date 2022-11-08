@@ -8,6 +8,7 @@ import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
 import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+
 import WithLoading from "@/hoc/WithLoading";
 
 import RolesDrawer from "./RolesDrawer";
@@ -96,6 +97,18 @@ function TableCard() {
         <td>
           <Group spacing="sm">{item.name}</Group>
         </td>
+        <td>
+          {/* crate a list
+           */}
+          <Group spacing="sm">
+            {item.permissions.map((permission: any) => (
+              <Text key={permission._id}>
+                {intl.formatMessage({ id: `perms.${permission.name}` })}
+              </Text>
+            ))}
+          </Group>
+        </td>
+
         <td>
           {item.name == name ? (
             <IconTrash style={{ color: "red", cursor: "no-drop" }} />
