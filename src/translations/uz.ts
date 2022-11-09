@@ -1,3 +1,5 @@
+import { expensesLocaleUz } from "@modules/spend/locale";
+
 const uz = {
   loading: "Yuklanmoqda",
   delete: "O'chirish",
@@ -86,6 +88,10 @@ const uz = {
   settings: {
     title: "Sozlamalar",
     description: "Dastur sozlamalari",
+  },
+  spends: {
+    title: "Xarajatlar",
+    description: "Xarajatlar sozlamalari",
   },
   customers: {
     title: "Klientlar",
@@ -240,6 +246,28 @@ const uz = {
       add: "Foydalanuvchilarni qo'shish",
       delete: "Foydalanuvchilarni o'chirish",
     },
+  },
+
+  expenses: expensesLocaleUz,
+  notification: {
+    loading: "Yuklanmoqda",
+    success: "Muaffaqiyatli",
+    error: "Xatolik",
+    warning: "Diqqat",
+    info: "Ma'lumot",
+    noData: "Ma'lumot mavjud emas",
+    loadingDescription: "Iltimos kuting",
+    successDescription: "Muaffaqiyatli amalga oshirildi",
+    errorDescription: "Xatolik yuz berdi",
+    warningDescription: "Diqqat",
+    infoDescription: "Ma'lumot",
+  },
+
+  confirmation: {
+    title: "Siz rostdan ham ushbu amalni bajarmoqchimisiz?",
+    message: "Bu amalni qaytarib bo'lmaydi",
+    confirm: "Ha",
+    cancel: "Yo'q",
   },
 };
 

@@ -3,7 +3,7 @@ import { IconCheck } from "@tabler/icons";
 import { useCallback } from "react";
 import { useIntl } from "react-intl";
 
-const useNotify = () => {
+const useNotification = () => {
   const intl = useIntl();
 
   const showLoadingNotification = useCallback(
@@ -15,7 +15,7 @@ const useNotify = () => {
           id: options?.titleId || "notification.loading",
         }),
         message: intl.formatMessage({
-          id: messageId || "notification.loadingMessage",
+          id: messageId || "notification.loadingDescription",
         }),
         autoClose: 2000,
         disallowClose: true,
@@ -33,7 +33,7 @@ const useNotify = () => {
           id: options?.titleId || "notification.success",
         }),
         message: intl.formatMessage({
-          id: messageId || "notification.successMessage",
+          id: messageId || "notification.successDescription",
         }),
         icon: <IconCheck size={16} />,
         autoClose: 2000,
@@ -42,10 +42,29 @@ const useNotify = () => {
     [intl]
   );
 
+  const showErrorNotification = useCallback(
+    (messageId?: string, options?: { titleId?: string }) => {
+      updateNotification({
+        id: "load-data",
+        color: "red",
+        title: intl.formatMessage({
+          id: options?.titleId || "notification.error",
+        }),
+        message: intl.formatMessage({
+          id: messageId || "notification.errorDescription",
+        }),
+        autoClose: false,
+        disallowClose: false,
+      });
+    },
+    [intl]
+  );
+
   return {
     showLoadingNotification,
     showSuccessNotification,
+    showErrorNotification,
   };
 };
 
-export default useNotify;
+export default useNotification;

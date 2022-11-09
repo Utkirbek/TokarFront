@@ -21,6 +21,12 @@ const data = [
     permission: "admins.view",
   },
   {
+    link: "/spend",
+    label: "spends.title",
+    icon: IconUsers,
+    permission: "spends.view",
+  },
+  {
     link: "/users",
     label: "customers.title",
     icon: IconUserCircle,

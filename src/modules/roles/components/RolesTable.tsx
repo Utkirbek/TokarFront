@@ -8,7 +8,6 @@ import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
 import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-
 import WithLoading from "@/hoc/WithLoading";
 
 import RolesDrawer from "./RolesDrawer";
