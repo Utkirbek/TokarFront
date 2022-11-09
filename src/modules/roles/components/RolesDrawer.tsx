@@ -12,6 +12,7 @@ import useRoles from "@services/hooks/useRoles";
 import useSettings from "@services/hooks/useSettings";
 import { IconCheck } from "@tabler/icons";
 import { useState } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import WithLoading from "@/hoc/WithLoading";
 
@@ -19,6 +20,7 @@ const RolesDrawer: React.FC<{
   handleClose: () => void;
   editItem: any;
 }> = ({ handleClose, editItem }) => {
+  const intl = useIntl();
   const [newPermissions, setNewPermissions] = useState<string[]>([]);
   const { editRole, addRole } = useRoles();
   const { useFetchAllPermissions } = useSettings();
@@ -30,7 +32,7 @@ const RolesDrawer: React.FC<{
   );
 
   const Permissions = permissions?.map((permission: any) => ({
-    label: permission.name,
+    label: intl.formatMessage({ id: `perms.${permission.name}` }),
     value: permission._id,
   }));
 

@@ -97,6 +97,18 @@ function TableCard() {
           <Group spacing="sm">{item.name}</Group>
         </td>
         <td>
+          {/* crate a list
+           */}
+          <Group spacing="sm">
+            {item.permissions.map((permission: any) => (
+              <Text key={permission._id}>
+                {intl.formatMessage({ id: `perms.${permission.name}` })}
+              </Text>
+            ))}
+          </Group>
+        </td>
+
+        <td>
           {item.name == name ? (
             <IconTrash style={{ color: "red", cursor: "no-drop" }} />
           ) : (

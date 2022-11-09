@@ -2,27 +2,83 @@ const uz = {
   loading: "Yuklanmoqda",
   delete: "O'chirish",
   sthWentWrong: "Xatolik yuz berdi",
-  home: {
-    errorLoading: "Yuklashda xatolik",
-  },
   admins: {
+    delete: {
+      success: {
+        ongoing: "O'chirish bajarilmoqda",
+        message: "Foydalanuvchi udalit qilindi",
+      },
+      error: {
+        ongoing: "O'chirishda xatolik",
+        message: "Foydalanuvchi o'chirilmadi",
+      },
+      modal: {
+        title: "Siz ushbu foydalanuvchini o'chirmoqchimisiz",
+        confirmation:
+          "{name} ismli ishchingiz sizni tizimdan o'chib ketadi, Rozimisiz?",
+        buttons: {
+          cancel: "Bekor qilish",
+          confirm: "O'chirish",
+        },
+      },
+    },
+    update: {
+      success: {
+        ongoing: "Yangilash bajarilmoqda",
+        message: "Foydalanuvchi yangilandi",
+      },
+      error: {
+        ongoing: "Yangilashda xatolik",
+        message: "Foydalanuvchi yangilanmadi",
+      },
+      modal: { title: "Foydalanuvchi ma'lumotlarini yangilash" },
+    },
+    add: {
+      title: "Yangi Admin qo'shish",
+      success: {
+        ongoing: "Qo'shish bajarilmoqda",
+        message: "Foydalanuvchi qo'shildi",
+      },
+      error: {
+        ongoing: "Qo'shishda xatolik",
+        message: "Foydalanuvchi qo'shilmadi",
+      },
+      modal: { title: "Yangi foydalanuvchi qo'shish" },
+    },
+    form: {
+      add: {
+        title: "Yangi Admin qo'shish",
+        submit: "Qo'shish",
+      },
+      edit: {
+        title: "Admin ma'lumotlarini yangilash",
+        submit: "Yangilash",
+      },
+      input: {
+        name: {
+          label: "Ism",
+          placeholder: "Ismingizni kiriting",
+        },
+        email: {
+          label: "Email",
+          placeholder: "Emailingizni kiriting",
+        },
+        password: {
+          label: "Parol",
+          placeholder: "Parolingizni kiriting",
+        },
+        role: {
+          label: "Rol",
+          placeholder: "Rolingizni tanlang",
+        },
+      },
+    },
+
     title: "Adminlar",
-    deleteConfirmation:
-      "{name} Ushbu ishchingiz sizni tizimdan o'chib ketadi, bu ishni ortga qaytarib bo'lmaydi, shunda ham ishonchingiz komilmi?",
-    deleteSuccessMessage: "Foydalanuvchi udalit qilindi",
-    addAdmins: "+ Admin qo'shish",
-    name: "Ismi",
+    name: "Ism",
     email: "Elektron pochta",
-    role: "Darajasi",
-    deletEdit: "O'chirish va tahrirlash",
-    updateNotifTitle: "Muvaffaqiyatli o'chirildi",
-    updateNotifMessage: "O'chirishda xatolik ro'y berdi",
-    showNotifTitle: "Iltimos kuting",
-    showNotifMessage: "Foydalanuvchi udalit qilinyabdi",
-    deleteModalTitle: "Siz ushbu foydalanuvchini o'chirmoqchimisiz",
-    confirm: "Tasdiqlash",
-    cancel: "Bekor qilish",
-    canselTitle: "Siz bekor qildingiz",
+    role: "Rol",
+    deleteEdit: "O'chirish/tahrirlash",
   },
   emptyBox: {
     boxTitle: "Sizng obringizda maxsulot qolmadi",
@@ -162,24 +218,48 @@ const uz = {
   },
 
   perms: {
-    permissions:{all:"Barcha ruxsatlar"},
-    accounting:{view: "Akkauntlarni ko'rish"},
-    products: {originalPrice: "Mahsulotning asl narxi", delete:"Mahsulotlarni o'chirish", view: "Mahsulotlarni ko'rish", edit: "Mahsulotlarni tahrirlash", create: "Mahsulotlarni yaratish"},
-    settings: {view: "Sozlamalarni ko'rish"},
-    admins: {view: "Adminlarni ko'rish"},
-    // admins: {read:"Adminlarni o'qish"},
-    statistics: {view: "Statistikani ko'rish"},
-    users: {view: "Foydalanuvchilarni ko'rish"},
-    // users: {add: "Foydalanuvchi qo'shish"},
-    // users: {edit: "Foydalanuvchini tahrirlash"},
-    // users: {delete: "Foydalanuvchini o'chirish"},
-    // users: {create: "Foydalanuvchi yaratish"},
-    // statistics: {costs: "Statistikadagi narxlar"},
-    // permissions: {read: "Ruxsatlarni o'qish"},
-    // permissions: {add: "Ruxsat qo'shish"},
-    // permissions: {delete: "Ruxsatlarni o'chirish"},
-    // permissions: {update: "Ruxsatlarni tahrirlash"},
-    read: "O'qish",
+    permissions: {
+      view: "Ruxsatlarni ko'rish",
+      all: "Barcha ruxsatlar",
+      add: "Ruxsat qo'shish",
+      edit: "Ruxsatni tahrirlash",
+      delete: "Ruxsatni o'chirish",
+    },
+    accounting: { view: "Akkauntlarni ko'rish" },
+    products: {
+      originalPrice: "Mahsulotning asl narxi",
+      delete: "Mahsulotlarni o'chirish",
+      view: "Mahsulotlarni ko'rish",
+      edit: "Mahsulotlarni tahrirlash",
+      create: "Mahsulotlarni yaratish",
+      add: "Mahsulotlarni qo'shish",
+    },
+    settings: {
+      view: "Sozlamalarni ko'rish",
+      edit: "Sozlamalarni tahrirlash",
+      add: "Sozlamalarni qo'shish",
+      delete: "Sozlamalarni o'chirish",
+    },
+    admins: {
+      view: "Adminlarni ko'rish",
+      edit: "Adminlarni tahrirlash",
+      add: "Adminlarni qo'shish",
+      delete: "Adminlarni o'chirish",
+    },
+
+    statistics: {
+      view: "Statistikani ko'rish",
+      edit: "Statistikani tahrirlash",
+      add: "Statistikani qo'shish",
+      delete: "Statistikani o'chirish",
+      costs: "Xarajatlarni ko'rish",
+    },
+    users: {
+      view: "Foydalanuvchilarni ko'rish",
+      edit: "Foydalanuvchilarni tahrirlash",
+      add: "Foydalanuvchilarni qo'shish",
+      delete: "Foydalanuvchilarni o'chirish",
+    },
   },
 };
 
