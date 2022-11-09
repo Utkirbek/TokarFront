@@ -5,7 +5,7 @@ type Props = {
 };
 
 const PermissionText = (props: Props) => {
-  return <Text>{props.name}</Text>;
+  return <Text style={{marginTop:-5, textAlign:"center"}}>{props.name}</Text>;
 };
 
 export default PermissionText;

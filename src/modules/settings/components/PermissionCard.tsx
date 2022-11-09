@@ -1,13 +1,9 @@
-import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
-import WithLoading from "@hoc/WithLoading";
 import { Card, Grid, Text, TextInput } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import PermissionText from "@modules/settings/components/PermissionText";
 import useSettings from "@services/hooks/useSettings";
 import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
-import { NextPage } from "next";
-import dynamic from "next/dynamic";
 import { useRef } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -40,7 +36,7 @@ const PermissionsCard: React.FC<Props> = ({ name, id }) => {
           data-autofocus
           ref={newPermRef}
           required
-          defaultValue={name}
+          defaultValue={intl.formatMessage({ id: `perms.${name}` })}
         />
       ),
       onConfirm: async () => {
@@ -110,7 +106,6 @@ const PermissionsCard: React.FC<Props> = ({ name, id }) => {
           height:100,
           display: "flex",
           alignItems: "center",
-          cursor: "pointer",
           background: "linear-gradient( 45deg, #13005a 40%, #350042 60%)",
           textAlign: "center",
           fontFamily: "revert",
@@ -121,18 +116,21 @@ const PermissionsCard: React.FC<Props> = ({ name, id }) => {
         cursor={"pointer"}
         style={{
           position: "absolute",
-          top: 10,
-          right:35,
-          marginBottom: 25,
+          top: 2,
+          right:15,
         }}
       />
-       <IconTrash
-        onClick={() => openDeleteModal(id)}
-        cursor={"pointer"}
-        style={{position:"absolute", top:10, right:10, color: "red", marginBottom:25, }}
-      />
+        <IconTrash
+         onClick={() => openDeleteModal(id)} 
+         style={{
+          cursor:"pointer", 
+          position:"absolute", 
+          bottom:5, 
+          right:75, 
+          color:"red", }}/>
         <PermissionText name={intl.formatMessage({ id: `perms.${name}` })} />
       </Card>
+      
     </Grid.Col>
   );
 };

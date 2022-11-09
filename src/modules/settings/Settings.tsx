@@ -4,6 +4,7 @@ import { Card, Grid, Text, TextInput } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import Permissions from "@modules/settings/components/Permissions";
 import useSettings from "@services/hooks/useSettings";
+import { IconTrash } from "@tabler/icons";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
 import { useRef } from "react";

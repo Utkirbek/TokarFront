@@ -215,7 +215,7 @@ const uz = {
     onErrorTitle: "Xatolik",
     onErrorMessage: "Xatolik Yuz berdi",
     modalTitle: "Ruxsatni o'chirish",
-    modalText: "Siz bu mahsulotni chindanham o'chirmoqchimisiz",
+    modalText: "Siz bu ruxsatni chindanham o'chirmoqchimisiz",
     cancelTitle:"Siz bekor qildingiz",
     cancelMessage:"Siz bu ruxsatni rostdan ham o'chirmadingiz!"
   },
