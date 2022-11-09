@@ -2,17 +2,12 @@ import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import WithLoading from "@hoc/WithLoading";
 import { Card, Grid, Text, TextInput } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
-import { showNotification, updateNotification } from "@mantine/notifications";
+import Permissions from "@modules/settings/components/Permissions";
 import useSettings from "@services/hooks/useSettings";
-import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
 import { NextPage } from "next";
 import dynamic from "next/dynamic";
 import { useRef } from "react";
-import Permissions from "@modules/settings/components/Permissions";
-
 import { FormattedMessage, useIntl } from "react-intl";
-
-import Roles from "./components/Roles";
 
 const Settings: NextPage = () => {
   const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
@@ -24,14 +19,7 @@ const Settings: NextPage = () => {
   const {
     useFetchAllPermissions,
     addPermission,
-    deletePermission,
-    updatePermission,
   } = useSettings();
-  const {
-    data: permissions,
-    error,
-    mutate: refetch,
-  } = useFetchAllPermissions();
   const permissionsQuery = useFetchAllPermissions();
 
   if (permissionsQuery.data?.length === 0) return <EmptyBox />;
@@ -70,12 +58,14 @@ const Settings: NextPage = () => {
           <FormattedMessage id="perm.allow" />
         </h1>
         <Grid>
-          <Grid.Col span={3} lg={4} md={9} xs={10} sm={6}>
+          <Grid.Col span={3} lg={2} md={9} xs={10} sm={6}>
             <Card
               sx={{
                 display: "flex",
                 alignItems: "center",
                 cursor: "pointer",
+                width:190,
+                height:100,
               }}
               onClick={handleUPermissionAdd}
             >

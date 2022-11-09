@@ -1,6 +1,7 @@
 const uz = {
   loading: "Yuklanmoqda",
   delete: "O'chirish",
+  cancel:"Bekor qilish",
   sthWentWrong: "Xatolik yuz berdi",
   admins: {
     delete: {
@@ -215,9 +216,12 @@ const uz = {
     onErrorMessage: "Xatolik Yuz berdi",
     modalTitle: "Ruxsatni o'chirish",
     modalText: "Siz bu mahsulotni chindanham o'chirmoqchimisiz",
+    cancelTitle:"Siz bekor qildingiz",
+    cancelMessage:"Siz bu ruxsatni rostdan ham o'chirmadingiz!"
   },
 
   perms: {
+    a:"a",
     permissions: {
       view: "Ruxsatlarni ko'rish",
       all: "Barcha ruxsatlar",
