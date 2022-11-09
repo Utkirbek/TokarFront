@@ -148,10 +148,52 @@ const en = {
     onErrorMessage: "An Error Occurred",
     modalTitle: "Remove permission",
     modalText: "Are you sure you want to delete this permission",
-    // confirm: "Delete",
-    // cancel: "Go back",
-    // cancelTitle: "You have canceled",
-    // cancelMessage:"You have canceled this action",
+  },
+
+  perms: {
+    a:"a",
+    permissions: {
+      view: "View Permissions",
+      all: "All permissions",
+      add: "Add permission",
+      edit: "Edit permission",
+      delete: "Delete permission",
+    },
+    accounting: { view: "View accounts" },
+    products: {
+      originalPrice: "Original price of the product",
+      delete: "Delete products",
+      view: "View Products",
+      edit: "Edit Products",
+      create: "Create products",
+      add: "Add Products",
+    },
+    settings: {
+      view: "View Settings",
+      edit: "Edit Settings",
+      add: "Add Settings",
+      delete: "Delete Settings",
+    },
+    admins: {
+      view: "View Admins",
+      edit: "Edit Admins",
+      add: "Add Admins",
+      delete: "Delete Admins",
+    },
+
+    stats: {
+      view: "View Statistics",
+      edit: "Edit Statistics",
+      add: "Add statistics",
+      delete: "Delete statistics",
+      costs: "View costs",
+    },
+    users: {
+      view: "View Users",
+      edit: "Edit Users",
+      add: "Add users",
+      delete: "Delete users",
+    },
   },
 };
 
