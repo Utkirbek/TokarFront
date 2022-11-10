@@ -106,18 +106,19 @@ const PermissionsCard: React.FC<Props> = ({ name, id }) => {
           height:100,
           display: "flex",
           alignItems: "center",
+          justifyContent:"center",
+          textAlign:"center",
           background: "linear-gradient( 45deg, #13005a 40%, #350042 60%)",
-          textAlign: "center",
           fontFamily: "revert",
         }}
       >
         <IconPencil
         onClick={() => handlePermissionUpdate(name, id)}
-        cursor={"pointer"}
         style={{
+          cursor:"pointer",
           position: "absolute",
-          top: 2,
-          right:15,
+          bottom: 10,
+          left:65,
         }}
       />
         <IconTrash
@@ -125,8 +126,8 @@ const PermissionsCard: React.FC<Props> = ({ name, id }) => {
          style={{
           cursor:"pointer", 
           position:"absolute", 
-          bottom:5, 
-          right:75, 
+          bottom:10, 
+          right:65, 
           color:"red", }}/>
         <PermissionText name={intl.formatMessage({ id: `perms.${name}` })} />
       </Card>
