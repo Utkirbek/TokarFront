@@ -100,7 +100,7 @@ const PermissionsCard: React.FC<Props> = ({ name, id }) => {
   });
 
   return (
-    <Grid.Col span="auto" lg={2} md={14} xs={8} sm={6}>
+    <Grid.Col span="auto" lg={3} md={14} xs={8} sm={6}>
       <Card
         sx={{
           height:100,
@@ -110,25 +110,28 @@ const PermissionsCard: React.FC<Props> = ({ name, id }) => {
           textAlign:"center",
           background: "linear-gradient( 45deg, #13005a 40%, #350042 60%)",
           fontFamily: "revert",
+          padding:5,
         }}
       >
-        <IconPencil
-        onClick={() => handlePermissionUpdate(name, id)}
-        style={{
-          cursor:"pointer",
-          position: "absolute",
-          bottom: 10,
-          left:65,
-        }}
-      />
-        <IconTrash
-         onClick={() => openDeleteModal(id)} 
-         style={{
-          cursor:"pointer", 
-          position:"absolute", 
-          bottom:10, 
-          right:65, 
-          color:"red", }}/>
+        <div style={{display:"flex", justifyContent:"center", gap:20, position:"absolute", bottom:10}}>
+          <IconPencil
+          onClick={() => handlePermissionUpdate(name, id)}
+          style={{
+            cursor:"pointer",
+            // position: "absolute",
+            // bottom: 10,
+            // left:65,
+          }}
+        />
+          <IconTrash
+          onClick={() => openDeleteModal(id)} 
+          style={{
+            cursor:"pointer", 
+            // position:"absolute", 
+            // bottom:10, 
+            // right:65, 
+            color:"red", }}/>
+        </div>
         <PermissionText name={intl.formatMessage({ id: `perms.${name}` })} />
       </Card>
       

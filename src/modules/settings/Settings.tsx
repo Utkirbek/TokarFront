@@ -59,13 +59,12 @@ const Settings: NextPage = () => {
           <FormattedMessage id="perm.allow" />
         </h1>
         <Grid>
-          <Grid.Col span={3} lg={2} md={9} xs={10} sm={6}>
+          <Grid.Col span={3} lg={3} md={9} xs={10} sm={6}>
             <Card
               sx={{
                 display: "flex",
                 alignItems: "center",
                 cursor: "pointer",
-                width:190,
                 height:100,
               }}
               onClick={handleUPermissionAdd}
