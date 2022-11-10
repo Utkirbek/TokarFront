@@ -36,7 +36,7 @@ const PermissionsCard: React.FC<Props> = ({ name, id }) => {
           data-autofocus
           ref={newPermRef}
           required
-          defaultValue={intl.formatMessage({ id: `perms.${name}` })}
+          defaultValue={name}
         />
       ),
       onConfirm: async () => {
@@ -118,18 +118,12 @@ const PermissionsCard: React.FC<Props> = ({ name, id }) => {
           onClick={() => handlePermissionUpdate(name, id)}
           style={{
             cursor:"pointer",
-            // position: "absolute",
-            // bottom: 10,
-            // left:65,
           }}
         />
           <IconTrash
           onClick={() => openDeleteModal(id)} 
           style={{
             cursor:"pointer", 
-            // position:"absolute", 
-            // bottom:10, 
-            // right:65, 
             color:"red", }}/>
         </div>
         <PermissionText name={intl.formatMessage({ id: `perms.${name}` })} />
