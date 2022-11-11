@@ -1,15 +1,15 @@
 import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import If from "@components/smart/If";
+import useNotification from "@hooks/useNotification";
 import {
   Avatar,
   Button,
-  Checkbox,
   Drawer,
   Grid,
   Group,
+  HoverCard,
   Loader,
   ScrollArea,
-  Select,
   Table,
   Text,
   useMantineTheme,
@@ -19,17 +19,12 @@ import { showNotification, updateNotification } from "@mantine/notifications";
 import useStyles from "@modules/products/components/ProductsTable/ProductTableStyle";
 import productFetchers from "@services/api/productFetchers";
 import useProducts from "@services/hooks/useProducts";
-import {
-  IconCheck,
-  IconChevronDown,
-  IconPencil,
-  IconTrash,
-} from "@tabler/icons";
+import { IconPencil, IconTrash } from "@tabler/icons";
 import { Permissions, RequestQueryKeys } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
 import { useRouter } from "next/router";
 import { memo, useState } from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { useCart } from "react-use-cart";
 import useSWR from "swr";
 
@@ -37,6 +32,7 @@ import BuyCart from "../buyCart/BuyCart";
 import FormProduct from "../form/FormAdd";
 import Error from "./components/Error";
 import ProductDetails from "./components/ProductDetails";
+import tableHead from "./const/constTableHeadName";
 
 function ProductsTable() {
   const [editItem, setEditItem] = useState({});
@@ -47,30 +43,21 @@ function ProductsTable() {
   const getProductsQuery = useFetchProduct();
   const { data: products } = getProductsQuery;
   const { addItem, isEmpty } = useCart();
-  const intl = useIntl();
+  const [info, setInfo] = useState({});
+
+  const {
+    showLoadingNotification,
+    showReSuccessNotification,
+    showErrorNotification,
+  } = useNotification();
 
   const handleDelete = async function (id: string) {
     deleteProducts(id, {
       onSuccess: () => {
-        updateNotification({
-          id: "load-data",
-          color: "teal",
-          title: "Mahsulot o'chirilmoqda",
-          message:
-            "Bu malumot o'chirilgandn keyin qayta yuklashni iloji yo'q.Yangi mahsulot qo'shasiz",
-          icon: <IconCheck size={16} />,
-          autoClose: 2000,
-        });
+        showLoadingNotification();
       },
       onError: () => {
-        updateNotification({
-          id: "load-data",
-          color: "red",
-          title: "Xatolik",
-          message: "Xatolik Yoz berdi",
-          autoClose: false,
-          disallowClose: false,
-        });
+        showErrorNotification();
       },
     });
   };
@@ -80,42 +67,21 @@ function ProductsTable() {
       centered: true,
       children: (
         <Text size="sm">
-          <FormattedMessage id="openDeleteModal.title" />
+          Siz bu mahsulotni chindanham o&apos;chirmoqchimisiz
         </Text>
       ),
       labels: { confirm: "O'chirish", cancel: "Orqaga qaytish" },
       confirmProps: { color: "red" },
       onConfirm: async () => {
-        showNotification({
-          id: "load-data",
-          loading: true,
-          title: "Iltimos kuting",
-          message: "Foydalanuvchi udalit qilinyabdi",
-          autoClose: false,
-          disallowClose: true,
-        });
+        showLoadingNotification();
         handleDelete(id);
       },
       onCancel: () => {
-        showNotification({
-          title: "Siz bekor qildingiz",
-          message: "Hey there, your code is awesome! 🤥",
+        showErrorNotification("useNotify.censelMsg", {
+          titleId: "useNotify.censelTitle",
         });
       },
     });
-
-  const { classes, cx } = useStyles();
-  const [selection, setSelection] = useState(["1"]);
-  const toggleRow = (id: string) =>
-    setSelection((current) =>
-      current.includes(id)
-        ? current.filter((item) => item !== id)
-        : [...current, id]
-    );
-  const toggleAll = () =>
-    setSelection((current) =>
-      current.length === data.length ? [] : data.map((item: any) => item._id)
-    );
 
   const { data, error } = useSWR(
     RequestQueryKeys.getProducts,
@@ -127,8 +93,6 @@ function ProductsTable() {
   if (data?.length === 0) return <EmptyBox />;
 
   const rows = products.map((item: any) => {
-    const selected = selection.includes(item._id);
-
     const handleEdit = () => {
       setEditItem(item);
       setOpened(true);
@@ -138,47 +102,42 @@ function ProductsTable() {
       addItem({ id: el._id, ...el });
     };
 
-    const dataDiscount = item.discounts.map((el: any) => {
-      return el.price + "/" + el.quantity;
-    });
-
     return (
-      <tr key={item._id} className={cx({ [classes.rowSelected]: selected })}>
-        <td>
-          <Checkbox
-            checked={selection.includes(item._id)}
-            onChange={() => toggleRow(item._id)}
-            transitionDuration={0}
-          />
-        </td>
+      <tr key={item._id}>
         <td>
           <Group spacing="sm">
             <Avatar size={40} src={getCoverImage(item.image)} radius={26} />
-            <Text size="sm" weight={500}>
-              {item.title}
-            </Text>
+            <Group position="center">
+              <HoverCard width={280} shadow="md">
+                <HoverCard.Target>
+                  {item.title.length > 20 ? (
+                    <Text size="sm" weight={500}>
+                      {item.title.substring(0, 20)}...
+                    </Text>
+                  ) : (
+                    <Text size="sm" weight={500}>
+                      {item.title}
+                    </Text>
+                  )}
+                </HoverCard.Target>
+                <HoverCard.Dropdown>
+                  <Text size="sm">{item.title}</Text>
+                </HoverCard.Dropdown>
+              </HoverCard>
+            </Group>
           </Group>
         </td>
         <td>{item.code}</td>
         <If hasPerm={Permissions.accounting.view}>
-          <td>{item.originalPrice}</td>
+          <td>
+            {item.originalPrice} {item.currency?.name}
+          </td>
         </If>
         <td>
           {item.price} {item.currency?.name}
         </td>
         <td>{item.quantity}</td>
-        <td>
-          <Select
-            sx={{ width: "150px" }}
-            rightSection={<IconChevronDown size={8} />}
-            rightSectionWidth={30}
-            styles={{ rightSection: { pointerEvents: "none" } }}
-            data={[`${dataDiscount}`]}
-            defaultValue={`${dataDiscount}`}
-          />
-        </td>
-
-        <td>
+        <td style={{ width: 200 }}>
           <If hasPerm={Permissions.products.edit}>
             <IconPencil
               style={{ cursor: "pointer", marginTop: "5px" }}
@@ -193,22 +152,21 @@ function ProductsTable() {
             />
           </If>
           <If hasPerm={Permissions.products.sell}>
-            <Button onClick={() => handleOpenCartBuy(item)}>
-              <FormattedMessage id="buyCart.sotish" />
-            </Button>
+            <Button onClick={() => handleOpenCartBuy(item)}>Sotish</Button>
           </If>
         </td>
         <td>
           <Button
             variant="outline"
+            sx={{ width: "100px", height: "30px" }}
+            radius={"xl"}
             onClick={() => {
               router.push("/products", {
                 query: {
                   details: item._id,
                 },
               });
-            }}
-          >
+            }}>
             <FormattedMessage id="products.details" />
           </Button>
         </td>
@@ -220,7 +178,6 @@ function ProductsTable() {
     setOpened(true);
     setEditItem({});
   };
-
   return (
     <>
       <Drawer
@@ -234,12 +191,10 @@ function ProductsTable() {
         onClose={() => setOpened(false)}
         padding="xl"
         size="xl"
-        position="right"
-      >
+        position="right">
         <ScrollArea
           style={{ height: "100%", paddingBottom: 60 }}
-          scrollbarSize={2}
-        >
+          scrollbarSize={2}>
           <FormProduct
             handleClose={() => {
               setOpened(false);
@@ -252,7 +207,7 @@ function ProductsTable() {
       <If hasPerm={Permissions.products.create}>
         <Group position="right" mx={"xl"} my={"xl"}>
           <Button onClick={handleClick} variant={"outline"}>
-            <FormattedMessage id="openDeleteModal.add" />
+            + Yangi mahsulot qo&apos;shish
           </Button>
         </Group>
       </If>
@@ -263,34 +218,21 @@ function ProductsTable() {
               <thead>
                 <tr>
                   <th>
-                    <Checkbox
-                      onChange={toggleAll}
-                      checked={selection.length === data.length}
-                      indeterminate={
-                        selection.length > 0 && selection.length !== data.length
-                      }
-                      transitionDuration={0}
-                    />
-                  </th>
-                  <th>
                     <FormattedMessage id="tableHead.name" />
                   </th>
                   <th>
                     <FormattedMessage id="tableHead.code" />
                   </th>
-                  <th>
-                    <FormattedMessage id="tableHead.price" />
-                  </th>
-                  <If hasPerm={Permissions.accounting.view}>
+                  <If hasPerm={Permissions.originalPrice.view}>
                     <th>
-                      <FormattedMessage id="tableHead.price" />
+                      <FormattedMessage id="tableHead.originalPrice" />
                     </th>
                   </If>
                   <th>
-                    <FormattedMessage id="tableHead.quantity" />
+                    <FormattedMessage id="tableHead.price" />
                   </th>
                   <th>
-                    <FormattedMessage id="tableHead.discount" />
+                    <FormattedMessage id="tableHead.quantity" />
                   </th>
                   <th>
                     <FormattedMessage id="tableHead.action" />

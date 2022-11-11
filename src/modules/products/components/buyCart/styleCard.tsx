@@ -3,15 +3,13 @@ import { createStyles } from "@mantine/core";
 const useStyles = createStyles(() => {
   return {
     boxHead: {
+      position: "sticky",
+      top: 90,
       width: "100%",
-      shadowOffset: {
-        width: 0,
-        height: 1,
-      },
     },
     card: {
       width: "100%",
-      height: "60px",
+      height: "50px",
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -22,11 +20,11 @@ const useStyles = createStyles(() => {
     CardBox: {
       marginTop: "20px",
       width: "100%",
-      height: "250px",
+      height: "220px",
     },
     cardPrice: {
       width: "100%",
-      height: "280px",
+      height: "300px",
       borderRadius: 10,
     },
     buyBtn: {
@@ -59,6 +57,7 @@ const useStyles = createStyles(() => {
       gap: "15",
     },
     payCardTitle: {
+      fontSize: "14px",
       fontWeight: 600,
       margin: "5px 0",
       textAlign: "center",
@@ -72,6 +71,8 @@ const useStyles = createStyles(() => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
+      border: "1px solid #1971C2",
+      borderRadius: 10,
     },
 
     payCard: {

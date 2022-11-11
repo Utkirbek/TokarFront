@@ -3,6 +3,7 @@ import { expensesLocaleUz } from "@modules/spend/locale";
 const uz = {
   loading: "Yuklanmoqda",
   delete: "O'chirish",
+  cancel: "Bekor qilish",
   sthWentWrong: "Xatolik yuz berdi",
   admins: {
     delete: {
@@ -66,7 +67,7 @@ const uz = {
           placeholder: "Emailingizni kiriting",
         },
         password: {
-          label: "Parol",
+          label: "Yangi parol  Kiriting",
           placeholder: "Parolingizni kiriting",
         },
         role: {
@@ -114,6 +115,8 @@ const uz = {
     updateNotifMessage: "Sizning mahsuloringiz Yangilandi",
     updataNotifErrorTitle: "Xatolik",
     updataNotifErrorMessage: "Xatolik! Mahsulot Qo'shilmadi",
+    showSaccsesCardTitle: "Qo'shildi",
+    showSaccsecCardMsg: "Sotib olishdagi Mahsulotlar ro'yxatiga qo'shildi",
   },
   productDetail: {
     titleHead: "Mahsulot haqida batafsil malumot",
@@ -157,6 +160,7 @@ const uz = {
     sotish: "Sotish",
     kimga: "Kimga",
     maxsulotYoq: "Sizda mahsulot qolmadi",
+    payDay: "Muddatni Kiriting",
   },
   detail: {
     mahsulotNomi: "Mahsulot Nomi",
@@ -173,6 +177,7 @@ const uz = {
   tableHead: {
     name: "Mahsulot Nomi",
     code: "Kodi",
+    originalPrice: "Asl Narxi",
     price: "Narxi",
     quantity: "Jami",
     discount: "Chegirma",
@@ -193,7 +198,15 @@ const uz = {
     foydalanuv: "Foydalanuvchilar chiqadi",
     kuni: "Necha kunga",
   },
-
+  productDetails: {
+    title: " Xaqida to'liqroq malumot",
+    name: "Ismi",
+    dokon: "Do'kon",
+    telNomer: "Telefon no'meri",
+    manzil: "Manzili",
+    eskiVaqt: "Yaratilgan vaqt",
+    yangiVaqt: "Yangilangan vaqt",
+  },
   roles: {
     title: "Rollar",
     addRoles: "+ Rol qo'shish",
@@ -203,7 +216,38 @@ const uz = {
     deleteSuccessMessage: "Foydalanuvchi udalit qilindi",
     deletEdit: "O'chirish va tahrirlash",
   },
+  kassa: {
+    title: "Kasa",
+  },
+  kassaTable: {
+    narxi: "Narxi",
+    olinganVaqt: "Olingan vaqti",
+    olinganBerish: "Berish vaqti",
+  },
+  perm: {
+    allow: "Ruxsat Etilgan Amallar",
+    newAllow: "Yangi ruxsat",
+    addTitle: "Yangi huquq qo'shish",
+    addInputLabel: "Huquq nomi",
+    addInputPlholder: "Huquq nomini kiriting",
+    updateTitle: "Huquqni o'zgartirish",
+    updateInputLabel: "Huquq nomini o'zgartirish",
+    updateInputPlholder: "Yangi huquq nomini kiriting",
+    yes: "Saqlash",
+    no: "Bekor qilish",
+    onSuccessTitle: "Ruxsat o'chirilmoqda",
+    onSuccessMessage:
+      "Bu malumot o'chirilgandan keyin qayta yuklashni iloji yo'q. Yangi ruxsat qo'shasiz",
+    onErrorTitle: "Xatolik",
+    onErrorMessage: "Xatolik Yuz berdi",
+    modalTitle: "Ruxsatni o'chirish",
+    modalText: "Siz bu ruxsatni chindanham o'chirmoqchimisiz",
+    cancelTitle: "Siz bekor qildingiz",
+    cancelMessage: "Siz bu ruxsatni rostdan ham o'chirmadingiz!",
+  },
+
   perms: {
+    a: "a",
     permissions: {
       view: "Ruxsatlarni ko'rish",
       all: "Barcha ruxsatlar",
@@ -247,7 +291,19 @@ const uz = {
       delete: "Foydalanuvchilarni o'chirish",
     },
   },
-
+  useNotify: {
+    loadTitle: "Bajarilmoqda",
+    loadMsg: "Iltimos kuting",
+    successTitle: "Muaffaqiyatli",
+    successMsg: "Muaffaqiyatli Tugatildi",
+    censelTitle: "Siz bekor Qildingiz",
+    censelMsg: "Amalingiz Oz holicha qildirildi",
+    BackTo: "Siz orqaga tugmasini tanladingiz",
+    errorTitle: "Xatolik",
+    errorMsg: "Xatolik Berdi",
+    cancel: "Bekor qilish",
+    confirm: "O'chirish",
+  },
   expenses: expensesLocaleUz,
   notification: {
     loading: "Yuklanmoqda",

@@ -64,7 +64,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
           hidden={!opened}
           width={{ sm: 200, lg: 270 }}
         >
-          <div className={classes.container}>{links}</div>
+          <Box className={classes.container}>{links}</Box>
         </Navbar>
       }
       header={

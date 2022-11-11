@@ -1,5 +1,4 @@
 import If from "@components/smart/If";
-import WithLoading from "@hoc/WithLoading";
 import {
   Box,
   Button,
@@ -11,11 +10,11 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { showNotification, updateNotification } from "@mantine/notifications";
+import { updateNotification } from "@mantine/notifications";
 import useAdmins from "@services/hooks/useAdmins";
 import useSettings from "@services/hooks/useSettings";
 import { IconCheck, IconChevronDown, IconLock } from "@tabler/icons";
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 
 const AdminsDrawer: React.FC<{
   handleClose: () => void;
@@ -162,8 +161,7 @@ const AdminsDrawer: React.FC<{
         />
         <If
           condition={!!roles}
-          elseChildren={<Skeleton width="100%" height="40px" />}
-        >
+          elseChildren={<Skeleton width="100%" height="40px" />}>
           <Select
             sx={{ width: "100%", margin: "20px  0" }}
             rightSection={<IconChevronDown size={14} />}
@@ -183,14 +181,13 @@ const AdminsDrawer: React.FC<{
           />
         </If>
 
-        <PasswordInput
+        <TextInput
           label={intl.formatMessage({
             id: "admins.form.input.password.label",
           })}
           placeholder={intl.formatMessage({
             id: "admins.form.input.password.placeholder",
           })}
-          name="password"
           icon={<IconLock size={16} />}
           {...form.getInputProps("password")}
         />

@@ -6,12 +6,3 @@ a {
     text-decoration: underline;
   }
 }
-
-.sidebarLink {
-  &.active {
-    color: pink;
-  }
-}
-.active {
-  border-bottom: 2px solid rgb(187, 50, 50);
-}

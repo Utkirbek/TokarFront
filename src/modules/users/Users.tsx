@@ -20,9 +20,11 @@ import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
 import { Permissions, RequestQueryKeys } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
 import dynamic from "next/dynamic";
-import { useCallback, useState } from "react";
+import { useRouter } from "next/router";
+import { memo, useCallback, useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
 
+import ProductDetails from "./batafsil";
 import NewUser from "./NewUser/NewUser";
 
 const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
@@ -34,6 +36,7 @@ const Users = () => {
   const [editItem, setEditItem] = useState({});
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
+  const router = useRouter();
 
   const {
     data,
@@ -153,6 +156,20 @@ const Users = () => {
             <IconPencil style={{ cursor: "pointer" }} onClick={handEdit} />
           </If>
         </td>
+        <td>
+          <Button
+            variant="outline"
+            onClick={() => {
+              router.push("/user", {
+                query: {
+                  details: item._id,
+                },
+              });
+            }}
+          >
+            Batafsil
+          </Button>
+        </td>
       </tr>
     );
   });
@@ -214,14 +231,16 @@ const Users = () => {
                 <If hasPerm={Permissions.users.action}>
                   <th> Ochirish / Tahrirlash</th>
                 </If>
+                <th></th>
               </tr>
             </thead>
             <tbody>{rows}</tbody>
           </Table>
         </ScrollArea>
       </DashLayout>
+      <ProductDetails user={data} />
     </>
   );
 };
 
-export default Users;
+export default memo(Users);

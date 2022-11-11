@@ -155,8 +155,7 @@ function TableCard() {
         onClose={onClose}
         padding="xl"
         size="30%"
-        position="right"
-      >
+        position="right">
         <RolesDrawer editItem={editItem} handleClose={onClose} />
       </Drawer>
     </WithLoading>

@@ -6,6 +6,7 @@ import {
   ScrollArea,
   Select,
   Text,
+  TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { showNotification, updateNotification } from "@mantine/notifications";
@@ -67,7 +68,7 @@ const BuyCart: React.FC<{}> = () => {
     });
   };
   const clickWallet = ({ item }: any) => {
-    item.bolin === true ? setWallet(!wallet) : "";
+    item.bolin === true ? setWallet(true) : setWallet(false);
   };
 
   return (
@@ -81,11 +82,16 @@ const BuyCart: React.FC<{}> = () => {
                   <FormattedMessage id="buyCart.maxsulotYoq" />
                 </Text>
               ) : (
-                <ScrollArea style={{ height: 350 }} scrollbarSize={4}>
+                <ScrollArea style={{ height: 250 }} scrollbarSize={4}>
                   {items.map((item: any) => {
                     return (
                       <Card className={classes.card} key={item._id}>
-                        <Text>{item.title}</Text>
+                        {item.title.length > 8 ? (
+                          <Text>{item.title.substring(0, 8)}...</Text>
+                        ) : (
+                          <Text>{item.title}</Text>
+                        )}
+
                         <Text>{item.price}</Text>
 
                         <Box className={classes.boxGroupCountTrash}>
@@ -96,19 +102,17 @@ const BuyCart: React.FC<{}> = () => {
                               }
                               className={classes.btnCount}
                               variant={"outline"}
-                              compact
-                            >
+                              compact>
                               -
                             </Button>
-                            <Text size="xl">{item.quantity}</Text>
+                            <Text size="md">{item.quantity}</Text>
                             <Button
                               onClick={() =>
                                 updateItemQuantity(item.id, item.quantity + 1)
                               }
                               className={classes.btnCount}
                               variant={"outline"}
-                              compact
-                            >
+                              compact>
                               +
                             </Button>
                           </Box>
@@ -139,14 +143,13 @@ const BuyCart: React.FC<{}> = () => {
                   {datas?.map((item: any, index: any) => {
                     return (
                       <div key={index}>
-                        <Text className={classes.payCardTitle} size="sm">
+                        <Text className={classes.payCardTitle}>
                           <FormattedMessage id={item.title} />
                         </Text>
                         <Box
                           className={classes.cardSuma}
                           style={item.id === activeId ? activeStyle : {}}
-                          onClick={handleClick(item.id)}
-                        >
+                          onClick={handleClick(item.id)}>
                           <item.icon
                             size={50}
                             onClick={() => clickWallet({ item })}
@@ -169,19 +172,11 @@ const BuyCart: React.FC<{}> = () => {
                   ]}
                 />
                 {!!wallet ? (
-                  <Select
-                    sx={{ width: "100%", margin: "10px  0" }}
-                    rightSection={<IconChevronDown size={14} />}
-                    rightSectionWidth={30}
-                    styles={{ rightSection: { pointerEvents: "none" } }}
-                    data={[
-                      "1 hafta",
-                      "1 oy",
-                      " 1-3 oy",
-                      "3-6 oy",
-                      "6 dan yuqori",
-                    ]}
-                    defaultValue="1 hafta"
+                  <TextInput
+                    label={intl.formatMessage({ id: "buyCart.payDay" })}
+                    placeholder={intl.formatMessage({ id: "buyCart.payDay" })}
+                    {...form.getInputProps("payDay")}
+                    required
                   />
                 ) : null}
               </Card>
