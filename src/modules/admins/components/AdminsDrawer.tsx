@@ -1,5 +1,4 @@
 import If from "@components/smart/If";
-import WithLoading from "@hoc/WithLoading";
 import {
   Box,
   Button,
@@ -11,11 +10,11 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { showNotification, updateNotification } from "@mantine/notifications";
+import { updateNotification } from "@mantine/notifications";
 import useAdmins from "@services/hooks/useAdmins";
 import useSettings from "@services/hooks/useSettings";
 import { IconCheck, IconChevronDown, IconLock } from "@tabler/icons";
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 
 const AdminsDrawer: React.FC<{
   handleClose: () => void;

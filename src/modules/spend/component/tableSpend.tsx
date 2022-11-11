@@ -15,8 +15,6 @@ type Props = {
 };
 
 const SpendTable = ({ data }: Props) => {
-  console.log(data);
-
   const {
     showLoadingNotification,
     showSuccessNotification,

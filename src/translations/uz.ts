@@ -3,7 +3,7 @@ import { expensesLocaleUz } from "@modules/spend/locale";
 const uz = {
   loading: "Yuklanmoqda",
   delete: "O'chirish",
-  cancel:"Bekor qilish",
+  cancel: "Bekor qilish",
   sthWentWrong: "Xatolik yuz berdi",
   admins: {
     delete: {
@@ -208,6 +208,14 @@ const uz = {
     deleteSuccessMessage: "Foydalanuvchi udalit qilindi",
     deletEdit: "O'chirish va tahrirlash",
   },
+  kassa: {
+    title: "Kasa",
+  },
+  kassaTable: {
+    narxi: "Narxi",
+    olinganVaqt: "Olingan vaqti",
+    olinganBerish: "Berish vaqti",
+  },
   perm: {
     allow: "Ruxsat Etilgan Amallar",
     newAllow: "Yangi ruxsat",
@@ -226,12 +234,12 @@ const uz = {
     onErrorMessage: "Xatolik Yuz berdi",
     modalTitle: "Ruxsatni o'chirish",
     modalText: "Siz bu ruxsatni chindanham o'chirmoqchimisiz",
-    cancelTitle:"Siz bekor qildingiz",
-    cancelMessage:"Siz bu ruxsatni rostdan ham o'chirmadingiz!"
+    cancelTitle: "Siz bekor qildingiz",
+    cancelMessage: "Siz bu ruxsatni rostdan ham o'chirmadingiz!",
   },
 
   perms: {
-    a:"a",
+    a: "a",
     permissions: {
       view: "Ruxsatlarni ko'rish",
       all: "Barcha ruxsatlar",

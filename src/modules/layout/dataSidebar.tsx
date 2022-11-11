@@ -2,6 +2,7 @@ import {
   IconBarcode,
   IconChartLine,
   IconList,
+  IconListDetails,
   IconSettingsAutomation,
   IconUserCircle,
   IconUsers,
@@ -55,6 +56,12 @@ const data = [
     label: "orders.title",
     icon: IconList,
     permission: "orders.view",
+  },
+  {
+    link: "/kassa",
+    label: "kassa.title",
+    icon: IconListDetails,
+    permission: "kassa.view",
   },
 ];
 export default data;

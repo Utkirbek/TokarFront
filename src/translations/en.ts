@@ -132,6 +132,14 @@ const en = {
     deleteSuccessMessage: "The user has been removed",
     deletEdit: "Delete and edit",
   },
+  kassa: {
+    title: "Fund",
+  },
+  kassaTable: {
+    narxi: "Cost",
+    olinganVaqt: "Received time",
+    olinganBerish: "Time to give",
+  },
   useNotify: {
     loadTitle: "Succseful",
     loadMsg: "Please Wait",
