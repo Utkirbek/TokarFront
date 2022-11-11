@@ -83,5 +83,8 @@ export const Permissions = {
   accounting: {
     view: "accounting.view",
   },
+  originalPrice: {
+    view: "originalPrice.view",
+  },
   all: "permissions.all",
 };

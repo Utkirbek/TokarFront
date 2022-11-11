@@ -67,7 +67,7 @@ const uz = {
           placeholder: "Emailingizni kiriting",
         },
         password: {
-          label: "Parol",
+          label: "Yangi parol  Kiriting",
           placeholder: "Parolingizni kiriting",
         },
         role: {
@@ -115,6 +115,8 @@ const uz = {
     updateNotifMessage: "Sizning mahsuloringiz Yangilandi",
     updataNotifErrorTitle: "Xatolik",
     updataNotifErrorMessage: "Xatolik! Mahsulot Qo'shilmadi",
+    showSaccsesCardTitle: "Qo'shildi",
+    showSaccsecCardMsg: "Sotib olishdagi Mahsulotlar ro'yxatiga qo'shildi",
   },
   productDetail: {
     titleHead: "Mahsulot haqida batafsil malumot",
@@ -158,6 +160,7 @@ const uz = {
     sotish: "Sotish",
     kimga: "Kimga",
     maxsulotYoq: "Sizda mahsulot qolmadi",
+    payDay: "Muddatni Kiriting",
   },
   detail: {
     mahsulotNomi: "Mahsulot Nomi",
@@ -174,6 +177,7 @@ const uz = {
   tableHead: {
     name: "Mahsulot Nomi",
     code: "Kodi",
+    originalPrice: "Asl Narxi",
     price: "Narxi",
     quantity: "Jami",
     discount: "Chegirma",
@@ -271,7 +275,19 @@ const uz = {
       delete: "Foydalanuvchilarni o'chirish",
     },
   },
-
+  useNotify: {
+    loadTitle: "Bajarilmoqda",
+    loadMsg: "Iltimos kuting",
+    successTitle: "Muaffaqiyatli",
+    successMsg: "Muaffaqiyatli Tugatildi",
+    censelTitle: "Siz bekor Qildingiz",
+    censelMsg: "Amalingiz Oz holicha qildirildi",
+    BackTo: "Siz orqaga tugmasini tanladingiz",
+    errorTitle: "Xatolik",
+    errorMsg: "Xatolik Berdi",
+    cancel: "Bekor qilish",
+    confirm: "O'chirish",
+  },
   expenses: expensesLocaleUz,
   notification: {
     loading: "Yuklanmoqda",

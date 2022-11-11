@@ -60,7 +60,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
           p="md"
           hiddenBreakpoint="sm"
           hidden={!opened}
-          width={{ sm: 200, lg: 270 }}>
+          width={{ sm: 200, lg: 250 }}>
           <div className={classes.container}>{links}</div>
         </Navbar>
       }

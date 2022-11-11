@@ -1,31 +1,25 @@
 import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import If from "@components/smart/If";
+import useNotification from "@hooks/useNotification";
 import {
   Avatar,
   Button,
-  Checkbox,
   Drawer,
   Grid,
   Group,
+  HoverCard,
   Loader,
   ScrollArea,
-  Select,
   Table,
   Text,
   useMantineTheme,
 } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
-// import useStyles from "@modules/products/components/details/styleDetail/styleDetail";
 import useStyles from "@modules/products/components/ProductsTable/ProductTableStyle";
 import productFetchers from "@services/api/productFetchers";
 import useProducts from "@services/hooks/useProducts";
-import {
-  IconCheck,
-  IconChevronDown,
-  IconPencil,
-  IconTrash,
-} from "@tabler/icons";
+import { IconPencil, IconTrash } from "@tabler/icons";
 import { Permissions, RequestQueryKeys } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
 import { useRouter } from "next/router";
@@ -51,28 +45,19 @@ function ProductsTable() {
   const { addItem, isEmpty } = useCart();
   const [info, setInfo] = useState({});
 
+  const {
+    showLoadingNotification,
+    showReSuccessNotification,
+    showErrorNotification,
+  } = useNotification();
+
   const handleDelete = async function (id: string) {
     deleteProducts(id, {
       onSuccess: () => {
-        updateNotification({
-          id: "load-data",
-          color: "teal",
-          title: "Mahsulot o'chirilmoqda",
-          message:
-            "Bu malumot o'chirilgandn keyin qayta yuklashni iloji yo'q.Yangi mahsulot qo'shasiz",
-          icon: <IconCheck size={16} />,
-          autoClose: 2000,
-        });
+        showLoadingNotification();
       },
       onError: () => {
-        updateNotification({
-          id: "load-data",
-          color: "red",
-          title: "Xatolik",
-          message: "Xatolik Yoz berdi",
-          autoClose: false,
-          disallowClose: false,
-        });
+        showErrorNotification();
       },
     });
   };
@@ -87,29 +72,16 @@ function ProductsTable() {
       ),
       labels: { confirm: "O'chirish", cancel: "Orqaga qaytish" },
       confirmProps: { color: "red" },
-      onConfirm: () => {
+      onConfirm: async () => {
+        showLoadingNotification();
         handleDelete(id);
       },
       onCancel: () => {
-        showNotification({
-          title: "Siz bekor qildingiz",
-          message: "Hey there, your code is awesome! 🤥",
+        showErrorNotification("useNotify.censelMsg", {
+          titleId: "useNotify.censelTitle",
         });
       },
     });
-
-  const { classes, cx } = useStyles();
-  const [selection, setSelection] = useState(["1"]);
-  const toggleRow = (id: string) =>
-    setSelection((current) =>
-      current.includes(id)
-        ? current.filter((item) => item !== id)
-        : [...current, id]
-    );
-  const toggleAll = () =>
-    setSelection((current) =>
-      current.length === data.length ? [] : data.map((item: any) => item._id)
-    );
 
   const { data, error } = useSWR(
     RequestQueryKeys.getProducts,
@@ -121,9 +93,7 @@ function ProductsTable() {
   if (data?.length === 0) return <EmptyBox />;
 
   const rows = products.map((item: any) => {
-    const selected = selection.includes(item._id);
-
-    const handEdit = () => {
+    const handleEdit = () => {
       setEditItem(item);
       setOpened(true);
     };
@@ -132,49 +102,46 @@ function ProductsTable() {
       addItem({ id: el._id, ...el });
     };
 
-    const dataDiscount = item.discounts.map((el: any) => {
-      return el.price + "/" + el.quantity;
-    });
-
     return (
-      <tr key={item._id} className={cx({ [classes.rowSelected]: selected })}>
-        <td>
-          <Checkbox
-            checked={selection.includes(item._id)}
-            onChange={() => toggleRow(item._id)}
-            transitionDuration={0}
-          />
-        </td>
+      <tr key={item._id}>
         <td>
           <Group spacing="sm">
             <Avatar size={40} src={getCoverImage(item.image)} radius={26} />
-            <Text size="sm" weight={500}>
-              {item.title}
-            </Text>
+            <Group position="center">
+              <HoverCard width={280} shadow="md">
+                <HoverCard.Target>
+                  {item.title.length > 20 ? (
+                    <Text size="sm" weight={500}>
+                      {item.title.substring(0, 20)}...
+                    </Text>
+                  ) : (
+                    <Text size="sm" weight={500}>
+                      {item.title}
+                    </Text>
+                  )}
+                </HoverCard.Target>
+                <HoverCard.Dropdown>
+                  <Text size="sm">{item.title}</Text>
+                </HoverCard.Dropdown>
+              </HoverCard>
+            </Group>
           </Group>
         </td>
         <td>{item.code}</td>
         <If hasPerm={Permissions.accounting.view}>
-          <td>{item.originalPrice}</td>
+          <td>
+            {item.originalPrice} {item.currency?.name}
+          </td>
         </If>
-        <td>{item.price}</td>
-        <td>{item.quantity}</td>
         <td>
-          <Select
-            sx={{ width: "150px" }}
-            rightSection={<IconChevronDown size={8} />}
-            rightSectionWidth={30}
-            styles={{ rightSection: { pointerEvents: "none" } }}
-            data={[`${dataDiscount}`]}
-            defaultValue={`${dataDiscount}`}
-          />
+          {item.price} {item.currency?.name}
         </td>
-
-        <td>
+        <td>{item.quantity}</td>
+        <td style={{ width: 200 }}>
           <If hasPerm={Permissions.products.edit}>
             <IconPencil
               style={{ cursor: "pointer", marginTop: "5px" }}
-              onClick={handEdit}
+              onClick={handleEdit}
             />
           </If>
           <If hasPerm={Permissions.products.delete}>
@@ -199,8 +166,7 @@ function ProductsTable() {
                   details: item._id,
                 },
               });
-            }}
-          >
+            }}>
             <FormattedMessage id="products.details" />
           </Button>
         </td>
@@ -225,9 +191,10 @@ function ProductsTable() {
         onClose={() => setOpened(false)}
         padding="xl"
         size="xl"
-        position="right"
-      >
-        <ScrollArea style={{ height: 560 }} scrollbarSize={2}>
+        position="right">
+        <ScrollArea
+          style={{ height: "100%", paddingBottom: 60 }}
+          scrollbarSize={2}>
           <FormProduct
             handleClose={() => {
               setOpened(false);
@@ -251,24 +218,26 @@ function ProductsTable() {
               <thead>
                 <tr>
                   <th>
-                    <Checkbox
-                      onChange={toggleAll}
-                      checked={selection.length === data.length}
-                      indeterminate={
-                        selection.length > 0 && selection.length !== data.length
-                      }
-                      transitionDuration={0}
-                    />
+                    <FormattedMessage id="tableHead.name" />
                   </th>
-                  <th>{tableHead.name}</th>
-                  <th>{tableHead.code}</th>
-                  <If hasPerm={Permissions.accounting.view}>
-                    <th>{tableHead.price}</th>
+                  <th>
+                    <FormattedMessage id="tableHead.code" />
+                  </th>
+                  <If hasPerm={Permissions.originalPrice.view}>
+                    <th>
+                      <FormattedMessage id="tableHead.originalPrice" />
+                    </th>
                   </If>
-                  <th>{tableHead.price}</th>
-                  <th>{tableHead.quantity}</th>
-                  <th>{tableHead.discount}</th>
-                  <th>{tableHead.action}</th>
+                  <th>
+                    <FormattedMessage id="tableHead.price" />
+                  </th>
+                  <th>
+                    <FormattedMessage id="tableHead.quantity" />
+                  </th>
+                  <th>
+                    <FormattedMessage id="tableHead.action" />
+                  </th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>{rows}</tbody>

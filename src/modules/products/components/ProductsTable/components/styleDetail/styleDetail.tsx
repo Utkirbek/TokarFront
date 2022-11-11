@@ -48,6 +48,11 @@ const useStyles = createStyles(() => {
       fontWeight: 700,
       color: "#1971C2",
     },
+    backBtn: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
   };
 });
 

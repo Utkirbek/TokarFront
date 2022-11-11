@@ -179,21 +179,6 @@ const FormProduct: React.FC<{
           required
         />
 
-        <TextInput
-          className={classes.inputStyle}
-          label="Mahsulot Asl Narxi"
-          placeholder="Mahsulot Asl narxi"
-          {...form.getInputProps("originalPrice")}
-        />
-
-        <TextInput
-          className={classes.inputStyle}
-          label="Mahsulot Sotuvdagi Narxi"
-          placeholder="Mahsulot Narxi"
-          {...form.getInputProps("price")}
-          required
-        />
-
         <If
           condition={!!currencies}
           elseChildren={<Skeleton width="100%" height="40px" />}>
@@ -213,6 +198,20 @@ const FormProduct: React.FC<{
             {...form.getInputProps("currency")}
           />
         </If>
+        <TextInput
+          className={classes.inputStyle}
+          label="Mahsulot Asl Narxi"
+          placeholder="Mahsulot Asl narxi"
+          {...form.getInputProps("originalPrice")}
+        />
+
+        <TextInput
+          className={classes.inputStyle}
+          label="Mahsulot Sotuvdagi Narxi"
+          placeholder="Mahsulot Narxi"
+          {...form.getInputProps("price")}
+          required
+        />
         <TextInput
           className={classes.inputStyle}
           label="Nechta mahsulot borligi"

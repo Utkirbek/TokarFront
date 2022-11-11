@@ -1,4 +1,5 @@
-import { Box, Image, Modal, Text } from "@mantine/core";
+import { Box, Button, Image, Modal, Text } from "@mantine/core";
+import { IconArrowBack } from "@tabler/icons";
 import { useRouter } from "next/router";
 import queryString from "query-string";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
@@ -24,7 +25,11 @@ const ProductDetails = ({ products }: Props) => {
       <Box className={classes.itemGroup}>
         <Box className={classes.imageBox}>
           <Image
-            src={item?.image}
+            src={
+              item?.image
+                ? `${item?.image}`
+                : "https://www.seekpng.com/png/detail/86-861930_singapore-http-img-placeholder.png"
+            }
             width="500px"
             height="400px"
             sx={{ objectFit: "cover", borderRadius: "20px" }}

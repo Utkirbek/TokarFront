@@ -64,6 +64,7 @@ const en = {
     sotish: "Selling",
     kimga: "To whom",
     maxsulotYoq: "You have no products left",
+    payDay: "Enter the term",
   },
 
   productDetail: {
@@ -96,6 +97,7 @@ const en = {
   tableHead: {
     name: "Product Name",
     code: "Cody",
+    originalPrice: "Originaal Price",
     price: "Cost",
     quantity: "Total",
     discount: "Discount",
@@ -130,6 +132,18 @@ const en = {
     deleteSuccessMessage: "The user has been removed",
     deletEdit: "Delete and edit",
   },
+  useNotify: {
+    loadTitle: "Succseful",
+    loadMsg: "Please Wait",
+    successTitle: "On Secselul",
+    successMsg: "Saccsess Added",
+    censelTitle: "You have canceled",
+    censelMsg: "Your deed has been reduced to nothing",
+    errorTitle: "Error",
+    errorMsg: "An Error Cccurred",
+    cancel: "Cancel",
+    confirm: "Delete",
+  },
   perm: {
     allow: "Allowed Permissions",
     newAllow: "Add Permission",
@@ -151,7 +165,7 @@ const en = {
   },
 
   perms: {
-    a:"a",
+    a: "a",
     permissions: {
       view: "View Permissions",
       all: "All permissions",
