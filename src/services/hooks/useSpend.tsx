@@ -24,8 +24,6 @@ const useSpend = () => {
         onError?: (error: any) => void;
       }
     ) => {
-      console.log(body);
-
       try {
         const res = await mutate(
           RequestQueryKeys.addSpend,

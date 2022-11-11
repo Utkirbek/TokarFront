@@ -28,6 +28,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     defaultValue: "light",
     getInitialValueInEffect: true,
   });
+
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 

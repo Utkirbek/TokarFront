@@ -21,13 +21,9 @@ const WithLoading = (props: Props) => {
     FallbackErrorUI = ErrorFallbackUI,
   } = props;
 
-  console.log("withLoading", query);
-
   if (query.error) return <FallbackErrorUI message={query.error.message} />;
   if (!query.data) return <FallbackLoadingUI />;
   if (props.withRenderProps) {
-    console.log("withRenderProps");
-
     const childrenWithProps = React.Children.map(children, (child) => {
       if (React.isValidElement(child)) {
         return React.cloneElement(child, { data: query.data });

@@ -10,7 +10,8 @@
     "lint": "next lint",
     "lintfix": "next lint --fix",
     "prepare": "husky install",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "cypress": "cypress open"
   },
   "husky": {
     "hooks": {
@@ -64,6 +65,7 @@
     "@types/node": "18.8.5",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
+    "cypress": "^11.0.0",
     "eslint": "8.25.0",
     "eslint-config-next": "latest",
     "eslint-config-prettier": "^8.5.0",

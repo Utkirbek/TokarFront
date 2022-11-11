@@ -12,18 +12,19 @@ import {
   TextInput,
   useMantineTheme,
 } from "@mantine/core";
+import { useToggle } from "@mantine/hooks";
 import data from "@modules/layout/dataSidebar";
 import useStyles from "@modules/layout/style/dashStyle";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React from "react";
 import { FormattedMessage } from "react-intl";
 
 function DashLayout({ children }: { children: React.ReactNode }) {
   const { classes, cx } = useStyles();
   const theme = useMantineTheme();
   const router = useRouter();
-  const [opened, setOpened] = useState(false);
+  const [opened, toggleOpened] = useToggle();
 
   const links = data.map((item: any) => {
     return (
@@ -33,11 +34,12 @@ function DashLayout({ children }: { children: React.ReactNode }) {
           href={item.link}
           className={cx(classes.link, "test", {
             sidebarLink: item.link === router.pathname,
-          })}>
+          })}
+        >
           <item.icon className={classes.linkIcon} stroke={1.5} />
-          <span>
+          <Text>
             <FormattedMessage id={item.label} />
-          </span>
+          </Text>
         </Link>
       </If>
     );
@@ -60,24 +62,26 @@ function DashLayout({ children }: { children: React.ReactNode }) {
           p="md"
           hiddenBreakpoint="sm"
           hidden={!opened}
-          width={{ sm: 200, lg: 270 }}>
+          width={{ sm: 200, lg: 270 }}
+        >
           <div className={classes.container}>{links}</div>
         </Navbar>
       }
       header={
         <Header height={70} p="md">
-          <div
-            style={{ display: "flex", alignItems: "center", height: "100%" }}>
+          <Box
+            style={{ display: "flex", alignItems: "center", height: "100%" }}
+          >
             <MediaQuery largerThan="sm" styles={{ display: "none" }}>
               <Burger
                 opened={opened}
-                onClick={() => setOpened((o) => !o)}
+                onClick={() => toggleOpened()}
                 size="sm"
                 color={theme.colors.gray[6]}
                 mr="xl"
               />
             </MediaQuery>
-            <div className={classes.navDesh}>
+            <Box className={classes.navDesh}>
               <ButtonToggleDark />
               <Link href="/">
                 <Text className={classes.title}>Tokar</Text>
@@ -89,17 +93,19 @@ function DashLayout({ children }: { children: React.ReactNode }) {
                   alignItems: "center",
                   justifyContent: "space-between",
                   gap: 5,
-                }}>
+                }}
+              >
                 <TextInput
                   sx={{ width: "92%" }}
                   placeholder="Nima qidiryapsiz...?"
                 />
                 <Logout />
               </Box>
-            </div>
-          </div>
+            </Box>
+          </Box>
         </Header>
-      }>
+      }
+    >
       {children}
     </AppShell>
   );

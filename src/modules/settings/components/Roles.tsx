@@ -11,6 +11,8 @@ const Roles = (props: Props) => {
 
   const queryRoles = useGetAllRoles();
 
+  console.log(queryRoles);
+
   return (
     <WithLoading query={queryRoles}>
       <h1>Role lar</h1>

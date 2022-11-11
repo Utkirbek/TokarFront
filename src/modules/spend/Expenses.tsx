@@ -4,6 +4,10 @@ import { RequestQueryKeys } from "@utils/constants";
 import dynamic from "next/dynamic";
 import useSWR from "swr";
 
+// 3 xil
+// * Unit test
+// * Integration test
+// * Automated testing E2E e2e End-to-End testing.
 import SpendTable from "./component/tableSpend";
 
 const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
