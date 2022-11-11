@@ -198,7 +198,15 @@ const uz = {
     foydalanuv: "Foydalanuvchilar chiqadi",
     kuni: "Necha kunga",
   },
-
+  productDetails: {
+    title: " Xaqida to'liqroq malumot",
+    name: "Ismi",
+    dokon: "Do'kon",
+    telNomer: "Telefon no'meri",
+    manzil: "Manzili",
+    eskiVaqt: "Yaratilgan vaqt",
+    yangiVaqt: "Yangilangan vaqt",
+  },
   roles: {
     title: "Rollar",
     addRoles: "+ Rol qo'shish",
