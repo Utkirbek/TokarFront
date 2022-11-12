@@ -1,11 +1,13 @@
+import ComponentToPrint from "@components/print/ComponentToPrint";
 import WithLoading from "@hoc/WithLoading";
-import { Pagination } from "@mantine/core";
+import { Box, Button, Pagination } from "@mantine/core";
 import { SpotlightAction, useSpotlight } from "@mantine/spotlight";
 import productFetchers from "@services/api/productFetchers";
 import useProducts from "@services/hooks/useProducts";
 import { IconHome } from "@tabler/icons";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useReactToPrint } from "react-to-print";
 import { CartProvider } from "react-use-cart";
 
 import ProductsTable from "./components/ProductsTable";
@@ -15,6 +17,11 @@ const Products = () => {
   const spotlight = useSpotlight();
   const router = useRouter();
   const { useFetchProduct } = useProducts();
+  const componentRef = useRef(null);
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   useEffect(() => {
     if (spotlight.opened) {
@@ -65,6 +72,12 @@ const Products = () => {
           total={data?.totalPage}
           onChange={(page) => setPage(page)}
         />
+        <Box>
+          <ComponentToPrint ref={componentRef} />
+          <Button mt={18} onClick={handlePrint}>
+            Shuni chop etish
+          </Button>
+        </Box>
       </WithLoading>
     </CartProvider>
   );
