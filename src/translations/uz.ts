@@ -1,5 +1,7 @@
+import  tableNameData  from "@modules/orders/const/tableTitleName";
 import productsLocaleUz from "@modules/products/locale/productsLocaleUz";
 import { expensesLocaleUz } from "@modules/spend/locale";
+import { userTilUz } from "@modules/users/locale/localetil";
 import usersLocaleUz from "@modules/users/locale/usersLocaleUz";
 
 import commonUz from "./uz/common";
@@ -11,6 +13,7 @@ const uz = {
   delete: "O'chirish",
   cancel: "Bekor qilish",
   sthWentWrong: "Xatolik yuz berdi",
+  action: "Amallar",
   admins: {
     delete: {
       success: {
@@ -104,6 +107,15 @@ const uz = {
     title: "Klientlar",
     description: "Klientlar boshqaruv paneli",
   },
+  loans: {
+    title: "Qarzlar",
+    description: "Qarzlar jadavali",
+    user: "Foydalanuvchi",
+    order: "Suma",
+    amount: "Olingan sanasi",
+    amalar: "Beriladigan sana",
+    foydalanuvchi: "Foydalanuvchi topilmadi",
+  },
   products: productsLocaleUz,
   addProductsForm: {
     showNotifTitle: "Iltimos kuting...",
@@ -135,14 +147,21 @@ const uz = {
   },
   OrdersDetail: {
     titleHead: "Buyurtmalar haqida batafsil ma'lumot",
+    orderImage: "Maxsulot rasmi",
+    orderTitleProduct: "Maxsulot nomi",
     ordersSalesmen: "Sotuvchi",
-    ordersProductId: "maxsulot codi",
-    ordersQuantity: "maxsulot soni",
+    ordersProductId: "Maxsulot codi",
+    ordersQuantity: "Maxsulot soni",
+    ordersQuantityAll: "Jami maxsulot soni",
     ordersPrice: "maxsulot narxi",
-    createOrder: "Yaratilgan Vaqti",
+    createOrder: "Qo'shilgan Vaqti",
     updateOrder: "Yangilangan Vaqti",
-    paymentOrder: "jami narxi",
+    paymentOrder: "Jami narxi",
     orderUser: "Xaridor",
+    userPhoneNumber: "Telefon raqami",
+    userWorkplace: "Ish joyi",
+    userExtra: "Qo'shimcha ma'lumot",
+    orderAction: "Amallar",
   },
   logout: {
     title: "Chiqish",
@@ -185,7 +204,6 @@ const uz = {
   },
   openDeleteModal: {
     title: "Siz bu mahsulotni chindanham o'chirmoqchimisiz",
-
     add: "+ Yangi mahsulot qo'shish",
   },
   sotish: {
@@ -288,6 +306,8 @@ const uz = {
       delete: "Foydalanuvchilarni o'chirish",
     },
   },
+  userTil: userTilUz,
+  orderTil: tableNameData,
   useNotify: {
     loadTitle: "Bajarilmoqda",
     loadMsg: "Iltimos kuting",

@@ -24,7 +24,7 @@ const UsersDrawer: React.FC<Props> = ({
   const handleAddNew = useCallback(() => {
     toggleOpened();
     setEditItem({});
-  }, []);
+  },[]);
 
   return (
     <>

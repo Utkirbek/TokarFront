@@ -36,6 +36,9 @@ export enum RequestQueryKeys {
   updateRole = "updateRole",
   deleteRole = "deleteRole",
   getOrders = "getOrders",
+  addOrders = "addOrders",
+  updateOrders = "updateOrders",
+  deleteOrders = "deletaOrders",
   getCurrency = "getCurrency",
   addCurrency = "addCurrency",
   updateCurrency = "updateCurrency",
@@ -45,6 +48,7 @@ export enum RequestQueryKeys {
   addSpend = "addSpend",
   updateSpend = "updateSpend",
   deleteSpend = "deleteSpend",
+  loan = "loan",
 }
 
 export const Permissions = {

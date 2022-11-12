@@ -4,8 +4,14 @@ const tableNameData = {
   time: "BUYURTMA VAQTI",
   total: "JAMI NARX",
   action: "HARAKAT",
+  names: "MAXSULOT NOMI",
   payment: "TO'LOV",
-  origin: "MANZIL",
+  code: "CODI",
+  price: "NARXI",
+  quantity: "MIQDORI",
+  quantityOri: "JAMI MIQDORI",
+  desc: "IZOH",
+  image: "RASMI",
 };
 
 export default tableNameData;

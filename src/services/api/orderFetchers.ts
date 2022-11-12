@@ -1,6 +1,6 @@
 import requests from "./requests";
 
-const orderFetchers = {
+const orderFetcher = {
   addOrders: async <T>(body: T) => await requests.post("/Orders/add", body),
   deleteOrders: async (id: string) => requests.delete(`/Orders/${id}`),
   getOrders: async () => requests.get(`/Orders`),
@@ -8,4 +8,4 @@ const orderFetchers = {
     requests.put(`/Orders/${id}`, body),
 };
 
-export default orderFetchers;
+export default orderFetcher;

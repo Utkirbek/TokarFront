@@ -6,6 +6,7 @@ const usersLocaleUz = {
   workplace: "Ish joy",
   extra: "Qo'shimcha",
   action: "Amallar",
+  
 };
 
 export default usersLocaleUz;

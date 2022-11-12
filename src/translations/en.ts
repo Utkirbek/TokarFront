@@ -2,6 +2,7 @@ const en = {
   loading: "Loading",
   delete: "Delete",
   sthWentWrong: "Something went wrong",
+  action:"Action", 
 
   home: {
     errorLoading: "Error loading",
