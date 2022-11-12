@@ -1,3 +1,4 @@
+import useNotification from "@hooks/useNotification";
 import {
   Box,
   Button,
@@ -9,8 +10,9 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { showNotification, updateNotification } from "@mantine/notifications";
-import { IconCheck, IconChevronDown, IconTrash } from "@tabler/icons";
+import loan from "@modules/loan";
+import usePayments from "@services/hooks/usePayments";
+import { IconTrash } from "@tabler/icons";
 import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useCart } from "react-use-cart";
@@ -21,52 +23,65 @@ import useStyles from "./styleCard";
 const BuyCart: React.FC<{}> = () => {
   const { classes, cx } = useStyles();
   const [wallet, setWallet] = useState(false);
-  const [cardMoney, setCardMoney] = useState(false);
   const [activeId, setActiveId] = useState(null);
+  const [paymenttitle, setPaymentTitle] = useState("");
+  const [loan, loanTitle] = useState("");
+  const [salesmen, salesmanTitle] = useState("");
   const intl = useIntl();
+  const { addPayments } = usePayments();
+  const { showLoadingNotification, showSuccessNotification } =
+    useNotification();
 
   const {
     isEmpty,
-    totalUniqueItems,
     items,
-    totalItems,
     updateItemQuantity,
     removeItem,
     cartTotal,
     emptyCart,
     getItem,
+    totalItems,
   } = useCart();
 
   const form = useForm({
     initialValues: {
-      status: "",
+      amount: "",
+      paymentMethod: "",
     },
   });
+
   const activeStyle = {
     background: "#1864AB",
     color: "white",
     borderRadius: "10px",
   };
-  const handleClick = (id: any) => () => {
-    setActiveId(id);
+
+  const handleSubmit = async (values: {
+    amount: any;
+    paymentMethod: string;
+    salesman: any;
+    loan: any;
+  }) => {
+    addPayments(
+      values,
+
+      {
+        onSuccess: () => {
+          showSuccessNotification();
+        },
+        onError: () => {
+          showLoadingNotification;
+        },
+      }
+    );
+    showLoadingNotification();
   };
-  const buy = () => {
-    showNotification({
-      id: "load-data",
-      loading: true,
-      title: "Iltimos kuting",
-      message: "Sizning mahsuloringiz qo'shilmoqda iltimos kuting",
-      disallowClose: true,
-    });
-    updateNotification({
-      id: "load-data",
-      color: "teal",
-      title: "Muaffaqiyatli",
-      message: "Sizning mahsuloringiz Sotilganlar ro'yxatiga qo'shildi",
-      icon: <IconCheck size={16} />,
-      autoClose: 2000,
-    });
+
+  const handleClick = (item: any) => () => {
+    setActiveId(item.id);
+    setPaymentTitle(item.title);
   };
+
   const clickWallet = ({ item }: any) => {
     item.bolin === true ? setWallet(true) : setWallet(false);
   };
@@ -92,7 +107,9 @@ const BuyCart: React.FC<{}> = () => {
                           <Text>{item.title}</Text>
                         )}
 
-                        <Text>{item.price}</Text>
+                        <Text>
+                          {item.price}_{item.currency?.name}
+                        </Text>
 
                         <Box className={classes.boxGroupCountTrash}>
                           <Box className={classes.counter}>
@@ -135,7 +152,7 @@ const BuyCart: React.FC<{}> = () => {
                     <FormattedMessage id="buyCart.jamiSuma" />
                   </Text>
                   <Text sx={{ fontSize: "20px", fontWeight: 900 }}>
-                    {cartTotal} USD
+                    {cartTotal}
                   </Text>
                 </Box>
 
@@ -149,7 +166,7 @@ const BuyCart: React.FC<{}> = () => {
                         <Box
                           className={classes.cardSuma}
                           style={item.id === activeId ? activeStyle : {}}
-                          onClick={handleClick(item.id)}>
+                          onClick={handleClick(item)}>
                           <item.icon
                             size={50}
                             onClick={() => clickWallet({ item })}
@@ -181,7 +198,16 @@ const BuyCart: React.FC<{}> = () => {
                 ) : null}
               </Card>
             </Box>
-            <Button className={classes.buyBtn} onClick={() => buy()}>
+            <Button
+              className={classes.buyBtn}
+              onClick={() =>
+                handleSubmit({
+                  amount: cartTotal,
+                  paymentMethod: paymenttitle,
+                  salesman: salesmanTitle,
+                  loan: loanTitle,
+                })
+              }>
               <FormattedMessage id="buyCart.sotish" />
             </Button>
           </Box>

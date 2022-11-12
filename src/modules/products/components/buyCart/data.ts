@@ -8,22 +8,22 @@ import {
 const datas: any = [
   {
     id: 1,
-    title: "buyCart.datatitle",
+    title: "Naqt Pul",
     icon: IconReportMoney,
   },
   {
     id: 2,
-    title: "buyCart.dataterminal",
+    title: "Terminal",
     icon: IconTerminal2,
   },
   {
     id: 3,
-    title: "buyCart.dataplastik",
+    title: "Plastik",
     icon: IconCreditCard,
   },
   {
     id: 4,
-    title: "buyCart.databolibtolash",
+    title: "Bo.lib To'lash",
     icon: IconWallet,
     bolin: true,
   },

@@ -8,7 +8,7 @@ type Props = {
     | React.ReactComponentElement<any, { data: any }>
     | React.ReactComponentElement<any, { data: any }>[];
   query: SWRResponse;
-  FallbackLoadingUI?: typeof React.Component;
+  FallbackLoadingUI?: typeof React.Component<any> | (() => JSX.Element);
   FallbackErrorUI?: typeof React.Component<any>;
   withRenderProps?: boolean;
 };

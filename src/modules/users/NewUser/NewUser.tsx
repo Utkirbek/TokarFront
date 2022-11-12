@@ -5,13 +5,13 @@ import { useForm } from "@mantine/form";
 import useStyles from "@modules/products/components/form/style/inputStyle";
 import useUsers from "@services/hooks/useUsers";
 import { useRef } from "react";
-import { FormattedMessage,useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const NewUser: React.FC<{
   handleClose: () => void;
   editItem: any;
 }> = ({ handleClose, editItem }) => {
-  const intl = useIntl()
+  const intl = useIntl();
   const imagesRef = useRef<string[]>([]);
   const { classes } = useStyles();
   const { addUser, editUser } = useUsers();
@@ -20,6 +20,7 @@ const NewUser: React.FC<{
     showSuccessNotification,
     showErrorNotification,
   } = useNotification();
+  const inti = useIntl();
 
   const form = useForm({
     initialValues: {
@@ -74,8 +75,7 @@ const NewUser: React.FC<{
             fontSize: "24px",
             textAlign: "center",
             fontWeight: 700,
-          }}
-        >
+          }}>
           {!editItem._id ? "Yangi Foydalanuvchi qo'shish" : "Tahrirlash"}
         </Text>
         <TextInput
@@ -97,8 +97,7 @@ const NewUser: React.FC<{
           <Button
             variant="outline"
             sx={{ float: "right", margin: "10px 0" }}
-            hidden
-          >
+            hidden>
             Rasmni Olib Tashlash
           </Button>
         </Box>

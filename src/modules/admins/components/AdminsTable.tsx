@@ -161,8 +161,7 @@ function TableCard() {
         onClose={onClose}
         padding="xl"
         size="30%"
-        position="right"
-      >
+        position="right">
         <AdminsDrawer editItem={editItem} handleClose={onClose} />
       </Drawer>
     </WithLoading>

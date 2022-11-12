@@ -84,17 +84,14 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       </Head>
       <ColorSchemeProvider
         colorScheme={colorScheme}
-        toggleColorScheme={toggleColorScheme}
-      >
+        toggleColorScheme={toggleColorScheme}>
         <MantineProvider
           theme={{ colorScheme }}
           withGlobalStyles
-          withNormalizeCSS
-        >
+          withNormalizeCSS>
           <ErrorBoundary
             FallbackComponent={ErrorFallback}
-            onReset={forceUpdate}
-          >
+            onReset={forceUpdate}>
             <AppWrapper>
               <ProtectedRoute router={router}>
                 <SWRConfig>

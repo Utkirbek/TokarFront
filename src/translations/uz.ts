@@ -1,4 +1,4 @@
-import  tableNameData  from "@modules/orders/const/tableTitleName";
+import tableNameData from "@modules/orders/const/tableTitleName";
 import productsLocaleUz from "@modules/products/locale/productsLocaleUz";
 import { expensesLocaleUz } from "@modules/spend/locale";
 import { userTilUz } from "@modules/users/locale/localetil";
@@ -231,6 +231,37 @@ const uz = {
     deleteSuccessMessage: "Foydalanuvchi udalit qilindi",
     deletEdit: "O'chirish va tahrirlash",
   },
+  payments: {
+    salesman: "Sotuvchi",
+    loan: "Qanday To'lov",
+    loanInput: "Qarz",
+    shouldPay: "Qarzni Uzish  sanasi",
+    title: "To'lovlar",
+    payment: "To'lov Usuli",
+    amount: "To'langan summa",
+    createAt: "Yatatilgan Vaqti",
+    updateAt: "Yangilangan Vaqti",
+    action: "O'chirush",
+    create: "+ Yangi To'lovlar Qo'shish",
+    formTitle: "Yangi To'lovlar qo'shish",
+    btnSubmit: "Ro'yxatga Qo'shish",
+    //form
+    select: "To'lov Turini tanlang",
+  },
+  notify: {
+    success: "Muaffaqiyatli",
+    successMessage: "Muaffaqiyatli tggatildi",
+    loading: "Iltimos kuting",
+    loadingMsg: "Iltimos kutib turing",
+    errorTitle: "Xatolik",
+    errorMsg: "Xatolik Yuz berdi",
+    deleteTitle: "Chindanxam O'chirmoqchimisz",
+    deleteMsg: "Buni O'chirsangiz qaytarib bolmaydi",
+    confirm: "O'chirish",
+    cencel: "Orqaga",
+    canselTitle: "Siz Orqaga qaytingiz",
+    cancelMsg: "Malumotlar o'z holicha qoldirildi",
+  },
   kassa: {
     title: "Kasa",
   },
@@ -260,7 +291,6 @@ const uz = {
     cancelTitle: "Siz bekor qildingiz",
     cancelMessage: "Siz bu ruxsatni rostdan ham o'chirmadingiz!",
   },
-
   perms: {
     a: "a",
     permissions: {
@@ -276,7 +306,7 @@ const uz = {
       delete: "Mahsulotlarni o'chirish",
       view: "Mahsulotlarni ko'rish",
       edit: "Mahsulotlarni tahrirlash",
-      create: "Mahsulotlarni yaratish",
+      create: "Mahsulotlarni yaratiFpalsh",
       add: "Mahsulotlarni qo'shish",
     },
     settings: {
@@ -291,19 +321,72 @@ const uz = {
       add: "Adminlarni qo'shish",
       delete: "Adminlarni o'chirish",
     },
-
-    statistics: {
-      view: "Statistikani ko'rish",
-      edit: "Statistikani tahrirlash",
-      add: "Statistikani qo'shish",
-      delete: "Statistikani o'chirish",
-      costs: "Xarajatlarni ko'rish",
+    perm: {
+      allow: "Ruxsat Etilgan Amallar",
+      newAllow: "Yangi ruxsat",
+      addTitle: "Yangi huquq qo'shish",
+      addInputLabel: "Huquq nomi",
+      addInputPlholder: "Huquq nomini kiriting",
+      updateTitle: "Huquqni o'zgartirish",
+      updateInputLabel: "Huquq nomini o'zgartirish",
+      updateInputPlholder: "Yangi huquq nomini kiriting",
+      yes: "Saqlash",
+      no: "Bekor qilish",
+      onSuccessTitle: "Ruxsat o'chirilmoqda",
+      onSuccessMessage:
+        "Bu malumot o'chirilgandan keyin qayta yuklashni iloji yo'q. Yangi ruxsat qo'shasiz",
+      onErrorTitle: "Xatolik",
+      onErrorMessage: "Xatolik Yuz berdi",
+      modalTitle: "Ruxsatni o'chirish",
+      modalText: "Siz bu ruxsatni chindanham o'chirmoqchimisiz",
+      cancelTitle: "Siz bekor qildingiz",
+      cancelMessage: "Siz bu ruxsatni rostdan ham o'chirmadingiz!",
     },
-    users: {
-      view: "Foydalanuvchilarni ko'rish",
-      edit: "Foydalanuvchilarni tahrirlash",
-      add: "Foydalanuvchilarni qo'shish",
-      delete: "Foydalanuvchilarni o'chirish",
+
+    perms: {
+      a: "a",
+      permissions: {
+        view: "Ruxsatlarni ko'rish",
+        all: "Barcha ruxsatlar",
+        add: "Ruxsat qo'shish",
+        edit: "Ruxsatni tahrirlash",
+        delete: "Ruxsatni o'chirish",
+      },
+      accounting: { view: "Akkauntlarni ko'rish" },
+      products: {
+        originalPrice: "Mahsulotning asl narxi",
+        delete: "Mahsulotlarni o'chirish",
+        view: "Mahsulotlarni ko'rish",
+        edit: "Mahsulotlarni tahrirlash",
+        create: "Mahsulotlarni yaratish",
+        add: "Mahsulotlarni qo'shish",
+      },
+      settings: {
+        view: "Sozlamalarni ko'rish",
+        edit: "Sozlamalarni tahrirlash",
+        add: "Sozlamalarni qo'shish",
+        delete: "Sozlamalarni o'chirish",
+      },
+      admins: {
+        view: "Adminlarni ko'rish",
+        edit: "Adminlarni tahrirlash",
+        add: "Adminlarni qo'shish",
+        delete: "Adminlarni o'chirish",
+      },
+
+      statistics: {
+        view: "Statistikani ko'rish",
+        edit: "Statistikani tahrirlash",
+        add: "Statistikani qo'shish",
+        delete: "Statistikani o'chirish",
+        costs: "Xarajatlarni ko'rish",
+      },
+      users: {
+        view: "Foydalanuvchilarni ko'rish",
+        edit: "Foydalanuvchilarni tahrirlash",
+        add: "Foydalanuvchilarni qo'shish",
+        delete: "Foydalanuvchilarni o'chirish",
+      },
     },
   },
   userTil: userTilUz,
@@ -321,6 +404,7 @@ const uz = {
     cancel: "Bekor qilish",
     confirm: "O'chirish",
   },
+
   expenses: expensesLocaleUz,
   notification: {
     loading: "Yuklanmoqda",
