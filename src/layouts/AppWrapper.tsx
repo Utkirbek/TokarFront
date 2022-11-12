@@ -1,7 +1,7 @@
-import { useTheme } from "@emotion/react";
 import { Box, Group, Text, useMantineTheme } from "@mantine/core";
 import { SpotlightProvider } from "@mantine/spotlight";
 import { useNavActions } from "@services/spotlight";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import React from "react";
 
@@ -9,23 +9,23 @@ type Props = {
   children: React.ReactNode;
 };
 
+const DashLayout = dynamic(() => import("@layouts/DashLayout"), { ssr: false });
+
 const AppWrapper = ({ children }: Props) => {
   const navActions = useNavActions();
 
   return (
-    <Box>
-      <SpotlightProvider
-        shortcut={["mod + P", "mod + K", "/"]}
-        actions={navActions}
-        nothingFoundMessage="Hech narsa topilmadi"
-        translate="yes"
-        searchPlaceholder="Qidirish"
-        highlightQuery
-        actionsWrapperComponent={ActionsWrapper}
-      >
-        {children}
-      </SpotlightProvider>
-    </Box>
+    <SpotlightProvider
+      shortcut={["mod + P", "mod + K", "/"]}
+      actions={navActions}
+      nothingFoundMessage="Hech narsa topilmadi"
+      translate="yes"
+      searchPlaceholder="Qidirish"
+      highlightQuery
+      actionsWrapperComponent={ActionsWrapper}
+    >
+      <DashLayout>{children}</DashLayout>
+    </SpotlightProvider>
   );
 };
 
@@ -33,8 +33,6 @@ export default AppWrapper;
 
 function ActionsWrapper({ children }: { children: React.ReactNode }) {
   const theme = useMantineTheme();
-
-  console.log(theme);
 
   return (
     <Box

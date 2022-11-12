@@ -15,8 +15,6 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
-import { showNotification, updateNotification } from "@mantine/notifications";
-import useStyles from "@modules/products/components/ProductsTable/ProductTableStyle";
 import productFetchers from "@services/api/productFetchers";
 import useProducts from "@services/hooks/useProducts";
 import { IconPencil, IconTrash } from "@tabler/icons";
@@ -32,9 +30,8 @@ import BuyCart from "../buyCart/BuyCart";
 import FormProduct from "../form/FormAdd";
 import Error from "./components/Error";
 import ProductDetails from "./components/ProductDetails";
-import tableHead from "./const/constTableHeadName";
 
-function ProductsTable() {
+function ProductsTable({ data }: any) {
   const [editItem, setEditItem] = useState({});
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
@@ -43,24 +40,24 @@ function ProductsTable() {
   const getProductsQuery = useFetchProduct();
   const { data: products } = getProductsQuery;
   const { addItem, isEmpty } = useCart();
-  const [info, setInfo] = useState({});
 
   const {
     showLoadingNotification,
-    showReSuccessNotification,
     showErrorNotification,
+    showSuccessNotification,
   } = useNotification();
 
   const handleDelete = async function (id: string) {
     deleteProducts(id, {
       onSuccess: () => {
-        showLoadingNotification();
+        showSuccessNotification();
       },
       onError: () => {
         showErrorNotification();
       },
     });
   };
+
   const openDeleteModal = (id: string, title: string) =>
     openConfirmModal({
       title: "Mahsulotni o'chirish",
@@ -83,13 +80,6 @@ function ProductsTable() {
       },
     });
 
-  const { data, error } = useSWR(
-    RequestQueryKeys.getProducts,
-    productFetchers.getProducts
-  );
-
-  if (error) return <Error />;
-  if (!data) return <Loader sx={{ margin: "20%  45%" }} size={"xl"} />;
   if (data?.length === 0) return <EmptyBox />;
 
   const rows = products.map((item: any) => {
@@ -166,7 +156,8 @@ function ProductsTable() {
                   details: item._id,
                 },
               });
-            }}>
+            }}
+          >
             <FormattedMessage id="products.details" />
           </Button>
         </td>
@@ -178,6 +169,7 @@ function ProductsTable() {
     setOpened(true);
     setEditItem({});
   };
+
   return (
     <>
       <Drawer
@@ -191,10 +183,12 @@ function ProductsTable() {
         onClose={() => setOpened(false)}
         padding="xl"
         size="xl"
-        position="right">
+        position="right"
+      >
         <ScrollArea
           style={{ height: "100%", paddingBottom: 60 }}
-          scrollbarSize={2}>
+          scrollbarSize={2}
+        >
           <FormProduct
             handleClose={() => {
               setOpened(false);

@@ -1,26 +1,22 @@
+import WithLoading from "@hoc/WithLoading";
 import { SpotlightAction, useSpotlight } from "@mantine/spotlight";
 import productFetchers from "@services/api/productFetchers";
+import useProducts from "@services/hooks/useProducts";
 import { IconHome } from "@tabler/icons";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { CartProvider } from "react-use-cart";
 
 import ProductsTable from "./components/ProductsTable";
 
-const DashLayout = dynamic(() => import("@modules/layout/DashLayout"), {
-  ssr: false,
-});
-
-type Props = {};
-
-const Products = (props: Props) => {
+const Products = () => {
   const spotlight = useSpotlight();
   const router = useRouter();
+  const { useFetchProduct } = useProducts();
 
   useEffect(() => {
     if (spotlight.opened) {
-      if (spotlight.query && spotlight.query.length % 3 === 0) {
+      if (spotlight.query && spotlight.query.length % 2 === 0) {
         productFetchers.getProductByTitle(spotlight.query).then((res) => {
           if (!!res && res?.length > 0) {
             const newActions: SpotlightAction[] = res.map((item: any) => ({
@@ -44,12 +40,15 @@ const Products = (props: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spotlight.query]);
 
+  const getProductsQuery = useFetchProduct();
+  const { data: products } = getProductsQuery;
+
   return (
-    <DashLayout>
-      <CartProvider>
-        <ProductsTable />
-      </CartProvider>
-    </DashLayout>
+    <CartProvider>
+      <WithLoading query={getProductsQuery}>
+        <ProductsTable data={products} />
+      </WithLoading>
+    </CartProvider>
   );
 };
 

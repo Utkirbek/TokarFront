@@ -86,26 +86,29 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         colorScheme={colorScheme}
         toggleColorScheme={toggleColorScheme}
       >
-        <ErrorBoundary FallbackComponent={ErrorFallback} onReset={forceUpdate}>
-          <AppWrapper>
-            <ProtectedRoute router={router}>
-              <SWRConfig>
-                <MantineProvider
-                  theme={{ colorScheme }}
-                  withGlobalStyles
-                  withNormalizeCSS
-                >
+        <MantineProvider
+          theme={{ colorScheme }}
+          withGlobalStyles
+          withNormalizeCSS
+        >
+          <ErrorBoundary
+            FallbackComponent={ErrorFallback}
+            onReset={forceUpdate}
+          >
+            <AppWrapper>
+              <ProtectedRoute router={router}>
+                <SWRConfig>
                   <RouterTransition />
                   <ModalsProvider>
                     <NotificationsProvider>
                       <Component {...pageProps} />
                     </NotificationsProvider>
                   </ModalsProvider>
-                </MantineProvider>
-              </SWRConfig>
-            </ProtectedRoute>
-          </AppWrapper>
-        </ErrorBoundary>
+                </SWRConfig>
+              </ProtectedRoute>
+            </AppWrapper>
+          </ErrorBoundary>
+        </MantineProvider>
       </ColorSchemeProvider>
       <Script src="https://cdn.lordicon.com/qjzruarw.js" />
     </IntlProvider>

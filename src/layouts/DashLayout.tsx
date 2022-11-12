@@ -1,6 +1,8 @@
 import ButtonToggleDark from "@components/darkmode/Darkmode";
 import If from "@components/smart/If";
 import Logout from "@components/smart/Logout";
+import { selectIsLoggedIn } from "@hooks/selectors";
+import useUser from "@hooks/shared/useUser";
 import {
   AppShell,
   Box,
@@ -9,7 +11,6 @@ import {
   MediaQuery,
   Navbar,
   Text,
-  TextInput,
   useMantineTheme,
 } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
@@ -25,6 +26,9 @@ function DashLayout({ children }: { children: React.ReactNode }) {
   const theme = useMantineTheme();
   const router = useRouter();
   const [opened, toggleOpened] = useToggle();
+  const isLoggedIn = useUser(selectIsLoggedIn);
+
+  if (!isLoggedIn) return <>{children}</>;
 
   const links = data.map((item: any) => {
     return (
@@ -86,19 +90,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
               <Link href="/">
                 <Text className={classes.title}>Tokar</Text>
               </Link>
-              <Box
-                sx={{
-                  width: "82%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  gap: 5,
-                }}
-              >
-                <TextInput
-                  sx={{ width: "92%" }}
-                  placeholder="Nima qidiryapsiz...?"
-                />
+              <Box ml="auto">
                 <Logout />
               </Box>
             </Box>

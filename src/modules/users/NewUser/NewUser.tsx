@@ -5,6 +5,7 @@ import { useForm } from "@mantine/form";
 import useStyles from "@modules/products/components/form/style/inputStyle";
 import useUsers from "@services/hooks/useUsers";
 import { useRef } from "react";
+import { FormattedMessage } from "react-intl";
 
 const NewUser: React.FC<{
   handleClose: () => void;
@@ -38,12 +39,8 @@ const NewUser: React.FC<{
     showLoadingNotification();
 
     const events = {
-      onSuccess: () => {
-        showSuccessNotification();
-      },
-      onError: () => {
-        showErrorNotification();
-      },
+      onSuccess: () => showSuccessNotification(),
+      onError: () => showErrorNotification(),
     };
 
     if (!!editItem._id) {
