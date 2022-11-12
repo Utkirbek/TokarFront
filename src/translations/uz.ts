@@ -1,6 +1,11 @@
 import { expensesLocaleUz } from "@modules/spend/locale";
+import usersLocaleUz from "@modules/users/locale/usersLocaleUz";
+
+import commonUz from "./uz/common";
 
 const uz = {
+  ...commonUz,
+  users: usersLocaleUz,
   loading: "Yuklanmoqda",
   delete: "O'chirish",
   cancel: "Bekor qilish",

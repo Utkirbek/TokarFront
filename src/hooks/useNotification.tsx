@@ -1,9 +1,7 @@
-import { Text } from "@mantine/core";
-import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import { IconCheck, IconX } from "@tabler/icons";
 import { useCallback } from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 
 const useNotification = () => {
   const intl = useIntl();
@@ -14,12 +12,12 @@ const useNotification = () => {
         id: "load-data",
         loading: true,
         title: intl.formatMessage({
-          id: options?.titleId || "useNotify.loadTitle",
+          id: options?.titleId || "notification.loading",
         }),
         message: intl.formatMessage({
-          id: messageId || "useNotify.loadMsg",
+          id: messageId || "notification.loadingDescription",
         }),
-        autoClose: 2000,
+        autoClose: 5000,
         disallowClose: true,
       });
     },
@@ -32,10 +30,10 @@ const useNotification = () => {
         id: "load-data",
         color: "teal",
         title: intl.formatMessage({
-          id: options?.titleId || "useNotify.successTitle",
+          id: options?.titleId || "notification.success",
         }),
         message: intl.formatMessage({
-          id: messageId || "useNotify.successMsg",
+          id: messageId || "notification.successDescription",
         }),
         icon: <IconCheck size={16} />,
         autoClose: 2000,
@@ -47,10 +45,10 @@ const useNotification = () => {
     (messageId?: string, options?: { titleId?: string }) => {
       showNotification({
         title: intl.formatMessage({
-          id: options?.titleId || "useNotify.successTitle",
+          id: options?.titleId || "notification.success",
         }),
         message: intl.formatMessage({
-          id: messageId || "useNotify.successMsg",
+          id: messageId || "notification.successDescription",
         }),
         icon: <IconCheck />,
 
@@ -73,10 +71,10 @@ const useNotification = () => {
     (messageId?: string, options?: { titleId?: string }) => {
       showNotification({
         title: intl.formatMessage({
-          id: options?.titleId || "useNotify.errorTitle",
+          id: options?.titleId || "notification.error",
         }),
         message: intl.formatMessage({
-          id: messageId || "useNotify.errorMsg",
+          id: messageId || "notification.errorDescription",
         }),
         icon: <IconX />,
         color: "red",

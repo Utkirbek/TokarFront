@@ -20,9 +20,10 @@ const WithLoading = (props: Props) => {
     FallbackLoadingUI = FallbackLoadingUi,
     FallbackErrorUI = ErrorFallbackUI,
   } = props;
+  const { data, error } = query;
 
-  if (query.error) return <FallbackErrorUI message={query.error.message} />;
-  if (!query.data) return <FallbackLoadingUI />;
+  if (error) return <FallbackErrorUI message={query.error.message} />;
+  if (!data) return <FallbackLoadingUI />;
   if (props.withRenderProps) {
     const childrenWithProps = React.Children.map(children, (child) => {
       if (React.isValidElement(child)) {

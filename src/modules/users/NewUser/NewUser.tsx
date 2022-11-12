@@ -1,21 +1,24 @@
 import ImageUploader from "@components/ImageUploader";
+import useNotification from "@hooks/useNotification";
 import { Box, Button, Group, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { showNotification, updateNotification } from "@mantine/notifications";
 import useStyles from "@modules/products/components/form/style/inputStyle";
-import userFetchers from "@services/api/userFetcher";
-import { IconCheck } from "@tabler/icons";
-import { RequestQueryKeys } from "@utils/constants";
+import useUsers from "@services/hooks/useUsers";
 import { useRef } from "react";
-import { useSWRConfig } from "swr";
 
 const NewUser: React.FC<{
   handleClose: () => void;
   editItem: any;
 }> = ({ handleClose, editItem }) => {
   const imagesRef = useRef<string[]>([]);
-  const { mutate } = useSWRConfig();
   const { classes } = useStyles();
+  const { addUser, editUser } = useUsers();
+  const {
+    showLoadingNotification,
+    showSuccessNotification,
+    showErrorNotification,
+  } = useNotification();
+
   const form = useForm({
     initialValues: {
       name: editItem?.name ?? "",
@@ -31,64 +34,37 @@ const NewUser: React.FC<{
     workplace: string;
     extra?: string;
   }) => {
+    handleClose();
+    showLoadingNotification();
+
+    const events = {
+      onSuccess: () => {
+        showSuccessNotification();
+      },
+      onError: () => {
+        showErrorNotification();
+      },
+    };
+
     if (!!editItem._id) {
-      showNotification({
-        id: "load-data",
-        loading: true,
-        title: "Iltimos kuting",
-        message: "Sizning mahsuloringiz yangilanmoqda iltimos kuting",
-        autoClose: false,
-        disallowClose: true,
-      });
-      handleClose();
-      const res = await mutate(
-        RequestQueryKeys.updateUsers,
-        userFetchers.updateUsers(editItem._id, {
-          ...values,
-          image: imagesRef.current?.join(",") ?? "",
-        }),
+      editUser(
         {
-          revalidate: true,
-        }
+          id: editItem._id,
+          values: {
+            ...values,
+            image: imagesRef.current?.join(",") ?? editItem.image,
+          },
+        },
+        events
       );
-      mutate(RequestQueryKeys.getUsers);
-      updateNotification({
-        id: "load-data",
-        color: "teal",
-        title: "Muaffaqiyatli",
-        message: "Foydalanuvchi yangilandi",
-        icon: <IconCheck size={16} />,
-        autoClose: 2000,
-      });
     } else {
-      showNotification({
-        id: "load-data",
-        loading: true,
-        title: "Iltimos kuting",
-        message: "Foydalanuvchi yangilanmoqda Kuting ...",
-        autoClose: false,
-        disallowClose: true,
-      });
-      handleClose();
-      const res = await mutate(
-        RequestQueryKeys.addUsers,
-        userFetchers.addUsers({
+      addUser(
+        {
           ...values,
           image: imagesRef.current?.join(",") ?? "",
-        }),
-        {
-          revalidate: true,
-        }
+        },
+        events
       );
-      mutate(RequestQueryKeys.getUsers);
-      updateNotification({
-        id: "load-data",
-        color: "teal",
-        title: "Muaffaqiyatli",
-        message: "Foydalanuvchi Qoshildi",
-        icon: <IconCheck size={16} />,
-        autoClose: 2000,
-      });
     }
   };
 

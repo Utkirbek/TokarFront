@@ -6,15 +6,15 @@ import { FormattedDate, FormattedMessage } from "react-intl";
 import useStyles from "../../products/components/ProductsTable/ProductTableStyle";
 
 type Props = {
-  user: any;
+  data?: any;
 };
 
-const ProductDetails = ({ user }: Props) => {
+const ProductDetails = ({ data }: Props) => {
   const router = useRouter();
   const { classes, cx } = useStyles();
 
   const query = queryString.parse(router.asPath.split("?")[1]);
-  const item = findItem(user, query.details as string);
+  const item = findItem(data, query.details as string);
 
   return (
     <Modal size={"95%"} opened={!!item} onClose={() => router.back()}>
@@ -86,6 +86,6 @@ const ProductDetails = ({ user }: Props) => {
 
 export default ProductDetails;
 
-const findItem = (user: any[], id: any) => {
-  return user.find((item: any) => item._id === id);
+const findItem = (users: any[], id: any) => {
+  return users?.find((item: any) => item._id === id);
 };
