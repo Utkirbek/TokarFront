@@ -6,8 +6,10 @@ const useProducts = () => {
   const { mutate } = useSWRConfig();
 
   return {
-    useFetchProduct: () =>
-      useSWR(RequestQueryKeys.getProducts, productFetchers.getProducts),
+    useFetchProduct: (page = 1) =>
+      useSWR([RequestQueryKeys.getProducts, page], (_, page) =>
+        productFetchers.getProducts(page)
+      ),
     addProduct: async (
       body: {
         title: string;

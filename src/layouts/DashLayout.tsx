@@ -28,7 +28,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
   const [opened, toggleOpened] = useToggle();
   const isLoggedIn = useUser(selectIsLoggedIn);
 
-  if (!isLoggedIn) return <>{children}</>;
+  if (!isLoggedIn || router.pathname === "/check") return <>{children}</>;
 
   const links = data.map((item: any) => {
     return (

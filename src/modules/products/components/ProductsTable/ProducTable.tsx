@@ -1,45 +1,41 @@
 import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
+import FormDrawer from "@components/Drawer/FormDrawer";
 import If from "@components/smart/If";
+import TableHead from "@components/Table/TableHead";
+import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
 import {
   Avatar,
   Button,
-  Drawer,
   Grid,
   Group,
   HoverCard,
-  Loader,
   ScrollArea,
   Table,
   Text,
-  useMantineTheme,
 } from "@mantine/core";
-import { openConfirmModal } from "@mantine/modals";
-import productFetchers from "@services/api/productFetchers";
+import { useToggle } from "@mantine/hooks";
+import { productsTableHead } from "@modules/products/constants";
 import useProducts from "@services/hooks/useProducts";
 import { IconPencil, IconTrash } from "@tabler/icons";
-import { Permissions, RequestQueryKeys } from "@utils/constants";
+import { Permissions } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
 import { useRouter } from "next/router";
 import { memo, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { useCart } from "react-use-cart";
-import useSWR from "swr";
 
 import BuyCart from "../buyCart/BuyCart";
 import FormProduct from "../form/FormAdd";
-import Error from "./components/Error";
 import ProductDetails from "./components/ProductDetails";
 
 function ProductsTable({ data }: any) {
   const [editItem, setEditItem] = useState({});
-  const [opened, setOpened] = useState(false);
-  const theme = useMantineTheme();
+  const [opened, toggleOpened] = useToggle();
   const router = useRouter();
-  const { useFetchProduct, deleteProducts } = useProducts();
-  const getProductsQuery = useFetchProduct();
-  const { data: products } = getProductsQuery;
+  const { deleteProducts } = useProducts();
   const { addItem, isEmpty } = useCart();
+  const { openConfirm } = useConfirmation();
 
   const {
     showLoadingNotification,
@@ -48,6 +44,7 @@ function ProductsTable({ data }: any) {
   } = useNotification();
 
   const handleDelete = async function (id: string) {
+    showLoadingNotification();
     deleteProducts(id, {
       onSuccess: () => {
         showSuccessNotification();
@@ -58,34 +55,18 @@ function ProductsTable({ data }: any) {
     });
   };
 
-  const openDeleteModal = (id: string, title: string) =>
-    openConfirmModal({
-      title: "Mahsulotni o'chirish",
-      centered: true,
-      children: (
-        <Text size="sm">
-          Siz bu mahsulotni chindanham o&apos;chirmoqchimisiz
-        </Text>
-      ),
-      labels: { confirm: "O'chirish", cancel: "Orqaga qaytish" },
-      confirmProps: { color: "red" },
-      onConfirm: async () => {
-        showLoadingNotification();
-        handleDelete(id);
-      },
-      onCancel: () => {
-        showErrorNotification("useNotify.censelMsg", {
-          titleId: "useNotify.censelTitle",
-        });
-      },
+  const openDeleteModal = (id: string, title: string) => {
+    openConfirm(null, {
+      onConfirm: () => handleDelete(id),
     });
+  };
 
   if (data?.length === 0) return <EmptyBox />;
 
-  const rows = products.map((item: any) => {
+  const rows = data.map((item: any) => {
     const handleEdit = () => {
       setEditItem(item);
-      setOpened(true);
+      toggleOpened();
     };
 
     const handleOpenCartBuy = (el: any) => {
@@ -166,42 +147,28 @@ function ProductsTable({ data }: any) {
   });
 
   const handleClick = () => {
-    setOpened(true);
+    toggleOpened();
     setEditItem({});
   };
 
   return (
     <>
-      <Drawer
-        sx={{ maxHeight: "150vh" }}
-        overlayColor={
-          theme.colorScheme === "dark"
-            ? theme.colors.dark[9]
-            : theme.colors.gray[2]
-        }
-        opened={opened}
-        onClose={() => setOpened(false)}
-        padding="xl"
-        size="xl"
-        position="right"
-      >
+      <FormDrawer {...{ opened, toggleOpened }}>
         <ScrollArea
           style={{ height: "100%", paddingBottom: 60 }}
           scrollbarSize={2}
         >
           <FormProduct
-            handleClose={() => {
-              setOpened(false);
-            }}
+            handleClose={() => toggleOpened(false)}
             editItem={editItem}
           />
         </ScrollArea>
-      </Drawer>
+      </FormDrawer>
 
       <If hasPerm={Permissions.products.create}>
         <Group position="right" mx={"xl"} my={"xl"}>
           <Button onClick={handleClick} variant={"outline"}>
-            + Yangi mahsulot qo&apos;shish
+            <FormattedMessage id="products.add" />
           </Button>
         </Group>
       </If>
@@ -209,31 +176,7 @@ function ProductsTable({ data }: any) {
         <Grid.Col span={isEmpty ? 12 : 8}>
           <ScrollArea>
             <Table verticalSpacing="sm" highlightOnHover>
-              <thead>
-                <tr>
-                  <th>
-                    <FormattedMessage id="tableHead.name" />
-                  </th>
-                  <th>
-                    <FormattedMessage id="tableHead.code" />
-                  </th>
-                  <If hasPerm={Permissions.originalPrice.view}>
-                    <th>
-                      <FormattedMessage id="tableHead.originalPrice" />
-                    </th>
-                  </If>
-                  <th>
-                    <FormattedMessage id="tableHead.price" />
-                  </th>
-                  <th>
-                    <FormattedMessage id="tableHead.quantity" />
-                  </th>
-                  <th>
-                    <FormattedMessage id="tableHead.action" />
-                  </th>
-                  <th></th>
-                </tr>
-              </thead>
+              <TableHead data={productsTableHead} prefix="products.table" />
               <tbody>{rows}</tbody>
             </Table>
           </ScrollArea>

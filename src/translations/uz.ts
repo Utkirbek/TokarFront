@@ -1,3 +1,4 @@
+import productsLocaleUz from "@modules/products/locale/productsLocaleUz";
 import { expensesLocaleUz } from "@modules/spend/locale";
 import usersLocaleUz from "@modules/users/locale/usersLocaleUz";
 
@@ -103,16 +104,7 @@ const uz = {
     title: "Klientlar",
     description: "Klientlar boshqaruv paneli",
   },
-  products: {
-    title: "Mahsulotlar",
-    description: "Mahsulotlar boshqaruv paneli",
-    details: "Batafsil",
-
-    form: {
-      currencyPlaceholder: "Valyuta turini tanlang",
-      currencyLabel: "Valyuta",
-    },
-  },
+  products: productsLocaleUz,
   addProductsForm: {
     showNotifTitle: "Iltimos kuting...",
     showNotifMessage: "Sizning mahsuloringiz yangilanmoqda iltimos kuting",
