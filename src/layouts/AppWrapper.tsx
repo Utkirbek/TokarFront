@@ -32,17 +32,8 @@ const AppWrapper = ({ children }: Props) => {
 export default AppWrapper;
 
 function ActionsWrapper({ children }: { children: React.ReactNode }) {
-  const theme = useMantineTheme();
-
   return (
-    <Box
-      sx={{
-        backgroundColor:
-          theme.colorScheme === "dark"
-            ? theme.colors.dark[4]
-            : theme.colors.gray[1],
-      }}
-    >
+    <Box>
       {children}
       <Group
         position="apart"
