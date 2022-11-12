@@ -10,6 +10,7 @@ export const appRoutes = {
   addUser: "/user",
   deleteProducts: "/products",
   addAdmin: "/admin",
+  getPayments: "/payments",
 };
 
 export enum RequestQueryKeys {
@@ -43,12 +44,18 @@ export enum RequestQueryKeys {
   addCurrency = "addCurrency",
   updateCurrency = "updateCurrency",
   deleteCurrency = "deleteCurrency",
+  addPayments = "addPayments",
+  getPayments = "getPayments",
+  deletePayments = "deletePayments",
+  editPayments = "editPayments",
+  update = "updateSpend",
   getKassa = "kassa",
   getSpend = "getSpend",
   addSpend = "addSpend",
   updateSpend = "updateSpend",
   deleteSpend = "deleteSpend",
   loan = "loan",
+  getLoanUserID = "loanUserID",
 }
 
 export const Permissions = {

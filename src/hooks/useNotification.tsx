@@ -26,7 +26,7 @@ const useNotification = () => {
 
   const showSuccessNotification = useCallback(
     (messageId?: string, options?: { titleId?: string }) => {
-      updateNotification({
+      return updateNotification({
         id: "load-data",
         color: "teal",
         title: intl.formatMessage({

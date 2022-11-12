@@ -142,8 +142,7 @@ function ProductsTable({ data }: any) {
                     details: item._id,
                   },
                 });
-              }}
-            >
+              }}>
               <FormattedMessage id="products.details" />
             </Button>
           </td>
@@ -162,8 +161,7 @@ function ProductsTable({ data }: any) {
       <FormDrawer {...{ opened, toggleOpened }}>
         <ScrollArea
           style={{ height: "100%", paddingBottom: 60 }}
-          scrollbarSize={2}
-        >
+          scrollbarSize={2}>
           <FormProduct
             handleClose={() => toggleOpened(false)}
             editItem={editItem}
@@ -177,15 +175,14 @@ function ProductsTable({ data }: any) {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-          }}
-        >
+          }}>
           <SearchAutoComplete
             searchResults={searchResults}
             setSearchResults={setSearchResults}
             fetcher={productFetchers.getProductByTitle}
           />
           <Button onClick={handleClick} variant={"outline"}>
-            <FormattedMessage id="products.add" />
+            <FormattedMessage id="payments.create" />
           </Button>
         </Box>
       </If>

@@ -4,6 +4,7 @@ import {
   IconCoin,
   IconList,
   IconListDetails,
+  IconMoneybag,
   IconSettingsAutomation,
   IconUserCircle,
   IconUsers,
@@ -45,6 +46,12 @@ const data = [
     label: "settings.title",
     icon: IconSettingsAutomation,
     permission: "settings.view",
+  },
+  {
+    link: "/payments",
+    label: "payments.title",
+    icon: IconMoneybag,
+    permission: "payments.view",
   },
   {
     link: "/roles",

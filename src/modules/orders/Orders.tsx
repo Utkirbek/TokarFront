@@ -11,6 +11,8 @@ export default function Orders() {
     orderFetchers.getOrders
   );
 
+  const { data } = ordersQuery;
+
   return (
     <WithLoading withRenderProps query={ordersQuery}>
       <OrdersTable />
