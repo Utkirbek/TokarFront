@@ -5,12 +5,13 @@ import { useForm } from "@mantine/form";
 import useStyles from "@modules/products/components/form/style/inputStyle";
 import useUsers from "@services/hooks/useUsers";
 import { useRef } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage,useIntl } from "react-intl";
 
 const NewUser: React.FC<{
   handleClose: () => void;
   editItem: any;
 }> = ({ handleClose, editItem }) => {
+  const intl = useIntl()
   const imagesRef = useRef<string[]>([]);
   const { classes } = useStyles();
   const { addUser, editUser } = useUsers();
@@ -33,7 +34,7 @@ const NewUser: React.FC<{
     name: string;
     phone: string;
     workplace: string;
-    extra?: string;
+    extra: string;
   }) => {
     handleClose();
     showLoadingNotification();
@@ -80,8 +81,8 @@ const NewUser: React.FC<{
         <TextInput
           className={classes.inputStyle}
           withAsterisk
-          label="Ismi"
-          placeholder="Foydalanuvchi nomini kiriting"
+          label={intl.formatMessage({ id: "userTil.namelabel" })}
+          placeholder={intl.formatMessage({ id: "userTil.namePlaceholder" })}
           {...form.getInputProps("name")}
           required
         />
@@ -103,23 +104,25 @@ const NewUser: React.FC<{
         </Box>
         <TextInput
           className={classes.inputStyle}
-          label="Telefon Raqami"
-          placeholder=" Telefon Raqami"
+          label={intl.formatMessage({ id: "userTil.numberLabel" })}
+          placeholder={intl.formatMessage({ id: "userTil.numberPlaceholder" })}
           {...form.getInputProps("phone")}
           required
         />
 
         <TextInput
           className={classes.inputStyle}
-          label="Ishlash manzili"
-          placeholder="Ish joyi"
+          label={intl.formatMessage({ id: "userTil.workplaceLabel" })}
+          placeholder={intl.formatMessage({
+            id: "userTil.workplacePlaceholder",
+          })}
           {...form.getInputProps("workplace")}
           required
         />
         <TextInput
           className={classes.inputStyle}
-          label="Qo'shimcha malumot"
-          placeholder="Qo'shimcha malumot"
+          label={intl.formatMessage({ id: "userTil.extraLabel" })}
+          placeholder={intl.formatMessage({ id: "userTil.extraPlaceholder" })}
           {...form.getInputProps("extra")}
           required
         />

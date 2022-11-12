@@ -7,7 +7,7 @@ import ProductDetails from "./batafsil";
 import UsersDrawer from "./components/UsersDrawer";
 import UsersTable from "./components/UsersTable";
 
-const Users = () => {
+ const Users = () => {
   const [editItem, setEditItem] = useState({});
   const [opened, toggleOpened] = useToggle();
   const { useFetchUsers } = useUsers();
@@ -28,6 +28,5 @@ const Users = () => {
       </WithLoading>
     </>
   );
-};
-
-export default memo(Users);
+}
+export default Users;
