@@ -11,6 +11,7 @@ const uz = {
   delete: "O'chirish",
   cancel: "Bekor qilish",
   sthWentWrong: "Xatolik yuz berdi",
+  action: "Amallar",
   admins: {
     delete: {
       success: {
@@ -103,6 +104,15 @@ const uz = {
   customers: {
     title: "Klientlar",
     description: "Klientlar boshqaruv paneli",
+  },
+  loans: {
+    title: "Qarzlar",
+    description: "Qarzlar jadavali",
+    user: "Foydalanuvchi",
+    order: "Suma",
+    amount: "Olingan sanasi",
+    amalar: "Beriladigan sana",
+    foydalanuvchi: "Foydalanuvchi topilmadi",
   },
   products: productsLocaleUz,
   addProductsForm: {

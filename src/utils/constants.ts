@@ -45,6 +45,7 @@ export enum RequestQueryKeys {
   addSpend = "addSpend",
   updateSpend = "updateSpend",
   deleteSpend = "deleteSpend",
+  loan = "loan",
 }
 
 export const Permissions = {
