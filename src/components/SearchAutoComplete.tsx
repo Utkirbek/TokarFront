@@ -41,23 +41,25 @@ function SearchAutoComplete({
   return (
     <>
       <Autocomplete
-        sx={{
-          width: "75%",
-        }}
+        sx={{ width: "75%" }}
         value={value}
         onChange={setValue}
         placeholder="Start typing to see options"
         data={data}
         rightSection={
           <Button.Group>
+            <Tooltip label={intl.formatMessage({ id: "clear" })}>
+              <Button
+                variant="subtle"
+                color={"red"}
+                onClick={() => setSearchResults([])}
+              >
+                <IconSquareLetterX color="red" />
+              </Button>
+            </Tooltip>
             <Button onClick={handleSearch}>
               <FormattedMessage id="search" />
             </Button>
-            <Tooltip label={intl.formatMessage({ id: "clear" })}>
-              <Button color={"red"} onClick={() => setSearchResults([])}>
-                <IconSquareLetterX />
-              </Button>
-            </Tooltip>
           </Button.Group>
         }
       />

@@ -16,6 +16,7 @@ import {
 import { useToggle } from "@mantine/hooks";
 import data from "@modules/layout/dataSidebar";
 import useStyles from "@modules/layout/style/dashStyle";
+import { getCookie } from "cookies-next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -27,8 +28,10 @@ function DashLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [opened, toggleOpened] = useToggle();
   const isLoggedIn = useUser(selectIsLoggedIn);
+  const token = getCookie("token");
 
-  if (!isLoggedIn || router.pathname === "/check") return <>{children}</>;
+  if (!isLoggedIn || !token || router.pathname === "/check")
+    return <>{children}</>;
 
   const links = data.map((item: any) => {
     return (
