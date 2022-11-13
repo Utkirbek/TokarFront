@@ -1,3 +1,4 @@
+import useNotification from "@hooks/useNotification";
 import {
   Box,
   Button,
@@ -7,10 +8,8 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { showNotification, updateNotification } from "@mantine/notifications";
 import useRoles from "@services/hooks/useRoles";
 import useSettings from "@services/hooks/useSettings";
-import { IconCheck } from "@tabler/icons";
 import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -26,6 +25,8 @@ const RolesDrawer: React.FC<{
   const { useFetchAllPermissions } = useSettings();
   const getRolesQuery = useFetchAllPermissions();
   const { data: permissions } = getRolesQuery;
+  const { showSuccessNotification, showLoadingNotification } =
+    useNotification();
 
   const DefaultPermissions = editItem?.permissions?.map(
     (permission: any) => permission._id
@@ -43,7 +44,7 @@ const RolesDrawer: React.FC<{
     },
     validate: {
       name: (value: string | any[]) =>
-        value.length < 2 ? "Rol nomi 2ta belgidan ko'p bo'lishi kerak" : null,
+        value.length < 2 ? intl.formatMessage({ id: "roles.validate" }) : null,
     },
   });
 
@@ -60,37 +61,16 @@ const RolesDrawer: React.FC<{
         },
         {
           onSuccess: () => {
-            updateNotification({
-              id: "load-data",
-              color: "teal",
-              title: "Muaffaqiyatli",
-              message: "Sizning mahsuloringiz Yangilandi",
-              icon: <IconCheck size={16} />,
-              autoClose: 2000,
-            });
+            showSuccessNotification;
           },
         }
       );
     } else {
-      showNotification({
-        id: "load-data",
-        loading: true,
-        title: "Iltimos kuting",
-        message: "Sizning mahsuloringiz qo'shilmoqda iltimos kuting",
-        autoClose: false,
-        disallowClose: true,
-      });
+      showLoadingNotification;
 
       addRole(values, {
         onSuccess: () => {
-          updateNotification({
-            id: "load-data",
-            color: "teal",
-            title: "Muaffaqiyatli",
-            message: "Sizning mahsuloringiz Qo'shildi",
-            icon: <IconCheck size={16} />,
-            autoClose: 2000,
-          });
+          showSuccessNotification;
         },
       });
     }
@@ -101,13 +81,16 @@ const RolesDrawer: React.FC<{
       <Box mx="auto">
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <Text size={"xl"} weight={700}>
-            {!editItem._id ? "Yangi Mahsulot qo'shish" : "Tahrirlash"}
+            <FormattedMessage
+              id="roles.addRole"
+              values={{ isNew: !editItem._id }}
+            />
           </Text>
           <TextInput
             withAsterisk
             name="name"
-            label="Ismi"
-            placeholder="Admin ismini kirting"
+            label={intl.formatMessage({ id: "roles.inputLabel" })}
+            placeholder={intl.formatMessage({ id: "roles.inputPlaceholder" })}
             {...form.getInputProps("name")}
             my={"sm"}
             required
@@ -116,13 +99,16 @@ const RolesDrawer: React.FC<{
             defaultValue={DefaultPermissions ?? []}
             onChange={(value) => setNewPermissions(value)}
             data={Permissions}
-            label="Rol uchun ruxsatlarni tanlang"
-            placeholder="Ruxsatlarni tanlang"
+            label={intl.formatMessage({ id: "roles.selectLabel" })}
+            placeholder={intl.formatMessage({ id: "roles.selectPlaceholder" })}
             maxDropdownHeight={200}
           />
           <Group position="right" mt="md">
             <Button type="submit">
-              {!editItem._id ? "Ro'yxatga Qo'shish" : "Saqlash"}
+              <FormattedMessage
+                id="addSmth"
+                values={{ isNew: !editItem._id }}
+              />
             </Button>
           </Group>
         </form>

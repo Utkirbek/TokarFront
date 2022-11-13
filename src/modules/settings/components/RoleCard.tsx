@@ -1,6 +1,7 @@
 import { Box, Button, Card, Collapse, List, Tooltip } from "@mantine/core";
 import { IconEdit, IconTrash } from "@tabler/icons";
 import React from "react";
+import { useIntl } from "react-intl";
 
 type Props = {
   name: string;
@@ -10,6 +11,7 @@ type Props = {
 
 const RoleCard: React.FC<Props> = ({ name, _id, permissions }) => {
   const [opened, setOpened] = React.useState(false);
+  const intl = useIntl();
 
   const handleEdit = () => {
     //TODO implement
@@ -31,12 +33,20 @@ const RoleCard: React.FC<Props> = ({ name, _id, permissions }) => {
       >
         <h3>{name}</h3>
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Tooltip label="Taxrirlash" position="top" withArrow>
+          <Tooltip
+            label={intl.formatMessage({ id: "edit" })}
+            position="top"
+            withArrow
+          >
             <Button variant="outline" onClick={handleEdit} mr={5}>
               <IconEdit />
             </Button>
           </Tooltip>
-          <Tooltip label="Ochirish" position="top" withArrow>
+          <Tooltip
+            label={intl.formatMessage({ id: "delete" })}
+            position="top"
+            withArrow
+          >
             <Button variant="light" onClick={handleDelete} mr={5}>
               <IconTrash />
             </Button>

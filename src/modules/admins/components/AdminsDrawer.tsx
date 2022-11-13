@@ -1,20 +1,19 @@
 import If from "@components/smart/If";
+import useNotification from "@hooks/useNotification";
 import {
   Box,
   Button,
   Group,
-  PasswordInput,
   Select,
   Skeleton,
   Text,
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { updateNotification } from "@mantine/notifications";
 import useAdmins from "@services/hooks/useAdmins";
 import useSettings from "@services/hooks/useSettings";
-import { IconCheck, IconChevronDown, IconLock } from "@tabler/icons";
-import { useIntl } from "react-intl";
+import { IconChevronDown, IconLock } from "@tabler/icons";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const AdminsDrawer: React.FC<{
   handleClose: () => void;
@@ -24,6 +23,7 @@ const AdminsDrawer: React.FC<{
   const { useGetAllRoles } = useSettings();
   const getRolesQuery = useGetAllRoles();
   const { data: roles } = getRolesQuery;
+  const { showSuccessNotification, showErrorNotification } = useNotification();
 
   const intl = useIntl();
 
@@ -59,32 +59,10 @@ const AdminsDrawer: React.FC<{
         },
         {
           onSuccess: () => {
-            updateNotification({
-              id: "load-data",
-              color: "teal",
-              title: intl.formatMessage({
-                id: "admins.update.success.ongoing",
-              }),
-              message: intl.formatMessage({
-                id: "admins.update.success.message",
-              }),
-              icon: <IconCheck size={16} />,
-              autoClose: 2000,
-            });
+            showSuccessNotification;
           },
           onError: () => {
-            updateNotification({
-              id: "load-data",
-              color: "red",
-              title: intl.formatMessage({
-                id: "admins.update.error.ongoing",
-              }),
-              message: intl.formatMessage({
-                id: "admins.update.error.message",
-              }),
-              autoClose: false,
-              disallowClose: false,
-            });
+            showErrorNotification;
           },
         }
       );
@@ -92,32 +70,10 @@ const AdminsDrawer: React.FC<{
       handleClose();
       addAdmin(values, {
         onSuccess: () => {
-          updateNotification({
-            id: "load-data",
-            color: "teal",
-            title: intl.formatMessage({
-              id: "admins.add.success.ongoing",
-            }),
-            message: intl.formatMessage({
-              id: "admins.add.success.message",
-            }),
-            icon: <IconCheck size={16} />,
-            autoClose: 2000,
-          });
+          showSuccessNotification;
         },
         onError: () => {
-          updateNotification({
-            id: "load-data",
-            color: "teal",
-            title: intl.formatMessage({
-              id: "admins.add.error.ongoing",
-            }),
-            message: intl.formatMessage({
-              id: "admins.add.error.message",
-            }),
-            icon: <IconCheck size={16} />,
-            autoClose: 2000,
-          });
+          showErrorNotification;
         },
       });
     }
@@ -127,22 +83,19 @@ const AdminsDrawer: React.FC<{
     <Box mx="auto">
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Text size={"xl"} weight={700}>
-          {!editItem._id
-            ? intl.formatMessage({
-                id: "admins.form.add.title",
-              })
-            : intl.formatMessage({
-                id: "admins.form.edit.title",
-              })}
+          <FormattedMessage
+            id="admins.addEdit"
+            values={{ isNew: !editItem._id }}
+          />
         </Text>
         <TextInput
           withAsterisk
           name="name"
           label={intl.formatMessage({
-            id: "admins.form.input.name.label",
+            id: "admins.input.name.label",
           })}
           placeholder={intl.formatMessage({
-            id: "admins.form.input.name.placeholder",
+            id: "admins.input.name.placeholder",
           })}
           {...form.getInputProps("name")}
           my={"sm"}
@@ -150,10 +103,10 @@ const AdminsDrawer: React.FC<{
         />
         <TextInput
           label={intl.formatMessage({
-            id: "admins.form.input.email.label",
+            id: "admins.input.email.label",
           })}
           placeholder={intl.formatMessage({
-            id: "admins.form.input.email.placeholder",
+            id: "admins.input.email.placeholder",
           })}
           {...form.getInputProps("email")}
           my={"sm"}
@@ -161,17 +114,18 @@ const AdminsDrawer: React.FC<{
         />
         <If
           condition={!!roles}
-          elseChildren={<Skeleton width="100%" height="40px" />}>
+          elseChildren={<Skeleton width="100%" height="40px" />}
+        >
           <Select
             sx={{ width: "100%", margin: "20px  0" }}
             rightSection={<IconChevronDown size={14} />}
             rightSectionWidth={30}
             styles={{ rightSection: { pointerEvents: "none" } }}
             label={intl.formatMessage({
-              id: "admins.form.input.role.label",
+              id: "admins.input.role.label",
             })}
             placeholder={intl.formatMessage({
-              id: "admins.form.input.role.placeholder",
+              id: "admins.input.role.placeholder",
             })}
             data={roles?.map((item: any) => ({
               value: item._id,
@@ -183,10 +137,10 @@ const AdminsDrawer: React.FC<{
 
         <TextInput
           label={intl.formatMessage({
-            id: "admins.form.input.password.label",
+            id: "admins.input.password.label",
           })}
           placeholder={intl.formatMessage({
-            id: "admins.form.input.password.placeholder",
+            id: "admins.input.password.placeholder",
           })}
           icon={<IconLock size={16} />}
           {...form.getInputProps("password")}
@@ -194,13 +148,10 @@ const AdminsDrawer: React.FC<{
 
         <Group position="right" mt="md">
           <Button type="submit">
-            {!editItem._id
-              ? intl.formatMessage({
-                  id: "admins.form.add.submit",
-                })
-              : intl.formatMessage({
-                  id: "admins.form.edit.submit",
-                })}
+            <FormattedMessage
+              id="admins.saveEdit"
+              values={{ isNew: !editItem._id }}
+            />
           </Button>
         </Group>
       </form>

@@ -14,6 +14,7 @@ import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useErrorHandler } from "react-error-boundary";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useSWRConfig } from "swr";
 
 function SignIn() {
@@ -23,6 +24,7 @@ function SignIn() {
   const { mutate } = useSWRConfig();
   const { authorize } = useUser();
   const handleError = useErrorHandler();
+  const intl = useIntl();
 
   const router = useRouter();
   const form = useForm({
@@ -62,31 +64,32 @@ function SignIn() {
     <Box sx={{ maxWidth: 340, margin: "10% 0" }} mx="auto">
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Text sx={{ fontSize: "24px", textAlign: "center", fontWeight: 600 }}>
-          Platformaga Kirish
+          <FormattedMessage id="signIn.title" />
         </Text>
         <TextInput
-          withAsterisk
-          label="Email"
-          placeholder="your@email.com"
+          label={intl.formatMessage({ id: "signIn.textLabel" })}
+          placeholder={intl.formatMessage({ id: "signIn.textPlaceholder" })}
           {...form.getInputProps("email")}
           sx={{ margin: "20px 0" }}
           id="email"
           name="email"
           type="email"
+          autocomplete="username"
           required
         />
         <PasswordInput
-          label="Parol"
-          placeholder="Password"
+          label={intl.formatMessage({ id: "signIn.passwordLabel" })}
+          placeholder={intl.formatMessage({ id: "signIn.passwordPlaceholder" })}
           {...form.getInputProps("password")}
           id="password"
           name="password"
-          type="password"
+          type={"password"}
+          autoComplete={"current-password"}
           required
         />
         <Group position="right" mt="md">
           <Button loading={status === "loading"} type="submit">
-            Submit
+            <FormattedMessage id="submit" />
           </Button>
         </Group>
       </form>

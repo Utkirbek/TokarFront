@@ -1,102 +1,31 @@
-import defaultLocaleUz from "@hooks/defaultLocaleUz";
-import tableNameData from "@modules/orders/const/tableTitleName";
-import productsLocaleUz from "@modules/products/locale/productsLocaleUz";
+import { logOutUz } from "@components/smart/Logout/Logout";
+import { adminsLocaleUz } from "@modules/admins/locale";
+import { signInLocaleUz } from "@modules/auth/locale";
+import { kassaLocaleUz } from "@modules/kassa/KassaTable";
+import { orderLocaleUz } from "@modules/orders/locale";
+import { productsLocaleUz } from "@modules/products/locale/locale";
+import { rolesLocaleUz } from "@modules/roles/locale";
+import { permissionsLocaleUz } from "@modules/settings/locale";
 import { expensesLocaleUz } from "@modules/spend/locale";
-import { userTilUz } from "@modules/users/locale/localetil";
-import usersLocaleUz from "@modules/users/locale/usersLocaleUz";
+import { usersLocaleUz } from "@modules/users/locale/locale";
 
 import commonUz from "./uz/common";
 
 const uz = {
   ...commonUz,
   users: usersLocaleUz,
-  default: defaultLocaleUz,
-  loading: "Yuklanmoqda",
-  delete: "O'chirish",
-  cancel: "Bekor qilish",
+  expenses: expensesLocaleUz,
+  orders: orderLocaleUz,
+  signIn: signInLocaleUz,
+  perms: permissionsLocaleUz,
+  logout: logOutUz,
+  products: productsLocaleUz,
+  kassa: kassaLocaleUz,
+  roles: rolesLocaleUz,
+  admins: adminsLocaleUz,
   sthWentWrong: "Xatolik yuz berdi",
-  action: "Amallar",
-  admins: {
-    delete: {
-      success: {
-        ongoing: "O'chirish bajarilmoqda",
-        message: "Foydalanuvchi udalit qilindi",
-      },
-      error: {
-        ongoing: "O'chirishda xatolik",
-        message: "Foydalanuvchi o'chirilmadi",
-      },
-      modal: {
-        title: "Siz ushbu foydalanuvchini o'chirmoqchimisiz",
-        confirmation:
-          "{name} ismli ishchingiz sizni tizimdan o'chib ketadi, Rozimisiz?",
-        buttons: {
-          cancel: "Bekor qilish",
-          confirm: "O'chirish",
-        },
-      },
-    },
-    update: {
-      success: {
-        ongoing: "Yangilash bajarilmoqda",
-        message: "Foydalanuvchi yangilandi",
-      },
-      error: {
-        ongoing: "Yangilashda xatolik",
-        message: "Foydalanuvchi yangilanmadi",
-      },
-      modal: { title: "Foydalanuvchi ma'lumotlarini yangilash" },
-    },
-    add: {
-      title: "Yangi Admin qo'shish",
-      success: {
-        ongoing: "Qo'shish bajarilmoqda",
-        message: "Foydalanuvchi qo'shildi",
-      },
-      error: {
-        ongoing: "Qo'shishda xatolik",
-        message: "Foydalanuvchi qo'shilmadi",
-      },
-      modal: { title: "Yangi foydalanuvchi qo'shish" },
-    },
-    form: {
-      add: {
-        title: "Yangi Admin qo'shish",
-        submit: "Qo'shish",
-      },
-      edit: {
-        title: "Admin ma'lumotlarini yangilash",
-        submit: "Yangilash",
-      },
-      input: {
-        name: {
-          label: "Ism",
-          placeholder: "Ismingizni kiriting",
-        },
-        email: {
-          label: "Email",
-          placeholder: "Emailingizni kiriting",
-        },
-        password: {
-          label: "Yangi parol  Kiriting",
-          placeholder: "Parolingizni kiriting",
-        },
-        role: {
-          label: "Rol",
-          placeholder: "Rolingizni tanlang",
-        },
-      },
-    },
+  emptyBox: "Sizng obringizda maxsulot qolmadi",
 
-    title: "Adminlar",
-    name: "Ism",
-    email: "Elektron pochta",
-    role: "Rol",
-    deleteEdit: "O'chirish/tahrirlash",
-  },
-  emptyBox: {
-    boxTitle: "Sizng obringizda maxsulot qolmadi",
-  },
   settings: {
     title: "Sozlamalar",
     description: "Dastur sozlamalari",
@@ -118,68 +47,12 @@ const uz = {
     amalar: "Beriladigan sana",
     foydalanuvchi: "Foydalanuvchi topilmadi",
   },
-  products: productsLocaleUz,
-  addProductsForm: {
-    showNotifTitle: "Iltimos kuting...",
-    showNotifMessage: "Sizning mahsuloringiz yangilanmoqda iltimos kuting",
-    updateNotifTitle: "Muaffaqiyatli",
-    updateNotifMessage: "Sizning mahsuloringiz Yangilandi",
-    updataNotifErrorTitle: "Xatolik",
-    updataNotifErrorMessage: "Xatolik! Mahsulot Qo'shilmadi",
-    showSaccsesCardTitle: "Qo'shildi",
-    showSaccsecCardMsg: "Sotib olishdagi Mahsulotlar ro'yxatiga qo'shildi",
-  },
-  productDetail: {
-    titleHead: "Mahsulot haqida batafsil malumot",
-    productImage: "Bu yerda Mahsulot rasmi bolishi kerak",
-    productName: "Mahsulot Nomi",
-    productCode: "Mahsulot Kodi",
-    productPrice: "Mahsulot Narxi",
-    productTotal: "Mahsulot Ombordagi soni",
-    createProduct: "Yaratilgan Vaqti",
-    updateProduct: "Yangilangan Vaqti",
-  },
+
   statistics: {
     title: "Statistika",
     description: "Statistika ma'lumotlari",
   },
-  orders: {
-    title: "Buyurtmalar",
-    description: "Buyurtmalar haqida ma'lumotlar portali",
-  },
-  OrdersDetail: {
-    titleHead: "Buyurtmalar haqida batafsil ma'lumot",
-    orderImage: "Maxsulot rasmi",
-    orderTitleProduct: "Maxsulot nomi",
-    ordersSalesmen: "Sotuvchi",
-    ordersProductId: "Maxsulot codi",
-    ordersQuantity: "Maxsulot soni",
-    ordersQuantityAll: "Jami maxsulot soni",
-    ordersPrice: "maxsulot narxi",
-    createOrder: "Qo'shilgan Vaqti",
-    updateOrder: "Yangilangan Vaqti",
-    paymentOrder: "Jami narxi",
-    orderUser: "Xaridor",
-    userPhoneNumber: "Telefon raqami",
-    userWorkplace: "Ish joyi",
-    userExtra: "Qo'shimcha ma'lumot",
-    orderAction: "Amallar",
-  },
-  logout: {
-    title: "Chiqish",
-    description: "Profildan chiqish",
-  },
-  buyCart: {
-    datatitle: "Naqt pul",
-    dataterminal: "Terminal",
-    dataplastik: "Plastik",
-    databolibtolash: "Bo'lib to'lash",
-    jamiSuma: "Umumiy Narxi",
-    sotish: "Sotish",
-    kimga: "Kimga",
-    maxsulotYoq: "Sizda mahsulot qolmadi",
-    payDay: "Muddatni Kiriting",
-  },
+
   detail: {
     mahsulotNomi: "Mahsulot Nomi",
     mahsulotKodi: "Mahsulot Kodi",
@@ -192,207 +65,7 @@ const uz = {
     tarifBoyicha: "Tarifi",
     toliqMalumot: "Batafsil",
   },
-  tableHead: {
-    name: "Mahsulot Nomi",
-    code: "Kodi",
-    originalPrice: "Asl Narxi",
-    price: "Narxi",
-    quantity: "Jami",
-    discount: "Chegirma",
-    valyuta: "Pul Birligi",
-    paymentType: "To'lov turi",
-    action: "Tahrirlash / O'chirish",
-    details: "Ko'prog'ini Ko'rish",
-  },
-  openDeleteModal: {
-    title: "Siz bu mahsulotni chindanham o'chirmoqchimisiz",
-    add: "+ Yangi mahsulot qo'shish",
-  },
-  sotish: {
-    sotiw: "Sotish",
-  },
-  foydalanuvchi: {
-    foydalanuv: "Foydalanuvchilar chiqadi",
-    kuni: "Necha kunga",
-  },
-  productDetails: {
-    title: " Xaqida to'liqroq malumot",
-    name: "Ismi",
-    dokon: "Do'kon",
-    telNomer: "Telefon no'meri",
-    manzil: "Manzili",
-    eskiVaqt: "Yaratilgan vaqt",
-    yangiVaqt: "Yangilangan vaqt",
-  },
-  roles: {
-    title: "Rollar",
-    addRoles: "+ Rol qo'shish",
-    name: "Nomi",
-    deleteConfirmation:
-      "{name} Ushbu ishchingiz sizni tizimdan o'chib ketadi, bu ishni ortga qaytarib bo'lmaydi, shunda ham ishonchingiz komilmi?",
-    deleteSuccessMessage: "Foydalanuvchi udalit qilindi",
-    deletEdit: "O'chirish va tahrirlash",
-  },
-  payments: {
-    salesman: "Sotuvchi",
-    loan: "Qanday To'lov",
-    loanInput: "Qarz",
-    shouldPay: "Qarzni Uzish  sanasi",
-    title: "To'lovlar",
-    payment: "To'lov Usuli",
-    amount: "To'langan summa",
-    createAt: "Yatatilgan Vaqti",
-    updateAt: "Yangilangan Vaqti",
-    action: "O'chirush",
-    create: "+ Yangi To'lovlar Qo'shish",
-    formTitle: "Yangi To'lovlar qo'shish",
-    btnSubmit: "Ro'yxatga Qo'shish",
-    //form
-    select: "To'lov Turini tanlang",
-  },
-  notify: {
-    success: "Muaffaqiyatli",
-    successMessage: "Muaffaqiyatli tggatildi",
-    loading: "Iltimos kuting",
-    loadingMsg: "Iltimos kutib turing",
-    errorTitle: "Xatolik",
-    errorMsg: "Xatolik Yuz berdi",
-    deleteTitle: "Chindanxam O'chirmoqchimisz",
-    deleteMsg: "Buni O'chirsangiz qaytarib bolmaydi",
-    confirm: "O'chirish",
-    cencel: "Orqaga",
-    canselTitle: "Siz Orqaga qaytingiz",
-    cancelMsg: "Malumotlar o'z holicha qoldirildi",
-  },
-  kassa: {
-    title: "Kasa",
-  },
-  kassaTable: {
-    narxi: "Narxi",
-    olinganVaqt: "Olingan vaqti",
-    olinganBerish: "Berish vaqti",
-  },
-  perm: {
-    allow: "Ruxsat Etilgan Amallar",
-    newAllow: "Yangi ruxsat",
-    addTitle: "Yangi huquq qo'shish",
-    addInputLabel: "Huquq nomi",
-    addInputPlholder: "Huquq nomini kiriting",
-    updateTitle: "Huquqni o'zgartirish",
-    updateInputLabel: "Huquq nomini o'zgartirish",
-    updateInputPlholder: "Yangi huquq nomini kiriting",
-    yes: "Saqlash",
-    no: "Bekor qilish",
-    onSuccessTitle: "Ruxsat o'chirilmoqda",
-    onSuccessMessage:
-      "Bu malumot o'chirilgandan keyin qayta yuklashni iloji yo'q. Yangi ruxsat qo'shasiz",
-    onErrorTitle: "Xatolik",
-    onErrorMessage: "Xatolik Yuz berdi",
-    modalTitle: "Ruxsatni o'chirish",
-    modalText: "Siz bu ruxsatni chindanham o'chirmoqchimisiz",
-    cancelTitle: "Siz bekor qildingiz",
-    cancelMessage: "Siz bu ruxsatni rostdan ham o'chirmadingiz!",
-  },
-  perms: {
-    a: "a",
-    permissions: {
-      view: "Ruxsatlarni ko'rish",
-      all: "Barcha ruxsatlar",
-      add: "Ruxsat qo'shish",
-      edit: "Ruxsatni tahrirlash",
-      delete: "Ruxsatni o'chirish",
-    },
-    accounting: { view: "Akkauntlarni ko'rish" },
-    products: {
-      originalPrice: "Mahsulotning asl narxi",
-      delete: "Mahsulotlarni o'chirish",
-      view: "Mahsulotlarni ko'rish",
-      edit: "Mahsulotlarni tahrirlash",
-      create: "Mahsulotlarni yaratiFpalsh",
-      add: "Mahsulotlarni qo'shish",
-    },
-    settings: {
-      view: "Sozlamalarni ko'rish",
-      edit: "Sozlamalarni tahrirlash",
-      add: "Sozlamalarni qo'shish",
-      delete: "Sozlamalarni o'chirish",
-    },
-    admins: {
-      view: "Adminlarni ko'rish",
-      edit: "Adminlarni tahrirlash",
-      add: "Adminlarni qo'shish",
-      delete: "Adminlarni o'chirish",
-    },
-    perm: {
-      allow: "Ruxsat Etilgan Amallar",
-      newAllow: "Yangi ruxsat",
-      addTitle: "Yangi huquq qo'shish",
-      addInputLabel: "Huquq nomi",
-      addInputPlholder: "Huquq nomini kiriting",
-      updateTitle: "Huquqni o'zgartirish",
-      updateInputLabel: "Huquq nomini o'zgartirish",
-      updateInputPlholder: "Yangi huquq nomini kiriting",
-      yes: "Saqlash",
-      no: "Bekor qilish",
-      onSuccessTitle: "Ruxsat o'chirilmoqda",
-      onSuccessMessage:
-        "Bu malumot o'chirilgandan keyin qayta yuklashni iloji yo'q. Yangi ruxsat qo'shasiz",
-      onErrorTitle: "Xatolik",
-      onErrorMessage: "Xatolik Yuz berdi",
-      modalTitle: "Ruxsatni o'chirish",
-      modalText: "Siz bu ruxsatni chindanham o'chirmoqchimisiz",
-      cancelTitle: "Siz bekor qildingiz",
-      cancelMessage: "Siz bu ruxsatni rostdan ham o'chirmadingiz!",
-    },
 
-    perms: {
-      a: "a",
-      permissions: {
-        view: "Ruxsatlarni ko'rish",
-        all: "Barcha ruxsatlar",
-        add: "Ruxsat qo'shish",
-        edit: "Ruxsatni tahrirlash",
-        delete: "Ruxsatni o'chirish",
-      },
-      accounting: { view: "Akkauntlarni ko'rish" },
-      products: {
-        originalPrice: "Mahsulotning asl narxi",
-        delete: "Mahsulotlarni o'chirish",
-        view: "Mahsulotlarni ko'rish",
-        edit: "Mahsulotlarni tahrirlash",
-        create: "Mahsulotlarni yaratish",
-        add: "Mahsulotlarni qo'shish",
-      },
-      settings: {
-        view: "Sozlamalarni ko'rish",
-        edit: "Sozlamalarni tahrirlash",
-        add: "Sozlamalarni qo'shish",
-        delete: "Sozlamalarni o'chirish",
-      },
-      admins: {
-        view: "Adminlarni ko'rish",
-        edit: "Adminlarni tahrirlash",
-        add: "Adminlarni qo'shish",
-        delete: "Adminlarni o'chirish",
-      },
-
-      statistics: {
-        view: "Statistikani ko'rish",
-        edit: "Statistikani tahrirlash",
-        add: "Statistikani qo'shish",
-        delete: "Statistikani o'chirish",
-        costs: "Xarajatlarni ko'rish",
-      },
-      users: {
-        view: "Foydalanuvchilarni ko'rish",
-        edit: "Foydalanuvchilarni tahrirlash",
-        add: "Foydalanuvchilarni qo'shish",
-        delete: "Foydalanuvchilarni o'chirish",
-      },
-    },
-  },
-  userTil: userTilUz,
-  orderTil: tableNameData,
   useNotify: {
     loadTitle: "Bajarilmoqda",
     loadMsg: "Iltimos kuting",
@@ -406,8 +79,19 @@ const uz = {
     cancel: "Bekor qilish",
     confirm: "O'chirish",
   },
-
-  expenses: expensesLocaleUz,
+  notification: {
+    loading: "Yuklanmoqda",
+    success: "Muaffaqiyatli",
+    error: "Xatolik",
+    warning: "Diqqat",
+    info: "Ma'lumot",
+    noData: "Ma'lumot mavjud emas",
+    loadingDescription: "Iltimos kuting",
+    successDescription: "Muaffaqiyatli amalga oshirildi",
+    errorDescription: "Xatolik yuz berdi",
+    warningDescription: "Diqqat",
+    infoDescription: "Ma'lumot",
+  },
 
   confirmation: {
     title: "Siz rostdan ham ushbu amalni bajarmoqchimisiz?",

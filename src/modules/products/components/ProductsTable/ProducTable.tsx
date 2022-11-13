@@ -50,12 +50,8 @@ function ProductsTable({ data }: any) {
   const handleDelete = async function (id: string) {
     showLoadingNotification();
     deleteProducts(id, {
-      onSuccess: () => {
-        showSuccessNotification();
-      },
-      onError: () => {
-        showErrorNotification();
-      },
+      onSuccess: () => showSuccessNotification(),
+      onError: () => showErrorNotification(),
     });
   };
 
@@ -198,11 +194,11 @@ function ProductsTable({ data }: any) {
             </Table>
           </ScrollArea>
         </Grid.Col>
-        {!isEmpty && (
+        <If condition={!isEmpty}>
           <Grid.Col span={4}>
             <BuyCart />
           </Grid.Col>
-        )}
+        </If>
       </Grid>
       <ProductDetails products={data} />
     </>

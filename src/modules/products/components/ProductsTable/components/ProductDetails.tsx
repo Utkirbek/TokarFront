@@ -1,5 +1,4 @@
-import { Box, Button, Image, Modal, Text } from "@mantine/core";
-import { IconArrowBack } from "@tabler/icons";
+import { Box, Image, Modal, Text } from "@mantine/core";
 import { useRouter } from "next/router";
 import queryString from "query-string";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
@@ -20,7 +19,7 @@ const ProductDetails = ({ products }: Props) => {
   return (
     <Modal size={"95%"} opened={!!item} onClose={() => router.back()}>
       <Text className={classes.titleHead}>
-        <FormattedMessage id="productDetail.titleHead" />
+        <FormattedMessage id="products.productDetail.titleHead" />
       </Text>
       <Box className={classes.itemGroup}>
         <Box className={classes.imageBox}>
@@ -39,22 +38,22 @@ const ProductDetails = ({ products }: Props) => {
         <Box className={classes.info}>
           <Box className={classes.left}>
             <Text className={classes.title}>
-              <FormattedMessage id="productDetail.productName" />
+              <FormattedMessage id="products.productDetail.productName" />
             </Text>
             <Text>
-              <FormattedMessage id="productDetail.productCode" />
+              <FormattedMessage id="products.productDetail.productCode" />
             </Text>
             <Text>
-              <FormattedMessage id="productDetail.productPrice" />
+              <FormattedMessage id="products.productDetail.productPrice" />
             </Text>
             <Text>
-              <FormattedMessage id="productDetail.productTotal" />
+              <FormattedMessage id="products.productDetail.productTotal" />
             </Text>
             <Text>
-              <FormattedMessage id="productDetail.createProduct" />
+              <FormattedMessage id="products.productDetail.createProduct" />
             </Text>
             <Text>
-              <FormattedMessage id="productDetail.updateProduct" />
+              <FormattedMessage id="products.productDetail.updateProduct" />
             </Text>
           </Box>
           <Box className={classes.reight}>

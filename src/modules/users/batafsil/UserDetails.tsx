@@ -20,13 +20,17 @@ const ProductDetails = ({ data }: Props) => {
     <Modal size={"95%"} opened={!!item} onClose={() => router.back()}>
       <Text className={classes.titleHead}>
         {item?.name}
-        <FormattedMessage id="productDetails.title" />
+        <FormattedMessage id="users.userDts.title" />
       </Text>
       <Box className={classes.itemGroup}>
         <Box className={classes.imageBox}>
           <Image
-            src={item?.image}
-            alt={"Bu yerda Mahsulot rasmi bolishi kerak"}
+            src={
+              item?.image
+                ? `${item?.image}`
+                : "https://www.seekpng.com/png/detail/86-861930_singapore-http-img-placeholder.png"
+            }
+            alt={"Bu yerda foydalanuvchi rasmi"}
             style={{
               objectFit: "cover",
               borderRadius: "15px",
@@ -41,22 +45,22 @@ const ProductDetails = ({ data }: Props) => {
           <Box className={classes.left}>
             <Text className={classes.title}></Text>
             <Text>
-              <FormattedMessage id="productDetails.name" />
+              <FormattedMessage id="users.userDts.name" />
             </Text>
             <Text>
-              <FormattedMessage id="productDetails.dokon" />
+              <FormattedMessage id="users.userDts.phone" />
             </Text>
             <Text>
-              <FormattedMessage id="productDetails.telNomer" />
+              <FormattedMessage id="users.userDts.origin" />
             </Text>
             <Text>
-              <FormattedMessage id="productDetails.manzil" />
+              <FormattedMessage id="users.userDts.addition" />
             </Text>
             <Text>
-              <FormattedMessage id="productDetails.eskiVaqt" />
+              <FormattedMessage id="users.userDts.oldTime" />
             </Text>
             <Text>
-              <FormattedMessage id="productDetails.yangiVaqt" />
+              <FormattedMessage id="users.userDts.newTime" />
             </Text>
           </Box>
           <Box className={classes.reight}>
