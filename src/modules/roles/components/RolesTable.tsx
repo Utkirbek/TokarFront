@@ -1,7 +1,8 @@
 import useUser from "@hooks/shared/useUser";
+import useConfirmation from "@hooks/useConfirmation";
+import useNotification from "@hooks/useNotification";
 import { Button, Drawer, Group, Table, Text } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
-import { openConfirmModal } from "@mantine/modals";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import useRoles from "@services/hooks/useRoles";
 import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
@@ -21,65 +22,44 @@ function TableCard() {
   const { useFetchRoles, deleteRole } = useRoles();
   const getAdminsQuery = useFetchRoles();
   const { data: roles } = getAdminsQuery;
+  const { openConfirm } = useConfirmation();
+  const {
+    showLoadingNotification,
+    showSuccessNotification,
+    showErrorNotification,
+  } = useNotification();
 
   const handleDelete = async function (id: string) {
     deleteRole(id, {
       onSuccess: () => {
-        updateNotification({
-          id: "load-data",
-          color: "teal",
-          title: intl.formatMessage({ id: "role.deleteSuccessTitle" }),
-          message: intl.formatMessage({ id: "role.deleteSuccessMessage" }),
-          icon: <IconCheck size={16} />,
-          autoClose: 2000,
-        });
+        showSuccessNotification;
       },
       onError: () => {
-        updateNotification({
-          id: "load-data",
-          color: "red",
-          title: "Muvaffaqiyatli o'chirildi",
-          message: "O'chirishda xatolik ro'y berdi",
-          autoClose: false,
-          disallowClose: false,
-        });
+        showErrorNotification;
       },
     });
   };
 
   const openDeleteModal = (id: string, name: string) =>
-    openConfirmModal({
-      title: "Siz ushbu Rolni o'chirmoqchimisiz",
-      centered: true,
-      children: (
-        <Text size="sm">
-          <FormattedMessage id="admins.deleteConfirmation" values={{ name }} />
-        </Text>
-      ),
-      labels: {
-        confirm: "Tasdiqlash",
-        cancel: "Bekor qilish",
-      },
-      confirmProps: { color: "red" },
-      onConfirm: async () => {
-        showNotification({
-          id: "load-data",
-          loading: true,
-          title: "Iltimos kuting",
-          message: "Rol udalit qilinyabdi",
-          autoClose: false,
-          disallowClose: true,
-        });
-        handleDelete(id);
-      },
+    openConfirm(
+      <Text size="sm">
+        <FormattedMessage id="roles.deleteConfirmation" values={{ name }} />
+      </Text>,
+      {
+        titleId: intl.formatMessage({ id: "roles.modalTitle" }),
+        onConfirm: async () => {
+          showLoadingNotification;
+          handleDelete(id);
+        },
 
-      onCancel: () => {
-        showNotification({
-          title: "Siz bekor qildingiz",
-          message: "Siz Rolni o'chirmadiz 🤥",
-        });
-      },
-    });
+        onCancel: () => {
+          showNotification({
+            title: "Siz bekor qildingiz",
+            message: "Siz Rolni o'chirmadiz 🤥",
+          });
+        },
+      }
+    );
   const onEditClick = (item: any) => {
     setEditItem(item);
     toggleDrawerOpen();
@@ -117,6 +97,8 @@ function TableCard() {
               style={{ color: "red", cursor: "pointer" }}
             />
           )}
+        </td>
+        <td>
           <IconPencil
             onClick={onEditClick.bind(null, item)}
             style={{
@@ -143,7 +125,7 @@ function TableCard() {
               <FormattedMessage id="roles.name" />
             </th>
             <th>
-              <FormattedMessage id="roles.deletEdit" />
+              <FormattedMessage id="action" />
             </th>
           </tr>
         </thead>
@@ -155,7 +137,8 @@ function TableCard() {
         onClose={onClose}
         padding="xl"
         size="30%"
-        position="right">
+        position="right"
+      >
         <RolesDrawer editItem={editItem} handleClose={onClose} />
       </Drawer>
     </WithLoading>

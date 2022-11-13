@@ -1,5 +1,6 @@
 import ImageUploader from "@components/ImageUploader";
 import If from "@components/smart/If";
+import useNotification from "@hooks/useNotification";
 import {
   Box,
   Button,
@@ -16,7 +17,7 @@ import useCurrency from "@services/hooks/useCurrency";
 import useProducts from "@services/hooks/useProducts";
 import { IconCheck, IconChevronDown } from "@tabler/icons";
 import { useRef } from "react";
-import { useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import useStyles from "./style/inputStyle";
 
@@ -31,6 +32,11 @@ const FormProduct: React.FC<{
   const { useFetchCurrency } = useCurrency();
   const getCurrencyQuery = useFetchCurrency();
   const { data: currencies, error: currencyError } = getCurrencyQuery;
+  const {
+    showLoadingNotification,
+    showSuccessNotification,
+    showErrorNotification,
+  } = useNotification();
 
   const form = useForm({
     initialValues: {
@@ -56,14 +62,7 @@ const FormProduct: React.FC<{
     discounts: any;
   }) => {
     if (!!editItem._id) {
-      showNotification({
-        id: "load-data",
-        loading: true,
-        title: intl.formatMessage({ id: "addProductsForm.showNotifTitle" }),
-        message: intl.formatMessage({ id: "addProductsForm.showNotifMessage" }),
-        autoClose: false,
-        disallowClose: true,
-      });
+      showLoadingNotification;
       handleClose();
       editProduct(
         {
@@ -72,18 +71,7 @@ const FormProduct: React.FC<{
         },
         {
           onSuccess: () => {
-            updateNotification({
-              id: "load-data",
-              color: "teal",
-              title: intl.formatMessage({
-                id: "addProductsForm.updateNotifTitle",
-              }),
-              message: intl.formatMessage({
-                id: "addProductsForm.updateNotifMessage",
-              }),
-              icon: <IconCheck size={16} />,
-              autoClose: 2000,
-            });
+            showSuccessNotification;
           },
         }
       );
@@ -96,44 +84,15 @@ const FormProduct: React.FC<{
         },
         {
           onSuccess: () => {
-            updateNotification({
-              id: "load-data",
-              color: "teal",
-              title: intl.formatMessage({
-                id: "addProductsForm.updateNotifTitle",
-              }),
-              message: intl.formatMessage({
-                id: "addProductsForm.updateNotifMessage",
-              }),
-              icon: <IconCheck size={16} />,
-              autoClose: 2000,
-            });
+            showSuccessNotification;
           },
           onError: () => {
-            updateNotification({
-              id: "load-data",
-              color: "red",
-              title: intl.formatMessage({
-                id: "addProductsForm.updataNotifError",
-              }),
-              message: intl.formatMessage({
-                id: "addProductsForm.updataNotifErrorMessage",
-              }),
-              autoClose: 2000,
-              disallowClose: false,
-            });
+            showErrorNotification;
           },
         }
       );
     }
-    showNotification({
-      id: "load-data",
-      loading: true,
-      title: intl.formatMessage({ id: "addProductsForm.showNotifTitle" }),
-      message: intl.formatMessage({ id: "addProductsForm.showNotifMessage" }),
-      autoClose: false,
-      disallowClose: true,
-    });
+    showSuccessNotification;
   };
 
   return (
@@ -144,14 +103,20 @@ const FormProduct: React.FC<{
             fontSize: "24px",
             textAlign: "center",
             fontWeight: 700,
-          }}>
-          {!editItem._id ? "Yangi Mahsulot qo'shish" : "Tahrirlash"}
+          }}
+        >
+          <FormattedMessage
+            id="products.addEdit"
+            values={{ isNew: !editItem._id }}
+          />
         </Text>
         <TextInput
           className={classes.inputStyle}
           withAsterisk
-          label="Mahsulot Nomi"
-          placeholder="Mahsulot nomini kiriting"
+          label={intl.formatMessage({ id: "products.form.prodLabel" })}
+          placeholder={intl.formatMessage({
+            id: "products.form.prodPlaceholder",
+          })}
           {...form.getInputProps("title")}
           required
         />
@@ -167,21 +132,23 @@ const FormProduct: React.FC<{
           <Button
             variant="outline"
             sx={{ float: "right", margin: "10px 0" }}
-            hidden>
-            Rasmni Olib Tashlash
+            hidden
+          >
+            <FormattedMessage id="products.form.takePicture" />
           </Button>
         </Box>
         <TextInput
           className={classes.inputStyle}
-          label="Mahsulot Kodi"
-          placeholder="Mahsulot Kodi"
+          label={intl.formatMessage({ id: "products.form.codeLabel" })}
+          placeholder={intl.formatMessage({ id: "products.form.codeLabel" })}
           {...form.getInputProps("code")}
           required
         />
 
         <If
           condition={!!currencies}
-          elseChildren={<Skeleton width="100%" height="40px" />}>
+          elseChildren={<Skeleton width="100%" height="40px" />}
+        >
           <Select
             sx={{ width: "100%", margin: "20px  0" }}
             rightSection={<IconChevronDown size={14} />}
@@ -200,48 +167,54 @@ const FormProduct: React.FC<{
         </If>
         <TextInput
           className={classes.inputStyle}
-          label="Mahsulot Asl Narxi"
-          placeholder="Mahsulot Asl narxi"
+          label={intl.formatMessage({ id: "products.form.orgLabel" })}
+          placeholder={intl.formatMessage({ id: "products.form.orgLabel" })}
           {...form.getInputProps("originalPrice")}
         />
 
         <TextInput
           className={classes.inputStyle}
-          label="Mahsulot Sotuvdagi Narxi"
-          placeholder="Mahsulot Narxi"
+          label={intl.formatMessage({ id: "products.form.saleLabel" })}
+          placeholder={intl.formatMessage({
+            id: "products.form.salePlaceholder",
+          })}
           {...form.getInputProps("price")}
           required
         />
         <TextInput
           className={classes.inputStyle}
-          label="Nechta mahsulot borligi"
-          placeholder="Nechta mahsulot borligi"
+          label={intl.formatMessage({ id: "products.form.howLabel" })}
+          placeholder={intl.formatMessage({ id: "products.form.howLabel" })}
           {...form.getInputProps("quantity")}
           required
         />
         <TextInput
           className={classes.inputStyle}
-          label="Mahsulotga tavsif"
-          placeholder="Mahsulotga tavsif"
+          label={intl.formatMessage({ id: "products.form.prodInfo" })}
+          placeholder={intl.formatMessage({ id: "products.form.prodInfo" })}
           {...form.getInputProps("description")}
           required
         />
         <Box>
           <NumberInput
-            label="Chegirmadagi Narxi"
-            placeholder="Chegirmadagi Narxiini kiriting"
+            label={intl.formatMessage({ id: "products.form.limitLabel" })}
+            placeholder={intl.formatMessage({
+              id: "products.form.limitPlaceholder",
+            })}
             {...form.getInputProps("discounts.price")}
           />
           <NumberInput
-            label="Chegirmadagi Soni"
-            placeholder="Chegirmadagi soni"
+            label={intl.formatMessage({ id: "products.form.limitNumbLabel" })}
+            placeholder={intl.formatMessage({
+              id: "products.form.limitNumbLabel",
+            })}
             {...form.getInputProps("discounts.quantity")}
           />
         </Box>
 
         <Group position="right" mt="md">
           <Button type="submit">
-            {!editItem._id ? "Ro'yxatga Qo'shish" : "Saqlash"}
+            <FormattedMessage id="addSmth" values={{ isNew: !editItem._id }} />
           </Button>
         </Group>
       </form>

@@ -1,6 +1,20 @@
 import { Table } from "@mantine/core";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 
+export const kassaLocaleUz = {
+  title: "Kassa",
+  price: "Narxi",
+  takeTime: "Olingan vaqti",
+  giveTime: "Berish vaqti",
+};
+
+export const kassaLocaleEn = {
+  title: "Cash",
+  price: "Price",
+  takeTime: "Taken time",
+  giveTime: "Give time",
+};
+
 type Props = {
   data?: any;
 };
@@ -37,13 +51,13 @@ function KassaTable({ data }: Props) {
       <thead>
         <tr>
           <th>
-            <FormattedMessage id="kassaTable.narxi" />
+            <FormattedMessage id="kassa.price" />
           </th>
           <th>
-            <FormattedMessage id="kassaTable.olinganVaqt" />
+            <FormattedMessage id="kassa.takeTime" />
           </th>
           <th>
-            <FormattedMessage id="kassaTable.olinganBerish" />
+            <FormattedMessage id="kassa.giveTime" />
           </th>
         </tr>
       </thead>

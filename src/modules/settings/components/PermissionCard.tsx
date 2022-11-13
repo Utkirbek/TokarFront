@@ -1,9 +1,9 @@
+import useNotification from "@hooks/useNotification";
 import { Card, Grid, Text, TextInput } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
-import { showNotification, updateNotification } from "@mantine/notifications";
 import PermissionText from "@modules/settings/components/PermissionText";
 import useSettings from "@services/hooks/useSettings";
-import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
+import { IconPencil, IconTrash } from "@tabler/icons";
 import { useRef } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -13,11 +13,9 @@ type Props = {
 };
 
 const PermissionsCard: React.FC<Props> = ({ name, id }) => {
-  const {
-    useFetchAllPermissions,
-    deletePermission,
-    updatePermission,
-  } = useSettings();
+  const { useFetchAllPermissions, deletePermission, updatePermission } =
+    useSettings();
+  const { showErrorNotification, showSuccessNotification } = useNotification();
   const {
     data: permissions,
     error,
@@ -25,14 +23,16 @@ const PermissionsCard: React.FC<Props> = ({ name, id }) => {
   } = useFetchAllPermissions();
   const intl = useIntl();
   const newPermRef = useRef<HTMLInputElement>(null);
-  const permissionsQuery = useFetchAllPermissions();
+
   const handlePermissionUpdate = (name: string, id: string) => {
     openConfirmModal({
-      title: intl.formatMessage({ id: "perm.updateTitle" }),
+      title: intl.formatMessage({ id: "perms.perm.updateTitle" }),
       children: (
         <TextInput
-          label={intl.formatMessage({ id: "perm.updateInputLabel" })}
-          placeholder={intl.formatMessage({ id: "perm.updateInputPlholder" })}
+          label={intl.formatMessage({ id: "perms.perm.updateInputLabel" })}
+          placeholder={intl.formatMessage({
+            id: "perms.perm.updateInputPlholder",
+          })}
           data-autofocus
           ref={newPermRef}
           required
@@ -47,88 +47,85 @@ const PermissionsCard: React.FC<Props> = ({ name, id }) => {
         refetch();
       },
       labels: {
-        confirm: intl.formatMessage({ id: "perm.yes" }),
-        cancel: intl.formatMessage({ id: "perm.no" }),
+        confirm: intl.formatMessage({ id: "perms.perm.yes" }),
+        cancel: intl.formatMessage({ id: "perms.perm.no" }),
       },
     });
   };
+
   const handleDelete = async function (id: string) {
     deletePermission(id, {
       onSuccess: () => {
-        showNotification({
-          id: "load-data",
-          color: "teal",
-          title: intl.formatMessage({ id: "perm.onSuccessTitle" }),
-          message: intl.formatMessage({ id: "perm.onSuccessMessage" }),
-          icon: <IconCheck size={16} />,
-          autoClose: 2000,
-        });
+        showSuccessNotification();
       },
       onError: () => {
-        showNotification({
-          id: "load-data",
-          color: "red",
-          title: intl.formatMessage({ id: "perm.onErrorTitle" }),
-          message: intl.formatMessage({ id: "perm.onErrorMessage" }),
-          autoClose: 3000,
-          disallowClose: false,
-        });
+        showErrorNotification();
       },
     });
   };
   const openDeleteModal = (id: string) =>
     openConfirmModal({
-      title: intl.formatMessage({ id: "perm.modalTitle" }),
+      title: intl.formatMessage({ id: "perms.perm.modalTitle" }),
       centered: true,
       children: (
         <Text size="sm">
-          <FormattedMessage id="perm.modalText" />
+          <FormattedMessage id="perms.perm.modalText" />
         </Text>
       ),
-      labels: { confirm: intl.formatMessage({id:"delete"}), cancel: intl.formatMessage({id:"cancel"}) },
+      labels: {
+        confirm: intl.formatMessage({ id: "delete" }),
+        cancel: intl.formatMessage({ id: "cancel" }),
+      },
       confirmProps: { color: "red" },
       onConfirm: () => {
         handleDelete(id);
         refetch();
       },
       onCancel: () => {
-        showNotification({
-          title: intl.formatMessage({id:"perm.cancelTitle"}),
-          message: intl.formatMessage({id:"perm.cancelMessage"}),
-        });
+        showErrorNotification();
       },
-  });
+    });
 
   return (
     <Grid.Col span="auto" lg={3} md={14} xs={8} sm={6}>
       <Card
         sx={{
-          height:100,
+          height: 100,
           display: "flex",
           alignItems: "center",
-          justifyContent:"center",
-          textAlign:"center",
+          justifyContent: "center",
+          textAlign: "center",
           background: "linear-gradient( 45deg, #13005a 40%, #350042 60%)",
           fontFamily: "revert",
-          padding:5,
+          padding: 5,
         }}
       >
-        <div style={{display:"flex", justifyContent:"center", gap:20, position:"absolute", bottom:10}}>
-          <IconPencil
-          onClick={() => handlePermissionUpdate(name, id)}
+        <div
           style={{
-            cursor:"pointer",
+            display: "flex",
+            justifyContent: "center",
+            gap: 20,
+            position: "absolute",
+            bottom: 10,
           }}
-        />
+        >
+          <IconPencil
+            onClick={() => handlePermissionUpdate(name, id)}
+            style={{
+              cursor: "pointer",
+              color: "green",
+            }}
+          />
           <IconTrash
-          onClick={() => openDeleteModal(id)} 
-          style={{
-            cursor:"pointer", 
-            color:"red", }}/>
+            onClick={() => openDeleteModal(id)}
+            style={{
+              cursor: "pointer",
+              color: "red",
+            }}
+          />
         </div>
         <PermissionText name={intl.formatMessage({ id: `perms.${name}` })} />
       </Card>
-      
     </Grid.Col>
   );
 };

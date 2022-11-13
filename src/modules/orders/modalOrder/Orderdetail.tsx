@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import queryString from "query-string";
 import { FormattedMessage } from "react-intl";
 
-// eslint-disable-next-line import/no-duplicates
 import useStyles from "./orderStyle";
 
 type Props = {
@@ -34,60 +33,48 @@ const OrdersDetails = ({ orders }: Props) => {
   return (
     <Modal size={"95%"} opened={!!item} onClose={() => router.back()}>
       <Text className={classes.titleHead}>
-        <FormattedMessage id="OrdersDetail.titleHead" />
+        <FormattedMessage id="orders.titleHead" />
       </Text>
       <Box className={classes.itemGroup}>
-        <Box className={classes.boxColumn}>
-          <Box className={classes.info}>
-            <Box className={classes.left}>
-              <Text className={classes.title}>
-                <FormattedMessage id="OrdersDetail.orderUser" />
-              </Text>
-              <Text>
-                <FormattedMessage id="OrdersDetail.userPhoneNumber" />
-              </Text>
-              <Text>
-                <FormattedMessage id="OrdersDetail.userWorkplace" />
-              </Text>
-              <Text>
-                <FormattedMessage id="OrdersDetail.userExtra" />
-              </Text>
-              <Text>
-                <FormattedMessage id="OrdersDetail.createOrder" />
-              </Text>
-              <Text>
-                <FormattedMessage id="OrdersDetail.updateOrder" />
-              </Text>
-            </Box>
-            <Box className={classes.right}>
-              <Text className={classes.title}>{item?.user?.name}</Text>
-              <Text> {item?.user?.phone}</Text>
-              <Text> {item?.user?.workplace}</Text>
-              <Text> {item?.user?.extra}</Text>
-              <Text> {item?.user?.createdAt}</Text>
-              <Text>{item?.user?.updatedAt}</Text>
-            </Box>
-          </Box>
+        <Box className={classes.imageBox}>
+          <Text className={classes.title}>
+            <FormattedMessage id="orders.orderUser" />
+          </Text>
+          <Text className={classes.right}>{item?.user?.name}</Text>
         </Box>
 
-        <Box className={classes.boxColumn}>
-          <Box className={classes.info}>
-            <Box className={classes.left}>
-              <Text className={classes.title}>
-                <FormattedMessage id="OrdersDetail.ordersSalesmen" />
-              </Text>
-              <Text>
-                <FormattedMessage id="OrdersDetail.createOrder" />
-              </Text>
-              <Text>
-                <FormattedMessage id="OrdersDetail.updateOrder" />
-              </Text>
-            </Box>
-            <Box className={classes.right}>
-              <Text>{item?.salesman}</Text>
-              <Text> {item?.createdAt}</Text>
-              <Text>{item?.updatedAt}</Text>
-            </Box>
+        <Box className={classes.info}>
+          <Box className={classes.left}>
+            <Text className={classes.title}>
+              <FormattedMessage id="orders.ordersSalesmen" />
+            </Text>
+            <Text>
+              <FormattedMessage id="orders.ordersProductId" />
+            </Text>
+            <Text>
+              <FormattedMessage id="orders.ordersQuantity" />
+            </Text>
+            <Text>
+              <FormattedMessage id="orders.ordersPrice" />
+            </Text>
+            <Text>
+              <FormattedMessage id="orders.createOrder" />
+            </Text>
+            <Text>
+              <FormattedMessage id="orders.updateOrder" />
+            </Text>
+            <Text>
+              <FormattedMessage id="orders.paymentOrder" />
+            </Text>
+          </Box>
+          <Box className={classes.right}>
+            <Text className={classes.title}>{item?.salesman?.name}</Text>
+            <Text>{item?.cart?.[0]._id}</Text>
+            <Text> {item?.cart?.[0].quantity}</Text>
+            <Text> {item?.cart?.[0].price}</Text>
+            <Text> {item?.createdAt}</Text>
+            <Text>{item?.updatedAt}</Text>
+            <Text>{item?.total}</Text>
           </Box>
         </Box>
       </Box>

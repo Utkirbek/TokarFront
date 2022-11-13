@@ -1,11 +1,12 @@
 import If from "@components/smart/If";
 import useUser from "@hooks/shared/useUser";
+import useConfirmation from "@hooks/useConfirmation";
+import useNotification from "@hooks/useNotification";
 import { Button, Drawer, Group, Table, Text } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
-import { openConfirmModal } from "@mantine/modals";
-import { showNotification, updateNotification } from "@mantine/notifications";
+import { showNotification } from "@mantine/notifications";
 import useAdmins from "@services/hooks/useAdmins";
-import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
+import { IconPencil, IconTrash } from "@tabler/icons";
 import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -23,65 +24,48 @@ function TableCard() {
   const { useFetchAdmins, deleteAdmin } = useAdmins();
   const getAdminsQuery = useFetchAdmins();
   const { data: admins } = getAdminsQuery;
+  const {
+    showSuccessNotification,
+    showErrorNotification,
+    showLoadingNotification,
+  } = useNotification();
+  const { openConfirm } = useConfirmation();
 
   const handleDelete = async function (id: string) {
     deleteAdmin(id, {
       onSuccess: () => {
-        updateNotification({
-          id: "load-data",
-          color: "teal",
-          title: intl.formatMessage({ id: "admins.delete.success.ongoing" }),
-          message: intl.formatMessage({ id: "admins.delete.success.message" }),
-          icon: <IconCheck size={16} />,
-          autoClose: 2000,
-        });
+        showSuccessNotification;
       },
       onError: () => {
-        updateNotification({
-          id: "load-data",
-          color: "red",
-          title: intl.formatMessage({ id: "admins.delete.error.ongoing" }),
-          message: intl.formatMessage({ id: "admins.delete.error.message" }),
-          autoClose: false,
-          disallowClose: false,
-        });
+        showErrorNotification;
       },
     });
   };
 
   const openDeleteModal = (id: string, name: string) =>
-    openConfirmModal({
-      title: intl.formatMessage({ id: "admins.delete.modal.title" }),
-      centered: true,
-      children: (
-        <Text size="sm">
-          <FormattedMessage
-            id="admins.delete.modal.confirmation"
-            values={{ name }}
-          />
-        </Text>
-      ),
-      labels: {
-        confirm: intl.formatMessage({
-          id: "admins.delete.modal.buttons.confirm",
-        }),
-        cancel: intl.formatMessage({
-          id: "admins.delete.modal.buttons.cancel",
-        }),
-      },
-      confirmProps: { color: "red" },
-      onConfirm: async () => {
-        showNotification({
-          id: "load-data",
-          loading: true,
-          title: intl.formatMessage({ id: "admins.delete.success.ongoing" }),
-          message: intl.formatMessage({ id: "admins.delete.success.message" }),
-          autoClose: false,
-          disallowClose: true,
-        });
-        handleDelete(id);
-      },
-    });
+    openConfirm(
+      <Text size="sm">
+        <FormattedMessage
+          id="admins.delete.modal.confirmation"
+          values={{ name }}
+        />
+      </Text>,
+      {
+        titleId: intl.formatMessage({ id: "admins.delete.modal.title" }),
+        onConfirm: async () => {
+          showLoadingNotification;
+          handleDelete(id);
+        },
+
+        onCancel: () => {
+          showNotification({
+            title: "Siz bekor qildingiz",
+            message: "Siz Admini o'chirmadiz 🤥",
+          });
+        },
+      }
+    );
+
   const onEditClick = (item: any) => {
     setEditItem(item);
     toggleDrawerOpen();
@@ -149,7 +133,7 @@ function TableCard() {
               <FormattedMessage id="admins.role" />
             </th>
             <th>
-              <FormattedMessage id="admins.deleteEdit" />
+              <FormattedMessage id="action" />
             </th>
           </tr>
         </thead>
@@ -161,7 +145,8 @@ function TableCard() {
         onClose={onClose}
         padding="xl"
         size="30%"
-        position="right">
+        position="right"
+      >
         <AdminsDrawer editItem={editItem} handleClose={onClose} />
       </Drawer>
     </WithLoading>

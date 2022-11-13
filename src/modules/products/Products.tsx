@@ -46,8 +46,7 @@ const Products = () => {
         });
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [spotlight.query]);
+  }, [router, spotlight, spotlight.query]);
 
   const getProductsQuery = useFetchProduct(page);
   const { data } = getProductsQuery;

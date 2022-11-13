@@ -19,11 +19,13 @@ const Settings: NextPage = () => {
 
   const handleUPermissionAdd = () => {
     openConfirmModal({
-      title: intl.formatMessage({ id: "perm.addTitle" }),
+      title: intl.formatMessage({ id: "perms.perm.addTitle" }),
       children: (
         <TextInput
-          label={intl.formatMessage({ id: "perm.addInputLabel" })}
-          placeholder={intl.formatMessage({ id: "perm.addInputPlholder" })}
+          label={intl.formatMessage({ id: "perms.perm.addInputLabel" })}
+          placeholder={intl.formatMessage({
+            id: "perms.perm.addInputPlholder",
+          })}
           data-autofocus
           ref={newPermRef}
           required
@@ -38,8 +40,8 @@ const Settings: NextPage = () => {
         }
       },
       labels: {
-        confirm: intl.formatMessage({ id: "perm.yes" }),
-        cancel: intl.formatMessage({ id: "perm.no" }),
+        confirm: intl.formatMessage({ id: "perms.perm.yes" }),
+        cancel: intl.formatMessage({ id: "perms.perm.no" }),
       },
     });
   };
@@ -47,7 +49,7 @@ const Settings: NextPage = () => {
   return (
     <WithLoading query={permissionsQuery}>
       <h1>
-        <FormattedMessage id="perm.allow" />
+        <FormattedMessage id="perms.perm.allow" />
       </h1>
       <Grid>
         <Grid.Col span={3} lg={3} md={9} xs={10} sm={6}>
@@ -61,7 +63,7 @@ const Settings: NextPage = () => {
             onClick={handleUPermissionAdd}
           >
             <Text>
-              <FormattedMessage id="perm.newAllow" />
+              <FormattedMessage id="perms.perm.newAllow" />
             </Text>
             <lord-icon
               src="https://cdn.lordicon.com/zgogqkqu.json"

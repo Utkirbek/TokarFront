@@ -75,14 +75,18 @@ const NewUser: React.FC<{
             fontSize: "24px",
             textAlign: "center",
             fontWeight: 700,
-          }}>
-          {!editItem._id ? "Yangi Foydalanuvchi qo'shish" : "Tahrirlash"}
+          }}
+        >
+          <FormattedMessage
+            id="users.formTitle"
+            values={{ isNew: !editItem._id }}
+          />
         </Text>
         <TextInput
           className={classes.inputStyle}
           withAsterisk
-          label={intl.formatMessage({ id: "userTil.namelabel" })}
-          placeholder={intl.formatMessage({ id: "userTil.namePlaceholder" })}
+          label={intl.formatMessage({ id: "users.nameLabel" })}
+          placeholder={intl.formatMessage({ id: "users.namePlaceholder" })}
           {...form.getInputProps("name")}
           required
         />
@@ -97,38 +101,37 @@ const NewUser: React.FC<{
           <Button
             variant="outline"
             sx={{ float: "right", margin: "10px 0" }}
-            hidden>
+            hidden
+          >
             Rasmni Olib Tashlash
           </Button>
         </Box>
         <TextInput
           className={classes.inputStyle}
-          label={intl.formatMessage({ id: "userTil.numberLabel" })}
-          placeholder={intl.formatMessage({ id: "userTil.numberPlaceholder" })}
+          label={intl.formatMessage({ id: "users.numberLabel" })}
+          placeholder={intl.formatMessage({ id: "users.numberPlaceholder" })}
           {...form.getInputProps("phone")}
           required
         />
 
         <TextInput
           className={classes.inputStyle}
-          label={intl.formatMessage({ id: "userTil.workplaceLabel" })}
-          placeholder={intl.formatMessage({
-            id: "userTil.workplacePlaceholder",
-          })}
+          label={intl.formatMessage({ id: "users.addressLabel" })}
+          placeholder={intl.formatMessage({ id: "users.addressPlaceholder" })}
           {...form.getInputProps("workplace")}
           required
         />
         <TextInput
           className={classes.inputStyle}
-          label={intl.formatMessage({ id: "userTil.extraLabel" })}
-          placeholder={intl.formatMessage({ id: "userTil.extraPlaceholder" })}
+          label={intl.formatMessage({ id: "users.additionLabel" })}
+          placeholder={intl.formatMessage({ id: "users.additionPlaceholder" })}
           {...form.getInputProps("extra")}
           required
         />
 
         <Group position="right" mt="md">
           <Button type="submit">
-            {!editItem._id ? "Ro'yxatga Qo'shish" : "Saqlash"}
+            <FormattedMessage id="addSmth" values={{ isNew: !editItem._id }} />
           </Button>
         </Group>
       </form>

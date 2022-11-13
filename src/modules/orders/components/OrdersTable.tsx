@@ -60,7 +60,8 @@ const OrdersTable = ({ data }: Props) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-around",
-          }}>
+          }}
+        >
           <IconTrash
             onClick={() => openDeleteModal(item._id, item.name)}
             style={{ color: "red", cursor: "pointer" }}
@@ -75,7 +76,8 @@ const OrdersTable = ({ data }: Props) => {
                   details: item._id,
                 },
               });
-            }}>
+            }}
+          >
             <FormattedMessage id="products.details" />
           </Button>
         </td>

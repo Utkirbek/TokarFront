@@ -76,6 +76,10 @@ const BuyCart: React.FC<{}> = () => {
     );
     showLoadingNotification();
   };
+  const buy = () => {
+    showSuccessNotification;
+    showLoadingNotification;
+  };
 
   const handleClick = (item: any) => () => {
     setActiveId(item.id);
@@ -94,7 +98,7 @@ const BuyCart: React.FC<{}> = () => {
             <Box className={classes.CardBox}>
               {isEmpty ? (
                 <Text className={classes.empty}>
-                  <FormattedMessage id="buyCart.maxsulotYoq" />
+                  <FormattedMessage id="products.buyCart.maxsulotYoq" />
                 </Text>
               ) : (
                 <ScrollArea style={{ height: 250 }} scrollbarSize={4}>
@@ -119,7 +123,8 @@ const BuyCart: React.FC<{}> = () => {
                               }
                               className={classes.btnCount}
                               variant={"outline"}
-                              compact>
+                              compact
+                            >
                               -
                             </Button>
                             <Text size="md">{item.quantity}</Text>
@@ -129,7 +134,8 @@ const BuyCart: React.FC<{}> = () => {
                               }
                               className={classes.btnCount}
                               variant={"outline"}
-                              compact>
+                              compact
+                            >
                               +
                             </Button>
                           </Box>
@@ -149,7 +155,7 @@ const BuyCart: React.FC<{}> = () => {
               <Card className={classes.cardPrice}>
                 <Box className={classes.totalpriceGrup}>
                   <Text sx={{ fontSize: "18px", fontWeight: 900 }}>
-                    <FormattedMessage id="buyCart.jamiSuma" />
+                    <FormattedMessage id="products.buyCart.totalPrice" />
                   </Text>
                   <Text sx={{ fontSize: "20px", fontWeight: 900 }}>
                     {cartTotal}
@@ -166,7 +172,8 @@ const BuyCart: React.FC<{}> = () => {
                         <Box
                           className={classes.cardSuma}
                           style={item.id === activeId ? activeStyle : {}}
-                          onClick={handleClick(item)}>
+                          onClick={handleClick(item)}
+                        >
                           <item.icon
                             size={50}
                             onClick={() => clickWallet({ item })}
@@ -178,20 +185,26 @@ const BuyCart: React.FC<{}> = () => {
                 </Box>
                 <Select
                   sx={{ margin: "20px 0" }}
-                  placeholder={intl.formatMessage({ id: "buyCart.kimga" })}
+                  placeholder={intl.formatMessage({
+                    id: "products.buyCart.whom",
+                  })}
                   data={[
                     {
                       value: "users",
                       label: intl.formatMessage({
-                        id: "foydalanuvchi.foydalanuv",
+                        id: "products.userShow",
                       }),
                     },
                   ]}
                 />
                 {!!wallet ? (
                   <TextInput
-                    label={intl.formatMessage({ id: "buyCart.payDay" })}
-                    placeholder={intl.formatMessage({ id: "buyCart.payDay" })}
+                    label={intl.formatMessage({
+                      id: "products.buyCart.enterDay",
+                    })}
+                    placeholder={intl.formatMessage({
+                      id: "products.buyCart.enterDay",
+                    })}
                     {...form.getInputProps("payDay")}
                     required
                   />
@@ -207,8 +220,9 @@ const BuyCart: React.FC<{}> = () => {
                   salesman: salesmanTitle,
                   loan: loanTitle,
                 })
-              }>
-              <FormattedMessage id="buyCart.sotish" />
+              }
+            >
+              <FormattedMessage id="products.buyCart.sale" />
             </Button>
           </Box>
         </Container>

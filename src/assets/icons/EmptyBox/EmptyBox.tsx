@@ -16,7 +16,7 @@ function EmptyBox() {
         ></lord-icon>
       </Center>
       <Text align="center" size="xl">
-        <FormattedMessage id="emptyBox.boxTitle" />
+        <FormattedMessage id="emptyBox" />
       </Text>
     </Box>
   );
