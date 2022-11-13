@@ -1,3 +1,4 @@
+import defaultLocaleUz from "@hooks/defaultLocaleUz";
 import tableNameData from "@modules/orders/const/tableTitleName";
 import productsLocaleUz from "@modules/products/locale/productsLocaleUz";
 import { expensesLocaleUz } from "@modules/spend/locale";
@@ -9,6 +10,7 @@ import commonUz from "./uz/common";
 const uz = {
   ...commonUz,
   users: usersLocaleUz,
+  default: defaultLocaleUz,
   loading: "Yuklanmoqda",
   delete: "O'chirish",
   cancel: "Bekor qilish",
@@ -406,19 +408,6 @@ const uz = {
   },
 
   expenses: expensesLocaleUz,
-  notification: {
-    loading: "Yuklanmoqda",
-    success: "Muaffaqiyatli",
-    error: "Xatolik",
-    warning: "Diqqat",
-    info: "Ma'lumot",
-    noData: "Ma'lumot mavjud emas",
-    loadingDescription: "Iltimos kuting",
-    successDescription: "Muaffaqiyatli amalga oshirildi",
-    errorDescription: "Xatolik yuz berdi",
-    warningDescription: "Diqqat",
-    infoDescription: "Ma'lumot",
-  },
 
   confirmation: {
     title: "Siz rostdan ham ushbu amalni bajarmoqchimisiz?",

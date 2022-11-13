@@ -12,10 +12,10 @@ const useNotification = () => {
         id: "load-data",
         loading: true,
         title: intl.formatMessage({
-          id: options?.titleId || "notification.loading",
+          id: options?.titleId || "default.loading",
         }),
         message: intl.formatMessage({
-          id: messageId || "notification.loadingDescription",
+          id: messageId || "default.loadingDescription",
         }),
         autoClose: 5000,
         disallowClose: true,
@@ -30,10 +30,10 @@ const useNotification = () => {
         id: "load-data",
         color: "teal",
         title: intl.formatMessage({
-          id: options?.titleId || "notification.success",
+          id: options?.titleId || "default.success",
         }),
         message: intl.formatMessage({
-          id: messageId || "notification.successDescription",
+          id: messageId || "default.successDescription",
         }),
         icon: <IconCheck size={16} />,
         autoClose: 2000,
@@ -45,10 +45,10 @@ const useNotification = () => {
     (messageId?: string, options?: { titleId?: string }) => {
       showNotification({
         title: intl.formatMessage({
-          id: options?.titleId || "notification.success",
+          id: options?.titleId || "default.success",
         }),
         message: intl.formatMessage({
-          id: messageId || "notification.successDescription",
+          id: messageId || "default.successDescription",
         }),
         icon: <IconCheck />,
 
@@ -71,10 +71,10 @@ const useNotification = () => {
     (messageId?: string, options?: { titleId?: string }) => {
       showNotification({
         title: intl.formatMessage({
-          id: options?.titleId || "notification.error",
+          id: options?.titleId || "default.error",
         }),
         message: intl.formatMessage({
-          id: messageId || "notification.errorDescription",
+          id: messageId || "default.errorDescription",
         }),
         icon: <IconX />,
         color: "red",
