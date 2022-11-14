@@ -10,12 +10,12 @@ import { IconPencil, IconTrash } from "@tabler/icons";
 import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import WithLoading from "@/hoc/WithLoading";
 import { Permissions } from "@/utils/constants";
 
 import AdminsDrawer from "./AdminsDrawer";
+import Salary from "./Salary";
 
-function TableCard() {
+function TableCard({ data }: { data: any }) {
   const { name } = useUser();
   const intl = useIntl();
   const [drawerOpen, toggleDrawerOpen] = useToggle();
@@ -76,15 +76,21 @@ function TableCard() {
     setEditItem({});
   };
 
-  const rows = admins?.map((item: any) => {
+  const rows = data?.map((item: any) => {
     return (
       <tr key={item._id}>
         <td>
           <Group spacing="sm">{item.name}</Group>
         </td>
-
         <td>{item.email}</td>
         <td>{item.role?.name}</td>
+        <td>{item.salary_percent}%</td>
+        <td>{item.earned_salary}</td>
+        <td>
+          <Group>
+            <Salary inpStaff={item._id} />
+          </Group>
+        </td>
 
         <td>
           {item.name == name ? (
@@ -112,7 +118,7 @@ function TableCard() {
   });
 
   return (
-    <WithLoading query={getAdminsQuery}>
+    <>
       <If hasPerm={Permissions.admins.create}>
         <Group position="right" mx={"xl"} my={"xl"}>
           <Button onClick={onClose} variant={"outline"}>
@@ -133,7 +139,16 @@ function TableCard() {
               <FormattedMessage id="admins.role" />
             </th>
             <th>
-              <FormattedMessage id="action" />
+              <FormattedMessage id="admins.salary_percent" />
+            </th>
+            <th>
+              <FormattedMessage id="admins.earned_salary" />
+            </th>
+            <th>
+              <FormattedMessage id="admins.give_salary" />
+            </th>
+            <th>
+              <FormattedMessage id="admins.deleteEdit" />
             </th>
           </tr>
         </thead>
@@ -145,11 +160,10 @@ function TableCard() {
         onClose={onClose}
         padding="xl"
         size="30%"
-        position="right"
-      >
+        position="right">
         <AdminsDrawer editItem={editItem} handleClose={onClose} />
       </Drawer>
-    </WithLoading>
+    </>
   );
 }
 

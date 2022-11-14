@@ -37,6 +37,15 @@ export const adminsLocaleUz = {
   role: "Rol",
   addEdit: "{isNew, select, true {Yangi Admin qo'shish} other {Tahrirlash}}",
   saveEdit: "{isNew, select, true {Qo'shish} other {Yangilash}}",
+  adminSalaryTitle: "Maosh Berish",
+  adminSalaryMsg: "Maoshni  Kiriting",
+  toPay: "Maosh Berish",
+  back: "Orqaga ",
+  salary_percent: "Maosh foizi",
+  earned_salary: "Olingan Maosh",
+  give_salary: "Maosh Berish",
+  deleteEdit: "O'chirish / Tahrirlash",
+  salary: "Maosh",
 };
 
 export const adminsLocaleEn = {
@@ -77,4 +86,5 @@ export const adminsLocaleEn = {
   role: "Role",
   addEdit: "{isNew, select, true {Add New Admin} other {Edit}}",
   saveEdit: "{isNew, select, true {Add} other {Update}}",
+  salary: "Maosh ",
 };

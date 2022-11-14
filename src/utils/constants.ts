@@ -54,6 +54,8 @@ export enum RequestQueryKeys {
   addSpend = "addSpend",
   updateSpend = "updateSpend",
   deleteSpend = "deleteSpend",
+  getSalary = "getSalary",
+  addSalary = "addSalary",
   loan = "loan",
   getLoanUserID = "loanUserID",
 }

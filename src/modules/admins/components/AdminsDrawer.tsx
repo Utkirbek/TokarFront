@@ -33,6 +33,7 @@ const AdminsDrawer: React.FC<{
       email: editItem?.email ?? "",
       password: editItem?.password ?? "",
       role: editItem?.role ?? "",
+      salary_percent: editItem?.salary_percent ?? "",
     },
     validate: {
       name: (value: string | any[]) =>
@@ -49,6 +50,7 @@ const AdminsDrawer: React.FC<{
     email: string;
     role: string;
     password: string;
+    salary_percent: string;
   }) => {
     if (!!editItem._id) {
       handleClose();
@@ -114,8 +116,7 @@ const AdminsDrawer: React.FC<{
         />
         <If
           condition={!!roles}
-          elseChildren={<Skeleton width="100%" height="40px" />}
-        >
+          elseChildren={<Skeleton width="100%" height="40px" />}>
           <Select
             sx={{ width: "100%", margin: "20px  0" }}
             rightSection={<IconChevronDown size={14} />}
@@ -134,6 +135,17 @@ const AdminsDrawer: React.FC<{
             {...form.getInputProps("role")}
           />
         </If>
+        <TextInput
+          label={intl.formatMessage({
+            id: "admins.salary",
+          })}
+          placeholder={intl.formatMessage({
+            id: "admins.salary",
+          })}
+          {...form.getInputProps("salary_percent")}
+          my={"sm"}
+          required
+        />
 
         <TextInput
           label={intl.formatMessage({

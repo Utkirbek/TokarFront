@@ -29,6 +29,11 @@ const en = {
   },
 
   admins: {
+    adminSalaryTitle: "To pay",
+    adminSalaryMsg: "Enter the salary",
+    toPay: "To Pay",
+    salary: "Maosh",
+    back: "Back ",
     deleteConfirmation:
       "{name} This worker will log you out, it can't be undone, are you sure?",
     deleteSuccessMessage: "The user has been removed",
