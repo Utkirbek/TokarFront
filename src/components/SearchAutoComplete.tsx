@@ -52,9 +52,8 @@ function SearchAutoComplete({
               <Button
                 variant="subtle"
                 color={"red"}
-                onClick={() => setSearchResults([])}
-              >
-                <IconSquareLetterX color="red" />
+                onClick={() => setSearchResults([])}>
+                <IconSquareLetterX color="red" style={{ marginTop: 4 }} />
               </Button>
             </Tooltip>
             <Button onClick={handleSearch}>

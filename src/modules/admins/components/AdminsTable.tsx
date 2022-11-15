@@ -1,10 +1,12 @@
+import SearchAutoComplete from "@components/SearchAutoComplete";
 import If from "@components/smart/If";
 import useUser from "@hooks/shared/useUser";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
-import { Button, Drawer, Group, Table, Text } from "@mantine/core";
+import { Box, Button, Drawer, Group, Table, Text } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
+import adminFetchers from "@services/api/adminFetchers";
 import useAdmins from "@services/hooks/useAdmins";
 import { IconPencil, IconTrash } from "@tabler/icons";
 import { useState } from "react";
@@ -22,14 +24,14 @@ function TableCard({ data }: { data: any }) {
   const [editItem, setEditItem] = useState({});
 
   const { useFetchAdmins, deleteAdmin } = useAdmins();
-  const getAdminsQuery = useFetchAdmins();
-  const { data: admins } = getAdminsQuery;
+
   const {
     showSuccessNotification,
     showErrorNotification,
     showLoadingNotification,
   } = useNotification();
   const { openConfirm } = useConfirmation();
+  const [searchResults, setSearchResults] = useState([]);
 
   const handleDelete = async function (id: string) {
     deleteAdmin(id, {
@@ -76,55 +78,69 @@ function TableCard({ data }: { data: any }) {
     setEditItem({});
   };
 
-  const rows = data?.map((item: any) => {
-    return (
-      <tr key={item._id}>
-        <td>
-          <Group spacing="sm">{item.name}</Group>
-        </td>
-        <td>{item.email}</td>
-        <td>{item.role?.name}</td>
-        <td>{item.salary_percent}%</td>
-        <td>{item.earned_salary}</td>
-        <td>
-          <Group>
-            <Salary inpStaff={item._id} />
-          </Group>
-        </td>
+  const rows = (searchResults.length > 0 ? searchResults : data).map(
+    (item: any) => {
+      return (
+        <tr key={item._id}>
+          <td>
+            <Group spacing="sm">{item.name}</Group>
+          </td>
+          <td>{item.email}</td>
+          <td>{item.role?.name}</td>
+          <td>{item.salary_percent}%</td>
+          <td>{item.earned_salary}</td>
+          <td>
+            <Group>
+              <Salary inpStaff={item._id} />
+            </Group>
+          </td>
 
-        <td>
-          {item.name == name ? (
-            <IconTrash style={{ color: "red", cursor: "no-drop" }} />
-          ) : (
-            <If hasPerm={Permissions.admins.delete}>
-              <IconTrash
-                onClick={() => openDeleteModal(item._id, item.name)}
-                style={{ color: "red", cursor: "pointer" }}
+          <td>
+            {item.name == name ? (
+              <IconTrash style={{ color: "red", cursor: "no-drop" }} />
+            ) : (
+              <If hasPerm={Permissions.admins.delete}>
+                <IconTrash
+                  onClick={() => openDeleteModal(item._id, item.name)}
+                  style={{ color: "red", cursor: "pointer" }}
+                />
+              </If>
+            )}
+            <If hasPerm={Permissions.admins.edit}>
+              <IconPencil
+                onClick={onEditClick.bind(null, item)}
+                style={{
+                  cursor: "pointer",
+                  marginLeft: "30px",
+                }}
               />
             </If>
-          )}
-          <If hasPerm={Permissions.admins.edit}>
-            <IconPencil
-              onClick={onEditClick.bind(null, item)}
-              style={{
-                cursor: "pointer",
-                marginLeft: "30px",
-              }}
-            />
-          </If>
-        </td>
-      </tr>
-    );
-  });
+          </td>
+        </tr>
+      );
+    }
+  );
 
   return (
     <>
       <If hasPerm={Permissions.admins.create}>
-        <Group position="right" mx={"xl"} my={"xl"}>
-          <Button onClick={onClose} variant={"outline"}>
-            <FormattedMessage id="admins.add.title" />
-          </Button>
-        </Group>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}>
+          <SearchAutoComplete
+            searchResults={searchResults}
+            setSearchResults={setSearchResults}
+            fetcher={adminFetchers.getAdminsByTitle}
+          />
+          <Group position="right" mx={"xl"} my={"xl"}>
+            <Button onClick={onClose} variant={"outline"}>
+              <FormattedMessage id="admins.add.title" />
+            </Button>
+          </Group>
+        </Box>
       </If>
       <Table highlightOnHover>
         <thead>

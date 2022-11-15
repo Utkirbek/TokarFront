@@ -6,6 +6,8 @@ const userFetcher = {
   deleteUsers: async (id: string) => requests.delete(`/user/${id}`),
   updateUsers: async (id: string, body: any | Object) =>
     requests.put(`/user/${id}`, body),
+  getUsersByTitle: async (title: string) =>
+    requests.get(`/user/search/${title}`),
 };
 
 export default userFetcher;

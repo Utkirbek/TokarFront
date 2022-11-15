@@ -6,6 +6,8 @@ const adminFetchers = {
   updeteAdmin: async (id: string, values: Object) =>
     requests.put(`/admin/${id}`, values),
   addAdmin: async <T>(body: T) => await requests.post("/admin/add", body),
+  getAdminsByTitle: async (title: string) =>
+    requests.get(`/admin/search/${title}`),
 };
 
 export default adminFetchers;
