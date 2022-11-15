@@ -28,6 +28,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 
     link: {
       ...theme.fn.focusStyles(),
+      margin: "2px 0px",
       display: "flex",
       alignItems: "center",
       textDecoration: "none",

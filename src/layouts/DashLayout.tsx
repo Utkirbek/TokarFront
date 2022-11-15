@@ -19,7 +19,7 @@ import useStyles from "@modules/layout/style/dashStyle";
 import { getCookie } from "cookies-next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { FormattedMessage } from "react-intl";
 
 function DashLayout({ children }: { children: React.ReactNode }) {
@@ -29,6 +29,13 @@ function DashLayout({ children }: { children: React.ReactNode }) {
   const [opened, toggleOpened] = useToggle();
   const isLoggedIn = useUser(selectIsLoggedIn);
   const token = getCookie("token");
+  const [activeId, setActiveId] = useState(null);
+  const [add, setAdd] = useState(false);
+
+  const activeStyle = {
+    background: "#1864AB",
+    color: "white",
+  };
 
   if (!isLoggedIn || !token || router.pathname === "/check")
     return <>{children}</>;
@@ -39,6 +46,8 @@ function DashLayout({ children }: { children: React.ReactNode }) {
         <Link
           key={item.label}
           href={item.link}
+          style={item.id === activeId ? activeStyle : {}}
+          onClick={() => setActiveId(item.id)}
           className={cx(classes.link, "test", {
             sidebarLink: item.link === router.pathname,
           })}
