@@ -1,4 +1,5 @@
 import { logOutUz } from "@components/smart/Logout/Logout";
+import defaultLocaleUz from "@hooks/defaultLocaleUz";
 import { adminsLocaleUz } from "@modules/admins/locale";
 import { signInLocaleUz } from "@modules/auth/locale";
 import { kassaLocaleUz } from "@modules/kassa/KassaTable";
@@ -23,6 +24,7 @@ const uz = {
   kassa: kassaLocaleUz,
   roles: rolesLocaleUz,
   admins: adminsLocaleUz,
+  default: defaultLocaleUz,
   sthWentWrong: "Xatolik yuz berdi",
   emptyBox: "Sizng obringizda maxsulot qolmadi",
 

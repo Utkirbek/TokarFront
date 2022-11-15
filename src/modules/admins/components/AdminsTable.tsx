@@ -129,7 +129,8 @@ function TableCard({ data }: { data: any }) {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-          }}>
+          }}
+        >
           <SearchAutoComplete
             searchResults={searchResults}
             setSearchResults={setSearchResults}
@@ -176,7 +177,8 @@ function TableCard({ data }: { data: any }) {
         onClose={onClose}
         padding="xl"
         size="30%"
-        position="right">
+        position="right"
+      >
         <AdminsDrawer editItem={editItem} handleClose={onClose} />
       </Drawer>
     </>
