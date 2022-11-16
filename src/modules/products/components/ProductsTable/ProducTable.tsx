@@ -181,7 +181,7 @@ function ProductsTable({ data }: any) {
             fetcher={productFetchers.getProductByTitle}
           />
           <Button onClick={handleClick} variant={"outline"}>
-            <FormattedMessage id="payments.create" />
+            <FormattedMessage id="products.add" />
           </Button>
         </Box>
       </If>

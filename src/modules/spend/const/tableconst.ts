@@ -1,9 +1,9 @@
 export const nameTable = {
-  amount: "MIQDORI",
-  paymentMethod: "TO'LOV USULI",
-  desc: "IZOH QOLDIRISH",
-  createdAt: "YARATILGAN VAQTI",
-  updatedAt: "YANGILANGAN VAQTI",
-  spendType : "NIMA UCHUN",
-  delete : "O'CHIRISH/YANGILASH",
+  amount: "expenses.amount",
+  paymentMethod: "expenses.paymentMethod",
+  desc: "expenses.desc",
+  createdAt: "expenses.createdAt",
+  updatedAt: "expenses.updatedAt",
+  spendType: "expenses.spendType",
+  delete: "expenses.delete",
 };

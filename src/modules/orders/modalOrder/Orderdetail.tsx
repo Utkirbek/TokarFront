@@ -82,15 +82,14 @@ const OrdersDetails = ({ orders }: Props) => {
         <Table sx={{ minWidth: 700 }} verticalSpacing="sm" highlightOnHover>
           <TableHead
             data={{
-              orderImage: true,
               orderTitleProduct: true,
               ordersProductId: true,
               ordersQuantity: true,
               ordersQuantityAll: true,
               ordersPrice: true,
-              userExtra: true,
+              useExtra: true,
             }}
-            prefix="OrdersDetail"
+            prefix="orders"
           />
           <tbody>{rowDetail}</tbody>
         </Table>

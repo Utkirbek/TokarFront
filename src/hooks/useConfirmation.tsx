@@ -9,7 +9,7 @@ const useConfirmation = () => {
   const openConfirm = (
     children: React.ReactNode,
     {
-      titleId = "confirmation.title",
+      titleId = "default.title",
       onConfirm,
       onCancel,
     }: { titleId?: string; onConfirm?: () => void; onCancel?: () => void }
@@ -19,12 +19,12 @@ const useConfirmation = () => {
       centered: true,
       children: children || (
         <Text size="sm">
-          <FormattedMessage id="confirmation.message" />
+          <FormattedMessage id="default.message" />
         </Text>
       ),
       labels: {
-        confirm: intl.formatMessage({ id: "confirmation.confirm" }),
-        cancel: intl.formatMessage({ id: "confirmation.cancel" }),
+        confirm: intl.formatMessage({ id: "default.confirm" }),
+        cancel: intl.formatMessage({ id: "default.cancel" }),
       },
       confirmProps: { color: "red" },
       cancelProps: { color: "teal" },

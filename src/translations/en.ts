@@ -1,6 +1,9 @@
 import { logOutEn } from "@components/smart/Logout/Logout";
+import defaultLocaleEn from "@hooks/defaultLocaleEn";
+import { adminsLocaleEn } from "@modules/admins/locale";
 import { signInLocaleEn } from "@modules/auth/locale";
 import { kassaLocaleEn } from "@modules/kassa/KassaTable";
+import { loanLocaleEn } from "@modules/loan/locale";
 import { orderLocaleEn } from "@modules/orders/locale";
 import { productsLocaleEn } from "@modules/products/locale/locale";
 import { rolesLocaleEn } from "@modules/roles/locale";
@@ -12,6 +15,7 @@ import commonUz from "./uz/common";
 
 const en = {
   ...commonUz,
+  default: defaultLocaleEn,
   users: usersLocaleEn,
   expenses: expensesLocaleEn,
   orders: orderLocaleEn,
@@ -20,73 +24,29 @@ const en = {
   logout: logOutEn,
   products: productsLocaleEn,
   kassa: kassaLocaleEn,
-  roes: rolesLocaleEn,
+  roles: rolesLocaleEn,
+  admins: adminsLocaleEn,
+  loans: loanLocaleEn,
   sthWentWrong: "Something went wrong",
-  action: "Action",
-
-  home: {
-    errorLoading: "Error loading",
-  },
-
-  admins: {
-    adminSalaryTitle: "To pay",
-    adminSalaryMsg: "Enter the salary",
-    toPay: "To Pay",
-    salary: "Maosh",
-    back: "Back ",
-    deleteConfirmation:
-      "{name} This worker will log you out, it can't be undone, are you sure?",
-    deleteSuccessMessage: "The user has been removed",
-    addAdmins: "+ Add admin",
-    name: "Name",
-    email: "Email",
-    role: "Role",
-    deletEdit: "Delete and edit",
-    updateNotifTitle: "Deleted successfully",
-    updateNotifMessage: "An error occurred during deletion",
-    showNotifTitle: "Please wait",
-    showNotifMessage: "The user is being redirected",
-    deleteModalTitle: "Do you want to delete this user",
-    confirm: "Confirmation",
-    cancel: "Cancellation",
-    canselTitle: "You have canceled",
-  },
   emptyBox: "There is no product left in your work",
+
   settings: {
     title: "Settings",
     description: "Program Settings",
+  },
+  spends: {
+    title: "Spends",
+    description: "Spends settings",
   },
   customers: {
     title: "Clients",
     description: "Customer Control Panel",
   },
-
-  stats: {
+  statistics: {
     title: "Statistics",
     description: "Statistical information",
   },
 
-  detail: {
-    mahsulotNomi: "Product Name",
-    mahsulotKodi: "Product Code",
-    asilNarxi: "Original Price",
-    sotuvdagiNarx: "Sale price",
-    valyuta: "In which currency it was purchased",
-    obordagiSoni: "Number in warehouse",
-    sotilganVaqti: "Time Sold",
-    yangilanganVaqti: "Updated Time",
-    tarifBoyicha: "Tariff",
-    toliqMalumot: "More",
-  },
-  roles: {
-    title: "Roles",
-    addRole: "+ Add role",
-    name: "Name",
-    deleteConfirmation:
-      "{name} This worker will log you out, it can't be undone, are you sure?",
-    deleteSuccessMessage: "The user has been removed",
-    deletEdit: "Delete and edit",
-  },
   useNotify: {
     loadTitle: "Succseful",
     loadMsg: "Please Wait",

@@ -1,0 +1,31 @@
+export const paymentsLocaleUz = {
+  title: "To'lov",
+  formTitle: "To'lovlar",
+  salesman: "Sotuvchi",
+  loanInput: "Qarz miqdorini kiriting",
+  amount: "To'lov",
+  select: "To'lov turini tanlang",
+  btnSubmit: "Qo'shish",
+  create: "+ Tolov qo'shish",
+  action: "Amallar",
+  updatedAt: "Yangilangan Vaqti",
+  createdAt: "Yaratilgan Vaqti",
+  payment: "To'lov turi",
+  loan: "Izoh",
+};
+
+export const paymentsLocaleEn = {
+  title: "Payments",
+  formTitle: "Payments",
+  salesman: "Salesman",
+  loanInput: "Enter loan amount",
+  amount: "Payment",
+  select: "Select payment type",
+  btnSubmit: "Submit",
+  create: "+ Add Toll",
+  action: "Actions",
+  updatedAt: "Updated Time",
+  createdAt: "Created Time",
+  payment: "Payment Type",
+  loan: "Comment",
+};

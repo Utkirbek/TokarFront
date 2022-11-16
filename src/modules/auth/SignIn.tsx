@@ -83,7 +83,6 @@ function SignIn() {
           {...form.getInputProps("password")}
           id="password"
           name="password"
-          type={"password"}
           autoComplete={"current-password"}
           required
         />

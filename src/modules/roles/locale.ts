@@ -11,6 +11,7 @@ export const rolesLocaleUz = {
   name: "Nomi",
   deleteConfirmation:
     "{name} Ushbu ishchingiz sizni tizimdan o'chib ketadi, bu ishni ortga qaytarib bo'lmaydi, shunda ham ishonchingiz komilmi?",
+  permission: "Ruxsatlar",
 };
 
 export const rolesLocaleEn = {
@@ -26,4 +27,5 @@ export const rolesLocaleEn = {
   name: "Name",
   deleteConfirmation:
     "{name} This worker will log you out, it can't be undone, are you sure?",
+  permisison: "Permissions",
 };

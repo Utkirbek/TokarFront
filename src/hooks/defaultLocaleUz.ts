@@ -8,8 +8,10 @@ const defaultLocaleUz = {
   loadingDescription: "Iltimos kuting",
   successDescription: "Muaffaqiyatli amalga oshirildi",
   errorDescription: "Xatolik yuz berdi",
-  warningDescription: "Diqqat",
-  infoDescription: "Ma'lumot",
+  title: "Siz rostdan ham ushbu amalni bajarmoqchimisiz?",
+  message: "Bu amalni qaytarib bo'lmaydi",
+  confirm: "Ha",
+  cancel: "Yo'q",
 };
 
 export default defaultLocaleUz;

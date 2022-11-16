@@ -35,12 +35,8 @@ const SpendDrawer: React.FC<{
     showLoadingNotification();
 
     const eventHandlers = {
-      onSuccess: () => {
-        showSuccessNotification();
-      },
-      onError: () => {
-        showErrorNotification();
-      },
+      onSuccess: () => showSuccessNotification(),
+      onError: () => showErrorNotification(),
     };
 
     if (!!editItem._id) editSpend({ id: editItem._id, values }, eventHandlers);
@@ -58,7 +54,8 @@ const SpendDrawer: React.FC<{
           }}
         >
           <FormattedMessage
-            id={!editItem._id ? "expenses.add" : "expenses.edit"}
+            id="expenses.addEdit"
+            values={{ isNew: !editItem._id }}
           />
         </Text>
         <TextInput
@@ -81,16 +78,10 @@ const SpendDrawer: React.FC<{
           {...form.getInputProps("description")}
           required
         />
-        <TextInput
-          label={intl.formatMessage({ id: "expenses.reason" })}
-          placeholder={intl.formatMessage({ id: "expenses.reasonPlaceholder" })}
-          {...form.getInputProps("spendType")}
-          required
-        />
 
         <Group position="right" mt="md">
           <Button type="submit">
-            {!editItem._id ? "Ro'yxatga Qo'shish" : "Saqlash"}
+            <FormattedMessage id="addSmth" values={{ isNew: !editItem._id }} />
           </Button>
         </Group>
       </form>

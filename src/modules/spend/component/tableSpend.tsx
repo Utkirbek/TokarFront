@@ -1,3 +1,4 @@
+import TableHead from "@components/Table/TableHead";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
 import { Button, Drawer, Group, ScrollArea, Table } from "@mantine/core";
@@ -91,17 +92,18 @@ const SpendTable = ({ data }: Props) => {
         </Button>
       </Group>
       <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
-        <thead>
-          <tr>
-            <th>{nameTable?.amount}</th>
-            <th>{nameTable?.paymentMethod}</th>
-            <th>{nameTable?.desc}</th>
-            <th>{nameTable?.spendType}</th>
-            <th>{nameTable?.createdAt}</th>
-            <th>{nameTable?.updatedAt}</th>
-            <th>{nameTable?.delete}</th>
-          </tr>
-        </thead>
+        <TableHead
+          data={{
+            amount: true,
+            paymentMethod: true,
+            desc: true,
+            createdAt: true,
+            updatedAt: true,
+            spendType: true,
+            delete: true,
+          }}
+          prefix={"expenses"}
+        />
         <tbody>{rows}</tbody>
       </Table>
       <Drawer

@@ -96,7 +96,8 @@ function PaymentsTable({ data }: { data: any }) {
       <FormDrawer {...{ opened, toggleOpened }}>
         <ScrollArea
           style={{ height: "100%", paddingBottom: 60 }}
-          scrollbarSize={2}>
+          scrollbarSize={2}
+        >
           <PaymentsForm handleClose={() => toggleOpened(false)} />
         </ScrollArea>
       </FormDrawer>

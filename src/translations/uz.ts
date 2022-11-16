@@ -3,7 +3,9 @@ import defaultLocaleUz from "@hooks/defaultLocaleUz";
 import { adminsLocaleUz } from "@modules/admins/locale";
 import { signInLocaleUz } from "@modules/auth/locale";
 import { kassaLocaleUz } from "@modules/kassa/KassaTable";
+import { loanLocaleUz } from "@modules/loan/locale";
 import { orderLocaleUz } from "@modules/orders/locale";
+import { paymentsLocaleUz } from "@modules/payments/locale";
 import { productsLocaleUz } from "@modules/products/locale/locale";
 import { rolesLocaleUz } from "@modules/roles/locale";
 import { permissionsLocaleUz } from "@modules/settings/locale";
@@ -14,6 +16,7 @@ import commonUz from "./uz/common";
 
 const uz = {
   ...commonUz,
+  default: defaultLocaleUz,
   users: usersLocaleUz,
   expenses: expensesLocaleUz,
   orders: orderLocaleUz,
@@ -24,7 +27,8 @@ const uz = {
   kassa: kassaLocaleUz,
   roles: rolesLocaleUz,
   admins: adminsLocaleUz,
-  default: defaultLocaleUz,
+  loans: loanLocaleUz,
+  payments: paymentsLocaleUz,
   sthWentWrong: "Xatolik yuz berdi",
   emptyBox: "Sizng obringizda maxsulot qolmadi",
 
@@ -40,32 +44,9 @@ const uz = {
     title: "Klientlar",
     description: "Klientlar boshqaruv paneli",
   },
-  loans: {
-    title: "Qarzlar",
-    description: "Qarzlar jadavali",
-    user: "Foydalanuvchi",
-    order: "Suma",
-    amount: "Olingan sanasi",
-    amalar: "Beriladigan sana",
-    foydalanuvchi: "Foydalanuvchi topilmadi",
-  },
-
   statistics: {
     title: "Statistika",
     description: "Statistika ma'lumotlari",
-  },
-
-  detail: {
-    mahsulotNomi: "Mahsulot Nomi",
-    mahsulotKodi: "Mahsulot Kodi",
-    asilNarxi: "Asl Narxi",
-    sotuvdagiNarx: "Sotuvdagi Narxi",
-    valyuta: "Qaysi Valyutada sotib olingani",
-    obordagiSoni: "Ombordagi Soni",
-    sotilganVaqti: "Sotilgan Vaqti",
-    yangilanganVaqti: "Yangilangan Vaqti",
-    tarifBoyicha: "Tarifi",
-    toliqMalumot: "Batafsil",
   },
 
   useNotify: {
@@ -80,26 +61,6 @@ const uz = {
     errorMsg: "Xatolik Berdi",
     cancel: "Bekor qilish",
     confirm: "O'chirish",
-  },
-  notification: {
-    loading: "Yuklanmoqda",
-    success: "Muaffaqiyatli",
-    error: "Xatolik",
-    warning: "Diqqat",
-    info: "Ma'lumot",
-    noData: "Ma'lumot mavjud emas",
-    loadingDescription: "Iltimos kuting",
-    successDescription: "Muaffaqiyatli amalga oshirildi",
-    errorDescription: "Xatolik yuz berdi",
-    warningDescription: "Diqqat",
-    infoDescription: "Ma'lumot",
-  },
-
-  confirmation: {
-    title: "Siz rostdan ham ushbu amalni bajarmoqchimisiz?",
-    message: "Bu amalni qaytarib bo'lmaydi",
-    confirm: "Ha",
-    cancel: "Yo'q",
   },
 };
 

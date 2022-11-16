@@ -11,7 +11,7 @@ export default function LoanTable({ data }: any) {
             user: true,
             order: true,
             amount: true,
-            amalar: true,
+            shouldPay: true,
           }}
           prefix={"loans"}
         />
@@ -22,7 +22,7 @@ export default function LoanTable({ data }: any) {
                 <td>
                   {item.user === null ? (
                     <Text>
-                      <FormattedMessage id="loans.foydalanuvchi" />
+                      <FormattedMessage id="loans.userError" />
                     </Text>
                   ) : (
                     item.user?.name

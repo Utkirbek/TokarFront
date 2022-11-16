@@ -97,8 +97,6 @@ function TableCard() {
               style={{ color: "red", cursor: "pointer" }}
             />
           )}
-        </td>
-        <td>
           <IconPencil
             onClick={onEditClick.bind(null, item)}
             style={{
@@ -123,6 +121,9 @@ function TableCard() {
           <tr>
             <th>
               <FormattedMessage id="roles.name" />
+            </th>
+            <th>
+              <FormattedMessage id="roles.permission" />
             </th>
             <th>
               <FormattedMessage id="action" />

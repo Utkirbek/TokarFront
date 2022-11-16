@@ -78,7 +78,7 @@ const OrdersTable = ({ data }: Props) => {
               });
             }}
           >
-            <FormattedMessage id="products.details" />
+            <FormattedMessage id="more" />
           </Button>
         </td>
       </tr>
@@ -97,7 +97,7 @@ const OrdersTable = ({ data }: Props) => {
             updateOrder: true,
             orderAction: true,
           }}
-          prefix="OrdersDetail"
+          prefix="orders"
         />
         <tbody>{rows}</tbody>
       </Table>
