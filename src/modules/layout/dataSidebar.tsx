@@ -5,6 +5,7 @@ import {
   IconList,
   IconListDetails,
   IconMoneybag,
+  IconReportMoney,
   IconSettingsAutomation,
   IconUserCircle,
   IconUsers,
@@ -29,7 +30,7 @@ const data = [
     id: 3,
     link: "/spend",
     label: "spends.title",
-    icon: IconUsers,
+    icon: IconReportMoney,
     permission: "spends.view",
   },
   {

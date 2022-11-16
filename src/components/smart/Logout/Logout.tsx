@@ -4,12 +4,13 @@ import { Avatar, Menu, Text } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import { useSpotlight } from "@mantine/spotlight";
 import {
+  IconBarcode,
+  IconChartLine,
   IconLogout,
-  IconReportMoney,
   IconSearch,
-  IconUser,
 } from "@tabler/icons";
 import { removeCookies } from "cookies-next";
+import { useRouter } from "next/router";
 import { FormattedMessage } from "react-intl";
 
 export const logOutUz = {
@@ -17,8 +18,8 @@ export const logOutUz = {
   description: "Chiqish panelini boshqarish",
   children: "Bu profildan chindan xam chiqmoqchimisiz",
   menuLabel: "Ilovalar",
-  menuEnter: "Profilga kirish",
-  menuLoan: "Qarzdorlar",
+  menuProduct: "Maxsulotlar",
+  menuStatiks: "Statistika",
   menuSearch: "Qidiruv",
   menuDanger: "Xavfli",
 };
@@ -28,8 +29,8 @@ export const logOutEn = {
   description: "Logout Control Panel",
   children: "Are you sure you want to leave this profile?",
   menuLabel: "Applications",
-  menuEnter: "Enter profile",
-  menuLoan: "Debtors",
+  menuProduct: "Products",
+  menuStatiks: "Statistiks",
   menuSearch: "Search",
   menuDanger: "Dangerous",
 };
@@ -37,6 +38,7 @@ export const logOutEn = {
 const Logout = () => {
   const { logout } = useUser();
   const spotlight = useSpotlight();
+  const router = useRouter();
   const { openConfirm } = useConfirmation();
 
   const openNotifDelete = () => {
@@ -76,11 +78,21 @@ const Logout = () => {
           <Menu.Label>
             <FormattedMessage id="logout.menuLabel" />
           </Menu.Label>
-          <Menu.Item icon={<IconUser size={18} />}>
-            <FormattedMessage id="logout.menuEnter" />
+          <Menu.Item
+            onClick={() => {
+              router.push("/products");
+            }}
+            icon={<IconBarcode size={18} />}
+          >
+            <FormattedMessage id="logout.menuProduct" />
           </Menu.Item>
-          <Menu.Item icon={<IconReportMoney size={18} />}>
-            <FormattedMessage id="logout.menuLoan" />
+          <Menu.Item
+            onClick={() => {
+              router.push("/");
+            }}
+            icon={<IconChartLine size={18} />}
+          >
+            <FormattedMessage id="logout.menuStatiks" />
           </Menu.Item>
           <Menu.Item
             icon={<IconSearch size={18} />}
