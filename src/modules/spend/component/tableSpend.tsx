@@ -6,7 +6,7 @@ import { useToggle } from "@mantine/hooks";
 import useSpend from "@services/hooks/useSpend";
 import { IconPencil, IconTrash } from "@tabler/icons";
 import { useState } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 
 import { nameTable } from "../const/tableconst";
 import SpendDrawer from "./spendDrawer";
@@ -65,8 +65,26 @@ const SpendTable = ({ data }: Props) => {
         <td>{item?.paymentMethod}</td>
         <td>{item?.description}</td>
         <td>{item?.spendType}</td>
-        <td>{item?.createdAt}</td>
-        <td>{item?.updatedAt}</td>
+        <td>
+          <FormattedTime value={item?.createdAt} />
+          ,&nbsp;
+          <FormattedDate
+            value={item?.createdAt}
+            month="numeric"
+            year="numeric"
+            day="numeric"
+          />
+        </td>
+        <td>
+          <FormattedTime value={item.updatedAt} />
+          ,&nbsp;
+          <FormattedDate
+            value={item.updatedAt}
+            month="numeric"
+            year="numeric"
+            day="numeric"
+          />
+        </td>
         <td>
           <IconTrash
             onClick={() => openDeleteModal(item._id, item.name)}
@@ -97,9 +115,9 @@ const SpendTable = ({ data }: Props) => {
             amount: true,
             paymentMethod: true,
             desc: true,
+            spendType: true,
             createdAt: true,
             updatedAt: true,
-            spendType: true,
             delete: true,
           }}
           prefix={"expenses"}

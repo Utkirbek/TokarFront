@@ -5,6 +5,7 @@ export const expensesLocaleUz = {
   createdAt: "Yaratilgan Vaqti",
   updatedAt: "Yangilangan Vaqti",
   spendType: "Nima uchun",
+  spendTypePlaceholder: "Nima uchun, kiriting",
   delete: "Amallar",
   title: "Xarajatlar",
   type: "Xarajat Turi",

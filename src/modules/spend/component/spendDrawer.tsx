@@ -1,7 +1,8 @@
 import useNotification from "@hooks/useNotification";
-import { Box, Button, Group, Text, TextInput } from "@mantine/core";
+import { Box, Button, Group, Select, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import useSpend from "@services/hooks/useSpend";
+import { IconChevronDown } from "@tabler/icons";
 import { FormattedMessage, useIntl } from "react-intl";
 
 const SpendDrawer: React.FC<{
@@ -64,11 +65,17 @@ const SpendDrawer: React.FC<{
           {...form.getInputProps("amount")}
           required
         />
-        <TextInput
-          label={intl.formatMessage({ id: "expenses.type" })}
-          placeholder={intl.formatMessage({ id: "expenses.typePlaceholder" })}
+        <Select
+          sx={{ width: "100%", margin: "20px  0" }}
+          rightSection={<IconChevronDown size={14} />}
+          rightSectionWidth={30}
+          placeholder={intl.formatMessage({
+            id: "payments.select",
+          })}
+          styles={{ rightSection: { pointerEvents: "none" } }}
+          label={intl.formatMessage({ id: "payments.select" })}
+          data={["Click", "Terminal", "Naqt", "Bo'lib To'lash"]}
           {...form.getInputProps("paymentMethod")}
-          required
         />
         <TextInput
           label={intl.formatMessage({ id: "expenses.comment" })}
@@ -76,6 +83,15 @@ const SpendDrawer: React.FC<{
             id: "expenses.commentPlaceholder",
           })}
           {...form.getInputProps("description")}
+          required
+        />
+        <TextInput
+          style={{ margin: "20px 0" }}
+          label={intl.formatMessage({ id: "expenses.spendType" })}
+          placeholder={intl.formatMessage({
+            id: "expenses.spendTypePlaceholder",
+          })}
+          {...form.getInputProps("spendType")}
           required
         />
 
