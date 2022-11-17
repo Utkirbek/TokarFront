@@ -1,5 +1,7 @@
 import useUser from "@hooks/shared/useUser";
 import {
+  Anchor,
+  BackgroundImage,
   Box,
   Button,
   Group,
@@ -17,6 +19,8 @@ import { useErrorHandler } from "react-error-boundary";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useSWRConfig } from "swr";
 
+import useStyles from "./signInStyle";
+
 function SignIn() {
   const [status, setStatus] = useState<
     "idle" | "success" | "error" | "loading"
@@ -25,6 +29,7 @@ function SignIn() {
   const { authorize } = useUser();
   const handleError = useErrorHandler();
   const intl = useIntl();
+  const { classes } = useStyles();
 
   const router = useRouter();
   const form = useForm({
@@ -61,37 +66,55 @@ function SignIn() {
   };
 
   return (
-    <Box sx={{ maxWidth: 340, margin: "10% 0" }} mx="auto">
-      <form onSubmit={form.onSubmit(handleSubmit)}>
-        <Text sx={{ fontSize: "24px", textAlign: "center", fontWeight: 600 }}>
-          <FormattedMessage id="signIn.title" />
-        </Text>
-        <TextInput
-          label={intl.formatMessage({ id: "signIn.textLabel" })}
-          placeholder={intl.formatMessage({ id: "signIn.textPlaceholder" })}
-          {...form.getInputProps("email")}
-          sx={{ margin: "20px 0" }}
-          id="email"
-          name="email"
-          type="email"
-          autocomplete="username"
-          required
-        />
-        <PasswordInput
-          label={intl.formatMessage({ id: "signIn.passwordLabel" })}
-          placeholder={intl.formatMessage({ id: "signIn.passwordPlaceholder" })}
-          {...form.getInputProps("password")}
-          id="password"
-          name="password"
-          autoComplete={"current-password"}
-          required
-        />
-        <Group position="right" mt="md">
-          <Button loading={status === "loading"} type="submit">
-            <FormattedMessage id="submit" />
-          </Button>
-        </Group>
-      </form>
+    <Box sx={{ width: "100%", height: "100%" }}>
+      <BackgroundImage
+        src="https://t3.ftcdn.net/jpg/04/17/77/78/360_F_417777825_v7o8RvkQhxpZkE0ZBD4xwzri5hGFHkO3.jpg"
+        radius="sm"
+        sx={{ width: "100%", height: "100vh", filter: "" }}
+      >
+        <Box className={classes.boxForm}>
+          <Box className={classes.boxLeft}>
+            <form onSubmit={form.onSubmit(handleSubmit)}>
+              <Text
+                sx={{ fontSize: "32px", textAlign: "center", fontWeight: 900 }}
+              >
+                <FormattedMessage id="signIn.title" />
+              </Text>
+              <TextInput
+                withAsterisk
+                label={intl.formatMessage({
+                  id: "signIn.textLabel",
+                })}
+                placeholder={intl.formatMessage({
+                  id: "signIn.textPlaceholder",
+                })}
+                {...form.getInputProps("email")}
+                sx={{ margin: "20px 0" }}
+                id="email"
+                name="email"
+                type="email"
+                required
+              />
+              <PasswordInput
+                label={intl.formatMessage({ id: "signIn.passwordLabel" })}
+                placeholder={intl.formatMessage({
+                  id: "signIn.passwordPlaceholder",
+                })}
+                {...form.getInputProps("password")}
+                id="password"
+                name="password"
+                autoComplete={"current-password"}
+                required
+              />
+              <Group position="right" mt="md">
+                <Button loading={status === "loading"} type="submit">
+                  <FormattedMessage id="submit" />
+                </Button>
+              </Group>
+            </form>
+          </Box>
+        </Box>
+      </BackgroundImage>
     </Box>
   );
 }
