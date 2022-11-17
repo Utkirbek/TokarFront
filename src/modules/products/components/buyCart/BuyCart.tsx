@@ -13,7 +13,7 @@ import { useForm } from "@mantine/form";
 import loan from "@modules/loan";
 import usePayments from "@services/hooks/usePayments";
 import { IconTrash } from "@tabler/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useCart } from "react-use-cart";
 
@@ -41,6 +41,7 @@ const BuyCart: React.FC<{}> = () => {
     emptyCart,
     getItem,
     totalItems,
+    inCart,
   } = useCart();
 
   const form = useForm({
@@ -112,7 +113,8 @@ const BuyCart: React.FC<{}> = () => {
                         )}
 
                         <Text>
-                          {item.price}_{item.currency?.name}
+                          {item.price}
+                          _UZS
                         </Text>
 
                         <Box className={classes.boxGroupCountTrash}>
@@ -123,8 +125,7 @@ const BuyCart: React.FC<{}> = () => {
                               }
                               className={classes.btnCount}
                               variant={"outline"}
-                              compact
-                            >
+                              compact>
                               -
                             </Button>
                             <Text size="md">{item.quantity}</Text>
@@ -134,8 +135,7 @@ const BuyCart: React.FC<{}> = () => {
                               }
                               className={classes.btnCount}
                               variant={"outline"}
-                              compact
-                            >
+                              compact>
                               +
                             </Button>
                           </Box>
@@ -154,12 +154,14 @@ const BuyCart: React.FC<{}> = () => {
             <Box>
               <Card className={classes.cardPrice}>
                 <Box className={classes.totalpriceGrup}>
-                  <Text sx={{ fontSize: "18px", fontWeight: 900 }}>
+                  <Text
+                    sx={{ width: "80%", fontSize: "18px", fontWeight: 900 }}>
                     <FormattedMessage id="products.buyCart.totalPrice" />
                   </Text>
-                  <Text sx={{ fontSize: "20px", fontWeight: 900 }}>
+                  <Text sx={{ fontSize: "20px", fontWeight: 700 }}>
                     {cartTotal}
                   </Text>
+                  <Text sx={{ fontSize: "20px", fontWeight: 700 }}>UZS</Text>
                 </Box>
 
                 <Box className={classes.payMoney}>
@@ -172,8 +174,7 @@ const BuyCart: React.FC<{}> = () => {
                         <Box
                           className={classes.cardSuma}
                           style={item.id === activeId ? activeStyle : {}}
-                          onClick={handleClick(item)}
-                        >
+                          onClick={handleClick(item)}>
                           <item.icon
                             size={50}
                             onClick={() => clickWallet({ item })}
@@ -220,8 +221,7 @@ const BuyCart: React.FC<{}> = () => {
                   salesman: salesmanTitle,
                   loan: loanTitle,
                 })
-              }
-            >
+              }>
               <FormattedMessage id="products.buyCart.sale" />
             </Button>
           </Box>
