@@ -36,6 +36,7 @@ const uz = {
   payments: paymentsLocaleUz,
   sthWentWrong: "Xatolik yuz berdi",
   emptyBox: "Sizng obringizda maxsulot qolmadi",
+  pageNotFound: "sahifa topilmadi",
 
   settings: {
     title: "Sozlamalar",
@@ -67,6 +68,27 @@ const uz = {
     cancel: "Bekor qilish",
     confirm: "O'chirish",
   },
+  notification: {
+    loading: "Yuklanmoqda",
+    success: "Muaffaqiyatli",
+    error: "Xatolik",
+    warning: "Diqqat",
+    info: "Ma'lumot",
+    noData: "Ma'lumot mavjud emas",
+    loadingDescription: "Iltimos kuting",
+    successDescription: "Muaffaqiyatli amalga oshirildi",
+    errorDescription: "Xatolik yuz berdi",
+    warningDescription: "Diqqat",
+    infoDescription: "Ma'lumot",
+  },
+
+  confirmation: {
+    title: "Siz rostdan ham ushbu amalni bajarmoqchimisiz?",
+    message: "Bu amalni qaytarib bo'lmaydi",
+    confirm: "Ha",
+    cancel: "Yo'q",
+  },
+  
 };
 
 export default uz;

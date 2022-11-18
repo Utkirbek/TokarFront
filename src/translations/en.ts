@@ -31,6 +31,7 @@ const en = {
   payments: paymentsLocaleEn,
   sthWentWrong: "Something went wrong",
   emptyBox: "There is no product left in your work",
+  pageNotFound: "Page Not Found",
 
   settings: {
     title: "Settings",
