@@ -14,7 +14,7 @@ import { expensesLocaleUz } from "@modules/spend/locale";
 import { usersLocaleUz } from "@modules/users/locale/locale";
 import { checkTilUz, userTilUz } from "@modules/users/locale/localetil";
 
-import commonUz from "./uz/common";
+import { commonUz } from "./common/common";
 
 const uz = {
   ...commonUz,

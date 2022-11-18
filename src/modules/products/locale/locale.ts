@@ -17,6 +17,7 @@ export const productsLocaleUz = {
   userShow: "Foydalanuvchilar chiqadi",
   day: "Necha kunga",
   title: "Mahsulotlar",
+  buy: "Sotish",
 
   form: {
     takePicture: "Rasmni olib tashlash",
@@ -78,6 +79,7 @@ export const productsLocaleEn = {
   userShow: "Users show",
   say: "How many days",
   title: "Products",
+  buy: "Buy",
 
   form: {
     takePicture: "Remove picture",

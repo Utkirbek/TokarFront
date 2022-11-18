@@ -8,6 +8,8 @@ import { NextPage } from "next";
 import { useRef } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import LanguagePicker from "@/translations/language";
+
 const Settings: NextPage = () => {
   const newPermRef = useRef<HTMLInputElement>(null);
   const intl = useIntl();
@@ -48,6 +50,9 @@ const Settings: NextPage = () => {
 
   return (
     <WithLoading query={permissionsQuery}>
+      <div style={{ position: "absolute", top: 120, right: 15 }}>
+        <LanguagePicker />
+      </div>
       <h1>
         <FormattedMessage id="perms.perm.allow" />
       </h1>

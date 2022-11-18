@@ -5,16 +5,17 @@ import { signInLocaleEn } from "@modules/auth/locale";
 import { kassaLocaleEn } from "@modules/kassa/KassaTable";
 import { loanLocaleEn } from "@modules/loan/locale";
 import { orderLocaleEn } from "@modules/orders/locale";
+import { paymentsLocaleEn } from "@modules/payments/locale";
 import { productsLocaleEn } from "@modules/products/locale/locale";
 import { rolesLocaleEn } from "@modules/roles/locale";
 import { permissionsLocaleEn } from "@modules/settings/locale";
 import { expensesLocaleEn } from "@modules/spend/locale";
 import { usersLocaleEn } from "@modules/users/locale/locale";
 
-import commonUz from "./uz/common";
+import { commonEn } from "./common/common";
 
 const en = {
-  ...commonUz,
+  ...commonEn,
   default: defaultLocaleEn,
   users: usersLocaleEn,
   expenses: expensesLocaleEn,
@@ -27,6 +28,7 @@ const en = {
   roles: rolesLocaleEn,
   admins: adminsLocaleEn,
   loans: loanLocaleEn,
+  payments: paymentsLocaleEn,
   sthWentWrong: "Something went wrong",
   emptyBox: "There is no product left in your work",
 
