@@ -1,5 +1,5 @@
 import ErrorFallbackUI from "@components/ErrorFallbackUI";
-import FallbackLoadingUi from "@components/FallBackLoadingUi";
+import FallbackSkeletonUI from "@components/skeleton/FallbackSkeletonUI";
 import React from "react";
 import { SWRResponse } from "swr";
 
@@ -17,7 +17,7 @@ const WithLoading = (props: Props) => {
   const {
     children,
     query,
-    FallbackLoadingUI = FallbackLoadingUi,
+    FallbackLoadingUI = FallbackSkeletonUI,
     FallbackErrorUI = ErrorFallbackUI,
   } = props;
   const { data, error } = query;

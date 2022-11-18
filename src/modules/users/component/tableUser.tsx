@@ -1,7 +1,5 @@
 import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import If from "@components/smart/If";
-import WithLoading from "@hoc/WithLoading";
-import useUser from "@hooks/shared/useUser";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
 import {
@@ -10,29 +8,19 @@ import {
   Checkbox,
   Drawer,
   Group,
-  Loader,
   ScrollArea,
   Table,
-  Text,
   useMantineTheme,
 } from "@mantine/core";
-import { openConfirmModal } from "@mantine/modals";
-import { showNotification, updateNotification } from "@mantine/notifications";
-import Error from "@modules/products/components/ProductsTable/components/Error";
 import useStyles from "@modules/products/components/ProductsTable/ProductTableStyle";
-import userFetcher from "@services/api/userFetcher";
 import useUsers from "@services/hooks/useUser";
-import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
-import { Permissions, RequestQueryKeys } from "@utils/constants";
+import { IconPencil, IconTrash } from "@tabler/icons";
+import { Permissions } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
-import dynamic from "next/dynamic";
 import { useCallback, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import useSWR, { useSWRConfig } from "swr";
 
 import NewUser from "../NewUser";
-
-
 
 type Props = {
   data?: any;
@@ -42,7 +30,6 @@ const TableUser = ({ data }: Props) => {
   const [editItem, setEditItem] = useState({});
   const [opened, setOpened] = useState(false);
   const theme = useMantineTheme();
- 
 
   const {
     showLoadingNotification,
@@ -94,7 +81,6 @@ const TableUser = ({ data }: Props) => {
     [data]
   );
 
-  
   if (data?.length === 0) return <EmptyBox />;
 
   const rows = data?.map((item: any) => {
@@ -164,6 +150,7 @@ const TableUser = ({ data }: Props) => {
             setOpened(false);
           }}
           editItem={editItem}
+          data={data}
         />
       </Drawer>
       <Group position="right" mx={"xl"}>

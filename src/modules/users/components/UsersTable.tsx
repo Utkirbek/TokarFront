@@ -1,6 +1,7 @@
 import SearchAutoComplete from "@components/SearchAutoComplete";
 import If from "@components/smart/If";
 import TableHead from "@components/Table/TableHead";
+import WithLoading from "@hoc/WithLoading";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
 import {
@@ -10,6 +11,7 @@ import {
   Drawer,
   Group,
   ScrollArea,
+  Skeleton,
   Table,
   useMantineTheme,
 } from "@mantine/core";
@@ -26,6 +28,7 @@ import { FormattedMessage } from "react-intl";
 import { usersTableHead } from "../constants";
 import NewUser from "../NewUser";
 
+
 function UsersTable({ data }: any) {
   const {
     showLoadingNotification,
@@ -40,12 +43,17 @@ function UsersTable({ data }: any) {
   const [opened, toggleOpened] = useToggle();
   const [searchResults, setSearchResults] = useState([]);
 
+ const { useFetchUsers } = useUsers();
+
+ const usersQuery = useFetchUsers();
+ const { data:user } = usersQuery;
   const rows = (searchResults.length > 0 ? searchResults : data).map(
     (item: any) => {
       const handleEdit = () => {
         setEditItem(item);
         toggleOpened();
       };
+
 
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const theme = useMantineTheme();
@@ -146,10 +154,9 @@ function UsersTable({ data }: any) {
           position="right"
           sx={{ height: "120vh" }}
         >
-          <NewUser
-            handleClose={() => toggleOpened(false)}
-            editItem={editItem}
-          />
+            <NewUser
+              handleClose={() => toggleOpened(false)}
+              editItem={editItem} data={user}            />
         </Drawer>
       </If>
 
