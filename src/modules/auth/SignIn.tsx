@@ -73,8 +73,11 @@ function SignIn() {
         sx={{ width: "100%", height: "100vh", filter: "" }}
       >
         <Box className={classes.boxForm}>
-          <Box className={classes.boxLeft}>
-            <form onSubmit={form.onSubmit(handleSubmit)}>
+          <Box>
+            <form
+              className={classes.boxLeft}
+              onSubmit={form.onSubmit(handleSubmit)}
+            >
               <Text
                 sx={{ fontSize: "32px", textAlign: "center", fontWeight: 900 }}
               >

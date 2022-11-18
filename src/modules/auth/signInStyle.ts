@@ -12,10 +12,8 @@ const useStyles = createStyles(() => ({
   boxLeft: {
     width: 550,
     height: 450,
-    display: "flex",
-    marginLeft: 100,
-    justifyItems: "center",
-    alignItems: "center",
+    padding: "70px 110px",
+    color: "white",
   },
 }));
 
