@@ -1,3 +1,4 @@
+import ComponentToPrint from "@components/print/ComponentToPrint";
 import useNotification from "@hooks/useNotification";
 import {
   Box,
@@ -10,11 +11,11 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import loan from "@modules/loan";
 import usePayments from "@services/hooks/usePayments";
 import { IconTrash } from "@tabler/icons";
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { useReactToPrint } from "react-to-print";
 import { useCart } from "react-use-cart";
 
 import datas from "./data";
@@ -31,6 +32,11 @@ const BuyCart: React.FC<{}> = () => {
   const { addPayments } = usePayments();
   const { showLoadingNotification, showSuccessNotification } =
     useNotification();
+  const componentRef = useRef(null);
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   const {
     isEmpty,
@@ -90,6 +96,15 @@ const BuyCart: React.FC<{}> = () => {
   const clickWallet = ({ item }: any) => {
     item.bolin === true ? setWallet(true) : setWallet(false);
   };
+  function add() {
+    handlePrint;
+    handleSubmit({
+      amount: cartTotal,
+      paymentMethod: paymenttitle,
+      salesman: salesmanTitle,
+      loan: loanTitle,
+    });
+  }
 
   return (
     <>
@@ -125,7 +140,8 @@ const BuyCart: React.FC<{}> = () => {
                               }
                               className={classes.btnCount}
                               variant={"outline"}
-                              compact>
+                              compact
+                            >
                               -
                             </Button>
                             <Text size="md">{item.quantity}</Text>
@@ -135,7 +151,8 @@ const BuyCart: React.FC<{}> = () => {
                               }
                               className={classes.btnCount}
                               variant={"outline"}
-                              compact>
+                              compact
+                            >
                               +
                             </Button>
                           </Box>
@@ -155,7 +172,8 @@ const BuyCart: React.FC<{}> = () => {
               <Card className={classes.cardPrice}>
                 <Box className={classes.totalpriceGrup}>
                   <Text
-                    sx={{ width: "80%", fontSize: "18px", fontWeight: 900 }}>
+                    sx={{ width: "80%", fontSize: "18px", fontWeight: 900 }}
+                  >
                     <FormattedMessage id="products.buyCart.totalPrice" />
                   </Text>
                   <Text sx={{ fontSize: "20px", fontWeight: 700 }}>
@@ -174,7 +192,8 @@ const BuyCart: React.FC<{}> = () => {
                         <Box
                           className={classes.cardSuma}
                           style={item.id === activeId ? activeStyle : {}}
-                          onClick={handleClick(item)}>
+                          onClick={handleClick(item)}
+                        >
                           <item.icon
                             size={50}
                             onClick={() => clickWallet({ item })}
@@ -212,18 +231,16 @@ const BuyCart: React.FC<{}> = () => {
                 ) : null}
               </Card>
             </Box>
-            <Button
-              className={classes.buyBtn}
-              onClick={() =>
-                handleSubmit({
-                  amount: cartTotal,
-                  paymentMethod: paymenttitle,
-                  salesman: salesmanTitle,
-                  loan: loanTitle,
-                })
-              }>
+            <Button className={classes.buyBtn} onClick={handlePrint}>
               <FormattedMessage id="products.buyCart.sale" />
             </Button>
+            <Box
+              style={{
+                display: "none",
+              }}
+            >
+              <ComponentToPrint ref={componentRef} />
+            </Box>
           </Box>
         </Container>
       </Box>

@@ -11,7 +11,7 @@ type Props = {
 
 const ProductDetails = ({ data }: Props) => {
   const router = useRouter();
-  const { classes, cx } = useStyles();
+  const { classes } = useStyles();
 
   const query = queryString.parse(router.asPath.split("?")[1]);
   const item = findItem(data, query.details as string);

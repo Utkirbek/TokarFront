@@ -4,6 +4,7 @@ import { adminsLocaleUz } from "@modules/admins/locale";
 import { signInLocaleUz } from "@modules/auth/locale";
 import { kassaLocaleUz } from "@modules/kassa/KassaTable";
 import { loanLocaleUz } from "@modules/loan/locale";
+import tableNameData from "@modules/orders/const/tableTitleName";
 import { orderLocaleUz } from "@modules/orders/locale";
 import { paymentsLocaleUz } from "@modules/payments/locale";
 import { productsLocaleUz } from "@modules/products/locale/locale";
@@ -11,6 +12,7 @@ import { rolesLocaleUz } from "@modules/roles/locale";
 import { permissionsLocaleUz } from "@modules/settings/locale";
 import { expensesLocaleUz } from "@modules/spend/locale";
 import { usersLocaleUz } from "@modules/users/locale/locale";
+import { checkTilUz, userTilUz } from "@modules/users/locale/localetil";
 
 import commonUz from "./uz/common";
 
@@ -27,6 +29,9 @@ const uz = {
   kassa: kassaLocaleUz,
   roles: rolesLocaleUz,
   admins: adminsLocaleUz,
+  userTil: userTilUz,
+  checks: checkTilUz,
+  orderTil: tableNameData,
   loans: loanLocaleUz,
   payments: paymentsLocaleUz,
   sthWentWrong: "Xatolik yuz berdi",
