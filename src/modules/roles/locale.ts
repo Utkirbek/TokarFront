@@ -27,5 +27,5 @@ export const rolesLocaleEn = {
   name: "Name",
   deleteConfirmation:
     "{name} This worker will log you out, it can't be undone, are you sure?",
-  permisison: "Permissions",
+  permission: "Permissions",
 };

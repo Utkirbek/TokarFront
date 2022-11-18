@@ -1,4 +1,5 @@
 export const permissionsLocaleUz = {
+  permissions: { all: "Barcha ruxsatlar" },
   permissions_all: "Barcha ruxsatlar",
   permissions_add: "Ruxsat qo'shish",
   permissions_edit: "Ruxsatni tahrirlash",
@@ -60,6 +61,7 @@ export const permissionsLocaleRu = {
 };
 
 export const permissionsLocaleEn = {
+  permissions: { all: "All permissions" },
   permissions_all: "All permissions",
   permissions_add: "Add permission",
   permissions_edit: "Edit Permission",
@@ -89,7 +91,7 @@ export const permissionsLocaleEn = {
   orders_edit: "Edit orders",
   orders_delete: "Delete orders",
   orders_view: "View orders",
-  kassa_view: "Check registers view",
+  kassas_view: "Check registers view",
   statistics_view: "View Statistics",
   perm: {
     allow: "Permitted Actions",

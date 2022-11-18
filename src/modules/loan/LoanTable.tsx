@@ -1,8 +1,9 @@
 import TableHead from "@components/Table/TableHead";
 import { ScrollArea, Table, Text } from "@mantine/core";
+import { memo } from "react";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 
-export default function LoanTable({ data }: any) {
+function LoanTable({ data }: any) {
   return (
     <ScrollArea>
       <Table style={{ marginTop: 70 }}>
@@ -57,3 +58,4 @@ export default function LoanTable({ data }: any) {
     </ScrollArea>
   );
 }
+export default memo(LoanTable);
