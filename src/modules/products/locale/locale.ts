@@ -57,6 +57,7 @@ export const productsLocaleUz = {
     whom: "Kimga",
     noProduct: "Sizda mahsulot qolmadi",
     enterDay: "Muddatni Kiriting",
+    som: "so'm",
   },
 };
 
