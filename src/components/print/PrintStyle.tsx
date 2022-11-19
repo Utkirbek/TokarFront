@@ -58,7 +58,7 @@ const useStyles = createStyles((theme) => ({
   },
   textColor: {
     color: "black",
-    fontSize: "10px",
+    fontSize: "26px",
   },
 }));
 

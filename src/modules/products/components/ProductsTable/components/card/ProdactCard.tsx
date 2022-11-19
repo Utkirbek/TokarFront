@@ -1,7 +1,7 @@
-import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
-import { Box, Button, Flex, Grid, Image, Loader, Text } from "@mantine/core";
+import ComponentToPrint from "@components/print/ComponentToPrint";
+import { Box, Button, Flex, Grid, Image, Text } from "@mantine/core";
 import BuyCart from "@modules/products/components/buyCart/BuyCart";
-import { IconPhoto } from "@tabler/icons";
+import { IconMinus, IconPhoto, IconPlus } from "@tabler/icons";
 import { memo } from "react";
 import { FormattedMessage } from "react-intl";
 import { useCart } from "react-use-cart";
@@ -14,8 +14,6 @@ function ProdactCard({ data }: any) {
   const handleOpenCartBuy = (el: any) => {
     addItem({ id: el._id, ...el });
   };
-  if (!data) return <Loader sx={{ margin: "20%  45%" }} size={"xl"} />;
-  if (data?.length === 0) return <EmptyBox />;
 
   return (
     <Grid
@@ -61,21 +59,22 @@ function ProdactCard({ data }: any) {
                       )}
                     </Text>
                     <Text fz="sm" fw={500}>
-                      {item.price} {item.currency.name}
+                      {item.price} {item.currency?.name}
                     </Text>
                   </Box>
                   <Box className={classes.cardButton}>
-                    <Button
-                      size="xs"
-                      variant="outline"
-                      onClick={() => handleOpenCartBuy(item)}
-                    >
-                      <FormattedMessage id="buyCart.sotish" />
-                    </Button>
-                    <Text>
-                      {item.code}_
-                      <FormattedMessage id="buyCart.kodi" />
-                    </Text>
+                    <Button.Group>
+                      <Button variant="outline" size="sm">
+                        <IconMinus size={20} />
+                      </Button>
+                      <Button
+                        size="sm"
+                        onClick={() => handleOpenCartBuy(item)}
+                        variant="outline"
+                      >
+                        <IconPlus size={20} />
+                      </Button>
+                    </Button.Group>
                   </Box>
                 </Box>
               </Box>

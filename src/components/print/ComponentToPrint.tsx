@@ -1,4 +1,6 @@
-import { Box, Image, Table, Text } from "@mantine/core";
+import Logo from "@assets/images/logo.jpg";
+import useUser from "@hooks/shared/useUser";
+import { Box, Image, Text } from "@mantine/core";
 import Link from "next/link";
 import React from "react";
 import { FormattedDate, FormattedMessage } from "react-intl";
@@ -11,6 +13,7 @@ type Props = {};
 const ComponentToPrint = React.forwardRef((props: Props, ref: any) => {
   const { items, cartTotal } = useCart();
   const { classes } = useStyles();
+  const { name } = useUser();
 
   const ths = (
     <Box className={classes.head}>
@@ -35,9 +38,12 @@ const ComponentToPrint = React.forwardRef((props: Props, ref: any) => {
   const rows = items?.map((item) => {
     return (
       <Box key={item._id} className={classes.flexC}>
-        <Text className={classes.textColor}>*{item.title}</Text>
         <Text className={classes.textColor}>
-          {item.price} <FormattedMessage id="checks.som" />
+          *{item.title} * SONI {item?.quantity}x
+        </Text>
+        <Text className={classes.textColor}>
+          {/* @ts-ignore */}
+          {item.price * item?.quantity} <FormattedMessage id="checks.som" />
         </Text>
       </Box>
     );
@@ -45,8 +51,12 @@ const ComponentToPrint = React.forwardRef((props: Props, ref: any) => {
 
   return (
     <Box ref={ref} className={classes.widt}>
-      <Text className={classes.title}>TOKAR.UZ</Text>
+      <Text className={classes.title}>YAXSHI NIYAT</Text>
       <Box>
+        <Box className={classes.flexC}>
+          <Text className={classes.textColor}>Savdogar</Text>
+          <Text className={classes.textColor}>{name}</Text>
+        </Box>
         <Box className={classes.row}>{rows}</Box>
         <Box>{ths}</Box>
         <Box className={classes.marWidth}>
