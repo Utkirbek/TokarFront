@@ -26,7 +26,6 @@ function ProdactCard({ data }: any) {
       <Grid.Col span={isEmpty ? 12 : 8}>
         <Flex wrap="wrap" justify="flex-start" gap="xl">
           {data.map((item: any) => {
-            console.log(item);
             return (
               <Box key={item._id} className={classes.card}>
                 {item.image === "" || null ? (

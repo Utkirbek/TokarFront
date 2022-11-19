@@ -1,4 +1,3 @@
-import ButtonToggleDark from "@components/darkmode/Darkmode";
 import If from "@components/smart/If";
 import Logout from "@components/smart/Logout";
 import { selectIsLoggedIn } from "@hooks/selectors";
@@ -30,7 +29,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
   const isLoggedIn = useUser(selectIsLoggedIn);
   const token = getCookie("token");
   const [activeId, setActiveId] = useState(null);
-  const [add, setAdd] = useState(false);
+  const [fullView, toggleFullView] = useToggle();
 
   const activeStyle = {
     background: "#1864AB",
@@ -48,14 +47,21 @@ function DashLayout({ children }: { children: React.ReactNode }) {
           href={item.link}
           style={item.id === activeId ? activeStyle : {}}
           onClick={() => setActiveId(item.id)}
-          className={cx(classes.link, "test", {
-            sidebarLink: item.link === router.pathname,
+          className={cx(classes.link, {
+            linkActive: item.link === router.pathname,
           })}
         >
-          <item.icon className={classes.linkIcon} stroke={1.5} />
-          <Text>
-            <FormattedMessage id={item.label} />
-          </Text>
+          <item.icon
+            className={cx(classes.linkIcon, {
+              iconFull: !fullView,
+            })}
+            stroke={1.5}
+          />
+          <If condition={fullView}>
+            <Text>
+              <FormattedMessage id={item.label} />
+            </Text>
+          </If>
         </Link>
       </If>
     );
@@ -75,42 +81,62 @@ function DashLayout({ children }: { children: React.ReactNode }) {
       asideOffsetBreakpoint="sm"
       navbar={
         <Navbar
-          p="md"
           hiddenBreakpoint="sm"
           hidden={!opened}
-          width={{ sm: 200, lg: 270 }}
+          width={{
+            sm: fullView ? 200 : "min-content",
+            lg: fullView ? 220 : "min-content",
+          }}
+          sx={{
+            position: !fullView ? "static" : "fixed",
+          }}
+          p={fullView ? "md" : 0}
         >
-          <Box className={classes.container}>{links}</Box>
+          <Box className={classes.container} m={0}>
+            {!fullView && (
+              <Text className={classes.link}>
+                <Burger
+                  size={"sm"}
+                  opened={fullView}
+                  onClick={() => toggleFullView()}
+                />
+              </Text>
+            )}
+
+            {links}
+          </Box>
         </Navbar>
       }
       header={
-        <Header height={70} p="md">
-          <Box
-            style={{ display: "flex", alignItems: "center", height: "100%" }}
-          >
-            <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-              <Burger
-                opened={opened}
-                onClick={() => toggleOpened()}
-                size="sm"
-                color={theme.colors.gray[6]}
-                mr="xl"
-              />
-            </MediaQuery>
-            <Box className={classes.navDesh}>
-              <ButtonToggleDark />
-              <Link href="/">
-                <Text className={classes.title}>Tokar</Text>
-              </Link>
-              <Box ml="auto">
-                <Logout />
+        <If condition={fullView}>
+          <Header height={70} p="md">
+            <Box
+              style={{ display: "flex", alignItems: "center", height: "100%" }}
+            >
+              <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+                <Burger
+                  opened={opened}
+                  onClick={() => toggleOpened()}
+                  size="sm"
+                  color={theme.colors.gray[6]}
+                  mr="xl"
+                />
+              </MediaQuery>
+              <Box className={classes.navDesh}>
+                <Burger opened={fullView} onClick={() => toggleFullView()} />
+                <Link href="/">
+                  <Text className={classes.title}>Tokar</Text>
+                </Link>
+                <Box ml="auto">
+                  <Logout />
+                </Box>
               </Box>
             </Box>
-          </Box>
-        </Header>
+          </Header>
+        </If>
       }
     >
-      {children}
+      <Box px={fullView ? 0 : "sm"}>{children}</Box>
     </AppShell>
   );
 }

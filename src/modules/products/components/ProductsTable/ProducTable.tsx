@@ -65,8 +65,6 @@ function ProductsTable({ data }: any) {
 
   const rows = (searchResults.length > 0 ? searchResults : data).map(
     (item: any) => {
-      console.log(item);
-
       const handleEdit = () => {
         setEditItem(item);
         toggleOpened();

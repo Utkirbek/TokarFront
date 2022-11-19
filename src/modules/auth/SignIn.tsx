@@ -1,7 +1,5 @@
 import useUser from "@hooks/shared/useUser";
 import {
-  Anchor,
-  BackgroundImage,
   Box,
   Button,
   Group,
@@ -66,58 +64,63 @@ function SignIn() {
   };
 
   return (
-    <Box sx={{ width: "100%", height: "100%" }}>
-      <BackgroundImage
-        src="https://t3.ftcdn.net/jpg/04/17/77/78/360_F_417777825_v7o8RvkQhxpZkE0ZBD4xwzri5hGFHkO3.jpg"
-        radius="sm"
-        sx={{ width: "100%", height: "100vh", filter: "" }}
-      >
-        <Box className={classes.boxForm}>
-          <Box>
-            <form
-              className={classes.boxLeft}
-              onSubmit={form.onSubmit(handleSubmit)}
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        minHeight: "100vh",
+        backgroundImage: `
+        linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(9, 06, 25, 0.9)),
+          url(https://t3.ftcdn.net/jpg/04/17/77/78/360_F_417777825_v7o8RvkQhxpZkE0ZBD4xwzri5hGFHkO3.jpg)
+        `,
+        backgroundSize: "cover",
+      }}
+    >
+      <Box className={classes.boxForm}>
+        <Box>
+          <form
+            className={classes.boxLeft}
+            onSubmit={form.onSubmit(handleSubmit)}
+          >
+            <Text
+              sx={{ fontSize: "32px", textAlign: "center", fontWeight: 900 }}
             >
-              <Text
-                sx={{ fontSize: "32px", textAlign: "center", fontWeight: 900 }}
-              >
-                <FormattedMessage id="signIn.title" />
-              </Text>
-              <TextInput
-                withAsterisk
-                label={intl.formatMessage({
-                  id: "signIn.textLabel",
-                })}
-                placeholder={intl.formatMessage({
-                  id: "signIn.textPlaceholder",
-                })}
-                {...form.getInputProps("email")}
-                sx={{ margin: "20px 0" }}
-                id="email"
-                name="email"
-                type="email"
-                required
-              />
-              <PasswordInput
-                label={intl.formatMessage({ id: "signIn.passwordLabel" })}
-                placeholder={intl.formatMessage({
-                  id: "signIn.passwordPlaceholder",
-                })}
-                {...form.getInputProps("password")}
-                id="password"
-                name="password"
-                autoComplete={"current-password"}
-                required
-              />
-              <Group position="right" mt="md">
-                <Button loading={status === "loading"} type="submit">
-                  <FormattedMessage id="submit" />
-                </Button>
-              </Group>
-            </form>
-          </Box>
+              <FormattedMessage id="signIn.title" />
+            </Text>
+            <TextInput
+              withAsterisk
+              label={intl.formatMessage({
+                id: "signIn.textLabel",
+              })}
+              placeholder={intl.formatMessage({
+                id: "signIn.textPlaceholder",
+              })}
+              {...form.getInputProps("email")}
+              sx={{ margin: "20px 0" }}
+              id="email"
+              name="email"
+              type="email"
+              required
+            />
+            <PasswordInput
+              label={intl.formatMessage({ id: "signIn.passwordLabel" })}
+              placeholder={intl.formatMessage({
+                id: "signIn.passwordPlaceholder",
+              })}
+              {...form.getInputProps("password")}
+              id="password"
+              name="password"
+              autoComplete={"current-password"}
+              required
+            />
+            <Group position="right" mt="md">
+              <Button loading={status === "loading"} type="submit">
+                <FormattedMessage id="submit" />
+              </Button>
+            </Group>
+          </form>
         </Box>
-      </BackgroundImage>
+      </Box>
     </Box>
   );
 }

@@ -7,7 +7,7 @@ const useStyles = createStyles(() => ({
     left: 500,
     width: 550,
     height: 450,
-    backgroundColor: "rgba(0,0,0, 0.4)",
+    backgroundColor: "rgba(0,0,0, 0.5)",
   },
   boxLeft: {
     width: 550,
