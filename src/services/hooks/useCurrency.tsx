@@ -37,7 +37,7 @@ const useCurrency = () => {
     editCurrency: async (
       data: {
         id: string;
-        values: any;
+        equalsTo: any;
       },
       options?: {
         onSuccess?: (data: any) => void;
@@ -47,7 +47,9 @@ const useCurrency = () => {
       try {
         const res = await mutate(
           RequestQueryKeys.updateCurrency,
-          currencyFetchers.updeteCurrency(data.id, data.values),
+          currencyFetchers.updeteCurrency(data.id, {
+            equalsTo: data.equalsTo,
+          }),
           {
             revalidate: true,
           }

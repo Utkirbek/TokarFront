@@ -32,6 +32,8 @@ const en = {
   sthWentWrong: "Something went wrong",
   emptyBox: "There is no product left in your work",
   pageNotFound: "Page Not Found",
+  saveCurrency: "Save",
+  currencyPerm: "Valyuta",
 
   settings: {
     title: "Settings",

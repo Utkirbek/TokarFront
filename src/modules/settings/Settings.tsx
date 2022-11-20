@@ -1,4 +1,5 @@
 import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
+import Currency from "@components/currencyConvert/currency";
 import ButtonToggleDark from "@components/darkmode/Darkmode";
 import WithLoading from "@hoc/WithLoading";
 import { Accordion, Grid } from "@mantine/core";
@@ -49,6 +50,14 @@ const Settings: NextPage = () => {
           </Accordion.Control>
           <Accordion.Panel>
             <Roles />
+          </Accordion.Panel>
+        </Accordion.Item>
+        <Accordion.Item value={intl.formatMessage({ id: "currencyPerm" })}>
+          <Accordion.Control>
+            <FormattedMessage id="currencyPerm" />
+          </Accordion.Control>
+          <Accordion.Panel>
+            <Currency />
           </Accordion.Panel>
         </Accordion.Item>
       </Accordion>
