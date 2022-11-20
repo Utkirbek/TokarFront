@@ -9,7 +9,6 @@ import {
   MediaQuery,
   Navbar,
   Text,
-  TextInput,
   useMantineTheme,
 } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
