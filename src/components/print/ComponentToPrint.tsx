@@ -1,4 +1,3 @@
-import tespen from "@assets/tespen/tespen.jpg";
 import useUser from "@hooks/shared/useUser";
 import { Box, Image, Text } from "@mantine/core";
 import React from "react";

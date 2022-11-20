@@ -4,8 +4,12 @@ const useStyles = createStyles(() => {
   return {
     boxHead: {
       position: "sticky",
-      top: 90,
       width: "100%",
+      top: 0,
+      display: "flex",
+      flexFlow: "column",
+      justifyContent: "space-between",
+      height: "100%",
     },
     card: {
       width: "100%",
@@ -13,18 +17,14 @@ const useStyles = createStyles(() => {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      gap: "20",
       borderRadius: 10,
       marginBottom: "20px",
     },
     CardBox: {
-      marginTop: "20px",
       width: "100%",
-      height: "220px",
     },
     cardPrice: {
       width: "100%",
-      height: "300px",
       borderRadius: 10,
     },
     buyBtn: {
@@ -54,24 +54,19 @@ const useStyles = createStyles(() => {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      gap: "15",
     },
     payCardTitle: {
       fontSize: "14px",
       fontWeight: 600,
-      margin: "5px 0",
       textAlign: "center",
     },
     cardSuma: {
-      width: "60px",
-      height: "60px",
       cursor: "pointer",
       textAlign: "center",
       margin: "auto",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      border: "1px solid #1971C2",
       borderRadius: 10,
     },
 

@@ -18,7 +18,7 @@ const useStyles = createStyles(() => {
     },
     cardButton: {
       display: "flex",
-      justifyContent: "space-between",
+      justifyContent: "flex-end",
       alignItems: "center",
       marginTop: "5px",
     },

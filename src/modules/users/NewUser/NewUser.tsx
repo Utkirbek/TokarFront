@@ -20,7 +20,7 @@ import { IconPencil, IconTrash } from "@tabler/icons";
 import { Permissions } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
 import { useRouter } from "next/router";
-import React, { memo, useCallback, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { FormattedMessage } from "react-intl";
 
 import { usersTableHead } from "../constants";
