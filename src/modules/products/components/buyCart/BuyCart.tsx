@@ -131,8 +131,9 @@ const BuyCart: React.FC<{}> = () => {
                         {item.title.substring(0, 50)}... {item.quantity}x
                       </Text>
                     </Box>
-                    <Text contentEditable>{item.price * item.quantity}</Text>
-                    So&apos;m
+                    <Text contentEditable>
+                      {item.price * item.quantity}So&apos;m
+                    </Text>
                   </Card>
                 );
               })}

@@ -33,7 +33,7 @@ const ComponentToPrint = React.forwardRef((props: Props, ref: any) => {
 
   const rows = items?.map((item, i) => {
     return (
-      <Box key={item._id}>
+      <Box key={item._id} className={classes.textBorder}>
         <Text className={classes.textColorB}>
           {i + 1}. {item.title}
         </Text>
@@ -52,17 +52,14 @@ const ComponentToPrint = React.forwardRef((props: Props, ref: any) => {
 
   return (
     <Box ref={ref} className={classes.widt}>
-      <Text className={classes.title}>TOKAR.UZ</Text>
-      <Text className={classes.titleHead}>
-        Tushunmovchlik va kamchiliklar uchun 3kun ichda xabar bering.
-        TEL:+998973734700
-      </Text>
-      <Box className={classes.batafsil}>
+      <Text className={classes.titleH}>TOKAR.UZ</Text>
+      <Box>
         <Box className={classes.flexC}>
           <Text className={classes.textColor}>Savdogar</Text>
           <Text className={classes.textColor}>{name}</Text>
         </Box>
         <Box>{ths}</Box>
+        <Box className={classes.batafsil}></Box>
       </Box>
       <Box>
         <Box className={classes.row}>{rows}</Box>
@@ -81,8 +78,8 @@ const ComponentToPrint = React.forwardRef((props: Props, ref: any) => {
         </Text>
         <Image
           style={{
-            width: "50px",
-            height: "50px",
+            width: "60px",
+            height: "60px",
           }}
           radius="md"
           src="https://res.cloudinary.com/xkitob/image/upload/v1668926049/frame_iatiq6.png"
