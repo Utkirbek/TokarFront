@@ -11,16 +11,14 @@ class RoundChart extends React.Component {
       <Box
         style={{
           margin: "25px 0px",
-        }}
-      >
+        }}>
         <Box
           sx={(theme) => ({
             backgroundColor:
               theme.colorScheme === "dark"
                 ? theme.colors.dark[7]
                 : theme.colors.gray[0],
-          })}
-        >
+          })}>
           <div className="chart">
             <ResponsivePie
               data={data}

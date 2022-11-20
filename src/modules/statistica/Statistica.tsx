@@ -1,4 +1,5 @@
 import { Box, SimpleGrid } from "@mantine/core";
+import useSitatisticsSpend from "@services/hooks/useSitatisticsSpend";
 import React from "react";
 
 import StatsGrid from "./cards/StatsGrid";
@@ -6,6 +7,13 @@ import NivoChart from "./nivoChartBottom/NivoChart";
 import RoundChart from "./roundChart/RoundChart";
 
 function Statistica() {
+  const { useFetchSitatistcsSpend } = useSitatisticsSpend();
+  const sitatisticsQuery = useFetchSitatistcsSpend();
+
+  const { data: sitatisticsSpend } = sitatisticsQuery;
+
+  console.log(sitatisticsSpend);
+
   return (
     <div>
       <StatsGrid />

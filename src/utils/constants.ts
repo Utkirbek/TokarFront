@@ -61,6 +61,7 @@ export enum RequestQueryKeys {
   addSalary = "addSalary",
   loan = "loan",
   getLoanUserID = "user",
+  getSitatisticsSpend = "getSitatisticsSpend",
 }
 
 export const Permissions = {
