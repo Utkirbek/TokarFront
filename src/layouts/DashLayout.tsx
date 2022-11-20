@@ -10,6 +10,7 @@ import {
   MediaQuery,
   Navbar,
   Text,
+  Tooltip,
   useMantineTheme,
 } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
@@ -42,26 +43,33 @@ function DashLayout({ children }: { children: React.ReactNode }) {
   const links = data.map((item: any) => {
     return (
       <If hasPerm={item.permission} key={item.label}>
-        <Link
-          key={item.label}
-          href={item.link}
-          style={item.id === activeId ? activeStyle : {}}
-          onClick={() => setActiveId(item.id)}
-          className={cx(classes.link, {
-            linkActive: item.link === router.pathname,
-          })}>
-          <item.icon
-            className={cx(classes.linkIcon, {
-              iconFull: !fullView,
+        <Tooltip
+          label={<FormattedMessage id={item.label} />}
+          position="left"
+          withArrow
+        >
+          <Link
+            key={item.label}
+            href={item.link}
+            style={item.id === activeId ? activeStyle : {}}
+            onClick={() => setActiveId(item.id)}
+            className={cx(classes.link, {
+              linkActive: item.link === router.pathname,
             })}
-            stroke={1.5}
-          />
-          <If condition={fullView}>
-            <Text>
-              <FormattedMessage id={item.label} />
-            </Text>
-          </If>
-        </Link>
+          >
+            <item.icon
+              className={cx(classes.linkIcon, {
+                iconFull: !fullView,
+              })}
+              stroke={1.5}
+            />
+            <If condition={fullView}>
+              <Text>
+                <FormattedMessage id={item.label} />
+              </Text>
+            </If>
+          </Link>
+        </Tooltip>
       </If>
     );
   });
@@ -89,7 +97,8 @@ function DashLayout({ children }: { children: React.ReactNode }) {
           sx={{
             position: !fullView ? "static" : "fixed",
           }}
-          p={fullView ? "md" : 0}>
+          p={fullView ? "md" : 0}
+        >
           <Box className={classes.container} m={0}>
             {!fullView && (
               <Text className={classes.link}>
@@ -109,7 +118,8 @@ function DashLayout({ children }: { children: React.ReactNode }) {
         <If condition={fullView}>
           <Header height={70} p="md">
             <Box
-              style={{ display: "flex", alignItems: "center", height: "100%" }}>
+              style={{ display: "flex", alignItems: "center", height: "100%" }}
+            >
               <MediaQuery largerThan="sm" styles={{ display: "none" }}>
                 <Burger
                   opened={opened}
@@ -131,7 +141,8 @@ function DashLayout({ children }: { children: React.ReactNode }) {
             </Box>
           </Header>
         </If>
-      }>
+      }
+    >
       <Box px={fullView ? 0 : "sm"}>{children}</Box>
     </AppShell>
   );
