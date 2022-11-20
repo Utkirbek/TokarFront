@@ -1,3 +1,5 @@
+import Currency from "@components/currencyConvert/currency";
+import CurrencyTable from "@components/currencyConvert/currencyConvert";
 import WithLoading from "@hoc/WithLoading";
 import spendFetchers from "@services/api/spendFetchers";
 import { RequestQueryKeys } from "@utils/constants";
@@ -12,6 +14,7 @@ export default function Spend() {
   return (
     <WithLoading withRenderProps query={spendsQuery}>
       <SpendTable />
+      <Currency/>
     </WithLoading>
   );
 }

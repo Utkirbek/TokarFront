@@ -25,9 +25,9 @@ function Statistica() {
           { maxWidth: 755, cols: 2, spacing: "sm" },
           { maxWidth: 600, cols: 1, spacing: "sm" },
         ]}>
-        <RoundChart />
-        <RoundChart />
-        <RoundChart />
+        <RoundChart sitatisticsQuery={sitatisticsQuery} />
+        {/* <RoundChart />
+        <RoundChart /> */}
       </SimpleGrid>
       <NivoChart />
     </div>

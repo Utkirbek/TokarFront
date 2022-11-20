@@ -28,11 +28,5 @@ const data: {
     value: 14,
     color: "hsl(3, 70%, 50%)",
   },
-  {
-    id: "hack",
-    label: "hack",
-    value: 213,
-    color: "hsl(133, 70%, 50%)",
-  },
 ];
 export default data;

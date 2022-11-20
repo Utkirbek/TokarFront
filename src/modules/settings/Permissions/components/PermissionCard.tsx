@@ -1,7 +1,7 @@
 import useNotification from "@hooks/useNotification";
 import { Card, Grid, Text, TextInput } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
-import PermissionText from "@modules/settings/components/PermissionText";
+import PermissionText from "@modules/settings/Permissions/components/PermissionText";
 import useSettings from "@services/hooks/useSettings";
 import { IconPencil, IconTrash } from "@tabler/icons";
 import { useRef } from "react";

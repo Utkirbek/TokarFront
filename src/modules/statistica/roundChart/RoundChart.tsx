@@ -5,8 +5,27 @@ import React from "react";
 import config from "./config";
 import data from "./data";
 
-class RoundChart extends React.Component {
+class RoundChart extends React.Component<any> {
+  constructor(props: { sitatisticsQuery: any }) {
+    super(props);
+  }
+
   render() {
+    const Data = [];
+    console.log("query", this.props?.sitatisticsQuery);
+    const propData = this.props?.sitatisticsQuery?.data;
+    for (let i: number = 0; i <= 3; i++) {
+      let d: any = {
+        id: propData.weeks?.[i]?.name,
+        label: propData.weeks?.[i]?.name,
+        value: propData.weeks?.[i]?.value,
+        color: data?.[i]?.color,
+      };
+      Data.push(d);
+    }
+
+    console.log(Data);
+
     return (
       <Box
         style={{
@@ -21,7 +40,7 @@ class RoundChart extends React.Component {
           })}>
           <div className="chart">
             <ResponsivePie
-              data={data}
+              data={Data}
               margin={config.margin}
               innerRadius={0.4}
               padAngle={0.7}

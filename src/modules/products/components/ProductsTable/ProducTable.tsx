@@ -130,8 +130,9 @@ function ProductsTable({ data }: any) {
           <td>
             <Button
               variant="outline"
-              sx={{ width: "100px", height: "30px" }}
-              radius={"xl"}
+              style={{
+                marginTop: "5px",
+              }}
               onClick={() => {
                 router.push("/products", {
                   query: {

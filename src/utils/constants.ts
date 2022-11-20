@@ -60,8 +60,9 @@ export enum RequestQueryKeys {
   getSalary = "getSalary",
   addSalary = "addSalary",
   loan = "loan",
-  getLoanUserID = "user",
   getSitatisticsSpend = "getSitatisticsSpend",
+  getLoanUserID = "loanUserID",
+  userId = "user",
 }
 
 export const Permissions = {

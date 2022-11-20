@@ -1,7 +1,6 @@
 import WithLoading from "@hoc/WithLoading";
-import useUsers from "@services/hooks/useUsers";
+import useUsers from "@services/hooks/useUser";
 
-import ProductDetails from "./batafsil";
 import UsersTable from "./components/UsersTable";
 
 const Users = () => {
@@ -14,7 +13,6 @@ const Users = () => {
     <>
       <WithLoading query={usersQuery}>
         <UsersTable data={data} />
-        <ProductDetails data={data} />
       </WithLoading>
     </>
   );

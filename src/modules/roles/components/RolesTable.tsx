@@ -108,7 +108,7 @@ function TableCard() {
   });
 
   return (
-    <WithLoading query={getAdminsQuery}>
+    <>
       <Group position="right" mx={"xl"} my={"xl"}>
         <Button onClick={onClose} variant={"outline"}>
           <FormattedMessage id="roles.addRoles" />
@@ -140,7 +140,7 @@ function TableCard() {
         position="right">
         <RolesDrawer editItem={editItem} handleClose={onClose} />
       </Drawer>
-    </WithLoading>
+    </>
   );
 }
 

@@ -42,15 +42,9 @@ export const permissionsLocaleUz = {
     updateInputPlholder: "Yangi huquq nomini kiriting",
     yes: "Saqlash",
     no: "Bekor qilish",
-    onSuccessTitle: "Ruxsat o'chirilmoqda",
-    onSuccessMessage:
-      "Bu malumot o'chirilgandan keyin qayta yuklashni iloji yo'q. Yangi ruxsat qo'shasiz",
-    onErrorTitle: "Xatolik",
-    onErrorMessage: "Xatolik Yuz berdi",
+    permissions: "Ruxsatlar",
     modalTitle: "Ruxsatni o'chirish",
     modalText: "Siz bu ruxsatni chindanham o'chirmoqchimisiz",
-    cancelTitle: "Siz bekor qildingiz",
-    cancelMessage: "Siz bu ruxsatni rostdan ham o'chirmadingiz!",
   },
 };
 
@@ -104,14 +98,8 @@ export const permissionsLocaleEn = {
     updateInputPlholder: "Enter new right name",
     yes: "Save",
     no: "Cancel",
-    onSuccessTitle: "Removing permission",
-    onSuccessMessage:
-      "Unable to reload after this information is deleted. You will add a new permission",
-    onErrorTitle: "Error",
-    onErrorMessage: "An Error Occurred",
+    permissions: "Permissions",
     modalTitle: "Remove permission",
     modalText: "Are you sure you want to remove this permission",
-    cancelTitle: "You have canceled",
-    cancelMessage: "You didn't really remove this permission!",
   },
 };

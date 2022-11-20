@@ -28,6 +28,8 @@ export const orderLocaleUz = {
   desc: "IZOH",
   image: "RASMI",
   useExtra: "Mahsulotga tavsif",
+  userExtra: "Mahsulotga",
+  newTime: "Yangilangan vaqt",
 };
 
 export const orderLocaleEn = {

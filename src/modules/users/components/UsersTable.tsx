@@ -1,7 +1,6 @@
 import SearchAutoComplete from "@components/SearchAutoComplete";
 import If from "@components/smart/If";
 import TableHead from "@components/Table/TableHead";
-import WithLoading from "@hoc/WithLoading";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
 import {
@@ -11,7 +10,6 @@ import {
   Drawer,
   Group,
   ScrollArea,
-  Skeleton,
   Table,
   useMantineTheme,
 } from "@mantine/core";
@@ -22,12 +20,12 @@ import { IconPencil, IconTrash } from "@tabler/icons";
 import { Permissions } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
 import { useRouter } from "next/router";
-import React, { memo, useCallback, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { FormattedMessage } from "react-intl";
 
+import UserDetails from "../batafsil";
 import { usersTableHead } from "../constants";
 import NewUser from "../NewUser";
-
 
 function UsersTable({ data }: any) {
   const {
@@ -43,20 +41,16 @@ function UsersTable({ data }: any) {
   const [opened, toggleOpened] = useToggle();
   const [searchResults, setSearchResults] = useState([]);
 
- const { useFetchUsers } = useUsers();
+  const { useFetchUsers } = useUsers();
 
- const usersQuery = useFetchUsers();
- const { data:user } = usersQuery;
+  const usersQuery = useFetchUsers();
+  const { data: user } = usersQuery;
   const rows = (searchResults.length > 0 ? searchResults : data).map(
     (item: any) => {
       const handleEdit = () => {
         setEditItem(item);
         toggleOpened();
       };
-
-
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const theme = useMantineTheme();
 
       const onDeleteClick = () => {
         openConfirm(null, {
@@ -70,14 +64,6 @@ function UsersTable({ data }: any) {
                 showErrorNotification();
               },
             });
-          },
-        });
-      };
-
-      const onClickMore = () => {
-        router.push("/user", {
-          query: {
-            details: item._id,
           },
         });
       };
@@ -106,7 +92,16 @@ function UsersTable({ data }: any) {
             </If>
           </td>
           <td>
-            <Button variant="outline" onClick={onClickMore}>
+            <Button
+              variant="outline"
+              onClick={() => {
+                router.push("/user", {
+                  query: {
+                    details: item._id,
+                  },
+                });
+              }}
+            >
               <FormattedMessage id="more" />
             </Button>
           </td>
@@ -154,9 +149,11 @@ function UsersTable({ data }: any) {
           position="right"
           sx={{ height: "120vh" }}
         >
-            <NewUser
-              handleClose={() => toggleOpened(false)}
-              editItem={editItem} data={user}            />
+          <NewUser
+            handleClose={() => toggleOpened(false)}
+            editItem={editItem}
+            data={user}
+          />
         </Drawer>
       </If>
 
@@ -165,6 +162,7 @@ function UsersTable({ data }: any) {
           <TableHead data={usersTableHead} prefix="users" />
           <tbody>{rows}</tbody>
         </Table>
+        <UserDetails />
       </ScrollArea>
     </>
   );

@@ -1,4 +1,9 @@
 export const usersLocaleUz = {
+  debt: "Qarzi",
+  productPicture: "Maxsulot rasmi",
+  timeTaken: "Olingan vaqti",
+  updatedTime: "Yangilangan vaqti",
+  yourTime: "To'lashi kerak vaqti",
   addNew: "+ Yangi Klient qo'shish",
   image: "Rasm",
   name: "Ism",
@@ -24,6 +29,7 @@ export const usersLocaleUz = {
     addition: "Qo'shimcha",
     oldTime: "Yaratilgan vaqt",
     newTime: "Yangilangan vaqt",
+    shouldPay: "To'lash kerak",
   },
 };
 
