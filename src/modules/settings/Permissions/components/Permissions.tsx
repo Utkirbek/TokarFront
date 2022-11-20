@@ -6,7 +6,7 @@ import PermissionCard from "./PermissionCard";
 
 type Props = {};
 
-const Permissions = (props: Props) => {
+const PermissionsPage = (props: Props) => {
   const { useFetchAllPermissions } = useSettings();
 
   const queryPermissions = useFetchAllPermissions();
@@ -20,4 +20,4 @@ const Permissions = (props: Props) => {
   );
 };
 
-export default Permissions;
+export default PermissionsPage;

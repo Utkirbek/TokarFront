@@ -14,6 +14,8 @@ export const permissionsLocaleUz = {
   spends_delete: "Xarajatlarni o'chirish",
   spends_view: "Xarajatlarni ko'rish",
   users_add: "Klientlarni qo'shish",
+  users_image: "Kilentlarni Rasmi",
+  users_name: "Kilentlarni Ismi",
   users_edit: "Klientlarni tahrirlash",
   users_delete: "Klientlarni o'chirish",
   users_view: "Klientlarni ko'rish",
@@ -45,6 +47,9 @@ export const permissionsLocaleUz = {
     permissions: "Ruxsatlar",
     modalTitle: "Ruxsatni o'chirish",
     modalText: "Siz bu ruxsatni chindanham o'chirmoqchimisiz",
+    cancelTitle: "Siz bekor qildingiz",
+    cancelMessage: "Siz bu ruxsatni rostdan ham o'chirmadingiz!",
+    create: "Mahsulot Qo'shish",
   },
 };
 
@@ -69,6 +74,8 @@ export const permissionsLocaleEn = {
   spends_edit: "Edit Expenses",
   spends_delete: "Delete expenses",
   spends_view: "Spends View",
+  users_image: "Users Image",
+  users_name: "Users Name",
   users_add: "Add clients",
   users_edit: "Edit Clients",
   users_delete: "Delete clients",
@@ -101,5 +108,8 @@ export const permissionsLocaleEn = {
     permissions: "Permissions",
     modalTitle: "Remove permission",
     modalText: "Are you sure you want to remove this permission",
+    cancelTitle: "You have canceled",
+    cancelMessage: "You didn't really remove this permission!",
+    create: "Product Create",
   },
 };

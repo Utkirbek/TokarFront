@@ -1,4 +1,5 @@
 import If from "@components/smart/If";
+import { Permissions } from "@utils/constants";
 import React, { memo } from "react";
 import { FormattedMessage } from "react-intl";
 
@@ -7,16 +8,30 @@ type Props = {
     [key: string]: boolean;
   };
   prefix: string;
+  permissionOf?:
+    | "products"
+    | "users"
+    | "admins"
+    | "orders"
+    | "payments"
+    | "no-check";
 };
 
-const TableHead: React.FC<Props> = ({ data, prefix }) => {
+const TableHead: React.FC<Props> = ({ data, prefix, permissionOf }) => {
   return (
     <thead>
       <tr>
         {Object.keys(data)
           .filter(Boolean)
           .map((hd) => (
-            <If condition={true} key={hd}>
+            <If
+              hasPerm={
+                permissionOf
+                  ? // @ts-ignore
+                    Permissions[permissionOf][hd]
+                  : "no-check"
+              }
+              key={hd}>
               <th>
                 <FormattedMessage id={`${prefix}.${hd}`} />
               </th>

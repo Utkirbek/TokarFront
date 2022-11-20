@@ -1,9 +1,11 @@
+import If from "@components/smart/If";
 import TableHead from "@components/Table/TableHead";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
 import { Button, ScrollArea, Table } from "@mantine/core";
 import useOrder from "@services/hooks/useOrder";
 import { IconTrash } from "@tabler/icons";
+import { Permissions } from "@utils/constants";
 import { useRouter } from "next/router";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 
@@ -77,12 +79,13 @@ const OrdersTable = ({ data }: Props) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-around",
-          }}
-        >
-          <IconTrash
-            onClick={() => openDeleteModal(item._id, item.name)}
-            style={{ color: "red", cursor: "pointer" }}
-          />
+          }}>
+          <If hasPerm={Permissions.orders.delete}>
+            <IconTrash
+              onClick={() => openDeleteModal(item._id, item.name)}
+              style={{ color: "red", cursor: "pointer" }}
+            />
+          </If>
           <Button
             variant="outline"
             onClick={() => {
@@ -91,8 +94,7 @@ const OrdersTable = ({ data }: Props) => {
                   details: item._id,
                 },
               });
-            }}
-          >
+            }}>
             <FormattedMessage id="more" />
           </Button>
         </td>

@@ -100,20 +100,23 @@ function ProductsTable({ data }: any) {
             </Group>
           </td>
           <td>{item.code}</td>
-          <If hasPerm={Permissions.accounting.view}>
+          <If hasPerm={Permissions.products.originalPrice}>
             <td>
               {item.originalPrice} {item.currency?.name}
             </td>
           </If>
-          <td>{item.price}_UZS</td>
+
+          <If hasPerm={Permissions.products.price}>
+            <td>{item.price}_UZS</td>
+          </If>
+
           <td>{item.quantity}</td>
           <td style={{ width: 200 }}>
-            <If hasPerm={Permissions.products.edit}>
-              <IconPencil
-                style={{ cursor: "pointer", marginTop: "5px" }}
-                onClick={handleEdit}
-              />
-            </If>
+            <IconPencil
+              style={{ cursor: "pointer", marginTop: "5px" }}
+              onClick={handleEdit}
+            />
+
             <If hasPerm={Permissions.products.delete}>
               <IconTrash
                 color="red"
@@ -183,11 +186,16 @@ function ProductsTable({ data }: any) {
           </Button>
         </Box>
       </If>
+
       <Grid>
         <Grid.Col span={isEmpty ? 12 : 8}>
           <ScrollArea>
             <Table verticalSpacing="sm" highlightOnHover>
-              <TableHead data={productsTableHead} prefix="products.table" />
+              <TableHead
+                data={productsTableHead}
+                prefix="products.table"
+                permissionOf="products"
+              />
               <tbody>{rows}</tbody>
             </Table>
           </ScrollArea>

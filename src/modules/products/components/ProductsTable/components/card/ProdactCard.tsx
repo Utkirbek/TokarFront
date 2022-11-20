@@ -19,8 +19,7 @@ function ProdactCard({ data }: any) {
     <Grid
       style={{
         marginTop: "20px",
-      }}
-    >
+      }}>
       <Grid.Col span={isEmpty ? 12 : 8}>
         <Flex wrap="wrap" justify="flex-start" gap="xl">
           {data.map((item: any) => {
@@ -31,8 +30,7 @@ function ProdactCard({ data }: any) {
                     style={{
                       textAlign: "center",
                       margin: "15px 0px",
-                    }}
-                  >
+                    }}>
                     <IconPhoto size={85} />
                   </Box>
                 ) : (
@@ -50,8 +48,7 @@ function ProdactCard({ data }: any) {
                     <Text
                       style={{
                         textTransform: "lowercase",
-                      }}
-                    >
+                      }}>
                       {item.title.length > 9 ? (
                         <Text>{item.title.substring(0, 9)}...</Text>
                       ) : (
@@ -70,8 +67,7 @@ function ProdactCard({ data }: any) {
                       <Button
                         size="sm"
                         onClick={() => handleOpenCartBuy(item)}
-                        variant="outline"
-                      >
+                        variant="outline">
                         <IconPlus size={20} />
                       </Button>
                     </Button.Group>
