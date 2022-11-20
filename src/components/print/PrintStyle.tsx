@@ -1,21 +1,38 @@
 import { createStyles } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
-  head: {
-    borderBottom: "1px dashed #444",
-    padding: "2px 0px",
-  },
   flexC: {
     display: "flex",
     justifyContent: "space-between",
     width: "100%",
   },
+  flexP: {
+    display: "flex",
+    justifyContent: "space-between",
+    paddingLeft: "25px",
+  },
+  batafsil: {
+    borderBottom: "1px dashed #444",
+  },
+  textColorB: {
+    color: "black",
+    fontSize: "14px",
+  },
+
   title: {
     textAlign: "center",
     fontWeight: "bold",
-    fontSize: "30px",
+    fontSize: "28px",
     borderTop: "1px dashed #444",
     borderBottom: "1px dashed #444",
+    padding: "7px 0px",
+    color: "black",
+  },
+  titleHead: {
+    textAlign: "center",
+    fontWeight: "bold",
+    lineHeight: "19px",
+    fontSize: "16px",
     padding: "7px 0px",
     color: "black",
   },
@@ -26,7 +43,7 @@ const useStyles = createStyles((theme) => ({
     borderBottom: "1px dashed #444",
   },
   paragph: {
-    fontSize: "22px",
+    fontSize: "14px",
     fontWeight: "bold",
     color: "black",
   },
@@ -38,15 +55,16 @@ const useStyles = createStyles((theme) => ({
   bottomText: {
     textAlign: "center",
     margin: "5px 0px",
-    borderTop: "1px dashed #444",
     width: "100%",
     color: "black",
   },
   imageHead: {
+    paddingBottom: "10px",
+    paddingTop: "10px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
     borderBottom: "1px dashed #444",
-    paddingBottom: "20px",
-    borderTop: "1px dashed #444",
-    paddingTop: "20px",
   },
   row: {
     borderBottom: "1px dashed #444",
@@ -58,7 +76,7 @@ const useStyles = createStyles((theme) => ({
   },
   textColor: {
     color: "black",
-    fontSize: "26px",
+    fontSize: "12px",
   },
 }));
 
