@@ -12,13 +12,16 @@ const useStyles = createStyles(() => {
       height: "100%",
     },
     card: {
+      padding: "7px 5px 7px 5px !important",
       width: "100%",
-      height: "50px",
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      borderRadius: 10,
-      marginBottom: "20px",
+      borderRadius: 5,
+      marginBottom: "10px",
+    },
+    icon: {
+      marginRight: "5px",
     },
     CardBox: {
       width: "100%",

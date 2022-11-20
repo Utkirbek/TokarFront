@@ -120,20 +120,17 @@ const BuyCart: React.FC<{}> = () => {
               {items.map((item: any) => {
                 return (
                   <Card className={classes.card} key={item._id}>
-                    {item.title.length > 8 ? (
-                      <Box sx={{ display: "flex" }}>
-                        <IconTrash
-                          color="red"
-                          cursor={"pointer"}
-                          onClick={() => removeItem(item._id)}
-                        />
-                        <Text>
-                          {item.title.substring(0, 20)}... {item.quantity}x
-                        </Text>
-                      </Box>
-                    ) : (
-                      <Text>{item.title}</Text>
-                    )}
+                    <Box sx={{ display: "flex" }}>
+                      <IconTrash
+                        color="red"
+                        cursor={"pointer"}
+                        onClick={() => removeItem(item._id)}
+                        className={classes.icon}
+                      />
+                      <Text>
+                        {item.title.substring(0, 50)}... {item.quantity}x
+                      </Text>
+                    </Box>
                     <Text contentEditable>{item.price * item.quantity}</Text>
                     So&apos;m
                   </Card>
