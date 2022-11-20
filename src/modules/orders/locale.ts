@@ -1,5 +1,5 @@
 export const orderLocaleUz = {
-  title: "Buyurtmalar",
+  title: "Savdolar",
   description: "Buyurtmalar haqida ma'lumotlar portali",
   titleHead: "Buyurtmalar haqida batafsil ma'lumot",
   orderTitleProduct: "Mahsulot nomi",
@@ -31,7 +31,7 @@ export const orderLocaleUz = {
 };
 
 export const orderLocaleEn = {
-  title: "Orders",
+  title: "Sales",
   description: "Order information portal",
   titleHead: "Order Details",
   orderTitleProduct: "Product name",

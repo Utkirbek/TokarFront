@@ -7,9 +7,6 @@ import useUsers from "@services/hooks/useUsers";
 import { useRef } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-
-
-
 const NewUser: React.FC<{
   handleClose: () => void;
   editItem: any;
@@ -25,10 +22,6 @@ const NewUser: React.FC<{
     showErrorNotification,
   } = useNotification();
   const inti = useIntl();
-
-
-
-
 
   const form = useForm({
     initialValues: {
@@ -76,79 +69,76 @@ const NewUser: React.FC<{
   };
 
   return (
-      <Box sx={{ maxWidth: 440 }} mx="auto">
-        <form onSubmit={form.onSubmit(handleSubmit)}>
-          <Text
-            sx={{
-              fontSize: "24px",
-              textAlign: "center",
-              fontWeight: 700,
+    <Box sx={{ maxWidth: 440 }} mx="auto">
+      <form onSubmit={form.onSubmit(handleSubmit)}>
+        <Text
+          sx={{
+            fontSize: "24px",
+            textAlign: "center",
+            fontWeight: 700,
+          }}
+        >
+          <FormattedMessage
+            id="users.formTitle"
+            values={{ isNew: !editItem._id }}
+          />
+        </Text>
+        <TextInput
+          className={classes.inputStyle}
+          withAsterisk
+          label={intl.formatMessage({ id: "users.nameLabel" })}
+          placeholder={intl.formatMessage({ id: "users.namePlaceholder" })}
+          {...form.getInputProps("name")}
+          required
+        />
+
+        <Box sx={{ maxHeight: "160px", marginBottom: "40px" }}>
+          <ImageUploader
+            urlsRef={imagesRef}
+            dropzoneProps={{
+              pb: 0,
             }}
+          />
+          <Button
+            variant="outline"
+            sx={{ float: "right", margin: "10px 0" }}
+            hidden
           >
-            <FormattedMessage
-              id="users.formTitle"
-              values={{ isNew: !editItem._id }}
-            />
-          </Text>
-          <TextInput
-            className={classes.inputStyle}
-            withAsterisk
-            label={intl.formatMessage({ id: "users.nameLabel" })}
-            placeholder={intl.formatMessage({ id: "users.namePlaceholder" })}
-            {...form.getInputProps("name")}
-            required
-          />
+            Rasmni Olib Tashlash
+          </Button>
+        </Box>
+        <TextInput
+          className={classes.inputStyle}
+          label={intl.formatMessage({ id: "users.numberLabel" })}
+          placeholder={intl.formatMessage({ id: "users.numberPlaceholder" })}
+          {...form.getInputProps("phone")}
+          required
+        />
 
-          <Box sx={{ maxHeight: "160px", marginBottom: "40px" }}>
-            <ImageUploader
-              urlsRef={imagesRef}
-              dropzoneProps={{
-                pb: 0,
-              }}
-            />
-            <Button
-              variant="outline"
-              sx={{ float: "right", margin: "10px 0" }}
-              hidden
-            >
-              Rasmni Olib Tashlash
-            </Button>
-          </Box>
-          <TextInput
-            className={classes.inputStyle}
-            label={intl.formatMessage({ id: "users.numberLabel" })}
-            placeholder={intl.formatMessage({ id: "users.numberPlaceholder" })}
-            {...form.getInputProps("phone")}
-            required
-          />
+        <TextInput
+          className={classes.inputStyle}
+          label={intl.formatMessage({ id: "users.addressLabel" })}
+          placeholder={intl.formatMessage({ id: "users.addressPlaceholder" })}
+          {...form.getInputProps("workplace")}
+          required
+        />
+        <TextInput
+          className={classes.inputStyle}
+          label={intl.formatMessage({ id: "users.additionLabel" })}
+          placeholder={intl.formatMessage({
+            id: "users.additionPlaceholder",
+          })}
+          {...form.getInputProps("extra")}
+          required
+        />
 
-          <TextInput
-            className={classes.inputStyle}
-            label={intl.formatMessage({ id: "users.addressLabel" })}
-            placeholder={intl.formatMessage({ id: "users.addressPlaceholder" })}
-            {...form.getInputProps("workplace")}
-            required
-          />
-          <TextInput
-            className={classes.inputStyle}
-            label={intl.formatMessage({ id: "users.additionLabel" })}
-            placeholder={intl.formatMessage({
-              id: "users.additionPlaceholder",
-            })}
-            {...form.getInputProps("extra")}
-            required
-          />
-
-          <Group position="right" mt="md">
-            <Button type="submit">
-              <FormattedMessage
-                id="addSmth"
-                values={{ isNew: !editItem._id }}
-              />
-            </Button>
-          </Group>
-        </form>
-      </Box>
+        <Group position="right" mt="md">
+          <Button type="submit">
+            <FormattedMessage id="addSmth" values={{ isNew: !editItem._id }} />
+          </Button>
+        </Group>
+      </form>
+    </Box>
   );
 };
 export default NewUser;

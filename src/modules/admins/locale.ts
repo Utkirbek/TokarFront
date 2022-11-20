@@ -31,7 +31,7 @@ export const adminsLocaleUz = {
     },
   },
 
-  title: "Adminlar",
+  title: "Ischilar",
   name: "Ism",
   email: "Elektron pochta",
   role: "Rol",
@@ -80,7 +80,7 @@ export const adminsLocaleEn = {
     },
   },
 
-  title: "Admins",
+  title: "Staff",
   name: "Name",
   email: "E-mail",
   role: "Role",

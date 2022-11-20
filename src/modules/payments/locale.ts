@@ -1,5 +1,5 @@
 export const paymentsLocaleUz = {
-  title: "To'lov",
+  title: "To'lovlar",
   formTitle: "To'lovlar",
   salesman: "Sotuvchi",
   loanUser: "Oldingi Qarzlari",
