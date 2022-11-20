@@ -1,4 +1,3 @@
-import adminFetchers from "@services/api/adminFetchers";
 import userFetcher from "@services/api/userFetcher";
 import { RequestQueryKeys } from "@utils/constants";
 import useSWR, { useSWRConfig } from "swr";
@@ -86,6 +85,9 @@ const useUsers = () => {
         options?.onError && options.onError(err);
       }
     },
+    userFetcherLoanUserID: () =>
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useSWR(RequestQueryKeys.getLoanUserID, userFetcher.getUserID),
   };
 };
 

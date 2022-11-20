@@ -26,6 +26,7 @@ export enum RequestQueryKeys {
   deleteUsers = "deleteUsers",
   addUsers = "addUsers",
   updateUsers = "updateUsers",
+  getUserID = "getUserID",
   searchUser = "searchUser",
   addAdmin = "addAdmin",
   searchAdmins = "searchAdmins",
@@ -59,7 +60,7 @@ export enum RequestQueryKeys {
   getSalary = "getSalary",
   addSalary = "addSalary",
   loan = "loan",
-  getLoanUserID = "loanUserID",
+  getLoanUserID = "user",
 }
 
 export const Permissions = {

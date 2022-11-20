@@ -1,5 +1,6 @@
 import If from "@components/smart/If";
 import WithLoading from "@hoc/WithLoading";
+import { Box, Skeleton } from "@mantine/core";
 import useAdmins from "@services/hooks/useAdmins";
 import { Permissions } from "@utils/constants";
 

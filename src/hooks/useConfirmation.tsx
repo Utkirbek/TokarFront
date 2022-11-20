@@ -9,7 +9,7 @@ const useConfirmation = () => {
   const openConfirm = (
     children: React.ReactNode,
     {
-      titleId = "default.title",
+      titleId = intl.formatMessage({ id: "default.title" }),
       onConfirm,
       onCancel,
     }: { titleId?: string; onConfirm?: () => void; onCancel?: () => void }

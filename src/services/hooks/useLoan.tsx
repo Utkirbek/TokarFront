@@ -6,8 +6,6 @@ const useLoan = () => {
   return {
     useLoanFeatchers: () =>
       useSWR(RequestQueryKeys.loan, loanFeatchers.getLoan),
-    useLoanUserFeatchers: () =>
-      useSWR(RequestQueryKeys.getLoanUserID, loanFeatchers.getLoanUserID),
   };
 };
 export default useLoan;

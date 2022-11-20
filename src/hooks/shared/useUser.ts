@@ -42,6 +42,7 @@ const useUser = create(
           orders: user.admin.orders,
           permissions: user.admin.role?.permissions,
           role: user.admin.role,
+          _id: user.admin._id,
         }),
       hasPerm: (perm) =>
         get().permissions?.some(

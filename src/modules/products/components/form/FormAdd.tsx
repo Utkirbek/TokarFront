@@ -12,10 +12,9 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { showNotification, updateNotification } from "@mantine/notifications";
 import useCurrency from "@services/hooks/useCurrency";
 import useProducts from "@services/hooks/useProducts";
-import { IconCheck, IconChevronDown } from "@tabler/icons";
+import { IconChevronDown } from "@tabler/icons";
 import { useRef } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -62,7 +61,7 @@ const FormProduct: React.FC<{
     discounts: any;
   }) => {
     if (!!editItem._id) {
-      showLoadingNotification;
+      showLoadingNotification();
       handleClose();
       editProduct(
         {
@@ -84,7 +83,7 @@ const FormProduct: React.FC<{
         },
         {
           onSuccess: () => {
-            showSuccessNotification;
+            showSuccessNotification();
           },
           onError: () => {
             showErrorNotification;
@@ -103,8 +102,7 @@ const FormProduct: React.FC<{
             fontSize: "24px",
             textAlign: "center",
             fontWeight: 700,
-          }}
-        >
+          }}>
           <FormattedMessage
             id="products.addEdit"
             values={{ isNew: !editItem._id }}
@@ -132,8 +130,7 @@ const FormProduct: React.FC<{
           <Button
             variant="outline"
             sx={{ float: "right", margin: "10px 0" }}
-            hidden
-          >
+            hidden>
             <FormattedMessage id="products.form.takePicture" />
           </Button>
         </Box>
@@ -147,8 +144,7 @@ const FormProduct: React.FC<{
 
         <If
           condition={!!currencies}
-          elseChildren={<Skeleton width="100%" height="40px" />}
-        >
+          elseChildren={<Skeleton width="100%" height="40px" />}>
           <Select
             sx={{ width: "100%", margin: "20px  0" }}
             rightSection={<IconChevronDown size={14} />}

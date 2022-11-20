@@ -54,8 +54,8 @@ function TableCard() {
 
         onCancel: () => {
           showNotification({
-            title: "Siz bekor qildingiz",
-            message: "Siz Rolni o'chirmadiz 🤥",
+            title: intl.formatMessage({ id: "roles.backTitle" }),
+            message: intl.formatMessage({ id: "roles.backMsg" }),
           });
         },
       }
@@ -77,8 +77,6 @@ function TableCard() {
           <Group spacing="sm">{item.name}</Group>
         </td>
         <td>
-          {/* crate a list
-           */}
           <Group spacing="sm">
             {item.permissions.map((permission: any) => (
               <Text key={permission._id}>
@@ -128,6 +126,7 @@ function TableCard() {
             <th>
               <FormattedMessage id="action" />
             </th>
+            <th></th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
@@ -138,8 +137,7 @@ function TableCard() {
         onClose={onClose}
         padding="xl"
         size="30%"
-        position="right"
-      >
+        position="right">
         <RolesDrawer editItem={editItem} handleClose={onClose} />
       </Drawer>
     </WithLoading>

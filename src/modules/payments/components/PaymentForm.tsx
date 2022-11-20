@@ -1,4 +1,5 @@
 import WithLoading from "@hoc/WithLoading";
+import useUser from "@hooks/shared/useUser";
 import useNotification from "@hooks/useNotification";
 import {
   Box,
@@ -11,20 +12,20 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import useStyles from "@modules/products/components/form/style/inputStyle";
-import useAdmins from "@services/hooks/useAdmins";
-import useLoan from "@services/hooks/useLoan";
+import loanFeatchers from "@services/api/loanFetchers";
 import usePayments from "@services/hooks/usePayments";
+import useUsers from "@services/hooks/useUser";
 import { IconChevronDown } from "@tabler/icons";
+import { RequestQueryKeys } from "@utils/constants";
+import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import useSWR from "swr";
 
 const Loader = () => {
   return (
     <Box my={10}>
       <Skeleton height="10px" width={"60px"} my={10} />
-      <Skeleton
-        height="35 .
-      px"
-      />
+      <Skeleton height="35px" width={"100%"} />
     </Box>
   );
 };
@@ -32,8 +33,9 @@ const Loader = () => {
 const PaymentsForm: React.FC<{
   handleClose: () => void;
 }> = ({ handleClose }) => {
+  const [value, setValue] = useState<string | null>(null);
+
   const { classes } = useStyles();
-  const { addPayments } = usePayments();
   const intl = useIntl();
   const {
     showLoadingNotification,
@@ -41,18 +43,24 @@ const PaymentsForm: React.FC<{
     showErrorNotification,
   } = useNotification();
 
-  const { useFetchAdmins } = useAdmins();
-  const getAdminsQuery = useFetchAdmins();
-  const { data: admins } = getAdminsQuery;
+  const { addPayments } = usePayments();
+  const { useFetchUsers } = useUsers();
+  const getUserQuery = useFetchUsers();
+  const { data: users } = getUserQuery;
 
-  const { useLoanFeatchers } = useLoan();
-  const getLoanQuery = useLoanFeatchers();
-  const { data: loan } = getLoanQuery;
+  const userLoanQuery = useSWR(
+    value ? [RequestQueryKeys.getLoanUserID, value] : null,
+    loanFeatchers.getLoanUserID
+  );
+  const { data: userLoan } = userLoanQuery;
+
+  const userId = useUser();
 
   const form = useForm({
     initialValues: {
       amount: "",
       paymentMethod: "",
+      salesman: userId._id,
       loan: "",
     },
   });
@@ -60,6 +68,7 @@ const PaymentsForm: React.FC<{
   const handleSubmit = async (values: {
     amount: any;
     paymentMethod: string;
+    salesman: any;
     loan: any;
   }) => {
     addPayments(values, {
@@ -82,40 +91,55 @@ const PaymentsForm: React.FC<{
             <FormattedMessage id="payments.formTitle" />
           </Text>
 
-          <WithLoading query={getAdminsQuery} FallbackLoadingUI={Loader}>
+          <WithLoading query={getUserQuery} FallbackLoadingUI={Loader}>
             <Select
               sx={{ width: "100%", margin: "20px  0" }}
               rightSection={<IconChevronDown size={14} />}
               rightSectionWidth={30}
               placeholder={intl.formatMessage({
-                id: "payments.salesman",
+                id: "payments.user",
               })}
               styles={{ rightSection: { pointerEvents: "none" } }}
-              label={intl.formatMessage({ id: "payments.salesman" })}
-              data={admins?.map((item: any) => ({
+              label={intl.formatMessage({ id: "payments.user" })}
+              data={users?.map((item: any) => ({
                 value: item._id,
                 label: item.name,
               }))}
-              {...form.getInputProps("salesman")}
+              onChange={(val) => {
+                setValue(val);
+              }}
+              value={value}
+              required
             />
           </WithLoading>
-          <WithLoading query={getLoanQuery} FallbackLoadingUI={Loader}>
+
+          <WithLoading query={userLoanQuery} FallbackLoadingUI={Loader}>
             <Select
               sx={{ width: "100%", margin: "20px  0" }}
               rightSection={<IconChevronDown size={14} />}
               rightSectionWidth={30}
               placeholder={intl.formatMessage({
-                id: "payments.loanInput",
+                id: "payments.loanUser",
               })}
               styles={{ rightSection: { pointerEvents: "none" } }}
-              label={intl.formatMessage({ id: "payments.loanInput" })}
-              data={loan?.map((item: any) => ({
-                value: item._id,
-                label: item.amount,
-              }))}
-              {...form.getInputProps("loanInput")}
+              label={intl.formatMessage({ id: "payments.loanUser" })}
+              data={
+                Array.isArray(userLoan?.loan)
+                  ? userLoan?.loan
+                      .filter((item: any) => Boolean(item.amount))
+                      .map((item: any) => {
+                        return {
+                          label: item.amount,
+                          value: item._id,
+                        };
+                      })
+                  : []
+              }
+              required
+              {...form.getInputProps("loan")}
             />
           </WithLoading>
+
           <TextInput
             className={classes.inputStyle}
             withAsterisk
@@ -140,6 +164,7 @@ const PaymentsForm: React.FC<{
             label={intl.formatMessage({ id: "payments.select" })}
             data={["click", "Terminal", "Naqt", "Bo'lib To'lash"]}
             {...form.getInputProps("paymentMethod")}
+            required
           />
 
           <Group position="right" mt="md">

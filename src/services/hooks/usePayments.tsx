@@ -11,6 +11,7 @@ const usePayments = () => {
       body: {
         amount: string;
         paymentMethod: any;
+        salesman: any;
         loan: any;
       },
       options?: {

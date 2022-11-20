@@ -2,8 +2,7 @@ export const paymentsLocaleUz = {
   title: "To'lov",
   formTitle: "To'lovlar",
   salesman: "Sotuvchi",
-  loanInput: "Qarz miqdorini kiriting",
-  amount: "To'lov",
+  loanUser: "Oldingi Qarzlari",
   select: "To'lov turini tanlang",
   btnSubmit: "Qo'shish",
   create: "+ Tolov qo'shish",
@@ -12,6 +11,8 @@ export const paymentsLocaleUz = {
   createdAt: "Yaratilgan Vaqti",
   payment: "To'lov turi",
   loan: "Izoh",
+  user: "Xaridorni Tanlang",
+  amount: "To'lanadigan pul",
 };
 
 export const paymentsLocaleEn = {

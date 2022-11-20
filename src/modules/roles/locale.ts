@@ -12,6 +12,8 @@ export const rolesLocaleUz = {
   deleteConfirmation:
     "{name} Ushbu ishchingiz sizni tizimdan o'chib ketadi, bu ishni ortga qaytarib bo'lmaydi, shunda ham ishonchingiz komilmi?",
   permission: "Ruxsatlar",
+  backTitle: "Siz Bekor Qildingiz",
+  backMsg: "Siz Rolni O'chirmadingiz",
 };
 
 export const rolesLocaleEn = {
@@ -28,4 +30,6 @@ export const rolesLocaleEn = {
   deleteConfirmation:
     "{name} This worker will log you out, it can't be undone, are you sure?",
   permission: "Permissions",
+  backTitle: "You have Cancelled",
+  backMsg: "You have not Deleted the Role",
 };
