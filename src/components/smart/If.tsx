@@ -4,7 +4,7 @@ import React from "react";
 type Props = {
   condition: boolean;
   children: React.ReactNode;
-  hasPerm?: string | string[];
+  hasPerm?: string | string[] | "no-check";
   elseChildren?: React.ReactNode;
 };
 
@@ -21,7 +21,8 @@ const If: React.FC<
 
   if (condition) return <>{children}</>;
   if (hasPerm) {
-    if (Array.isArray(hasPerm)) {
+    if (hasPerm === "no-check") return <>{children}</>;
+    else if (Array.isArray(hasPerm)) {
       if (hasPerm.some((perm) => hasPermission(perm))) {
         return <>{children}</>;
       }

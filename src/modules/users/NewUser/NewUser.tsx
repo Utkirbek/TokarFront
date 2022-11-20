@@ -1,163 +1,144 @@
-import SearchAutoComplete from "@components/SearchAutoComplete";
-import If from "@components/smart/If";
-import TableHead from "@components/Table/TableHead";
-import useConfirmation from "@hooks/useConfirmation";
+import ImageUploader from "@components/ImageUploader";
 import useNotification from "@hooks/useNotification";
-import {
-  Avatar,
-  Box,
-  Button,
-  Drawer,
-  Group,
-  ScrollArea,
-  Table,
-  useMantineTheme,
-} from "@mantine/core";
-import { useToggle } from "@mantine/hooks";
-import userFetcher from "@services/api/userFetcher";
+import { Box, Button, Group, Text, TextInput } from "@mantine/core";
+import { useForm } from "@mantine/form";
+import useStyles from "@modules/products/components/form/style/inputStyle";
 import useUsers from "@services/hooks/useUsers";
-import { IconPencil, IconTrash } from "@tabler/icons";
-import { Permissions } from "@utils/constants";
-import { getCoverImage } from "@utils/getters";
-import { useRouter } from "next/router";
-import { memo, useCallback, useState } from "react";
-import { FormattedMessage } from "react-intl";
+import { useRef } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 
-import { usersTableHead } from "../constants";
-import NewUser from "../NewUser";
-
-function UsersTable({ data }: any) {
+const NewUser: React.FC<{
+  handleClose: () => void;
+  editItem: any;
+  data: any;
+}> = ({ handleClose, editItem, data }) => {
+  const intl = useIntl();
+  const imagesRef = useRef<string[]>([]);
+  const { classes } = useStyles();
+  const { addUser, editUser } = useUsers();
   const {
     showLoadingNotification,
     showSuccessNotification,
     showErrorNotification,
   } = useNotification();
-  const router = useRouter();
-  const theme = useMantineTheme();
-  const { openConfirm } = useConfirmation();
-  const { deleteUser } = useUsers();
-  const [editItem, setEditItem] = useState({});
-  const [opened, toggleOpened] = useToggle();
-  const [searchResults, setSearchResults] = useState([]);
+  const inti = useIntl();
 
-  const rows = (searchResults.length > 0 ? searchResults : data).map(
-    (item: any) => {
-      const handleEdit = () => {
-        setEditItem(item);
-        toggleOpened();
-      };
+  const form = useForm({
+    initialValues: {
+      name: editItem?.name ?? "",
+      phone: editItem?.phone ?? "",
+      workplace: editItem?.workplace ?? "",
+      extra: editItem?.extra ?? "",
+    },
+  });
 
-      const onDeleteClick = () => {
-        openConfirm(null, {
-          onConfirm: () => {
-            showLoadingNotification();
-            deleteUser(item._id, {
-              onSuccess: () => {
-                showSuccessNotification();
-              },
-              onError: () => {
-                showErrorNotification();
-              },
-            });
+  const handleSubmit = async (values: {
+    name: string;
+    phone: string;
+    workplace: string;
+    extra: string;
+  }) => {
+    handleClose();
+    showLoadingNotification();
+
+    const events = {
+      onSuccess: () => showSuccessNotification(),
+      onError: () => showErrorNotification(),
+    };
+
+    if (!!editItem._id) {
+      editUser(
+        {
+          id: editItem._id,
+          values: {
+            ...values,
+            image: imagesRef.current?.join(",") ?? editItem.image,
           },
-        });
-      };
-
-      const onClickMore = () => {
-        router.push("/user", {
-          query: {
-            details: item._id,
-          },
-        });
-      };
-
-      return (
-        <tr key={item._id}>
-          <td>
-            <Group spacing="sm">
-              <Avatar size={40} src={getCoverImage(item.image)} radius={26} />
-            </Group>
-          </td>
-          <td>{item.name}</td>
-          <td>{item.phone}</td>
-          <td>{item.workplace}</td>
-          <td>{item.extra}</td>
-          <td>
-            <If hasPerm={Permissions.users.delete}>
-              <IconTrash
-                color="red"
-                style={{ margin: "0  20px", cursor: "pointer" }}
-                onClick={onDeleteClick}
-              />
-            </If>
-            <If hasPerm={Permissions.users.edit}>
-              <IconPencil style={{ cursor: "pointer" }} onClick={handleEdit} />
-            </If>
-          </td>
-          <td>
-            <Button variant="outline" onClick={onClickMore}>
-              <FormattedMessage id="more" />
-            </Button>
-          </td>
-        </tr>
+        },
+        events
+      );
+    } else {
+      addUser(
+        {
+          ...values,
+          image: imagesRef.current?.join(",") ?? "",
+        },
+        events
       );
     }
-  );
-  const handleAddNew = useCallback(() => {
-    toggleOpened();
-    setEditItem({});
-  }, [toggleOpened]);
+  };
 
   return (
-    <>
-      <If hasPerm={Permissions.users.create}>
-        <Box
+    <Box sx={{ maxWidth: 440 }} mx="auto">
+      <form onSubmit={form.onSubmit(handleSubmit)}>
+        <Text
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
+            fontSize: "24px",
+            textAlign: "center",
+            fontWeight: 700,
           }}
         >
-          <SearchAutoComplete
-            searchResults={searchResults}
-            setSearchResults={setSearchResults}
-            fetcher={userFetcher.getUsersByTitle}
+          <FormattedMessage
+            id="users.formTitle"
+            values={{ isNew: !editItem._id }}
           />
-          <Group position="right" mx={"xl"}>
-            <Button onClick={handleAddNew} variant={"outline"}>
-              <FormattedMessage id="users.addNew" />
-            </Button>
-          </Group>
+        </Text>
+        <TextInput
+          className={classes.inputStyle}
+          withAsterisk
+          label={intl.formatMessage({ id: "users.nameLabel" })}
+          placeholder={intl.formatMessage({ id: "users.namePlaceholder" })}
+          {...form.getInputProps("name")}
+          required
+        />
+
+        <Box sx={{ maxHeight: "160px", marginBottom: "40px" }}>
+          <ImageUploader
+            urlsRef={imagesRef}
+            dropzoneProps={{
+              pb: 0,
+            }}
+          />
+          <Button
+            variant="outline"
+            sx={{ float: "right", margin: "10px 0" }}
+            hidden
+          >
+            Rasmni Olib Tashlash
+          </Button>
         </Box>
+        <TextInput
+          className={classes.inputStyle}
+          label={intl.formatMessage({ id: "users.numberLabel" })}
+          placeholder={intl.formatMessage({ id: "users.numberPlaceholder" })}
+          {...form.getInputProps("phone")}
+          required
+        />
 
-        <Drawer
-          overlayColor={
-            theme.colorScheme === "dark"
-              ? theme.colors.dark[9]
-              : theme.colors.gray[2]
-          }
-          opened={opened}
-          onClose={() => toggleOpened(false)}
-          padding="xl"
-          size="xl"
-          position="right"
-          sx={{ height: "120vh" }}
-        >
-          <NewUser
-            handleClose={() => toggleOpened(false)}
-            editItem={editItem}
-          />
-        </Drawer>
-      </If>
+        <TextInput
+          className={classes.inputStyle}
+          label={intl.formatMessage({ id: "users.addressLabel" })}
+          placeholder={intl.formatMessage({ id: "users.addressPlaceholder" })}
+          {...form.getInputProps("workplace")}
+          required
+        />
+        <TextInput
+          className={classes.inputStyle}
+          label={intl.formatMessage({ id: "users.additionLabel" })}
+          placeholder={intl.formatMessage({
+            id: "users.additionPlaceholder",
+          })}
+          {...form.getInputProps("extra")}
+          required
+        />
 
-      <ScrollArea>
-        <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
-          <TableHead data={usersTableHead} prefix="users" />
-          <tbody>{rows}</tbody>
-        </Table>
-      </ScrollArea>
-    </>
+        <Group position="right" mt="md">
+          <Button type="submit">
+            <FormattedMessage id="addSmth" values={{ isNew: !editItem._id }} />
+          </Button>
+        </Group>
+      </form>
+    </Box>
   );
-}
-
-export default memo(UsersTable);
+};
+export default NewUser;

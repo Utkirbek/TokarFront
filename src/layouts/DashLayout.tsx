@@ -10,6 +10,7 @@ import {
   MediaQuery,
   Navbar,
   Text,
+  Tooltip,
   useMantineTheme,
 } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
@@ -42,27 +43,33 @@ function DashLayout({ children }: { children: React.ReactNode }) {
   const links = data.map((item: any) => {
     return (
       <If hasPerm={item.permission} key={item.label}>
-        <Link
-          key={item.label}
-          href={item.link}
-          style={item.id === activeId ? activeStyle : {}}
-          onClick={() => setActiveId(item.id)}
-          className={cx(classes.link, {
-            linkActive: item.link === router.pathname,
-          })}
+        <Tooltip
+          label={<FormattedMessage id={item.label} />}
+          position="left"
+          withArrow
         >
-          <item.icon
-            className={cx(classes.linkIcon, {
-              iconFull: !fullView,
+          <Link
+            key={item.label}
+            href={item.link}
+            style={item.id === activeId ? activeStyle : {}}
+            onClick={() => setActiveId(item.id)}
+            className={cx(classes.link, {
+              linkActive: item.link === router.pathname,
             })}
-            stroke={1.5}
-          />
-          <If condition={fullView}>
-            <Text>
-              <FormattedMessage id={item.label} />
-            </Text>
-          </If>
-        </Link>
+          >
+            <item.icon
+              className={cx(classes.linkIcon, {
+                iconFull: !fullView,
+              })}
+              stroke={1.5}
+            />
+            <If condition={fullView}>
+              <Text>
+                <FormattedMessage id={item.label} />
+              </Text>
+            </If>
+          </Link>
+        </Tooltip>
       </If>
     );
   });

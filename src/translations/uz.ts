@@ -37,6 +37,8 @@ const uz = {
   sthWentWrong: "Xatolik yuz berdi",
   emptyBox: "Sizng obringizda maxsulot qolmadi",
   pageNotFound: "sahifa topilmadi",
+  saveCurrency : "Saqlash",
+  currencyPerm : "Valyuta",
 
   settings: {
     title: "Sozlamalar",

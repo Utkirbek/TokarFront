@@ -9,9 +9,12 @@ import {
   IconLogout,
   IconSearch,
 } from "@tabler/icons";
+import { Permissions } from "@utils/constants";
 import { removeCookies } from "cookies-next";
 import { useRouter } from "next/router";
 import { FormattedMessage } from "react-intl";
+
+import If from "../If";
 
 export const logOutUz = {
   title: "Profildan chiqish",
@@ -82,18 +85,18 @@ const Logout = () => {
             onClick={() => {
               router.push("/products");
             }}
-            icon={<IconBarcode size={18} />}
-          >
+            icon={<IconBarcode size={18} />}>
             <FormattedMessage id="logout.menuProduct" />
           </Menu.Item>
-          <Menu.Item
-            onClick={() => {
-              router.push("/");
-            }}
-            icon={<IconChartLine size={18} />}
-          >
-            <FormattedMessage id="logout.menuStatiks" />
-          </Menu.Item>
+          <If hasPerm={Permissions.statistica.view}>
+            <Menu.Item
+              onClick={() => {
+                router.push("/");
+              }}
+              icon={<IconChartLine size={18} />}>
+              <FormattedMessage id="logout.menuStatiks" />
+            </Menu.Item>
+          </If>
           <Menu.Item
             icon={<IconSearch size={18} />}
             rightSection={
@@ -101,8 +104,7 @@ const Logout = () => {
                 ⌘K
               </Text>
             }
-            onClick={() => spotlight.openSpotlight()}
-          >
+            onClick={() => spotlight.openSpotlight()}>
             <FormattedMessage id="logout.menuSearch" />
           </Menu.Item>
           <Menu.Divider />
@@ -112,8 +114,7 @@ const Logout = () => {
           <Menu.Item
             color="red"
             onClick={openNotifDelete}
-            icon={<IconLogout size={18} />}
-          >
+            icon={<IconLogout size={18} />}>
             <FormattedMessage id="logout.title" />
           </Menu.Item>
         </Menu.Dropdown>

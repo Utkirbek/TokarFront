@@ -7,7 +7,7 @@ import { Lang } from "@/pages/_app";
 
 const useStyles = createStyles((theme, { opened }: { opened: boolean }) => ({
   control: {
-    zIndex: 555,
+    zIndex: 1,
     width: 100,
     display: "flex",
     justifyContent: "space-between",
@@ -30,7 +30,7 @@ const useStyles = createStyles((theme, { opened }: { opened: boolean }) => ({
         theme.colorScheme === "dark"
           ? theme.colors.dark[5]
           : theme.colors.gray[0],
-      zIndex: 555,
+      zIndex: 1,
     },
   },
 

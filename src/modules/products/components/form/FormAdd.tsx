@@ -15,6 +15,7 @@ import { useForm } from "@mantine/form";
 import useCurrency from "@services/hooks/useCurrency";
 import useProducts from "@services/hooks/useProducts";
 import { IconChevronDown } from "@tabler/icons";
+import { Permissions } from "@utils/constants";
 import { useRef } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -161,22 +162,26 @@ const FormProduct: React.FC<{
             {...form.getInputProps("currency")}
           />
         </If>
-        <TextInput
-          className={classes.inputStyle}
-          label={intl.formatMessage({ id: "products.form.orgLabel" })}
-          placeholder={intl.formatMessage({ id: "products.form.orgLabel" })}
-          {...form.getInputProps("originalPrice")}
-        />
+        <If hasPerm={Permissions.products.add.originalPrice}>
+          <TextInput
+            className={classes.inputStyle}
+            label={intl.formatMessage({ id: "products.form.orgLabel" })}
+            placeholder={intl.formatMessage({ id: "products.form.orgLabel" })}
+            {...form.getInputProps("originalPrice")}
+          />
+        </If>
 
-        <TextInput
-          className={classes.inputStyle}
-          label={intl.formatMessage({ id: "products.form.saleLabel" })}
-          placeholder={intl.formatMessage({
-            id: "products.form.salePlaceholder",
-          })}
-          {...form.getInputProps("price")}
-          required
-        />
+        <If hasPerm={Permissions.products.add.price}>
+          <TextInput
+            className={classes.inputStyle}
+            label={intl.formatMessage({ id: "products.form.saleLabel" })}
+            placeholder={intl.formatMessage({
+              id: "products.form.salePlaceholder",
+            })}
+            {...form.getInputProps("price")}
+          />
+        </If>
+
         <TextInput
           className={classes.inputStyle}
           label={intl.formatMessage({ id: "products.form.howLabel" })}
