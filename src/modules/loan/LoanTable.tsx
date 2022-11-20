@@ -1,7 +1,10 @@
 import TableHead from "@components/Table/TableHead";
-import { ScrollArea, Table, Text } from "@mantine/core";
+import { Button, ScrollArea, Table, Text } from "@mantine/core";
+import router from "next/router";
 import { memo } from "react";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
+
+import LoanBatafsil from "./batafsil/LoanBatafsil";
 
 function LoanTable({ data }: any) {
   return (
@@ -50,11 +53,26 @@ function LoanTable({ data }: any) {
                   ,&nbsp;
                   <FormattedTime value={item?.shouldPay} />
                 </td>
+                <td>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      router.push("/loan", {
+                        query: {
+                          details: item._id,
+                        },
+                      });
+                    }}
+                  >
+                    <FormattedMessage id="products.details" />
+                  </Button>
+                </td>
               </tr>
             );
           })}
         </tbody>
       </Table>
+      <LoanBatafsil loan={data} />
     </ScrollArea>
   );
 }

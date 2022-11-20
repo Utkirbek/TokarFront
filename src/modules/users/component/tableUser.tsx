@@ -12,7 +12,7 @@ import {
   Table,
   useMantineTheme,
 } from "@mantine/core";
-import useStyles from "@modules/products/components/ProductsTable/ProductTableStyle";
+import useStyles from "@modules/products/components/ProductsTable/style/ProductTableStyle";
 import useUsers from "@services/hooks/useUser";
 import { IconPencil, IconTrash } from "@tabler/icons";
 import { Permissions } from "@utils/constants";

@@ -66,24 +66,24 @@ const SpendTable = ({ data }: Props) => {
         <td>{item?.description}</td>
         <td>{item?.spendType}</td>
         <td>
-          <FormattedTime value={item?.createdAt} />
-          ,&nbsp;
           <FormattedDate
             value={item?.createdAt}
             month="numeric"
             year="numeric"
             day="numeric"
           />
+          ,&nbsp;
+          <FormattedTime value={item?.createdAt} />
         </td>
         <td>
-          <FormattedTime value={item.updatedAt} />
-          ,&nbsp;
           <FormattedDate
-            value={item.updatedAt}
+            value={item?.updatedAt}
             month="numeric"
             year="numeric"
             day="numeric"
           />
+          ,&nbsp;
+          <FormattedTime value={item?.updatedAt} />
         </td>
         <td>
           <IconTrash

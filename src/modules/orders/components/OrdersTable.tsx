@@ -5,7 +5,7 @@ import { Button, ScrollArea, Table } from "@mantine/core";
 import useOrder from "@services/hooks/useOrder";
 import { IconTrash } from "@tabler/icons";
 import { useRouter } from "next/router";
-import { FormattedMessage } from "react-intl";
+import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 
 import OrdersDetails from "../modalOrder/Orderdetail";
 
@@ -52,9 +52,26 @@ const OrdersTable = ({ data }: Props) => {
         <td>{item?.salesman?.name}</td>
         <td>{item?.user?.name}</td>
         <td>{item?.total}</td>
-        <td>{item?.createdAt}</td>
-        <td>{item?.updatedAt}</td>
-
+        <td>
+          <FormattedDate
+            value={item?.createdAt}
+            month="numeric"
+            year="numeric"
+            day="numeric"
+          />
+          ,&nbsp;
+          <FormattedTime value={item?.createdAt} />
+        </td>
+        <td>
+          <FormattedDate
+            value={item?.updatedAt}
+            month="numeric"
+            year="numeric"
+            day="numeric"
+          />
+          ,&nbsp;
+          <FormattedTime value={item?.updatedAt} />
+        </td>
         <td
           style={{
             display: "flex",
@@ -68,8 +85,6 @@ const OrdersTable = ({ data }: Props) => {
           />
           <Button
             variant="outline"
-            sx={{ width: "100px", height: "30px" }}
-            radius={"xl"}
             onClick={() => {
               router.push("/orders", {
                 query: {
