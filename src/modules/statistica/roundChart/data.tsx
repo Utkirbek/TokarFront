@@ -14,7 +14,7 @@ const data: {
     id: "c",
     label: "c",
     value: 53,
-    color: "hsl(4, 70%, 50%)",
+    color: "hsl(3, 70%, 50%)",
   },
   {
     id: "scala",

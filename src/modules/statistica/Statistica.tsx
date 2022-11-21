@@ -1,18 +1,36 @@
-import { Box, SimpleGrid } from "@mantine/core";
+import WithLoading from "@hoc/WithLoading";
+import { Box, SimpleGrid, Skeleton } from "@mantine/core";
+import useSitatisticsIncome from "@services/hooks/useSitatisticsIncome";
 import useSitatisticsSpend from "@services/hooks/useSitatisticsSpend";
+import useSitatisticsStaffSalary from "@services/hooks/useSitatisticsStaffSalary";
 import React from "react";
 
 import StatsGrid from "./cards/StatsGrid";
 import NivoChart from "./nivoChartBottom/NivoChart";
-import RoundChart from "./roundChart/RoundChart";
+import RoundChartIncome from "./roundChart/RoundChartIncome";
+import RoundChartSpend from "./roundChart/RoundChartSpend";
+import RoundChartStaffSalary from "./roundChart/RoundChartStaffSalary";
+
+const Loader = () => {
+  return (
+    <Box my={10}>
+      <Skeleton height="250px" width={"100%"} my={10} />
+    </Box>
+  );
+};
 
 function Statistica() {
   const { useFetchSitatistcsSpend } = useSitatisticsSpend();
-  const sitatisticsQuery = useFetchSitatistcsSpend();
+  const sitatisticsSpendQuery = useFetchSitatistcsSpend();
+  const { data: sitatisticSpend } = sitatisticsSpendQuery;
 
-  const { data: sitatisticsSpend } = sitatisticsQuery;
+  const { useFetchSitatistcsIncome } = useSitatisticsIncome();
+  const sitatisticsIncomeQuery = useFetchSitatistcsIncome();
+  const { data: sitatisticIncome } = sitatisticsIncomeQuery;
 
-  console.log(sitatisticsSpend);
+  const { useFetchSitatistcsStaffSalary } = useSitatisticsStaffSalary();
+  const sitatisticsStaffSalaryQuery = useFetchSitatistcsStaffSalary();
+  const { data: sitatisticStaffSalary } = sitatisticsStaffSalaryQuery;
 
   return (
     <div>
@@ -25,9 +43,19 @@ function Statistica() {
           { maxWidth: 755, cols: 2, spacing: "sm" },
           { maxWidth: 600, cols: 1, spacing: "sm" },
         ]}>
-        <RoundChart sitatisticsQuery={sitatisticsQuery} />
-        {/* <RoundChart />
-        <RoundChart /> */}
+        <WithLoading query={sitatisticsSpendQuery} FallbackLoadingUI={Loader}>
+          <RoundChartSpend sitatisticSpend={sitatisticSpend} />
+        </WithLoading>
+        <WithLoading query={sitatisticsIncomeQuery} FallbackLoadingUI={Loader}>
+          <RoundChartIncome sitatisticIncome={sitatisticIncome} />
+        </WithLoading>
+        <WithLoading
+          query={sitatisticsStaffSalaryQuery}
+          FallbackLoadingUI={Loader}>
+          <RoundChartStaffSalary
+            sitatisticStaffSalary={sitatisticStaffSalary}
+          />
+        </WithLoading>
       </SimpleGrid>
       <NivoChart />
     </div>
