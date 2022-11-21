@@ -5,8 +5,7 @@ import productFetchers from "@services/api/productFetchers";
 import useProducts from "@services/hooks/useProducts";
 import { IconHome, IconTable } from "@tabler/icons";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
-import { useReactToPrint } from "react-to-print";
+import { useEffect, useState } from "react";
 import { CartProvider } from "react-use-cart";
 
 import ProductsTable from "./components/ProductsTable";
@@ -17,12 +16,7 @@ const Products = () => {
   const spotlight = useSpotlight();
   const router = useRouter();
   const { useFetchProduct } = useProducts();
-  const componentRef = useRef(null);
   const [card, setCard] = useState(false);
-
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
 
   useEffect(() => {
     if (spotlight.opened) {

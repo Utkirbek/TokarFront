@@ -11,22 +11,26 @@ const useStyles = createStyles((theme) => ({
     justifyContent: "space-between",
     paddingLeft: "25px",
   },
-  batafsil: {
-    borderBottom: "1px dashed #444",
+
+  textBorder: {
+    borderBottom: "1.5px solid #000",
+    marginBottom: "2px",
   },
   textColorB: {
     color: "black",
     fontSize: "14px",
   },
-
-  title: {
+  titleH: {
     textAlign: "center",
     fontWeight: "bold",
     fontSize: "28px",
-    borderTop: "1px dashed #444",
-    borderBottom: "1px dashed #444",
-    padding: "7px 0px",
     color: "black",
+  },
+  batafsil: {
+    width: "100",
+    height: "8px",
+    borderTop: "1.5px solid #000",
+    borderBottom: "1.5px solid #000",
   },
   titleHead: {
     textAlign: "center",
@@ -39,8 +43,8 @@ const useStyles = createStyles((theme) => ({
   marWidth: {
     display: "flex",
     justifyContent: "space-between",
-    margin: "10px 0px",
-    borderBottom: "1px dashed #444",
+    margin: "2px 0px 10px 0px",
+    borderBottom: "1.5px solid #444",
   },
   paragph: {
     fontSize: "14px",
@@ -59,15 +63,13 @@ const useStyles = createStyles((theme) => ({
     color: "black",
   },
   imageHead: {
-    paddingBottom: "10px",
-    paddingTop: "10px",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    borderBottom: "1px dashed #444",
+    borderBottom: "1.5px solid #444",
   },
   row: {
-    borderBottom: "1px dashed #444",
+    borderBottom: "1.5px solid #444",
     padding: "7px 0px",
   },
   widt: {

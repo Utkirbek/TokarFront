@@ -52,6 +52,9 @@ function UsersTable({ data }: any) {
         toggleOpened();
       };
 
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const theme = useMantineTheme();
+
       const onDeleteClick = () => {
         openConfirm(null, {
           onConfirm: () => {
@@ -100,8 +103,7 @@ function UsersTable({ data }: any) {
                     details: item._id,
                   },
                 });
-              }}
-            >
+              }}>
               <FormattedMessage id="more" />
             </Button>
           </td>
@@ -116,46 +118,44 @@ function UsersTable({ data }: any) {
 
   return (
     <>
-      <If hasPerm={Permissions.users.create}>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <SearchAutoComplete
-            searchResults={searchResults}
-            setSearchResults={setSearchResults}
-            fetcher={userFetcher.getUsersByTitle}
-          />
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}>
+        <SearchAutoComplete
+          searchResults={searchResults}
+          setSearchResults={setSearchResults}
+          fetcher={userFetcher.getUsersByTitle}
+        />
+        <If hasPerm={Permissions.users.create}>
           <Group position="right" mx={"xl"}>
             <Button onClick={handleAddNew} variant={"outline"}>
               <FormattedMessage id="users.addNew" />
             </Button>
           </Group>
-        </Box>
+        </If>
+      </Box>
 
-        <Drawer
-          overlayColor={
-            theme.colorScheme === "dark"
-              ? theme.colors.dark[9]
-              : theme.colors.gray[2]
-          }
-          opened={opened}
-          onClose={() => toggleOpened(false)}
-          padding="xl"
-          size="xl"
-          position="right"
-          sx={{ height: "120vh" }}
-        >
-          <NewUser
-            handleClose={() => toggleOpened(false)}
-            editItem={editItem}
-            data={user}
-          />
-        </Drawer>
-      </If>
+      <Drawer
+        overlayColor={
+          theme.colorScheme === "dark"
+            ? theme.colors.dark[9]
+            : theme.colors.gray[2]
+        }
+        opened={opened}
+        onClose={() => toggleOpened(false)}
+        padding="xl"
+        size="xl"
+        position="right"
+        sx={{ height: "120vh" }}>
+        <NewUser
+          handleClose={() => toggleOpened(false)}
+          editItem={editItem}
+          data={user}
+        />
+      </Drawer>
 
       <ScrollArea>
         <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>

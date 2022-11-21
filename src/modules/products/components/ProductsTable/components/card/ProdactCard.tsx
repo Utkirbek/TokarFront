@@ -1,26 +1,20 @@
-import ComponentToPrint from "@components/print/ComponentToPrint";
 import { Box, Button, Flex, Grid, Image, Text } from "@mantine/core";
 import BuyCart from "@modules/products/components/buyCart/BuyCart";
 import { IconMinus, IconPhoto, IconPlus } from "@tabler/icons";
 import { memo } from "react";
-import { FormattedMessage } from "react-intl";
 import { useCart } from "react-use-cart";
 
 import useStyles from "./CardStyle";
 
 function ProdactCard({ data }: any) {
-  const { addItem, isEmpty } = useCart();
+  const { addItem, isEmpty, updateItemQuantity, inCart, getItem } = useCart();
   const { classes } = useStyles();
   const handleOpenCartBuy = (el: any) => {
     addItem({ id: el._id, ...el });
   };
 
   return (
-    <Grid
-      style={{
-        marginTop: "20px",
-      }}
-    >
+    <Grid>
       <Grid.Col span={isEmpty ? 12 : 8}>
         <Flex wrap="wrap" justify="flex-start" gap="xl">
           {data.map((item: any) => {
@@ -64,13 +58,21 @@ function ProdactCard({ data }: any) {
                   </Box>
                   <Box className={classes.cardButton}>
                     <Button.Group>
-                      <Button variant="outline" size="sm">
+                      <Button
+                        variant="outline"
+                        size="xs"
+                        disabled={!inCart(item._id)}
+                        onClick={() => {
+                          const cartItem = getItem(item._id);
+                          updateItemQuantity(item._id, cartItem.quantity - 1);
+                        }}
+                      >
                         <IconMinus size={20} />
                       </Button>
                       <Button
-                        size="sm"
+                        size="xs"
                         onClick={() => handleOpenCartBuy(item)}
-                        variant="outline"
+                        variant="gradient"
                       >
                         <IconPlus size={20} />
                       </Button>

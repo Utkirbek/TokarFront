@@ -96,6 +96,7 @@ const BuyCart: React.FC<{}> = () => {
   const clickWallet = ({ item }: any) => {
     item.bolin === true ? setWallet(true) : setWallet(false);
   };
+
   function add() {
     handlePrint;
     handleSubmit({
@@ -109,140 +110,108 @@ const BuyCart: React.FC<{}> = () => {
   return (
     <>
       <Box className={classes.boxHead}>
-        <Container>
-          <Box>
-            <Box className={classes.CardBox}>
-              {isEmpty ? (
-                <Text className={classes.empty}>
-                  <FormattedMessage id="products.buyCart.maxsulotYoq" />
-                </Text>
-              ) : (
-                <ScrollArea style={{ height: 250 }} scrollbarSize={4}>
-                  {items.map((item: any) => {
-                    return (
-                      <Card className={classes.card} key={item._id}>
-                        {item.title.length > 8 ? (
-                          <Text>{item.title.substring(0, 8)}...</Text>
-                        ) : (
-                          <Text>{item.title}</Text>
-                        )}
+        <Box className={classes.CardBox}>
+          {isEmpty ? (
+            <Text className={classes.empty}>
+              <FormattedMessage id="products.buyCart.maxsulotYoq" />
+            </Text>
+          ) : (
+            <ScrollArea style={{ height: 250 }} scrollbarSize={4}>
+              {items.map((item: any) => {
+                return (
+                  <Card className={classes.card} key={item._id}>
+                    <Box sx={{ display: "flex" }}>
+                      <IconTrash
+                        color="red"
+                        cursor={"pointer"}
+                        onClick={() => removeItem(item._id)}
+                        className={classes.icon}
+                      />
+                      <Text>
+                        {item.title.substring(0, 50)}... {item.quantity}x
+                      </Text>
+                    </Box>
+                    <Text contentEditable>
+                      {item.price * item.quantity}So&apos;m
+                    </Text>
+                  </Card>
+                );
+              })}
+            </ScrollArea>
+          )}
+        </Box>
 
-                        <Text>
-                          {item.price}
-                          _UZS
-                        </Text>
-
-                        <Box className={classes.boxGroupCountTrash}>
-                          <Box className={classes.counter}>
-                            <Button
-                              onClick={() =>
-                                updateItemQuantity(item.id, item.quantity - 1)
-                              }
-                              className={classes.btnCount}
-                              variant={"outline"}
-                              compact
-                            >
-                              -
-                            </Button>
-                            <Text size="md">{item.quantity}</Text>
-                            <Button
-                              onClick={() =>
-                                updateItemQuantity(item.id, item.quantity + 1)
-                              }
-                              className={classes.btnCount}
-                              variant={"outline"}
-                              compact
-                            >
-                              +
-                            </Button>
-                          </Box>
-                          <IconTrash
-                            className={classes.trash}
-                            onClick={() => removeItem(item.id)}
-                          />
-                        </Box>
-                      </Card>
-                    );
-                  })}
-                </ScrollArea>
-              )}
+        <Box>
+          <Card className={classes.cardPrice}>
+            <Box className={classes.totalpriceGrup}>
+              <Text sx={{ width: "80%", fontSize: "18px", fontWeight: 900 }}>
+                <FormattedMessage id="products.buyCart.totalPrice" />
+              </Text>
+              <Text sx={{ fontSize: "20px", fontWeight: 700 }}>
+                {cartTotal}
+              </Text>
+              <Text sx={{ fontSize: "20px", fontWeight: 700 }}>UZS</Text>
             </Box>
 
-            <Box>
-              <Card className={classes.cardPrice}>
-                <Box className={classes.totalpriceGrup}>
-                  <Text
-                    sx={{ width: "80%", fontSize: "18px", fontWeight: 900 }}
-                  >
-                    <FormattedMessage id="products.buyCart.totalPrice" />
-                  </Text>
-                  <Text sx={{ fontSize: "20px", fontWeight: 700 }}>
-                    {cartTotal}
-                  </Text>
-                  <Text sx={{ fontSize: "20px", fontWeight: 700 }}>UZS</Text>
-                </Box>
-
-                <Box className={classes.payMoney}>
-                  {datas?.map((item: any, index: any) => {
-                    return (
-                      <div key={index}>
-                        <Text className={classes.payCardTitle}>
-                          <FormattedMessage id={item.title} />
-                        </Text>
-                        <Box
-                          className={classes.cardSuma}
-                          style={item.id === activeId ? activeStyle : {}}
-                          onClick={handleClick(item)}
-                        >
-                          <item.icon
-                            size={50}
-                            onClick={() => clickWallet({ item })}
-                          />
-                        </Box>
-                      </div>
-                    );
-                  })}
-                </Box>
-                <Select
-                  sx={{ margin: "20px 0" }}
-                  placeholder={intl.formatMessage({
-                    id: "products.buyCart.whom",
-                  })}
-                  data={[
-                    {
-                      value: "users",
-                      label: intl.formatMessage({
-                        id: "products.userShow",
-                      }),
-                    },
-                  ]}
-                />
-                {!!wallet ? (
-                  <TextInput
-                    label={intl.formatMessage({
-                      id: "products.buyCart.enterDay",
-                    })}
-                    placeholder={intl.formatMessage({
-                      id: "products.buyCart.enterDay",
-                    })}
-                    {...form.getInputProps("payDay")}
-                    required
-                  />
-                ) : null}
-              </Card>
+            <Box className={classes.payMoney}>
+              {datas?.map((item: any, index: any) => {
+                return (
+                  <div key={index}>
+                    <Text className={classes.payCardTitle}>
+                      <FormattedMessage id={item.title} />
+                    </Text>
+                    <Box
+                      className={classes.cardSuma}
+                      style={item.id === activeId ? activeStyle : {}}
+                      onClick={handleClick(item)}
+                    >
+                      <item.icon
+                        size={50}
+                        onClick={() => clickWallet({ item })}
+                      />
+                    </Box>
+                  </div>
+                );
+              })}
             </Box>
-            <Button className={classes.buyBtn} onClick={handlePrint}>
-              <FormattedMessage id="products.buyCart.sale" />
-            </Button>
-            <Box
-              style={{
-                display: "none",
-              }}
-            >
-              <ComponentToPrint ref={componentRef} />
-            </Box>
+            <Select
+              sx={{ margin: "10px 0" }}
+              placeholder={intl.formatMessage({
+                id: "products.buyCart.whom",
+              })}
+              data={[
+                {
+                  value: "users",
+                  label: intl.formatMessage({
+                    id: "products.userShow",
+                  }),
+                },
+              ]}
+            />
+            {!!wallet ? (
+              <TextInput
+                label={intl.formatMessage({
+                  id: "products.buyCart.enterDay",
+                })}
+                placeholder={intl.formatMessage({
+                  id: "products.buyCart.enterDay",
+                })}
+                {...form.getInputProps("payDay")}
+                required
+              />
+            ) : null}
+          </Card>
+          <Button className={classes.buyBtn} onClick={handlePrint}>
+            <FormattedMessage id="products.buyCart.sale" />
+          </Button>
+          <Box
+            style={{
+              display: "none",
+            }}
+          >
+            <ComponentToPrint ref={componentRef} />
           </Box>
-        </Container>
+        </Box>
       </Box>
     </>
   );

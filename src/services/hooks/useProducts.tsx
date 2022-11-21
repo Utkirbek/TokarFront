@@ -34,7 +34,7 @@ const useProducts = () => {
           }
         );
         options?.onSuccess && options.onSuccess(res);
-        mutate(RequestQueryKeys.getProducts);
+        mutate([RequestQueryKeys.getProducts, 1]);
         return res;
       } catch (error) {
         console.error(error);
@@ -60,7 +60,7 @@ const useProducts = () => {
           }
         );
         options?.onSuccess && options.onSuccess(res);
-        mutate(RequestQueryKeys.getProducts);
+        mutate([RequestQueryKeys.getProducts, 1]);
         return res;
       } catch (error) {
         console.error(error);
@@ -83,7 +83,7 @@ const useProducts = () => {
           }
         );
         options?.onSuccess && options.onSuccess(res);
-        mutate(RequestQueryKeys.getProducts);
+        mutate([RequestQueryKeys.getProducts, 1]);
         return res;
       } catch (err) {
         console.error(err);

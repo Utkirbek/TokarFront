@@ -1,5 +1,7 @@
+import If from "@components/smart/If";
 import WithLoading from "@hoc/WithLoading";
-import useUsers from "@services/hooks/useUser";
+import useUsers from "@services/hooks/useUsers";
+import { Permissions } from "@utils/constants";
 
 import UsersTable from "./components/UsersTable";
 
@@ -11,9 +13,11 @@ const Users = () => {
 
   return (
     <>
-      <WithLoading query={usersQuery}>
-        <UsersTable data={data} />
-      </WithLoading>
+      <If hasPerm={Permissions.users.view}>
+        <WithLoading query={usersQuery}>
+          <UsersTable data={data} />
+        </WithLoading>
+      </If>
     </>
   );
 };

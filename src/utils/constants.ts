@@ -70,10 +70,21 @@ export enum RequestQueryKeys {
 export const Permissions = {
   products: {
     edit: "products.edit",
-    create: "products.create",
+    create: "product.create",
     delete: "products.delete",
     sell: "products.sell",
+    add: {
+      originalPrice: "perms.products.add.originalPrice",
+      price: "perms.products.add.price",
+    },
+    name: "product.name",
+    code: "product.code",
+    originalPrice: "product.originalPrice",
+    price: "product.price",
+    quantity: "product.quantity",
+    action: "product.action",
   },
+
   spends: {
     edit: "spends.edit",
     create: "spends.create",
@@ -90,11 +101,19 @@ export const Permissions = {
     view: "kassa.read",
   },
   users: {
-    view: "admins.view",
-    create: "admins.create",
-    edit: "admins.edit",
-    delete: "admins.delete",
-    action: "action.view",
+    image: "user.image",
+    name: "users.name",
+    phone: "users.phone",
+    workplace: "users.workplace",
+    extra: "users.extra",
+    action: "users.action",
+    view: "users.view",
+    create: "users.create",
+    edit: "users.edit",
+    delete: "users.delete",
+  },
+  payments: {
+    view: "payments.view",
   },
   statistica: {
     view: "statistics.view",
@@ -108,5 +127,29 @@ export const Permissions = {
   originalPrice: {
     view: "originalPrice.view",
   },
+  roles: {
+    view: "roles.view",
+  },
+  orders: {
+    view: "orders.view",
+    delete: "orders_delete",
+    salesman: "orders.salesman",
+    user: "orders.user",
+    quantity: "orders.quantity",
+    createAt: "orders.createAT",
+    updateAT: "orders.updateAT",
+    action: "orders.action",
+  },
+  loans: {
+    view: "loans.view",
+  },
   all: "permissions.all",
+  sidebar: {
+    statistics: {
+      view: "statistics.view",
+    },
+    admins: {
+      view: "admins.view",
+    },
+  },
 };
