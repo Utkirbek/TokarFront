@@ -60,7 +60,8 @@ export enum RequestQueryKeys {
   getSalary = "getSalary",
   addSalary = "addSalary",
   loan = "loan",
-  getLoanUserID = "loanUserID",
+  getLoanUserID = "user",
+  statistics = "statistics",
   userId = "user",
 }
 

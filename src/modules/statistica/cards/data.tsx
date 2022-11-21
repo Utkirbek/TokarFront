@@ -121,37 +121,25 @@ const data: {
 ];
 export default data;
 
-export const dataStas = [
-  {
-    title: "Ishchilar",
-    icon: "receipt",
-    value: "13,456",
-    diff: 34,
+export const infoData = {
+  admins: {
+    title: "ishchilar",
     icon3d: "https://cdn.lordicon.com/amxnacxd.json",
     decrtion: "Sotilgan tavarlar soni",
   },
-  {
-    title: "Foydalanuvchilar",
-    icon: "coin",
-    value: "4,145",
-    diff: -13,
+  users: {
+    title: "foydalanuvchlar",
     icon3d: "https://cdn.lordicon.com/yrxnwkni.json",
     decrtion: "Foydalanuvchilar uchun",
   },
-  {
-    title: "Sumalar",
-    icon: "discount",
-    value: "745",
-    diff: 18,
-    icon3d: "https://cdn.lordicon.com/aloksxkv.json",
+  products: {
+    title: "maxsulotlar",
+    icon3d: "https://cdn.lordicon.com/lpddubrl.json ",
     decrtion: "Nechta odamni qarzi borligi",
   },
-  {
-    title: "Tavarlar",
-    icon: "user",
-    value: "188",
-    diff: -30,
-    icon3d: "https://cdn.lordicon.com/lpddubrl.json",
+  kassa: {
+    title: "kassa",
+    icon3d: "https://cdn.lordicon.com/aloksxkv.json",
     decrtion: "Sotilgan tavarlar soni",
   },
-];
+};
