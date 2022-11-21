@@ -57,6 +57,7 @@
     "react-intl": "^6.2.1",
     "react-to-print": "^2.14.8",
     "react-use-cart": "^1.13.0",
+    "recharts": "^2.1.16",
     "sass": "^1.55.0",
     "swr": "latest",
     "yarn": "^1.22.19",

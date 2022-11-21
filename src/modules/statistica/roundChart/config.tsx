@@ -77,13 +77,14 @@ const config: any = {
       justify: false,
       translateX: 0,
       translateY: 60,
-      itemsSpacing: 0,
+      itemsSpacing: 35,
       itemWidth: 70,
       itemHeight: 18,
       itemDirection: "left-to-right",
       itemOpacity: 1,
       symbolSize: 19,
       symbolShape: "circle",
+      itemTextColor: "rgb(38, 217, 187)",
       effects: [
         {
           on: "hover",
