@@ -1,15 +1,18 @@
 import WithLoading from "@hoc/WithLoading";
 import { Box, SimpleGrid, Skeleton } from "@mantine/core";
+import statisticFetchers from "@services/api/statisticFetchers";
 import useSitatisticsIncome from "@services/hooks/useSitatisticsIncome";
 import useSitatisticsSpend from "@services/hooks/useSitatisticsSpend";
 import useSitatisticsStaffSalary from "@services/hooks/useSitatisticsStaffSalary";
-import React from "react";
+import { RequestQueryKeys } from "@utils/constants";
+import useSWR from "swr";
 
 import StatsGrid from "./cards/StatsGrid";
 import NivoChart from "./nivoChartBottom/NivoChart";
 import RoundChartIncome from "./roundChart/RoundChartIncome";
 import RoundChartSpend from "./roundChart/RoundChartSpend";
 import RoundChartStaffSalary from "./roundChart/RoundChartStaffSalary";
+import StatisticsHeadSkeleton from "./Skleton";
 
 const Loader = () => {
   return (
@@ -32,9 +35,15 @@ function Statistica() {
   const sitatisticsStaffSalaryQuery = useFetchSitatistcsStaffSalary();
   const { data: sitatisticStaffSalary } = sitatisticsStaffSalaryQuery;
 
+  const statistic = useSWR(
+    RequestQueryKeys.statistics,
+    statisticFetchers.getStatistic
+  );
+  const { data } = statistic;
+  if (!data) return <StatisticsHeadSkeleton />;
   return (
     <div>
-      <StatsGrid />
+      <StatsGrid cardData={data} />
       <SimpleGrid
         cols={3}
         spacing="lg"

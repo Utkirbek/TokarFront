@@ -64,6 +64,7 @@ export enum RequestQueryKeys {
   getSitatisticsIncome = "getSitatisticsIncome",
   getSitatisticsStaffSalary = "getSitatisticsStaffSalary",
   getLoanUserID = "loanUserID",
+  statistics = "statistics",
   userId = "user",
 }
 
