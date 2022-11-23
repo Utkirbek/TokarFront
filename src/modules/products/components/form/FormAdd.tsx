@@ -19,6 +19,7 @@ import { Permissions } from "@utils/constants";
 import { useRef } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import unit from "./constants/dataUnit";
 import useStyles from "./style/inputStyle";
 
 const FormProduct: React.FC<{
@@ -44,6 +45,7 @@ const FormProduct: React.FC<{
       code: editItem?.code ?? "",
       originalPrice: editItem?.originalPrice ?? "",
       price: editItem?.price ?? "",
+      unit: editItem?.unit ?? "",
       quantity: editItem?.quantity ?? "",
       description: editItem?.description ?? "",
       discounts: editItem?.discounts ?? [{ price: 0, quantity: 0 }],
@@ -52,14 +54,15 @@ const FormProduct: React.FC<{
   });
 
   const handleSubmit = async (values: {
-    currency: any;
-    title: any;
-    code: any;
-    originalPrice: any;
-    price: any;
-    quantity: any;
-    description: any;
-    discounts: any;
+    currency: string;
+    title: string;
+    code: string | number;
+    originalPrice: string | number;
+    price: string | number;
+    unit: string;
+    quantity: string | number;
+    description: string;
+    discounts: string | number | string[];
   }) => {
     if (!!editItem._id) {
       showLoadingNotification();
@@ -181,6 +184,22 @@ const FormProduct: React.FC<{
             {...form.getInputProps("price")}
           />
         </If>
+
+        <Select
+          sx={{ width: "100%", margin: "20px  0" }}
+          rightSection={<IconChevronDown size={14} />}
+          rightSectionWidth={30}
+          placeholder={intl.formatMessage({
+            id: "products.form.measure",
+          })}
+          styles={{ rightSection: { pointerEvents: "none" } }}
+          label={intl.formatMessage({ id: "products.form.measure" })}
+          data={unit?.map((item: any) => ({
+            value: item.value,
+            label: item.label,
+          }))}
+          {...form.getInputProps("unit")}
+        />
 
         <TextInput
           className={classes.inputStyle}

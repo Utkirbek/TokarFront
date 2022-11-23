@@ -107,7 +107,9 @@ function ProductsTable({ data }: any) {
           </If>
 
           <If hasPerm={Permissions.products.price}>
-            <td>{item.price}_UZS</td>
+            <td>
+              {item.price}_UZS/{item.unit}
+            </td>
           </If>
 
           <td>{item.quantity}</td>
