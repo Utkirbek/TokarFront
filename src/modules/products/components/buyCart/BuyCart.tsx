@@ -163,8 +163,7 @@ const BuyCart: React.FC<{}> = () => {
                     <Box
                       className={classes.cardSuma}
                       style={item.id === activeId ? activeStyle : {}}
-                      onClick={handleClick(item)}
-                    >
+                      onClick={handleClick(item)}>
                       <item.icon
                         size={50}
                         onClick={() => clickWallet({ item })}
@@ -207,8 +206,7 @@ const BuyCart: React.FC<{}> = () => {
           <Box
             style={{
               display: "none",
-            }}
-          >
+            }}>
             <ComponentToPrint ref={componentRef} />
           </Box>
         </Box>

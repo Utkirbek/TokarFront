@@ -75,51 +75,45 @@ function SignIn() {
         `,
         backgroundSize: "cover",
       }}
+      className={classes.boxForm}
     >
-      <Box className={classes.boxForm}>
-        <Box>
-          <form
-            className={classes.boxLeft}
-            onSubmit={form.onSubmit(handleSubmit)}
-          >
-            <Text
-              sx={{ fontSize: "32px", textAlign: "center", fontWeight: 900 }}
-            >
-              <FormattedMessage id="signIn.title" />
-            </Text>
-            <TextInput
-              withAsterisk
-              label={intl.formatMessage({
-                id: "signIn.textLabel",
-              })}
-              placeholder={intl.formatMessage({
-                id: "signIn.textPlaceholder",
-              })}
-              {...form.getInputProps("email")}
-              sx={{ margin: "20px 0" }}
-              id="email"
-              name="email"
-              type="email"
-              required
-            />
-            <PasswordInput
-              label={intl.formatMessage({ id: "signIn.passwordLabel" })}
-              placeholder={intl.formatMessage({
-                id: "signIn.passwordPlaceholder",
-              })}
-              {...form.getInputProps("password")}
-              id="password"
-              name="password"
-              autoComplete={"current-password"}
-              required
-            />
-            <Group position="right" mt="md">
-              <Button loading={status === "loading"} type="submit">
-                <FormattedMessage id="submit" />
-              </Button>
-            </Group>
-          </form>
-        </Box>
+      <Box className={classes.boxLeft}>
+        <form onSubmit={form.onSubmit(handleSubmit)}>
+          <Text className={classes.text}>
+            <FormattedMessage id="signIn.title" />
+          </Text>
+          <TextInput
+            withAsterisk
+            label={intl.formatMessage({
+              id: "signIn.textLabel",
+            })}
+            placeholder={intl.formatMessage({
+              id: "signIn.textPlaceholder",
+            })}
+            {...form.getInputProps("email")}
+            sx={{ margin: "20px 0" }}
+            id="email"
+            name="email"
+            type="email"
+            required
+          />
+          <PasswordInput
+            label={intl.formatMessage({ id: "signIn.passwordLabel" })}
+            placeholder={intl.formatMessage({
+              id: "signIn.passwordPlaceholder",
+            })}
+            {...form.getInputProps("password")}
+            id="password"
+            name="password"
+            autoComplete={"current-password"}
+            required
+          />
+          <Group position="right" mt="md">
+            <Button loading={status === "loading"} type="submit">
+              <FormattedMessage id="submit" />
+            </Button>
+          </Group>
+        </form>
       </Box>
     </Box>
   );

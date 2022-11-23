@@ -16,6 +16,7 @@ const useProducts = () => {
         image: string;
         code: string | Number;
         price: string | Number;
+        unit: string | Number;
         quantity: string | Number;
         description: string;
         discounts: any;
