@@ -21,7 +21,7 @@ import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import useSWR from "swr";
 
-const Loader = () => {
+export const FieldLoader = () => {
   return (
     <Box my={10}>
       <Skeleton height="10px" width={"60px"} my={10} />
@@ -91,7 +91,7 @@ const PaymentsForm: React.FC<{
             <FormattedMessage id="payments.formTitle" />
           </Text>
 
-          <WithLoading query={getUserQuery} FallbackLoadingUI={Loader}>
+          <WithLoading query={getUserQuery} FallbackLoadingUI={FieldLoader}>
             <Select
               sx={{ width: "100%", margin: "20px  0" }}
               rightSection={<IconChevronDown size={14} />}
@@ -113,7 +113,7 @@ const PaymentsForm: React.FC<{
             />
           </WithLoading>
 
-          <WithLoading query={userLoanQuery} FallbackLoadingUI={Loader}>
+          <WithLoading query={userLoanQuery} FallbackLoadingUI={FieldLoader}>
             <Select
               sx={{ width: "100%", margin: "20px  0" }}
               rightSection={<IconChevronDown size={14} />}

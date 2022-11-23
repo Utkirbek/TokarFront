@@ -32,7 +32,7 @@ function ProductsTable({ data, page, onPageChange, total }: any) {
   }, []);
 
   const handleClick = useCallback(() => {
-    toggleOpened(false);
+    toggleOpened(true);
     setEditItem({});
   }, []);
 

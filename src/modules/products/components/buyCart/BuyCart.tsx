@@ -1,18 +1,22 @@
+import "dayjs/locale/uz-latn";
+
 import ComponentToPrint from "@components/print/ComponentToPrint";
+import WithLoading from "@hoc/WithLoading";
 import useNotification from "@hooks/useNotification";
 import {
   ActionIcon,
   Box,
   Button,
   Card,
-  Container,
   ScrollArea,
   Select,
   Text,
-  TextInput,
 } from "@mantine/core";
+import { DatePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
+import { FieldLoader } from "@modules/payments/components/PaymentForm";
 import usePayments from "@services/hooks/usePayments";
+import useUsers from "@services/hooks/useUser";
 import { IconTrash } from "@tabler/icons";
 import React, { useRef, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -22,47 +26,37 @@ import { useCart } from "react-use-cart";
 import datas from "./data";
 import useStyles from "./styleCard";
 
+const activeStyle = {
+  background: "#1864AB",
+  color: "white",
+  borderRadius: "10px",
+};
+
 const BuyCart: React.FC<{}> = () => {
   const { classes, cx } = useStyles();
   const [wallet, setWallet] = useState(false);
   const [activeId, setActiveId] = useState(null);
   const [paymenttitle, setPaymentTitle] = useState("");
-  const [loan, loanTitle] = useState("");
-  const [salesmen, salesmanTitle] = useState("");
   const intl = useIntl();
   const { addPayments } = usePayments();
   const { showLoadingNotification, showSuccessNotification } =
     useNotification();
   const componentRef = useRef(null);
+  const { useFetchUsers } = useUsers();
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
 
-  const {
-    isEmpty,
-    items,
-    updateItemQuantity,
-    removeItem,
-    cartTotal,
-    emptyCart,
-    getItem,
-    totalItems,
-    inCart,
-  } = useCart();
+  const { isEmpty, items, removeItem, cartTotal } = useCart();
 
   const form = useForm({
     initialValues: {
       amount: "",
       paymentMethod: "",
+      paymentDate: new Date(),
     },
   });
-
-  const activeStyle = {
-    background: "#1864AB",
-    color: "white",
-    borderRadius: "10px",
-  };
 
   const handleSubmit = async (values: {
     amount: any;
@@ -70,23 +64,15 @@ const BuyCart: React.FC<{}> = () => {
     salesman: any;
     loan: any;
   }) => {
-    addPayments(
-      values,
-
-      {
-        onSuccess: () => {
-          showSuccessNotification();
-        },
-        onError: () => {
-          showLoadingNotification;
-        },
-      }
-    );
+    addPayments(values, {
+      onSuccess: () => {
+        showSuccessNotification();
+      },
+      onError: () => {
+        showLoadingNotification;
+      },
+    });
     showLoadingNotification();
-  };
-  const buy = () => {
-    showSuccessNotification;
-    showLoadingNotification;
   };
 
   const handleClick = (item: any) => () => {
@@ -103,10 +89,12 @@ const BuyCart: React.FC<{}> = () => {
     handleSubmit({
       amount: cartTotal,
       paymentMethod: paymenttitle,
-      salesman: salesmanTitle,
-      loan: loanTitle,
+      salesman: null,
+      loan: null,
     });
   }
+
+  const fetchUsersQuery = useFetchUsers();
 
   return (
     <>
@@ -132,7 +120,7 @@ const BuyCart: React.FC<{}> = () => {
                           maxWidth: "90%",
                         }}
                       >
-                        {item.title.substring(0, 60)}...
+                        {item.title.substring(0, 60)}
                       </Text>
                       <ActionIcon>
                         <IconTrash
@@ -154,6 +142,7 @@ const BuyCart: React.FC<{}> = () => {
                       </Text>
                       <Text sx={{ fontWeight: "bold" }}>
                         <span
+                          suppressContentEditableWarning
                           contentEditable
                           style={{
                             border: "0.2px solid",
@@ -205,30 +194,34 @@ const BuyCart: React.FC<{}> = () => {
                 );
               })}
             </Box>
-            <Select
-              sx={{ margin: "10px 0" }}
-              placeholder={intl.formatMessage({
-                id: "products.buyCart.whom",
-              })}
-              data={[
-                {
-                  value: "users",
-                  label: intl.formatMessage({
-                    id: "products.userShow",
-                  }),
-                },
-              ]}
-            />
-            {!!wallet ? (
-              <TextInput
-                label={intl.formatMessage({
-                  id: "products.buyCart.enterDay",
-                })}
+            <WithLoading
+              query={fetchUsersQuery}
+              FallbackLoadingUI={FieldLoader}
+            >
+              <Select
+                sx={{ margin: "10px 0" }}
                 placeholder={intl.formatMessage({
-                  id: "products.buyCart.enterDay",
+                  id: "products.buyCart.whom",
                 })}
-                {...form.getInputProps("payDay")}
-                required
+                label={intl.formatMessage({ id: "products.buyCart.whom" })}
+                data={fetchUsersQuery.data?.map((user: any) => {
+                  return {
+                    value: user._id,
+                    label: user.name,
+                  };
+                })}
+              />
+            </WithLoading>
+            {!!wallet ? (
+              <DatePicker
+                locale="uz-latn"
+                placeholder={intl.formatMessage({
+                  id: "products.buyCart.date",
+                })}
+                label={intl.formatMessage({
+                  id: "products.buyCart.date",
+                })}
+                {...form.getInputProps("paymentDate")}
               />
             ) : null}
           </Card>
