@@ -39,6 +39,7 @@ function Statistica() {
     RequestQueryKeys.statistics,
     statisticFetchers.getStatistic
   );
+
   const { data } = statistic;
   if (!data) return <StatisticsHeadSkeleton />;
   return (

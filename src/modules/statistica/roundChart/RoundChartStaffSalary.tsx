@@ -66,7 +66,7 @@ export default function RoundChartStaffSalary({ sitatisticStaffSalary }: any) {
         })}>
         <div className="chart">
           <BarChart
-            width={450}
+            width={420}
             height={260}
             data={Data}
             stackOffset="sign"
@@ -76,14 +76,14 @@ export default function RoundChartStaffSalary({ sitatisticStaffSalary }: any) {
               left: 5,
               bottom: 5,
             }}>
-            <CartesianGrid strokeDasharray="3 3" />
+            <CartesianGrid strokeDasharray="3 " />
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
 
             <ReferenceLine y={0} stroke="#000" />
-            <Bar dataKey="pv" fill="hsl(45, 70%, 50%)" stackId="stack" />
-            <Bar dataKey="uv" fill="hsl(170, 70%, 50%)" stackId="stack" />
+            <Bar dataKey="pv" fill="hsl(45, 70%, 50%)" />
+            <Bar dataKey="uv" fill="hsl(170, 70%, 50%)" />
           </BarChart>
 
           <style jsx>
