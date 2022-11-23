@@ -4,15 +4,17 @@ import { useCallback, useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 type Props = {
-  setSearchResults: (value: any) => void;
+  onSearchResults: (value: any) => void;
   searchResults: any;
   fetcher: (value: string) => Promise<any>;
+  onClear: () => void;
 };
 
 function SearchAutoComplete({
-  setSearchResults,
+  onSearchResults,
   fetcher,
   searchResults,
+  onClear,
 }: Props) {
   const [value, setValue] = useState("");
   const intl = useIntl();
@@ -21,7 +23,7 @@ function SearchAutoComplete({
     if (value.length > 0) {
       fetcher(value).then((res) => {
         if (!!res && Array.isArray(res)) {
-          setSearchResults(res);
+          onSearchResults(res);
         }
       });
     }
@@ -41,7 +43,7 @@ function SearchAutoComplete({
   return (
     <>
       <Autocomplete
-        sx={{ width: "75%" }}
+        sx={{ flexGrow: 1, marginRight: 80 }}
         value={value}
         onChange={setValue}
         placeholder="Start typing to see options"
@@ -52,8 +54,12 @@ function SearchAutoComplete({
               <Button
                 variant="subtle"
                 color={"red"}
-                onClick={() => setSearchResults([])}>
-                <IconSquareLetterX color="red" style={{ marginTop: 4 }} />
+                onClick={() => {
+                  onClear();
+                  setValue("");
+                }}
+              >
+                <IconSquareLetterX color="red" />
               </Button>
             </Tooltip>
             <Button onClick={handleSearch}>

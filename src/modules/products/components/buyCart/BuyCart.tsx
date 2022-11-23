@@ -1,6 +1,7 @@
 import ComponentToPrint from "@components/print/ComponentToPrint";
 import useNotification from "@hooks/useNotification";
 import {
+  ActionIcon,
   Box,
   Button,
   Card,
@@ -116,24 +117,54 @@ const BuyCart: React.FC<{}> = () => {
               <FormattedMessage id="products.buyCart.maxsulotYoq" />
             </Text>
           ) : (
-            <ScrollArea style={{ height: 250 }} scrollbarSize={4}>
+            <ScrollArea style={{ height: "50vh" }} scrollbarSize={4}>
               {items.map((item: any) => {
                 return (
-                  <Card className={classes.card} key={item._id}>
-                    <Box sx={{ display: "flex" }}>
-                      <IconTrash
-                        color="red"
-                        cursor={"pointer"}
-                        onClick={() => removeItem(item._id)}
-                        className={classes.icon}
-                      />
+                  <Card p={"xs"} className={classes.card} key={item._id}>
+                    <Box
+                      sx={{ display: "flex", justifyContent: "space-between" }}
+                    >
+                      <Text
+                        sx={{
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          maxWidth: "90%",
+                        }}
+                      >
+                        {item.title.substring(0, 60)}...
+                      </Text>
+                      <ActionIcon>
+                        <IconTrash
+                          color="red"
+                          cursor={"pointer"}
+                          onClick={() => removeItem(item._id)}
+                        />
+                      </ActionIcon>
+                    </Box>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
                       <Text>
-                        {item.title.substring(0, 50)}... {item.quantity}x
+                        {item.quantity}x {item.price}
+                        <span>&nbsp;So&apos;m</span>
+                      </Text>
+                      <Text sx={{ fontWeight: "bold" }}>
+                        <span
+                          contentEditable
+                          style={{
+                            border: "0.2px solid",
+                            padding: "0 5px",
+                          }}
+                        >
+                          {item.price * item.quantity}{" "}
+                        </span>
+                        <span>&nbsp;So&apos;m</span>
                       </Text>
                     </Box>
-                    <Text contentEditable>
-                      {item.price * item.quantity}So&apos;m
-                    </Text>
                   </Card>
                 );
               })}
@@ -141,7 +172,7 @@ const BuyCart: React.FC<{}> = () => {
           )}
         </Box>
 
-        <Box>
+        <Box mt={20}>
           <Card className={classes.cardPrice}>
             <Box className={classes.totalpriceGrup}>
               <Text sx={{ width: "80%", fontSize: "18px", fontWeight: 900 }}>
@@ -150,7 +181,7 @@ const BuyCart: React.FC<{}> = () => {
               <Text sx={{ fontSize: "20px", fontWeight: 700 }}>
                 {cartTotal}
               </Text>
-              <Text sx={{ fontSize: "20px", fontWeight: 700 }}>UZS</Text>
+              <Text sx={{ fontSize: "20px", fontWeight: 700 }}>&nbsp;UZS</Text>
             </Box>
 
             <Box className={classes.payMoney}>
@@ -163,7 +194,8 @@ const BuyCart: React.FC<{}> = () => {
                     <Box
                       className={classes.cardSuma}
                       style={item.id === activeId ? activeStyle : {}}
-                      onClick={handleClick(item)}>
+                      onClick={handleClick(item)}
+                    >
                       <item.icon
                         size={50}
                         onClick={() => clickWallet({ item })}
@@ -206,7 +238,8 @@ const BuyCart: React.FC<{}> = () => {
           <Box
             style={{
               display: "none",
-            }}>
+            }}
+          >
             <ComponentToPrint ref={componentRef} />
           </Box>
         </Box>

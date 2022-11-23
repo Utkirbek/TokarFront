@@ -133,7 +133,8 @@ function TableCard({ data }: { data: any }) {
         >
           <SearchAutoComplete
             searchResults={searchResults}
-            setSearchResults={setSearchResults}
+            onSearchResults={setSearchResults}
+            onClear={() => setSearchResults([])}
             fetcher={adminFetchers.getAdminsByTitle}
           />
           <Group position="right" mx={"xl"} my={"xl"}>

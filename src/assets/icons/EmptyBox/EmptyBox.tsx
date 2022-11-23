@@ -1,8 +1,7 @@
 import { Box, Center, Text } from "@mantine/core";
-import React from "react";
 import { FormattedMessage } from "react-intl";
 
-function EmptyBox() {
+function EmptyBox({ id = "emptyBox" }) {
   return (
     <Box>
       <Center style={{ cursor: "pointer" }}>
@@ -16,7 +15,7 @@ function EmptyBox() {
         ></lord-icon>
       </Center>
       <Text align="center" size="xl">
-        <FormattedMessage id="emptyBox" />
+        <FormattedMessage id={id} />
       </Text>
     </Box>
   );

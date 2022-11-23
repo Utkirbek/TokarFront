@@ -45,7 +45,7 @@ const FormProduct: React.FC<{
       code: editItem?.code ?? "",
       originalPrice: editItem?.originalPrice ?? "",
       price: editItem?.price ?? "",
-      unit: editItem?.unit ?? "",
+      unit: editItem?.unit ?? "D",
       quantity: editItem?.quantity ?? "",
       description: editItem?.description ?? "",
       discounts: editItem?.discounts ?? [{ price: 0, quantity: 0 }],
@@ -106,7 +106,8 @@ const FormProduct: React.FC<{
             fontSize: "24px",
             textAlign: "center",
             fontWeight: 700,
-          }}>
+          }}
+        >
           <FormattedMessage
             id="products.addEdit"
             values={{ isNew: !editItem._id }}
@@ -134,7 +135,8 @@ const FormProduct: React.FC<{
           <Button
             variant="outline"
             sx={{ float: "right", margin: "10px 0" }}
-            hidden>
+            hidden
+          >
             <FormattedMessage id="products.form.takePicture" />
           </Button>
         </Box>
@@ -148,7 +150,8 @@ const FormProduct: React.FC<{
 
         <If
           condition={!!currencies}
-          elseChildren={<Skeleton width="100%" height="40px" />}>
+          elseChildren={<Skeleton width="100%" height="40px" />}
+        >
           <Select
             sx={{ width: "100%", margin: "20px  0" }}
             rightSection={<IconChevronDown size={14} />}
