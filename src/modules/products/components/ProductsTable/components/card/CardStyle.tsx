@@ -1,27 +1,22 @@
 import { createStyles } from "@mantine/core";
 
-const useStyles = createStyles(() => {
+const useSalesCardStyles = createStyles(() => {
   return {
     card: {
-      width: "180px",
-      height: "200px",
+      width: "100%",
+      height: "100%",
       border: "1px solid #444",
       borderRadius: "7px",
     },
     cardPadding: {
       padding: "5px",
     },
-    cardFlex: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-    },
     cardButton: {
       display: "flex",
-      justifyContent: "flex-end",
+      justifyContent: "space-between",
       alignItems: "center",
       marginTop: "5px",
     },
   };
 });
-export default useStyles;
+export default useSalesCardStyles;

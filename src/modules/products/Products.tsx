@@ -1,22 +1,19 @@
 import WithLoading from "@hoc/WithLoading";
-import { Pagination } from "@mantine/core";
 import { SpotlightAction, useSpotlight } from "@mantine/spotlight";
 import productFetchers from "@services/api/productFetchers";
 import useProducts from "@services/hooks/useProducts";
-import { IconHome, IconTable } from "@tabler/icons";
+import { IconHome } from "@tabler/icons";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { CartProvider } from "react-use-cart";
 
 import ProductsTable from "./components/ProductsTable";
-import ProdactCard from "./components/ProductsTable/components/card";
 
 const Products = () => {
   const [page, setPage] = useState(1);
   const spotlight = useSpotlight();
   const router = useRouter();
   const { useFetchProduct } = useProducts();
-  const [card, setCard] = useState(false);
 
   useEffect(() => {
     if (spotlight.opened) {
@@ -49,34 +46,11 @@ const Products = () => {
   return (
     <CartProvider>
       <WithLoading query={getProductsQuery}>
-        <IconTable
-          onClick={() => setCard(!card)}
-          style={{
-            fontSize: "35px",
-            cursor: "pointer",
-            marginBottom: "10px",
-          }}
-        />
-        {card ? (
-          <ProdactCard data={data?.products} />
-        ) : (
-          <ProductsTable data={data?.products} />
-        )}
-        <Pagination
-          my={10}
-          page={page}
-          styles={(theme) => ({
-            item: {
-              "&[data-active]": {
-                backgroundImage: theme.fn.gradient({
-                  from: "red",
-                  to: "yellow",
-                }),
-              },
-            },
-          })}
+        <ProductsTable
+          data={data?.products}
           total={data?.totalPage}
-          onChange={(page) => setPage(page)}
+          page={page}
+          onPageChange={(page: number) => setPage(page)}
         />
       </WithLoading>
     </CartProvider>

@@ -4,24 +4,19 @@ const useStyles = createStyles(() => {
   return {
     boxHead: {
       position: "sticky",
-      width: "100%",
       top: 0,
+      width: "100%",
+      height: "100%",
       display: "flex",
       flexFlow: "column",
       justifyContent: "space-between",
-      height: "100%",
     },
     card: {
-      padding: "7px 5px 7px 5px !important",
       width: "100%",
-      display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
       borderRadius: 5,
       marginBottom: "10px",
-    },
-    icon: {
-      marginRight: "5px",
     },
     CardBox: {
       width: "100%",

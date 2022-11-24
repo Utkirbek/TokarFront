@@ -10,6 +10,7 @@ export const commonUz = {
   addSmth: "{isNew, select, true {Ro'yxatga Qo'shish} other {Saqlash}}",
   search: "Qidiruv",
   clear: "Tozalash",
+  noSearchResults: "Qidiruv natijasi topilmadi",
 };
 
 export const commonEn = {
@@ -24,4 +25,5 @@ export const commonEn = {
   addSmth: "{isNew, select, true {Add to List} other {Save}}",
   search: "Search",
   clear: "Clear",
+  noSearchResults: "Qidiruv natijasi topilmadi",
 };

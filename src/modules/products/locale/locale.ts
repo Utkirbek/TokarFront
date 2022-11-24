@@ -59,6 +59,7 @@ export const productsLocaleUz = {
     noProduct: "Sizda mahsulot qolmadi",
     enterDay: "Muddatni Kiriting",
     som: "so'm",
+    date: "Muddatini tanlang",
   },
 };
 

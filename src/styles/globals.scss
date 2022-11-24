@@ -10,3 +10,9 @@ a {
 .iconFull {
   margin: 0;
 }
+
+.mantine-DatePicker-dropdown {
+  z-index: 9999;
+  position: relative;
+  top: 0 !important;
+}

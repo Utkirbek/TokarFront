@@ -143,7 +143,9 @@ function DashLayout({ children }: { children: React.ReactNode }) {
         </If>
       }
     >
-      <Box px={fullView ? 0 : "sm"}>{children}</Box>
+      <Box px={fullView ? 0 : "sm"} sx={{ height: "100%" }}>
+        {children}
+      </Box>
     </AppShell>
   );
 }

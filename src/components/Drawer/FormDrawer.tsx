@@ -22,7 +22,8 @@ const FormDrawer: React.FC<Props> = ({ opened, toggleOpened, children }) => {
       onClose={() => toggleOpened(false)}
       padding="xl"
       size="xl"
-      position="right">
+      position="right"
+    >
       {children}
     </Drawer>
   );

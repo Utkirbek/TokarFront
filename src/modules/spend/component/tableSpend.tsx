@@ -8,7 +8,6 @@ import { IconPencil, IconTrash } from "@tabler/icons";
 import { useState } from "react";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 
-import { nameTable } from "../const/tableconst";
 import SpendDrawer from "./spendDrawer";
 
 type Props = {

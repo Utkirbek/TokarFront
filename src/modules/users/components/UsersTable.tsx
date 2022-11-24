@@ -103,7 +103,8 @@ function UsersTable({ data }: any) {
                     details: item._id,
                   },
                 });
-              }}>
+              }}
+            >
               <FormattedMessage id="more" />
             </Button>
           </td>
@@ -123,10 +124,12 @@ function UsersTable({ data }: any) {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-        }}>
+        }}
+      >
         <SearchAutoComplete
           searchResults={searchResults}
-          setSearchResults={setSearchResults}
+          onSearchResults={setSearchResults}
+          onClear={() => setSearchResults([])}
           fetcher={userFetcher.getUsersByTitle}
         />
         <If hasPerm={Permissions.users.create}>
@@ -149,7 +152,8 @@ function UsersTable({ data }: any) {
         padding="xl"
         size="xl"
         position="right"
-        sx={{ height: "120vh" }}>
+        sx={{ height: "120vh" }}
+      >
         <NewUser
           handleClose={() => toggleOpened(false)}
           editItem={editItem}
