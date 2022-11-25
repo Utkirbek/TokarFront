@@ -6,6 +6,7 @@ import { Button, ScrollArea, Table } from "@mantine/core";
 import useOrder from "@services/hooks/useOrder";
 import { IconTrash } from "@tabler/icons";
 import { Permissions } from "@utils/constants";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 
@@ -52,7 +53,11 @@ const OrdersTable = ({ data }: Props) => {
     return (
       <tr key={item._id}>
         <td>{item?.salesman?.name}</td>
-        <td>{item?.user?.name}</td>
+        <td>
+          <Link href={`/users?details=${item?.user?._id}`}>
+            {item?.user?.name}
+          </Link>
+        </td>
         <td>{item?.total}</td>
         <td>
           <FormattedDate
@@ -79,7 +84,8 @@ const OrdersTable = ({ data }: Props) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-around",
-          }}>
+          }}
+        >
           <If hasPerm={Permissions.orders.delete}>
             <IconTrash
               onClick={() => openDeleteModal(item._id, item.name)}
@@ -94,7 +100,8 @@ const OrdersTable = ({ data }: Props) => {
                   details: item._id,
                 },
               });
-            }}>
+            }}
+          >
             <FormattedMessage id="more" />
           </Button>
         </td>

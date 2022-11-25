@@ -1,5 +1,6 @@
 import TableHead from "@components/Table/TableHead";
 import { Button, ScrollArea, Table, Text } from "@mantine/core";
+import Link from "next/link";
 import router from "next/router";
 import { memo } from "react";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
@@ -7,6 +8,7 @@ import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 import LoanBatafsil from "./batafsil/LoanBatafsil";
 
 function LoanTable({ data }: any) {
+
   return (
     <ScrollArea>
       <Table style={{ marginTop: 70 }}>
@@ -24,14 +26,17 @@ function LoanTable({ data }: any) {
             return (
               <tr key={item._id}>
                 <td>
-                  {item.user === null ? (
-                    <Text>
-                      <FormattedMessage id="loans.userError" />
-                    </Text>
-                  ) : (
-                    item.user?.name
-                  )}
+                  <Link href={`/users?details=${item?.user?._id}`}>
+                    {item.user === null ? (
+                      <Text>
+                        <FormattedMessage id="loans.userError" />
+                      </Text>
+                    ) : (
+                      item.user?.name
+                    )}
+                  </Link>
                 </td>
+                
                 <td>{item.amount}</td>
                 <td>
                   <FormattedDate

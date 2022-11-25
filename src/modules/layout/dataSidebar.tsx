@@ -63,13 +63,6 @@ const data = [
   },
   {
     id: 8,
-    link: "/roles",
-    label: "roles.title",
-    icon: IconSettingsAutomation,
-    permission: "roles_view",
-  },
-  {
-    id: 9,
     link: "/orders",
     label: "orders.title",
     icon: IconList,

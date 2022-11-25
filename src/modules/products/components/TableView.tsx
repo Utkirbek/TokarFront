@@ -102,7 +102,7 @@ const TableView: React.FC<Props> = ({ data, onEdit }) => {
 
             <If hasPerm={Permissions.products.price}>
               <td>
-                {item.price}_UZS/{item.unit}
+                {item.price.toFixed(2)}_UZS/{item.unit}
               </td>
             </If>
 

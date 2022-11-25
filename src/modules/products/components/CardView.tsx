@@ -65,7 +65,7 @@ const SalesCard: React.FC<{ item: any }> = ({ item }) => {
         <Text>{item.title}</Text>
         <Box className={classes.cardButton}>
           <Text sx={{ fontWeight: "bold" }} fz="sm" fw={500}>
-            {item.price} {item.currency?.name}
+            {item.price.toFixed(2)} {item.currency?.name}
           </Text>
           <Button.Group>
             <Button
