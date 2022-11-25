@@ -31,6 +31,7 @@ const en = {
   payments: paymentsLocaleEn,
   sthWentWrong: "Something went wrong",
   emptyBox: "There is no product left in your work",
+  serverError : "Server Error",
   pageNotFound: "Page Not Found",
   saveCurrency: "Save",
   currencyPerm: "Valyuta",
@@ -64,6 +65,7 @@ const en = {
     cancel: "Cancel",
     confirm: "Delete",
   },
+  
 };
 
 export default en;

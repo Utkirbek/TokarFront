@@ -1,36 +1,29 @@
 import useStyles from "@components/errorStyle";
 import { Button } from "@mantine/core";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { FormattedMessage } from "react-intl";
 
 
 
-
-function Error() {
+function ErrorServer(){
   const router = useRouter();
   const { classes, cx } = useStyles();
-  
 
-  useEffect(() => {
-    setTimeout(() => {
-      router.push("/");
-    }, 5000);
-  }, [router]);
+ 
 
   return (
     <div className={classes.serverError}>
       <lord-icon
-        src="https://cdn.lordicon.com/spgozyor.json"
+        src="https://cdn.lordicon.com/grpzdfts.json"
         trigger="hover"
         style={{ width: "250px", height: "250px" }}
       ></lord-icon>
       <div style={{ textAlign: "center" }}>
         <span style={{ color: "red", fontSize: "40px", fontWeight: "900" }}>
-          404
+          505
         </span>
         <h2 style={{ color: "red" }}>
-          <FormattedMessage id="pageNotFound" />
+          <FormattedMessage id="serverError" />
         </h2>
       </div>
       
@@ -38,4 +31,4 @@ function Error() {
   );
 }
 
-export default Error;
+export default ErrorServer;
