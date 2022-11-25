@@ -3,7 +3,7 @@ import { IconMinus, IconPhoto, IconPlus } from "@tabler/icons";
 import React from "react";
 import { useCart } from "react-use-cart";
 
-import useSalesCardStyles from "./ProductsTable/components/card/CardStyle";
+import useSalesCardStyles from "./ProductsTable/styles/CardStyle";
 
 type Props = {
   data: any[];

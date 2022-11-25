@@ -8,7 +8,7 @@ import {
   Table,
   Text,
 } from "@mantine/core";
-import useStyles from "@modules/products/components/ProductsTable/style";
+import useStyles from "@modules/products/components/ProductsTable/styles";
 import userFetcher from "@services/api/userFetcher";
 import { RequestQueryKeys } from "@utils/constants";
 import { useRouter } from "next/router";

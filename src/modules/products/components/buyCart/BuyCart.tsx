@@ -137,7 +137,7 @@ const BuyCart: React.FC<{}> = () => {
                       }}
                     >
                       <Text>
-                        {item.quantity}x {item.price}
+                        {item.quantity}x {item.price.toFixed(2)}
                         <span>&nbsp;So&apos;m</span>
                       </Text>
                       <Text sx={{ fontWeight: "bold" }}>
@@ -149,7 +149,7 @@ const BuyCart: React.FC<{}> = () => {
                             padding: "0 5px",
                           }}
                         >
-                          {item.price * item.quantity}{" "}
+                          {item.price.toFixed(2) * item.quantity}{" "}
                         </span>
                         <span>&nbsp;So&apos;m</span>
                       </Text>

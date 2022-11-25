@@ -18,6 +18,8 @@ export const productsLocaleUz = {
   day: "Necha kunga",
   title: "Mahsulotlar",
   buy: "Sotish",
+  no_price: "Narxi yo'q",
+  min_quantity: "Kam qolgan tovarlar",
 
   form: {
     takePicture: "Rasmni olib tashlash",
@@ -35,6 +37,7 @@ export const productsLocaleUz = {
     limitLabel: "Chegirmadagi narxi",
     limitPlaceholder: "Chegirmadagi narxiini kiriting",
     limitNumbLabel: "Chegirmadagi soni",
+    minQuantity: "Mahsulot kamlik miqdori",
   },
 
   productDetail: {
@@ -100,6 +103,7 @@ export const productsLocaleEn = {
     limitLabel: "Discount Price",
     limitPlaceholder: "Enter your discounted price",
     limitNumbLabel: "Number in discount",
+    minQuantity: "Minimum quantity",
   },
 
   productDetail: {

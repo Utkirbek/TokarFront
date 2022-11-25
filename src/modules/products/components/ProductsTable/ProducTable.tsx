@@ -2,7 +2,7 @@ import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import FormDrawer from "@components/Drawer/FormDrawer";
 import SearchAutoComplete from "@components/SearchAutoComplete";
 import If from "@components/smart/If";
-import { Box, Button, Grid, Pagination, ScrollArea } from "@mantine/core";
+import { Box, Button, Chip, Grid, Pagination, ScrollArea } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import productFetchers from "@services/api/productFetchers";
 import { IconTable } from "@tabler/icons";
@@ -17,7 +17,25 @@ import FormProduct from "../form/FormAdd";
 import TableView from "../TableView";
 import ProductDetails from "./components/ProductDetails";
 
-function ProductsTable({ data, page, onPageChange, total }: any) {
+function ProductsTable({
+  data,
+  page,
+  onPageChange,
+  total,
+  minQuantity,
+  noPrice,
+  toggleMinQuantity,
+  toggleNoPrice,
+}: {
+  data: any;
+  page: number;
+  onPageChange: (page: number) => void;
+  total: number;
+  minQuantity: boolean;
+  noPrice: boolean;
+  toggleMinQuantity: (bool?: boolean) => void;
+  toggleNoPrice: (bool?: boolean) => void;
+}) {
   const [editItem, setEditItem] = useState({});
   const [searchResults, setSearchResults] = useState([]);
   const [opened, toggleOpened] = useToggle();
@@ -102,7 +120,41 @@ function ProductsTable({ data, page, onPageChange, total }: any) {
               <>
                 <If
                   condition={salesView}
-                  elseChildren={<TableView onEdit={onEdit} data={activeData} />}
+                  elseChildren={
+                    <Box>
+                      <Chip.Group
+                        position="left"
+                        my={5}
+                        multiple
+                        onChange={(value) => {
+                          if (value.includes("min_quantity")) {
+                            toggleMinQuantity(true);
+                          } else {
+                            toggleMinQuantity(false);
+                          }
+                          if (value.includes("no_price")) {
+                            toggleNoPrice(true);
+                          } else {
+                            toggleNoPrice(false);
+                          }
+                        }}
+                      >
+                        <If hasPerm={Permissions.products.originalPrice}>
+                          <Chip value={"no_price"}>
+                            <FormattedMessage id="products.no_price" />
+                          </Chip>
+                        </If>
+                        <Chip value={"min_quantity"}>
+                          <FormattedMessage id="products.min_quantity" />
+                        </Chip>
+                      </Chip.Group>
+                      <TableView
+                        onEdit={onEdit}
+                        data={activeData}
+                        minStock={minQuantity}
+                      />
+                    </Box>
+                  }
                 >
                   <CardView data={activeData} />
                 </If>

@@ -1,5 +1,5 @@
 import { Box, Image, Modal, Text } from "@mantine/core";
-import useStyles from "@modules/products/components/ProductsTable/style";
+import useStyles from "@modules/products/components/ProductsTable/styles";
 import { IconUser, IconUserOff } from "@tabler/icons";
 import { useRouter } from "next/router";
 import queryString from "query-string";

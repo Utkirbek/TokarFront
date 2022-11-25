@@ -1,4 +1,5 @@
 import WithLoading from "@hoc/WithLoading";
+import { useToggle } from "@mantine/hooks";
 import { SpotlightAction, useSpotlight } from "@mantine/spotlight";
 import productFetchers from "@services/api/productFetchers";
 import useProducts from "@services/hooks/useProducts";
@@ -11,6 +12,8 @@ import ProductsTable from "./components/ProductsTable";
 
 const Products = () => {
   const [page, setPage] = useState(1);
+  const [minQuantity, toggleMinQuantity] = useToggle();
+  const [noPrice, toggleNoPrice] = useToggle();
   const spotlight = useSpotlight();
   const router = useRouter();
   const { useFetchProduct } = useProducts();
@@ -40,7 +43,11 @@ const Products = () => {
     }
   }, [router, spotlight, spotlight.query]);
 
-  const getProductsQuery = useFetchProduct(page);
+  const getProductsQuery = useFetchProduct(page, {
+    minQuantity,
+    noPrice,
+    perPage: 10,
+  });
   const { data } = getProductsQuery;
 
   return (
@@ -51,6 +58,10 @@ const Products = () => {
           total={data?.totalPage}
           page={page}
           onPageChange={(page: number) => setPage(page)}
+          minQuantity={minQuantity}
+          noPrice={noPrice}
+          toggleMinQuantity={toggleMinQuantity}
+          toggleNoPrice={toggleNoPrice}
         />
       </WithLoading>
     </CartProvider>

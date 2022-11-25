@@ -21,17 +21,20 @@ import { FormattedMessage } from "react-intl";
 import { useCart } from "react-use-cart";
 
 import { productsTableHead } from "../constants";
+import useTableStyles from "./ProductsTable/styles/TableStyles";
 
 type Props = {
   data: unknown[];
   onEdit: (item: unknown) => void;
+  minStock: boolean;
 };
 
-const TableView: React.FC<Props> = ({ data, onEdit }) => {
+const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
   const router = useRouter();
   const { addItem } = useCart();
   const { deleteProducts } = useProducts();
   const { openConfirm } = useConfirmation();
+  const { cx, classes } = useTableStyles();
 
   const {
     showLoadingNotification,
@@ -69,7 +72,13 @@ const TableView: React.FC<Props> = ({ data, onEdit }) => {
         };
 
         return (
-          <tr key={item._id}>
+          <tr
+            key={item._id}
+            className={cx({
+              [classes.minStock]: item.quantity <= item.minQuantity || minStock,
+              [classes.noPriceWarning]: item.price === 0,
+            })}
+          >
             <td>
               <Group spacing="sm">
                 <Avatar size={40} src={getCoverImage(item.image)} radius={26} />

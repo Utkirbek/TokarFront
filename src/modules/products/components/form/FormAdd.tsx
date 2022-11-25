@@ -50,6 +50,7 @@ const FormProduct: React.FC<{
       description: editItem?.description ?? "",
       discounts: editItem?.discounts ?? [{ price: 0, quantity: 0 }],
       currency: editItem?.currency ?? "63635d7850b0f6000826a6ac",
+      minQuantity: editItem?.minQuantity ?? 5,
     },
   });
 
@@ -63,6 +64,7 @@ const FormProduct: React.FC<{
     quantity: string | number;
     description: string;
     discounts: string | number | string[];
+    minQuantity: number;
   }) => {
     if (!!editItem._id) {
       showLoadingNotification();
@@ -217,6 +219,13 @@ const FormProduct: React.FC<{
           placeholder={intl.formatMessage({ id: "products.form.prodInfo" })}
           {...form.getInputProps("description")}
           required
+        />
+        <NumberInput
+          label={intl.formatMessage({ id: "products.form.minQuantity" })}
+          placeholder={intl.formatMessage({
+            id: "products.form.minQuantity",
+          })}
+          {...form.getInputProps("minQuantity")}
         />
         <Box style={{ display: "flex", gap: 20 }}>
           <NumberInput
