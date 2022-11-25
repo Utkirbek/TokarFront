@@ -74,7 +74,7 @@ const SpendDrawer: React.FC<{
           })}
           styles={{ rightSection: { pointerEvents: "none" } }}
           label={intl.formatMessage({ id: "payments.select" })}
-          data={["Click", "Terminal", "Naqt", "Bo'lib To'lash"]}
+          data={["Click", "Naqt"]}
           {...form.getInputProps("paymentMethod")}
         />
         <TextInput

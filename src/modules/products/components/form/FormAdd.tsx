@@ -218,7 +218,7 @@ const FormProduct: React.FC<{
           {...form.getInputProps("description")}
           required
         />
-        <Box>
+        <Box style={{ display: "flex", gap: 20 }}>
           <NumberInput
             label={intl.formatMessage({ id: "products.form.limitLabel" })}
             placeholder={intl.formatMessage({
