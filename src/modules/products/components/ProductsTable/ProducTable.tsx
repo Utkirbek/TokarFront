@@ -125,7 +125,6 @@ function ProductsTable({
                       <Chip.Group
                         position="left"
                         my={5}
-                        multiple
                         onChange={(value) => {
                           if (value.includes("min_quantity")) {
                             toggleMinQuantity(true);
