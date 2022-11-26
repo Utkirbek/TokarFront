@@ -9,6 +9,7 @@ import { paymentsLocaleEn } from "@modules/payments/locale";
 import { productsLocaleEn } from "@modules/products/locale/locale";
 import { rolesLocaleEn } from "@modules/roles/locale";
 import { permissionsLocaleEn } from "@modules/settings/locale";
+import { shopLocalEn } from "@modules/shopes/locale/locale";
 import { expensesLocaleEn } from "@modules/spend/locale";
 import { usersLocaleEn } from "@modules/users/locale/locale";
 
@@ -29,6 +30,7 @@ const en = {
   admins: adminsLocaleEn,
   loans: loanLocaleEn,
   payments: paymentsLocaleEn,
+  shopes: shopLocalEn,
   sthWentWrong: "Something went wrong",
   emptyBox: "There is no product left in your work",
   serverError : "Server Error",
