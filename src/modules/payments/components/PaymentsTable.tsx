@@ -7,6 +7,7 @@ import {
   ActionIcon,
   Button,
   Group,
+  Pagination,
   ScrollArea,
   Table,
   Text,
@@ -30,7 +31,7 @@ const tableHead = {
   action: true,
 };
 
-function PaymentsTable({ data }: { data: any }) {
+function PaymentsTable({ data, page, onPageChange, total }: any) {
   const {
     showLoadingNotification,
     showSuccessNotification,
@@ -62,17 +63,7 @@ function PaymentsTable({ data }: { data: any }) {
   const rows = data?.map((item: any) => {
     return (
       <tr key={item._id}>
-        <td>
-          <Link
-            href={"/admins"}
-            style={{
-              borderBottom: "1px solid #1983FF",
-              textDecoration: "none",
-            }}
-          >
-            {item.salesman.name}
-          </Link>
-        </td>
+        <td>{item.salesman?.name}</td>
         <td>{item.amount}</td>
         <td>
           {!!item.loan ? (
@@ -140,6 +131,22 @@ function PaymentsTable({ data }: { data: any }) {
           <TableHead data={tableHead} prefix="payments" />
           <tbody>{rows}</tbody>
         </Table>
+        <Pagination
+          my={10}
+          page={page}
+          styles={(theme) => ({
+            item: {
+              "&[data-active]": {
+                backgroundImage: theme.fn.gradient({
+                  from: "red",
+                  to: "yellow",
+                }),
+              },
+            },
+          })}
+          total={total}
+          onChange={onPageChange}
+        />
       </ScrollArea>
     </>
   );
