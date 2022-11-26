@@ -7,6 +7,7 @@ const useStyles = createStyles((theme) => ({
     marginBottom: "20px",
     fontWeight: 700,
     color: "#1971C2",
+    textAlign: "center",
   },
   allDisplay: {
     width: "100%",
@@ -22,7 +23,7 @@ const useStyles = createStyles((theme) => ({
     height: "350px",
   },
   left: {
-    width: "600px",
+    width: "800px",
   },
   textStart: {
     textAlign: "start",
@@ -30,7 +31,7 @@ const useStyles = createStyles((theme) => ({
     fontSize: "23px",
   },
   boxHeader: {
-    width: "580px",
+    width: "800px",
   },
   boxFlex: {
     display: "flex",

@@ -53,6 +53,11 @@ const OrdersTable = ({ data }: Props) => {
     return (
       <tr key={item._id}>
         <td>
+          <Link href={`/admins?details=${item?.salesman?._id}`}>
+            {item?.salesman?.name}
+          </Link>
+        </td>
+        <td>
           <Link
             href={`/admins`}
             style={{

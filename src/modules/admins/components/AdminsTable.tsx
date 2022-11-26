@@ -9,12 +9,14 @@ import { showNotification } from "@mantine/notifications";
 import adminFetchers from "@services/api/adminFetchers";
 import useAdmins from "@services/hooks/useAdmins";
 import { IconPencil, IconTrash } from "@tabler/icons";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { Permissions } from "@/utils/constants";
 
 import AdminsDrawer from "./AdminsDrawer";
+import AdminsDetails from "./batafsil/adminDetail";
 import Salary from "./Salary";
 
 function TableCard({ data }: { data: any }) {
@@ -22,7 +24,7 @@ function TableCard({ data }: { data: any }) {
   const intl = useIntl();
   const [drawerOpen, toggleDrawerOpen] = useToggle();
   const [editItem, setEditItem] = useState({});
-
+  const router = useRouter();
   const { useFetchAdmins, deleteAdmin } = useAdmins();
 
   const {
@@ -102,7 +104,11 @@ function TableCard({ data }: { data: any }) {
               <If hasPerm={Permissions.admins.delete}>
                 <IconTrash
                   onClick={() => openDeleteModal(item._id, item.name)}
-                  style={{ color: "red", cursor: "pointer" }}
+                  style={{
+                    color: "red",
+                    cursor: "pointer",
+                    marginBottom: "-5px",
+                  }}
                 />
               </If>
             )}
@@ -112,9 +118,23 @@ function TableCard({ data }: { data: any }) {
                 style={{
                   cursor: "pointer",
                   marginLeft: "30px",
+                  marginBottom: "-5px",
                 }}
               />
             </If>
+            <Button
+              style={{ marginLeft: "10px" }}
+              variant="outline"
+              onClick={() => {
+                router.push("/admins", {
+                  query: {
+                    details: item._id,
+                  },
+                });
+              }}
+            >
+              <FormattedMessage id="more" />
+            </Button>
           </td>
         </tr>
       );
@@ -160,7 +180,7 @@ function TableCard({ data }: { data: any }) {
               <FormattedMessage id="admins.salary_percent" />
             </th>
             <th>
-              <FormattedMessage id="admins.earned_salary" />
+              <FormattedMessage id="admins.giveSalary" />
             </th>
             <th>
               <FormattedMessage id="admins.give_salary" />
@@ -172,7 +192,7 @@ function TableCard({ data }: { data: any }) {
         </thead>
         <tbody>{rows}</tbody>
       </Table>
-
+      <AdminsDetails admins={data} />
       <Drawer
         opened={drawerOpen}
         onClose={onClose}

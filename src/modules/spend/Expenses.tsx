@@ -16,7 +16,6 @@ export default function Spend() {
     <If hasPerm={Permissions.spends.view}>
       <WithLoading withRenderProps query={spendsQuery}>
         <SpendTable />
-        <Currency />
       </WithLoading>
     </If>
   );
