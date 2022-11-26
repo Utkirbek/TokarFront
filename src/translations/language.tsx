@@ -7,7 +7,6 @@ import { Lang } from "@/pages/_app";
 
 const useStyles = createStyles((theme, { opened }: { opened: boolean }) => ({
   control: {
-    zIndex: 1,
     width: 100,
     display: "flex",
     justifyContent: "space-between",
@@ -30,20 +29,18 @@ const useStyles = createStyles((theme, { opened }: { opened: boolean }) => ({
         theme.colorScheme === "dark"
           ? theme.colors.dark[5]
           : theme.colors.gray[0],
-      zIndex: 1,
     },
   },
 
   label: {
     fontWeight: 500,
     fontSize: theme.fontSizes.sm,
-    zIndex: 555,
   },
 
   icon: {
     transition: "transform 150ms ease",
     transform: opened ? "rotate(180deg)" : "rotate(0deg)",
-    zIndex: 555,
+    zIndex: 1,
   },
 }));
 

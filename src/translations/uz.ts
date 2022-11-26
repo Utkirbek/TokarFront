@@ -36,6 +36,7 @@ const uz = {
   payments: paymentsLocaleUz,
   sthWentWrong: "Xatolik yuz berdi",
   emptyBox: "Sizng obringizda maxsulot qolmadi",
+  serverError: "Server ishlamayapti",
   pageNotFound: "sahifa topilmadi",
   saveCurrency : "Saqlash",
   currencyPerm : "Valyuta",

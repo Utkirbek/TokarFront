@@ -31,7 +31,7 @@ export const adminsLocaleUz = {
     },
   },
 
-  title: "Ischilar",
+  title: "Xodimlar",
   name: "Ism",
   email: "Elektron pochta",
   role: "Rol",

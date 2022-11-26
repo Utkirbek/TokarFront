@@ -22,7 +22,7 @@ export const usersLocaleUz = {
   additionLabel: "Qo'shimcha malumot",
   additionPlaceholder: "Qo'shimcha malumot",
   userDts: {
-    title: " xaqida malumot",
+    title: "Savdo xaqida malumot",
     name: "Ismi",
     phone: "Raqami",
     origin: "Ish joyi",
@@ -30,6 +30,7 @@ export const usersLocaleUz = {
     oldTime: "Yaratilgan vaqt",
     newTime: "Yangilangan vaqt",
     shouldPay: "To'lash kerak",
+    amount: "Qarzi",
   },
 };
 

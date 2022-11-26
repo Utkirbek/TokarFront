@@ -1,3 +1,4 @@
+import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import TableHead from "@components/Table/TableHead";
 import {
   Avatar,
@@ -73,6 +74,7 @@ const UserDetails = () => {
       </tr>
     );
   });
+
   return (
     <Modal size={"85%"} opened={!!userBatfsil} onClose={() => router.back()}>
       <Box className={classes.itemGroup}>
