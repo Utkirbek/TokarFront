@@ -33,19 +33,14 @@ const NewShop = () => {
   });
 
   const handleSubmit = async (values: { name: string; location: string }) => {
-    addShop(
-      {
-        ...form.values,
+    addShop(form.values, {
+      onSuccess: () => {
+        showSuccessNotification();
       },
-      {
-        onSuccess: () => {
-          showSuccessNotification();
-        },
-        onError: () => {
-          showErrorNotification();
-        },
-      }
-    );
+      onError: () => {
+        showErrorNotification();
+      },
+    });
     nextStep();
   };
   return (

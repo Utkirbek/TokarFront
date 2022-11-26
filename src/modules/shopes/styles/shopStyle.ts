@@ -1,5 +1,4 @@
 import { createStyles } from "@mantine/core";
-import auth from "@modules/auth";
 
 const useStyles = createStyles(() => ({
   box: {
@@ -52,7 +51,6 @@ const useStyles = createStyles(() => ({
   miniCArt: {
     marginTop: "80px",
     width: "100%",
-    height: "25vh",
   },
   contact: {
     display: "flex",

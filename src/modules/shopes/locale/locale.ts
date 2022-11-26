@@ -23,6 +23,11 @@ export const shopLocalUz = {
     bot: "Telegram Bot",
     onlineShop: "Web Ilova",
   },
+  editForm: {
+    btn: "Saqlash",
+  },
+  editTitle: "Tahrirash",
+  btnSave: "Saqlash",
 };
 
 export const shopLocalEn = {
@@ -50,4 +55,7 @@ export const shopLocalEn = {
     bot: "Telegram Bot",
     onlineShop: "Web Site",
   },
+
+  editTitle: "Edit",
+  btnSave: "Save",
 };

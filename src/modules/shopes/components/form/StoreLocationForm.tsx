@@ -25,11 +25,6 @@ const StoreLocationForm: React.FC<{
           {...form.getInputProps("location")}
           required
         />
-        <Group position="right" my={20}>
-          <Button>
-            <FormattedMessage id="shopes.location" />
-          </Button>
-        </Group>
 
         <Group position="right" my={20}>
           <Button type="submit" onClick={prevStep}>

@@ -7,17 +7,23 @@ import {
   Box,
   Button,
   Card,
+  Drawer,
   Group,
   ScrollArea,
   Skeleton,
   Text,
 } from "@mantine/core";
+import { useToggle } from "@mantine/hooks";
 import useStyles from "@modules/shopes/styles/shopStyle";
 import useShop from "@services/hooks/useShop";
 import { IconMapPin, IconPencil, IconPlus, IconTrash } from "@tabler/icons";
 import { Permissions } from "@utils/constants";
 import Link from "next/link";
+import { useState } from "react";
 import { FormattedMessage } from "react-intl";
+
+import data from "./components/skalotanData/data";
+import EditShop from "./editShop/EditDrawer";
 
 export const Loader = () => {
   return (
@@ -30,12 +36,13 @@ export const Loader = () => {
         flexWrap: "wrap",
         gap: 20,
       }}>
-      <Skeleton height="350px" width={"350px"} mx={50} />
-      <Skeleton height="350px" width={"350px"} mx={50} />
-      <Skeleton height="350px" width={"350px"} mx={50} />
-      <Skeleton height="350px" width={"350px"} mx={50} />
-      <Skeleton height="350px" width={"350px"} mx={50} />
-      <Skeleton height="350px" width={"350px"} mx={50} />
+      {data.map((item) => {
+        return (
+          <Box key={item.id}>
+            <Skeleton height="350px" width={"300px"} mx={20} />
+          </Box>
+        );
+      })}
     </Box>
   );
 };
@@ -43,6 +50,8 @@ export const Loader = () => {
 const Shopes = () => {
   const { classes } = useStyles();
   const { deleteShop } = useShop();
+  const [drawerOpen, toggleDrawerOpen] = useToggle();
+  const [editItem, setEditItem] = useState({});
 
   const {
     showLoadingNotification,
@@ -51,7 +60,7 @@ const Shopes = () => {
   } = useNotification();
   const { openConfirm } = useConfirmation();
 
-  const { useFetchShop, editShop } = useShop();
+  const { useFetchShop } = useShop();
   const getShopQuery = useFetchShop();
   const { data: shops } = getShopQuery;
 
@@ -65,6 +74,14 @@ const Shopes = () => {
         });
       },
     });
+  };
+
+  const onClose = () => {
+    toggleDrawerOpen();
+  };
+  const onEditClick = (item: string) => {
+    toggleDrawerOpen();
+    setEditItem(item);
   };
 
   return (
@@ -107,7 +124,7 @@ const Shopes = () => {
                     </Group>
                     <Group position="left" mx={20}>
                       <ActionIcon>
-                        <IconPencil />
+                        <IconPencil onClick={() => onEditClick(item)} />
                       </ActionIcon>
                       <ActionIcon>
                         <IconTrash
@@ -142,6 +159,14 @@ const Shopes = () => {
             })}
           </Box>
         </ScrollArea>
+        <Drawer
+          opened={drawerOpen}
+          onClose={onClose}
+          padding="xl"
+          size="30%"
+          position="right">
+          <EditShop editItem={editItem} onClose={onClose} />
+        </Drawer>
       </WithLoading>
     </>
   );
