@@ -8,6 +8,10 @@ const useStyles = createStyles((theme) => ({
     fontWeight: 700,
     color: "#1971C2",
   },
+  allDisplay: {
+    width: "100%",
+    minHeight: "75vh",
+  },
   itemGroup: {
     display: "flex",
     justifyContent: "space-around",
