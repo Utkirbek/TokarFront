@@ -69,14 +69,14 @@ const data = [
     permission: "orders_view",
   },
   {
-    id: 9,
+    id: 10,
     link: "/kassa",
     label: "kassa.title",
     icon: IconListDetails,
     permission: "kassa_view",
   },
   {
-    id: 10,
+    id: 11,
     link: "/loan",
     label: "loans.title",
     icon: IconCoin,

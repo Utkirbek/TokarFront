@@ -1,6 +1,6 @@
 import { Box, Image, Modal, Text } from "@mantine/core";
 import useStyles from "@modules/products/components/ProductsTable/styles";
-import { IconUser, IconUserOff } from "@tabler/icons";
+import { IconUser } from "@tabler/icons";
 import { useRouter } from "next/router";
 import queryString from "query-string";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
@@ -15,7 +15,6 @@ const LoanBatafsil = ({ loan }: Props) => {
 
   const query = queryString.parse(router.asPath.split("?")[1]);
   const item = findItem(loan, query.details as string);
-
   return (
     <Modal size={"85%"} opened={!!item} onClose={() => router.back()}>
       <Box className={classes.allDisplay}>
@@ -36,12 +35,14 @@ const LoanBatafsil = ({ loan }: Props) => {
             <Text className={classes.titleHead}>
               {item?.user === null ? (
                 <Text>
-                  <FormattedMessage id="loans.foydalanuvchi" />
+                  <FormattedMessage id="loans.userError" />
                 </Text>
               ) : (
-                item?.user?.name
+                <Text>
+                  {item?.user?.name}{" "}
+                  <FormattedMessage id="users.userDts.title" />
+                </Text>
               )}
-              <FormattedMessage id="users.userDts.title" />
             </Text>
             <Box className={classes.boxHeader}>
               <Box className={classes.boxFlex}>
@@ -51,7 +52,7 @@ const LoanBatafsil = ({ loan }: Props) => {
                 <Text className={classes.textStart}>
                   {item?.user === null ? (
                     <Text>
-                      <FormattedMessage id="loans.foydalanuvchi" />
+                      <FormattedMessage id="loans.userError" />
                     </Text>
                   ) : (
                     item?.user?.name
@@ -62,21 +63,57 @@ const LoanBatafsil = ({ loan }: Props) => {
                 <Text className={classes.text}>
                   <FormattedMessage id="users.userDts.phone" />
                 </Text>
-                <Text className={classes.textStart}>{item?.user?.phone}</Text>
+                <a
+                  href={`tel://${item?.user?.phone}`}
+                  style={{
+                    borderBottom: "1px solid #1983FF",
+                    textDecoration: "none",
+                  }}
+                >
+                  {item?.user === null ? (
+                    <Text className={classes.textStart}>
+                      <FormattedMessage id="loans.userError" />
+                    </Text>
+                  ) : (
+                    <Text className={classes.textStart}>
+                      {item?.user?.phone}
+                    </Text>
+                  )}
+                </a>
               </Box>
               <Box className={classes.boxFlex}>
                 <Text className={classes.text}>
                   <FormattedMessage id="users.userDts.origin" />
                 </Text>
                 <Text className={classes.textStart}>
-                  {item?.user?.workplace}
+                  {item?.user === null ? (
+                    <Text className={classes.textStart}>
+                      <FormattedMessage id="loans.userError" />
+                    </Text>
+                  ) : (
+                    <Text className={classes.textStart}>
+                      {item?.user?.workplace}
+                    </Text>
+                  )}
                 </Text>
               </Box>
               <Box className={classes.boxFlex}>
                 <Text className={classes.text}>
                   <FormattedMessage id="users.userDts.addition" />
                 </Text>
-                <Text className={classes.textStart}>{item?.user?.extra}</Text>
+                {item?.user === null ? (
+                  <Text className={classes.textStart}>
+                    <FormattedMessage id="loans.userError" />
+                  </Text>
+                ) : (
+                  <Text className={classes.textStart}>{item?.user?.extra}</Text>
+                )}
+              </Box>
+              <Box className={classes.boxFlex}>
+                <Text className={classes.text}>
+                  <FormattedMessage id="users.userDts.amount" />
+                </Text>
+                <Text className={classes.textStart}>{item?.amount}</Text>
               </Box>
               <Box className={classes.boxFlex}>
                 <Text className={classes.text}>

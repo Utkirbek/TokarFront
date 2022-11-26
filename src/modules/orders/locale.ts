@@ -10,7 +10,7 @@ export const orderLocaleUz = {
   ordersProductId: "Maxsulot codi",
   ordersQuantity: "Maxsulot soni",
   ordersPrice: "Maxsulot narxi",
-  createOrder: "Yaratilgan Vaqti",
+  createOrder: "Kirtilgan Vaqti",
   updateOrder: "Yangilangan Vaqti",
   paymentOrder: "Jami narxi",
   orderUser: "Xaridor",
@@ -30,6 +30,10 @@ export const orderLocaleUz = {
   useExtra: "Mahsulotga tavsif",
   userExtra: "Mahsulotga",
   newTime: "Yangilangan vaqt",
+  userNull: "Topilmadi",
+  userPhone: "Raqami",
+  userworkplace: "Ish joyi",
+  userExtr: "Qo'shimcha malumot",
 };
 
 export const orderLocaleEn = {
@@ -62,4 +66,8 @@ export const orderLocaleEn = {
   desc: "EXPLANATION",
   image: "PICTURE",
   useExtra: "Description for product",
+  userNull: "Not found",
+  userPhone: "Number",
+  userworkplace: "Workplace",
+  userExtr: "Additional Information",
 };

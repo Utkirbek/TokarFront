@@ -40,6 +40,9 @@ const useStyles = createStyles((theme) => ({
   text: {
     fontSize: "23px",
   },
+  leftIcon: {
+    size: 380,
+  },
 }));
 
 export default useStyles;

@@ -32,7 +32,8 @@ const Settings: NextPage = () => {
         </div>
         <Accordion style={{ marginTop: 20 }}>
           <Accordion.Item
-            value={intl.formatMessage({ id: "perms.perm.permissions" })}>
+            value={intl.formatMessage({ id: "perms.perm.permissions" })}
+          >
             <Accordion.Control>
               <FormattedMessage id="perms.perm.permissions" />
             </Accordion.Control>
