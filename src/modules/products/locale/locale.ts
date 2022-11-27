@@ -63,6 +63,7 @@ export const productsLocaleUz = {
     enterDay: "Muddatni Kiriting",
     som: "so'm",
     date: "Muddatini tanlang",
+    initialPayment: "Boshlang'ich to'lov",
   },
 };
 

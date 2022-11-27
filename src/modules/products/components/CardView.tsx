@@ -32,7 +32,7 @@ const SalesCard: React.FC<{ item: any }> = ({ item }) => {
       const cartItem = getItem(item._id);
       updateItemQuantity(item._id, cartItem.quantity + 1);
     } else {
-      addItem({ id: item._id, ...item });
+      addItem({ id: item._id, ...item, price: item.price?.toFixed?.(2) });
     }
   };
 
