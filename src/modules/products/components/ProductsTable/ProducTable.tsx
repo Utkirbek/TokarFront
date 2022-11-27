@@ -86,8 +86,6 @@ function ProductsTable({
 
   const activeData = isResultsActive ? searchResults : data;
 
-  if (data?.length === 0) return <EmptyBox />;
-
   return (
     <Box sx={{ height: "100%" }}>
       <FormDrawer {...{ opened, toggleOpened }}>
@@ -141,6 +139,29 @@ function ProductsTable({
             justifyContent: "space-between",
           }}
         >
+          <If condition={!salesView}>
+            <Chip.Group
+              position="left"
+              my={5}
+              onChange={onFilterChipChange}
+              defaultValue="clear"
+              value={
+                minQuantity ? "min_quantity" : noPrice ? "no_price" : "clear"
+              }
+            >
+              <If hasPerm={Permissions.products.originalPrice}>
+                <Chip value={"no_price"}>
+                  <FormattedMessage id="products.no_price" />
+                </Chip>
+              </If>
+              <Chip value={"min_quantity"}>
+                <FormattedMessage id="products.min_quantity" />
+              </Chip>
+              <Chip value={"clear"}>
+                <FormattedMessage id="clear" />
+              </Chip>
+            </Chip.Group>
+          </If>
           <If
             condition={activeData?.length === 0}
             elseChildren={
@@ -148,31 +169,11 @@ function ProductsTable({
                 <If
                   condition={salesView}
                   elseChildren={
-                    <Box>
-                      <Chip.Group
-                        position="left"
-                        my={5}
-                        onChange={onFilterChipChange}
-                        defaultValue="clear"
-                      >
-                        <If hasPerm={Permissions.products.originalPrice}>
-                          <Chip value={"no_price"}>
-                            <FormattedMessage id="products.no_price" />
-                          </Chip>
-                        </If>
-                        <Chip value={"min_quantity"}>
-                          <FormattedMessage id="products.min_quantity" />
-                        </Chip>
-                        <Chip value={"clear"}>
-                          <FormattedMessage id="clear" />
-                        </Chip>
-                      </Chip.Group>
-                      <TableView
-                        onEdit={onEdit}
-                        data={activeData}
-                        minStock={minQuantity}
-                      />
-                    </Box>
+                    <TableView
+                      onEdit={onEdit}
+                      data={activeData}
+                      minStock={minQuantity}
+                    />
                   }
                 >
                   <CardView data={activeData} />

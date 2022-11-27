@@ -41,7 +41,7 @@ const uz = {
   pageNotFound: "sahifa topilmadi",
   saveCurrency: "Saqlash",
   currencyPerm: "Valyuta",
-  imgUploader: "Rasmlarni bu yerga torting yoki fayllarni tanlash uchun bosing",
+  imgUploader: "Iltimos faqat rasmlarni yuklang",
   shopes: shopLocalUz,
 
   settings: {

@@ -1,5 +1,6 @@
 import If from "@components/smart/If";
 import TableHead from "@components/Table/TableHead";
+import TextEllipsis from "@components/TextEllipsis/TextEllipsis";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
 import {
@@ -86,15 +87,9 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
                 <Group position="center">
                   <HoverCard width={280} shadow="md">
                     <HoverCard.Target>
-                      {item.title.length > 20 ? (
-                        <Text size="sm" weight={500}>
-                          {item.title.substring(0, 20)}...
-                        </Text>
-                      ) : (
-                        <Text size="sm" weight={500}>
-                          {item.title}
-                        </Text>
-                      )}
+                      <Text size="sm" weight={500}>
+                        <TextEllipsis text={item.title} maxChars={20} />
+                      </Text>
                     </HoverCard.Target>
                     <HoverCard.Dropdown>
                       <Text size="sm">{item.title}</Text>

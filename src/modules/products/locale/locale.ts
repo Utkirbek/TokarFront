@@ -38,6 +38,7 @@ export const productsLocaleUz = {
     limitPlaceholder: "Chegirmadagi narxiini kiriting",
     limitNumbLabel: "Chegirmadagi soni",
     minQuantity: "Mahsulot kamlik miqdori",
+    addDiscount: "Chegirma qo'shish",
   },
 
   productDetail: {
