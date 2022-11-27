@@ -157,7 +157,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
           </tr>
         );
       }),
-    []
+    [data]
   );
 
   return (

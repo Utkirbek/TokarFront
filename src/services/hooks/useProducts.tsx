@@ -52,8 +52,8 @@ const useProducts = () => {
             revalidate: true,
           }
         );
-        options?.onSuccess && options.onSuccess(res);
         mutate([RequestQueryKeys.getProducts, 1, false, false]);
+        options?.onSuccess && options.onSuccess(res);
         return res;
       } catch (error) {
         console.error(error);
@@ -78,8 +78,8 @@ const useProducts = () => {
             revalidate: true,
           }
         );
-        options?.onSuccess && options.onSuccess(res);
         mutate([RequestQueryKeys.getProducts, 1, false, false]);
+        options?.onSuccess && options.onSuccess(res);
         return res;
       } catch (error) {
         console.error(error);
@@ -101,8 +101,8 @@ const useProducts = () => {
             revalidate: true,
           }
         );
-        options?.onSuccess && options.onSuccess(res);
         mutate([RequestQueryKeys.getProducts, 1, false, false]);
+        options?.onSuccess && options.onSuccess(res);
         return res;
       } catch (err) {
         console.error(err);

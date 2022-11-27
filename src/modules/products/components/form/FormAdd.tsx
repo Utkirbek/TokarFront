@@ -88,12 +88,8 @@ const FormProduct: React.FC<{
           },
         },
         {
-          onSuccess: () => {
-            showSuccessNotification;
-          },
-          onError: () => {
-            showErrorNotification;
-          },
+          onSuccess: () => showSuccessNotification(),
+          onError: () => showErrorNotification(),
         }
       );
       handleClose();
@@ -111,13 +107,11 @@ const FormProduct: React.FC<{
           onSuccess: () => {
             showSuccessNotification();
           },
-          onError: () => {
-            showErrorNotification;
-          },
+          onError: () => showErrorNotification(),
         }
       );
+      handleClose();
     }
-    handleClose();
   };
 
   const discountFields = form.values.discounts.map(
