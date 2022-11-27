@@ -3,6 +3,7 @@ import TableHead from "@components/Table/TableHead";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
 import {
+  ActionIcon,
   Avatar,
   Button,
   Group,
@@ -116,24 +117,36 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
             </If>
 
             <td>{item.quantity}</td>
-            <td style={{ width: 200 }}>
-              <IconPencil
-                style={{ cursor: "pointer", marginTop: "5px" }}
-                onClick={() => onEdit(item)}
-              />
+            <td>
+              <div
+                style={{
+                  width: 200,
+                  display: "flex",
+                  gap: 15,
+                  marginRight: -90,
+                }}
+              >
+                <ActionIcon>
+                  <IconPencil
+                    style={{ cursor: "pointer", marginTop: "5px" }}
+                    onClick={() => onEdit(item)}
+                  />
+                </ActionIcon>
 
-              <If hasPerm={Permissions.products.delete}>
-                <IconTrash
-                  color="red"
-                  style={{ margin: "0  20px", cursor: "pointer" }}
-                  onClick={() => openDeleteModal(item._id)}
-                />
-              </If>
-              <If hasPerm={Permissions.products.sell}>
-                <Button onClick={() => handleAddToCart(item)}>
-                  <FormattedMessage id="products.buy" />
-                </Button>
-              </If>
+                <If hasPerm={Permissions.products.delete}>
+                  <ActionIcon>
+                    <IconTrash
+                      color="red"
+                      onClick={() => openDeleteModal(item._id)}
+                    />
+                  </ActionIcon>
+                </If>
+                <If hasPerm={Permissions.products.sell}>
+                  <Button onClick={() => handleAddToCart(item)}>
+                    <FormattedMessage id="products.buy" />
+                  </Button>
+                </If>
+              </div>
             </td>
             <td>
               <Button
@@ -149,8 +162,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
           </tr>
         );
       }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data]
+    []
   );
 
   return (

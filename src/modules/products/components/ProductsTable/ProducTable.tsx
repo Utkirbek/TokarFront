@@ -109,7 +109,11 @@ function ProductsTable({
           justifyContent: "space-between",
         }}
       >
-        <Button variant="light" onClick={() => toggleSalesView()}>
+        <Button
+          style={{ marginRight: 15 }}
+          variant="light"
+          onClick={() => toggleSalesView()}
+        >
           <IconTable />
         </Button>
         <If hasPerm={Permissions.products.create}>
