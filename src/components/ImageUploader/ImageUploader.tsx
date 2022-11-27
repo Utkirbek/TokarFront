@@ -16,6 +16,7 @@ import {
 import { IconPhoto, IconUpload, IconX } from "@tabler/icons";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { FormattedMessage } from "react-intl";
 
 type Props = {
   urlsRef: React.MutableRefObject<string[]>;
@@ -81,11 +82,13 @@ const ImageUploader: React.FC<Props> = ({ urlsRef, sx, dropzoneProps }) => {
         onReject={(files) => console.warn("rejected files", files)}
         onDrop={setFiles}
         loading={status === "loading"}
-        {...dropzoneProps}>
+        {...dropzoneProps}
+      >
         <Group
           position="center"
           spacing="xl"
-          style={{ minHeight: 60, pointerEvents: "none" }}>
+          style={{ minHeight: 60, pointerEvents: "none" }}
+        >
           <Dropzone.Accept>
             <IconUpload
               size={50}
@@ -110,7 +113,7 @@ const ImageUploader: React.FC<Props> = ({ urlsRef, sx, dropzoneProps }) => {
 
           <div>
             <Text size="md" inline>
-              Drag images here or click to select files
+              <FormattedMessage id="imgUploader" />
             </Text>
           </div>
         </Group>
@@ -118,7 +121,8 @@ const ImageUploader: React.FC<Props> = ({ urlsRef, sx, dropzoneProps }) => {
       <SimpleGrid
         cols={4}
         breakpoints={[{ maxWidth: "sm", cols: 1 }]}
-        mt={previews.length > 0 ? "xl" : 0}>
+        mt={previews.length > 0 ? "xl" : 0}
+      >
         {previews}
       </SimpleGrid>
     </Box>

@@ -21,7 +21,6 @@ const NewUser: React.FC<{
     showSuccessNotification,
     showErrorNotification,
   } = useNotification();
-  const inti = useIntl();
 
   const form = useForm({
     initialValues: {

@@ -1,6 +1,6 @@
 import { createStyles } from "@mantine/core";
 
-const useStyles = createStyles(() => ({
+const useStyles = createStyles((theme) => ({
   boxForm: {
     height: "100vh",
     display: "flex",
@@ -23,6 +23,12 @@ const useStyles = createStyles(() => ({
     [`@media (max-width: 500px)`]: {
       fontSize: 20,
     },
+  },
+  color: {
+    color:
+      theme.colorScheme === "dark"
+        ? theme.fn.rgba(theme.colors[theme.primaryColor][7], 0.2)
+        : theme.colors[theme.primaryColor][0],
   },
 }));
 

@@ -1,5 +1,3 @@
-import Currency from "@components/currencyConvert/currency";
-import CurrencyTable from "@components/currencyConvert/currencyConvert";
 import If from "@components/smart/If";
 import WithLoading from "@hoc/WithLoading";
 import spendFetchers from "@services/api/spendFetchers";

@@ -7,7 +7,7 @@ export const adminsLocaleUz = {
     },
   },
   add: {
-    title: "+ Yangi Admin qo'shish",
+    title: "+ Yangi Xodim qo'shish",
     modal: {
       title: "Yangi foydalanuvchi qo'shish",
     },
@@ -35,7 +35,7 @@ export const adminsLocaleUz = {
   name: "Ism",
   email: "Elektron pochta",
   role: "Rol",
-  addEdit: "{isNew, select, true {Yangi Admin qo'shish} other {Tahrirlash}}",
+  addEdit: "{isNew, select, true {Yangi Xodim qo'shish} other {Tahrirlash}}",
   saveEdit: "{isNew, select, true {Qo'shish} other {Yangilash}}",
   adminSalaryTitle: "Maosh Berish",
   adminSalaryMsg: "Maoshni  Kiriting",
@@ -61,7 +61,7 @@ export const adminsLocaleEn = {
     },
   },
   add: {
-    title: "+ Add New Admin",
+    title: "+ Add New Staff",
     modal: {
       title: "Add new user",
     },
@@ -89,7 +89,7 @@ export const adminsLocaleEn = {
   name: "Name",
   email: "E-mail",
   role: "Role",
-  addEdit: "{isNew, select, true {Add New Admin} other {Edit}}",
+  addEdit: "{isNew, select, true {Add New Staff} other {Edit}}",
   saveEdit: "{isNew, select, true {Add} other {Update}}",
   adminSalaryTitle: "Salary",
   adminSalaryMsg: "Enter Salary",

@@ -6,7 +6,7 @@ import RolesTable from "./components/RolesTable";
 const Roles = () => {
   return (
     <If hasPerm={Permissions.roles.view}>
-      <RolesTable />;
+      <RolesTable />
     </If>
   );
 };

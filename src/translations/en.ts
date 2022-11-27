@@ -37,6 +37,7 @@ const en = {
   pageNotFound: "Page Not Found",
   saveCurrency: "Save",
   currencyPerm: "Valyuta",
+  imgUploader: "Drag images here or click to select files",
 
   settings: {
     title: "Settings",
