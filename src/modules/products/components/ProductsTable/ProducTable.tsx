@@ -176,7 +176,16 @@ function ProductsTable({
                     />
                   }
                 >
-                  <CardView data={activeData} />
+                  <Box
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      justifyContent: "start",
+                      gap: "13px",
+                    }}
+                  >
+                    <CardView data={activeData} />
+                  </Box>
                 </If>
                 <Pagination
                   my={10}
