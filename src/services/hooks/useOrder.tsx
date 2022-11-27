@@ -14,11 +14,20 @@ const useOrders = () => {
       useSWR(RequestQueryKeys.getOrders, orderFetcher.getOrders),
     addOrder: async (
       body: {
-        user: string;
+        total: number;
+        paymentMethod: string;
+        loanTotal: string;
+        cashTotal: number;
+        shouldPay: string;
         salesman: string;
-        cart: string;
-        total: string;
-        payment: string;
+        user?: string;
+        hasLoan: boolean;
+        cart: {
+          product: string;
+          quantity: number;
+          price: number;
+          unit?: string;
+        }[];
       },
       options?: {
         onSuccess?: (data: any) => void;

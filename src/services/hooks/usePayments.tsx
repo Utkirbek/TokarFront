@@ -11,18 +11,10 @@ const usePayments = () => {
       ),
     addPayments: async function (
       body: {
-        total: number;
+        amount: number;
         paymentMethod: string;
-        loanTotal: string;
-        cashTotal: number;
-        shouldPay: string;
         salesman: string;
-        cart: {
-          product: string;
-          quantity: number;
-          price: number;
-          unit?: string;
-        }[];
+        loan?: string;
       },
       options?: {
         onSuccess?: (data: any) => void;

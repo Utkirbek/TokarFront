@@ -54,7 +54,7 @@ export const productsLocaleUz = {
   buyCart: {
     datatitle: "Naqt pul",
     dataterminal: "Terminal",
-    dataplastik: "Plastik",
+    dataplastik: "Click",
     databolibtolash: "Bo'lib to'lash",
     totalPrice: "Umumiy Narxi",
     sale: "Sotish",
@@ -64,6 +64,7 @@ export const productsLocaleUz = {
     som: "so'm",
     date: "Muddatini tanlang",
     initialPayment: "Boshlang'ich to'lov",
+    loan: "Nasiya to'lovi",
   },
 };
 

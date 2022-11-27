@@ -18,13 +18,8 @@ const datas: any = [
   },
   {
     label: "products.buyCart.dataplastik",
-    value: "plastic",
+    value: "click",
     icon: IconCreditCard,
-  },
-  {
-    label: "products.buyCart.databolibtolash",
-    value: "installment",
-    icon: IconWallet,
   },
 ];
 export default datas;

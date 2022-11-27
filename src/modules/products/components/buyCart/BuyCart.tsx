@@ -9,6 +9,7 @@ import {
   Box,
   Button,
   Card,
+  Checkbox,
   NumberInput,
   ScrollArea,
   SegmentedControl,
@@ -18,7 +19,7 @@ import {
 import { DatePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import { FieldLoader } from "@modules/payments/components/PaymentForm";
-import usePayments from "@services/hooks/usePayments";
+import useOrders from "@services/hooks/useOrder";
 import useUsers from "@services/hooks/useUser";
 import { IconTrash } from "@tabler/icons";
 import React, { useRef } from "react";
@@ -34,7 +35,7 @@ const BuyCart: React.FC<{}> = () => {
   const componentRef = useRef(null);
 
   const intl = useIntl();
-  const { addPayments } = usePayments();
+  const { addOrder } = useOrders();
   const {
     showLoadingNotification,
     showSuccessNotification,
@@ -54,12 +55,13 @@ const BuyCart: React.FC<{}> = () => {
       paymentMethod: "cash",
       customer: "",
       intialPayment: 0,
+      hasLoan: false,
     },
   });
 
   const handleSell = (values: any) => {
     showLoadingNotification();
-    addPayments(
+    addOrder(
       {
         total: cartTotal,
         paymentMethod: values.paymentMethod,
@@ -67,6 +69,8 @@ const BuyCart: React.FC<{}> = () => {
         cashTotal: values.intialPayment,
         shouldPay: values.paymentDate,
         salesman: _id,
+        user: values.customer,
+        hasLoan: values.hasLoan,
         cart: items.map((item) => {
           return {
             product: item.id,
@@ -182,6 +186,11 @@ const BuyCart: React.FC<{}> = () => {
               }))}
               {...form.getInputProps("paymentMethod")}
             />
+            <Checkbox
+              mt={"md"}
+              label={<FormattedMessage id="products.buyCart.loan" />}
+              {...form.getInputProps("hasLoan")}
+            />
             <WithLoading
               query={fetchUsersQuery}
               FallbackLoadingUI={FieldLoader}
@@ -201,7 +210,7 @@ const BuyCart: React.FC<{}> = () => {
                 {...form.getInputProps("customer")}
               />
             </WithLoading>
-            {form.values.paymentMethod === "installment" && (
+            {!!form.values.hasLoan && (
               <>
                 <NumberInput
                   label={intl.formatMessage({
