@@ -123,23 +123,23 @@ export default data;
 
 export const infoData = {
   admins: {
-    title: "ishchilar",
+    title: "Xodimlar",
     icon3d: "https://cdn.lordicon.com/amxnacxd.json",
-    decrtion: "Sotilgan tavarlar soni",
+    decrtion: "Xodimlarning umumiy soni va o'shishi",
   },
   users: {
     title: "foydalanuvchlar",
     icon3d: "https://cdn.lordicon.com/yrxnwkni.json",
-    decrtion: "Foydalanuvchilar uchun",
+    decrtion: "Foydalanuvchilarning umumiy soni va o'shishi",
   },
   products: {
     title: "maxsulotlar",
     icon3d: "https://cdn.lordicon.com/lpddubrl.json ",
-    decrtion: "Nechta odamni qarzi borligi",
+    decrtion: "Maxsulotlarning umumiy soni va o'shishi",
   },
   kassa: {
     title: "kassa",
     icon3d: "https://cdn.lordicon.com/aloksxkv.json",
-    decrtion: "Sotilgan tavarlar soni",
+    decrtion: "Sotilgan tavarlarning umumiy soni va o'shishi",
   },
 };
