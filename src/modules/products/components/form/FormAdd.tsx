@@ -51,10 +51,12 @@ const FormProduct: React.FC<{
       discounts: editItem?.discounts ?? [{ price: 0, quantity: 0 }],
       currency: editItem?.currency ?? "63635d7850b0f6000826a6ac",
       minQuantity: editItem?.minQuantity ?? 5,
+      image: editItem?.image ?? "",
     },
   });
 
   const handleSubmit = async (values: {
+    image: string;
     currency: string;
     title: string;
     code: string | number;
@@ -78,9 +80,13 @@ const FormProduct: React.FC<{
           onSuccess: () => {
             showSuccessNotification;
           },
+          onError: () => {
+            showErrorNotification;
+          },
         }
       );
     } else {
+      showLoadingNotification();
       handleClose();
       addProduct(
         {
@@ -108,8 +114,7 @@ const FormProduct: React.FC<{
             fontSize: "24px",
             textAlign: "center",
             fontWeight: 700,
-          }}
-        >
+          }}>
           <FormattedMessage
             id="products.addEdit"
             values={{ isNew: !editItem._id }}
@@ -137,8 +142,7 @@ const FormProduct: React.FC<{
           <Button
             variant="outline"
             sx={{ float: "right", margin: "10px 0" }}
-            hidden
-          >
+            hidden>
             <FormattedMessage id="products.form.takePicture" />
           </Button>
         </Box>
@@ -152,8 +156,7 @@ const FormProduct: React.FC<{
 
         <If
           condition={!!currencies}
-          elseChildren={<Skeleton width="100%" height="40px" />}
-        >
+          elseChildren={<Skeleton width="100%" height="40px" />}>
           <Select
             sx={{ width: "100%", margin: "20px  0" }}
             rightSection={<IconChevronDown size={14} />}

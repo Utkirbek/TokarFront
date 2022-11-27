@@ -21,7 +21,6 @@ const NewUser: React.FC<{
     showSuccessNotification,
     showErrorNotification,
   } = useNotification();
-  const inti = useIntl();
 
   const form = useForm({
     initialValues: {
@@ -29,6 +28,7 @@ const NewUser: React.FC<{
       phone: editItem?.phone ?? "",
       workplace: editItem?.workplace ?? "",
       extra: editItem?.extra ?? "",
+      image: editItem?.image ?? "",
     },
   });
 
@@ -37,6 +37,7 @@ const NewUser: React.FC<{
     phone: string;
     workplace: string;
     extra: string;
+    image: string;
   }) => {
     handleClose();
     showLoadingNotification();
@@ -52,7 +53,6 @@ const NewUser: React.FC<{
           id: editItem._id,
           values: {
             ...values,
-            image: imagesRef.current?.join(",") ?? editItem.image,
           },
         },
         events
@@ -76,8 +76,7 @@ const NewUser: React.FC<{
             fontSize: "24px",
             textAlign: "center",
             fontWeight: 700,
-          }}
-        >
+          }}>
           <FormattedMessage
             id="users.formTitle"
             values={{ isNew: !editItem._id }}
@@ -102,8 +101,7 @@ const NewUser: React.FC<{
           <Button
             variant="outline"
             sx={{ float: "right", margin: "10px 0" }}
-            hidden
-          >
+            hidden>
             Rasmni Olib Tashlash
           </Button>
         </Box>

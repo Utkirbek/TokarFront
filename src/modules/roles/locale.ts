@@ -14,6 +14,13 @@ export const rolesLocaleUz = {
   permission: "Ruxsatlar",
   backTitle: "Siz Bekor Qildingiz",
   backMsg: "Siz Rolni O'chirmadingiz",
+  roles: {
+    salesmen: "Sotuvchi",
+    owner: "Ega",
+    team: "Jamoa",
+    forTeamNew: "Yangi Jamoa",
+    user: "Foydalanuvchi",
+  },
 };
 
 export const rolesLocaleEn = {
@@ -32,4 +39,11 @@ export const rolesLocaleEn = {
   permission: "Permissions",
   backTitle: "You have Cancelled",
   backMsg: "You have not Deleted the Role",
+  roles: {
+    salesman: "Salesman",
+    owner: "Owner",
+    team: "Team",
+    forTeamNew: "New Team",
+    user: "User",
+  },
 };

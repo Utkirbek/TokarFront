@@ -2,10 +2,12 @@ import useUser from "@hooks/shared/useUser";
 import {
   Box,
   Button,
+  ColorScheme,
   Group,
   PasswordInput,
   Text,
   TextInput,
+  useMantineColorScheme,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import authFetchers from "@services/api/authFetchers";
@@ -28,6 +30,7 @@ function SignIn() {
   const handleError = useErrorHandler();
   const intl = useIntl();
   const { classes } = useStyles();
+  const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
 
   const router = useRouter();
   const form = useForm({
@@ -92,6 +95,11 @@ function SignIn() {
             })}
             {...form.getInputProps("email")}
             sx={{ margin: "20px 0" }}
+            labelProps={{
+              sx: {
+                color: "white",
+              },
+            }}
             id="email"
             name="email"
             type="email"
@@ -102,6 +110,11 @@ function SignIn() {
             placeholder={intl.formatMessage({
               id: "signIn.passwordPlaceholder",
             })}
+            labelProps={{
+              sx: {
+                color: "white",
+              },
+            }}
             {...form.getInputProps("password")}
             id="password"
             name="password"
