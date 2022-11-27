@@ -11,6 +11,7 @@ export const usersLocaleUz = {
   workplace: "Ish joy",
   extra: "Qo'shimcha",
   action: "Amallar",
+  detail : "Batafsil",
   formTitle:
     "{isNew, select, true {Yangi Foydalanuvchi qo'shish} other {Tahrirlash}}",
   nameLabel: "Ismi",
@@ -42,6 +43,7 @@ export const usersLocaleEn = {
   workplace: "Workplace",
   extra: "Extra",
   action: "Actions",
+  detail : "Detail",
   formTitle: "{isNew, select, true {Add New User} other {Edit}}",
   nameLabel: "Name",
   namePlaceholder: "Enter username",

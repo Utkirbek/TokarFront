@@ -3,7 +3,15 @@ import If from "@components/smart/If";
 import useUser from "@hooks/shared/useUser";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
-import { Box, Button, Drawer, Group, Table, Text } from "@mantine/core";
+import {
+  ActionIcon,
+  Box,
+  Button,
+  Drawer,
+  Group,
+  Table,
+  Text,
+} from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
 import adminFetchers from "@services/api/adminFetchers";
@@ -97,30 +105,37 @@ function TableCard({ data }: { data: any }) {
             </Group>
           </td>
 
-          <td>
+          <td
+            style={{
+              display: "flex",
+              justifyContent: "start",
+              paddingBottom: "20px",
+            }}
+          >
             {item.name == name ? (
-              <IconTrash style={{ color: "red", cursor: "no-drop" }} />
+              <ActionIcon>
+                <IconTrash style={{ color: "red", cursor: "no-drop" }} />
+              </ActionIcon>
             ) : (
               <If hasPerm={Permissions.admins.delete}>
-                <IconTrash
-                  onClick={() => openDeleteModal(item._id, item.name)}
-                  style={{
-                    color: "red",
-                    cursor: "pointer",
-                    marginBottom: "-5px",
-                  }}
-                />
+                <ActionIcon>
+                  <IconTrash
+                    onClick={() => openDeleteModal(item._id, item.name)}
+                    style={{ color: "red", cursor: "pointer" }}
+                  />
+                </ActionIcon>
               </If>
             )}
             <If hasPerm={Permissions.admins.edit}>
-              <IconPencil
-                onClick={onEditClick.bind(null, item)}
-                style={{
-                  cursor: "pointer",
-                  marginLeft: "30px",
-                  marginBottom: "-5px",
-                }}
-              />
+              <ActionIcon>
+                <IconPencil
+                  onClick={onEditClick.bind(null, item)}
+                  style={{
+                    cursor: "pointer",
+                    marginRight: "-10px",
+                  }}
+                />
+              </ActionIcon>
             </If>
             <Button
               style={{ marginLeft: "10px" }}

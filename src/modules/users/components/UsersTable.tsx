@@ -4,6 +4,7 @@ import TableHead from "@components/Table/TableHead";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
 import {
+  ActionIcon,
   Avatar,
   Box,
   Button,
@@ -84,16 +85,30 @@ function UsersTable({ data }: any) {
           <td>{item.phone}</td>
           <td>{item.workplace}</td>
           <td>{item.extra}</td>
-          <td>
+          <td
+            style={{
+              display: "flex",
+              justifyContent: "start",
+              paddingBottom: "25px",
+              alignItems: "center",
+            }}
+          >
             <If hasPerm={Permissions.users.delete}>
-              <IconTrash
-                color="red"
-                style={{ margin: "0  20px", cursor: "pointer" }}
-                onClick={onDeleteClick}
-              />
+              <ActionIcon>
+                <IconTrash
+                  color="red"
+                  style={{ cursor: "pointer" }}
+                  onClick={onDeleteClick}
+                />
+              </ActionIcon>
             </If>
             <If hasPerm={Permissions.users.edit}>
-              <IconPencil style={{ cursor: "pointer" }} onClick={handleEdit} />
+              <ActionIcon>
+                <IconPencil
+                  style={{ cursor: "pointer", marginRight: "-10px" }}
+                  onClick={handleEdit}
+                />
+              </ActionIcon>
             </If>
           </td>
           <td>

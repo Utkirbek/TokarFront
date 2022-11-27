@@ -1,7 +1,14 @@
 import TableHead from "@components/Table/TableHead";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
-import { Button, Group, ScrollArea, Table, TextInput } from "@mantine/core";
+import {
+  ActionIcon,
+  Button,
+  Group,
+  ScrollArea,
+  Table,
+  TextInput,
+} from "@mantine/core";
 import useCurrency from "@services/hooks/useCurrency";
 import { IconTrash } from "@tabler/icons";
 import { useRef } from "react";
@@ -133,11 +140,20 @@ const TableRow = ({
           day="numeric"
         />
       </td>
-      <td style={{ display: "flex", alignItems: "center" }}>
-        <IconTrash
-          onClick={() => openDeleteModal(item._id, item.name)}
-          style={{ color: "red", cursor: "pointer", marginRight: "10px" }}
-        />
+      <td
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-around",
+          marginBottom: "-5px",
+        }}
+      >
+        <ActionIcon>
+          <IconTrash
+            onClick={() => openDeleteModal(item._id, item.name)}
+            style={{ color: "red", cursor: "pointer" }}
+          />
+        </ActionIcon>
         <Button onClick={() => handleCurrencyEdit(item._id)}>
           <FormattedMessage id="saveCurrency" />
         </Button>

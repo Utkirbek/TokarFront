@@ -84,19 +84,34 @@ function TableCard() {
           </Group>
         </td>
 
-        <td>
-          <ActionIcon variant="default" style={{ marginBottom: 10 }}>
-            {item.name == name ? (
+        <td
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "space-around",
+            height: "138px",
+          }}
+        >
+          {item.name == name ? (
+            <ActionIcon>
               <IconTrash style={{ color: "red", cursor: "no-drop" }} />
-            ) : (
+            </ActionIcon>
+          ) : (
+            <ActionIcon>
               <IconTrash
                 onClick={() => openDeleteModal(item._id, item.name)}
-                style={{ color: "red" }}
+                style={{ color: "red", cursor: "pointer" }}
               />
-            )}
-          </ActionIcon>
-          <ActionIcon variant="default">
-            <IconPencil onClick={onEditClick.bind(null, item)} />
+            </ActionIcon>
+          )}
+          <ActionIcon>
+            <IconPencil
+              onClick={onEditClick.bind(null, item)}
+              style={{
+                cursor: "pointer",
+              }}
+            />
           </ActionIcon>
         </td>
       </tr>
@@ -113,16 +128,15 @@ function TableCard() {
       <Table highlightOnHover>
         <thead>
           <tr>
-            <th style={{ width: "7%" }}>
+            <th style={{ width: "60px" }}>
               <FormattedMessage id="roles.name" />
             </th>
             <th>
               <FormattedMessage id="roles.permission" />
             </th>
-            <th style={{ width: "6%" }}>
+            <th style={{ width: "100px" }}>
               <FormattedMessage id="action" />
             </th>
-            <th></th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>

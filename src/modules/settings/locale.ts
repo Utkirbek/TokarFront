@@ -45,7 +45,6 @@ export const permissionsLocaleUz = {
   roles_edit: "Rollar tahrirlash",
   roles_delete: "Rollar o'chirish",
   roles_view: "Rollar ko'rish",
-  orders_add: "Buyurtmalar qo'shish",
   orders_edit: "Buyurtmalar tahrirlash",
   orders_delete: "Buyurtmalar o'chirish",
   orders_view: "Buyurtmalar ko'rish",
@@ -129,5 +128,6 @@ export const permissionsLocaleEn = {
     cancelTitle: "You have canceled",
     cancelMessage: "You didn't really remove this permission!",
     create: "Product Create",
+    
   },
 };
