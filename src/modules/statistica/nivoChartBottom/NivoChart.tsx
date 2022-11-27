@@ -20,6 +20,7 @@ class NivoChart extends React.Component {
           boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
           transition: "0.3s",
           borderRadius: "8px",
+          width: "100%",
           border: "1px solid #373a40",
         }}
       >

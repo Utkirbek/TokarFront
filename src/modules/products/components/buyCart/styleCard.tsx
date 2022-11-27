@@ -9,7 +9,6 @@ const useStyles = createStyles(() => {
       height: "100%",
       display: "flex",
       flexFlow: "column",
-      justifyContent: "space-between",
     },
     card: {
       width: "100%",
