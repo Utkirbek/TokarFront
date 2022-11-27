@@ -2,7 +2,14 @@ import If from "@components/smart/If";
 import TableHead from "@components/Table/TableHead";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
-import { ActionIcon, Button, ScrollArea, Table, Text } from "@mantine/core";
+import {
+  ActionIcon,
+  Button,
+  Pagination,
+  ScrollArea,
+  Table,
+  Text,
+} from "@mantine/core";
 import useOrder from "@services/hooks/useOrder";
 import { IconTrash } from "@tabler/icons";
 import { Permissions } from "@utils/constants";
@@ -12,11 +19,7 @@ import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 
 import OrdersDetails from "../modalOrder/Orderdetail";
 
-type Props = {
-  data?: any;
-};
-
-const OrdersTable = ({ data }: Props) => {
+const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
   const router = useRouter();
   const {
     showLoadingNotification,
@@ -49,7 +52,7 @@ const OrdersTable = ({ data }: Props) => {
       },
     });
 
-  const rows = data.map((item: any) => {
+  const rows = dataorder?.map((item: any) => {
     return (
       <tr key={item._id}>
         <td>
@@ -166,7 +169,23 @@ const OrdersTable = ({ data }: Props) => {
         />
         <tbody>{rows}</tbody>
       </Table>
-      <OrdersDetails orders={data} />
+      <Pagination
+        my={10}
+        page={page}
+        styles={(theme) => ({
+          item: {
+            "&[data-active]": {
+              backgroundImage: theme.fn.gradient({
+                from: "red",
+                to: "yellow",
+              }),
+            },
+          },
+        })}
+        total={total}
+        onChange={onPageChange}
+      />
+      <OrdersDetails orders={dataorder} />
     </ScrollArea>
   );
 };
