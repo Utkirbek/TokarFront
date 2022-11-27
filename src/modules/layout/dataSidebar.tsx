@@ -1,5 +1,6 @@
 import {
   IconBarcode,
+  IconBrandShopee,
   IconChartLine,
   IconCoin,
   IconList,
@@ -63,31 +64,31 @@ const data = [
   },
   {
     id: 8,
-    link: "/roles",
-    label: "roles.title",
-    icon: IconSettingsAutomation,
-    permission: "roles_view",
-  },
-  {
-    id: 9,
     link: "/orders",
     label: "orders.title",
     icon: IconList,
     permission: "orders_view",
   },
   {
-    id: 9,
+    id: 10,
     link: "/kassa",
     label: "kassa.title",
     icon: IconListDetails,
     permission: "kassa_view",
   },
   {
-    id: 10,
+    id: 11,
     link: "/loan",
     label: "loans.title",
     icon: IconCoin,
     permission: "loans_view",
+  },
+  {
+    id: 12,
+    link: "/shopes",
+    label: "shopes.sidebarTitle",
+    icon: IconBrandShopee,
+    permission: "shop.view",
   },
 ];
 export default data;

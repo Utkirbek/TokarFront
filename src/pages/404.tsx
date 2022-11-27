@@ -1,7 +1,11 @@
 import useStyles from "@components/errorStyle";
+import { Button } from "@mantine/core";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { FormattedMessage } from "react-intl";
+
+
+
 
 function Error() {
   const router = useRouter();
@@ -29,6 +33,7 @@ function Error() {
           <FormattedMessage id="pageNotFound" />
         </h2>
       </div>
+      
     </div>
   );
 }

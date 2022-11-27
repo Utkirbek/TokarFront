@@ -31,7 +31,7 @@ export const adminsLocaleUz = {
     },
   },
 
-  title: "Ischilar",
+  title: "Xodimlar",
   name: "Ism",
   email: "Elektron pochta",
   role: "Rol",
@@ -41,11 +41,16 @@ export const adminsLocaleUz = {
   adminSalaryMsg: "Maoshni  Kiriting",
   toPay: "Maosh Berish",
   back: "Orqaga ",
+  createdTime : "Kiritilgan vaqti",
   salary_percent: "Maosh foizi",
+  giveSalary : "Beriladigan maosh",
   earned_salary: "Olingan Maosh",
   give_salary: "Maosh Berish",
-  deleteEdit: "O'chirish / Tahrirlash",
+  deleteEdit: "Amallar",
   salary: "Maosh",
+  getSalary: "Olingan maosh",
+  timeGetSalary: "Olingan vaqti",
+  adminTitle : " xaqida ma'lumot",
 };
 
 export const adminsLocaleEn = {
@@ -90,9 +95,14 @@ export const adminsLocaleEn = {
   adminSalaryMsg: "Enter Salary",
   toPay: "Pay",
   back: "Back",
+  createdTime: "Created time",
   salary_percent: "Salary Percent",
+  giveSalary: "Salary to be paid",
   earned_salary: "Earned Salary",
+  titleName : " xaqida ma'lumot",
   give_salary: "Give Salary",
   deleteEdit: "Delete / Edit",
   salary: "Salary",
+  getSalary: "Got salary",
+  timeGetSalary: "Time ",
 };

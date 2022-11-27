@@ -31,7 +31,8 @@ const TableHead: React.FC<Props> = ({ data, prefix, permissionOf }) => {
                     Permissions[permissionOf][hd]
                   : "no-check"
               }
-              key={hd}>
+              key={hd}
+            >
               <th>
                 <FormattedMessage id={`${prefix}.${hd}`} />
               </th>

@@ -5,8 +5,10 @@ import useSWR, { useSWRConfig } from "swr";
 const usePayments = () => {
   const { mutate } = useSWRConfig();
   return {
-    useFetchPayments: () =>
-      useSWR(RequestQueryKeys.getPayments, paymentsFetchers.getPayments),
+    useFetchPayments: (page = 1) =>
+      useSWR([RequestQueryKeys.getPayments, page], (_, page) =>
+        paymentsFetchers.getPayment(page)
+      ),
     addPayments: async function (
       body: {
         amount: string;

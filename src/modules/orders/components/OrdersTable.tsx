@@ -2,10 +2,11 @@ import If from "@components/smart/If";
 import TableHead from "@components/Table/TableHead";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
-import { Button, ScrollArea, Table } from "@mantine/core";
+import { ActionIcon, Button, ScrollArea, Table, Text } from "@mantine/core";
 import useOrder from "@services/hooks/useOrder";
 import { IconTrash } from "@tabler/icons";
 import { Permissions } from "@utils/constants";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 
@@ -51,9 +52,52 @@ const OrdersTable = ({ data }: Props) => {
   const rows = data.map((item: any) => {
     return (
       <tr key={item._id}>
-        <td>{item?.salesman?.name}</td>
-        <td>{item?.user?.name}</td>
-        <td>{item?.total}</td>
+        <td>
+          <Link href={`/admins?details=${item?.salesman?._id}`}>
+            {item?.salesman?.name}
+          </Link>
+        </td>
+        <td>
+          <Link
+            href={`/admins`}
+            style={{
+              borderBottom: "1px solid #1983FF",
+              textDecoration: "none",
+            }}
+          >
+            {item?.salesman === null ? (
+              <FormattedMessage id="orders.userNull" />
+            ) : (
+              item?.salesman?.name
+            )}
+          </Link>
+        </td>
+        <td>
+          <Link
+            href={`/users?details=${item?.user?._id}`}
+            style={{
+              borderBottom: "1px solid #1983FF",
+              textDecoration: "none",
+            }}
+          >
+            {item?.user === null ? (
+              <FormattedMessage id="orders.userNull" />
+            ) : (
+              item?.user?.name
+            )}
+          </Link>
+        </td>
+        <td>
+          <Link
+            href={`/payments`}
+            style={{
+              borderBottom: "1px solid #1983FF",
+              textDecoration: "none",
+            }}
+          >
+            {item?.total}
+          </Link>
+        </td>
         <td>
           <FormattedDate
             value={item?.createdAt}
@@ -79,12 +123,15 @@ const OrdersTable = ({ data }: Props) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-around",
-          }}>
+          }}
+        >
           <If hasPerm={Permissions.orders.delete}>
-            <IconTrash
-              onClick={() => openDeleteModal(item._id, item.name)}
-              style={{ color: "red", cursor: "pointer" }}
-            />
+            <ActionIcon>
+              <IconTrash
+                onClick={() => openDeleteModal(item._id, item.name)}
+                style={{ color: "red", cursor: "pointer" }}
+              />
+            </ActionIcon>
           </If>
           <Button
             variant="outline"
@@ -94,7 +141,8 @@ const OrdersTable = ({ data }: Props) => {
                   details: item._id,
                 },
               });
-            }}>
+            }}
+          >
             <FormattedMessage id="more" />
           </Button>
         </td>

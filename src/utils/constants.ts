@@ -66,6 +66,10 @@ export enum RequestQueryKeys {
   getLoanUserID = "loanUserID",
   statistics = "statistics",
   userId = "user",
+  getShop = "getShop",
+  addShop = "addShop",
+  updateShop = "updateShop",
+  deleteShop = "deleteShop",
 }
 
 export const Permissions = {
@@ -144,6 +148,9 @@ export const Permissions = {
   loans: {
     view: "loans.view",
   },
+  shop: {
+    create: "shop.create",
+  },
   all: "permissions.all",
   sidebar: {
     statistics: {
@@ -152,5 +159,6 @@ export const Permissions = {
     admins: {
       view: "admins.view",
     },
+    shop: "shop.view",
   },
 };

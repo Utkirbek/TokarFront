@@ -13,6 +13,8 @@ export const paymentsLocaleUz = {
   loan: "Izoh",
   user: "Xaridorni Tanlang",
   amount: "To'lanadigan pul",
+  debt: "Qarzga to'lov",
+  trade: "Savdoga",
 };
 
 export const paymentsLocaleEn = {
@@ -29,4 +31,6 @@ export const paymentsLocaleEn = {
   createdAt: "Created Time",
   payment: "Payment Type",
   loan: "Comment",
+  debt: "Debt payment",
+  trade: "To trade",
 };

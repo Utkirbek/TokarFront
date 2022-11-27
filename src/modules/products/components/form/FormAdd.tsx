@@ -50,6 +50,7 @@ const FormProduct: React.FC<{
       description: editItem?.description ?? "",
       discounts: editItem?.discounts ?? [{ price: 0, quantity: 0 }],
       currency: editItem?.currency ?? "63635d7850b0f6000826a6ac",
+      minQuantity: editItem?.minQuantity ?? 5,
     },
   });
 
@@ -63,6 +64,7 @@ const FormProduct: React.FC<{
     quantity: string | number;
     description: string;
     discounts: string | number | string[];
+    minQuantity: number;
   }) => {
     if (!!editItem._id) {
       showLoadingNotification();
@@ -106,8 +108,7 @@ const FormProduct: React.FC<{
             fontSize: "24px",
             textAlign: "center",
             fontWeight: 700,
-          }}
-        >
+          }}>
           <FormattedMessage
             id="products.addEdit"
             values={{ isNew: !editItem._id }}
@@ -135,8 +136,7 @@ const FormProduct: React.FC<{
           <Button
             variant="outline"
             sx={{ float: "right", margin: "10px 0" }}
-            hidden
-          >
+            hidden>
             <FormattedMessage id="products.form.takePicture" />
           </Button>
         </Box>
@@ -150,8 +150,7 @@ const FormProduct: React.FC<{
 
         <If
           condition={!!currencies}
-          elseChildren={<Skeleton width="100%" height="40px" />}
-        >
+          elseChildren={<Skeleton width="100%" height="40px" />}>
           <Select
             sx={{ width: "100%", margin: "20px  0" }}
             rightSection={<IconChevronDown size={14} />}
@@ -218,7 +217,14 @@ const FormProduct: React.FC<{
           {...form.getInputProps("description")}
           required
         />
-        <Box>
+        <NumberInput
+          label={intl.formatMessage({ id: "products.form.minQuantity" })}
+          placeholder={intl.formatMessage({
+            id: "products.form.minQuantity",
+          })}
+          {...form.getInputProps("minQuantity")}
+        />
+        <Box style={{ display: "flex", gap: 20 }}>
           <NumberInput
             label={intl.formatMessage({ id: "products.form.limitLabel" })}
             placeholder={intl.formatMessage({

@@ -8,8 +8,9 @@ import {
   Table,
   Text,
 } from "@mantine/core";
-import useStyles from "@modules/products/components/ProductsTable/style";
+import useStyles from "@modules/products/components/ProductsTable/styles";
 import { IconPhoto } from "@tabler/icons";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import queryString from "query-string";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
@@ -27,17 +28,41 @@ const OrdersDetails = ({ orders }: Props) => {
 
   const rowDetail = item?.cart.map((prodItem: any) => {
     return (
-      <tr key={item._id}>
+      <tr key={prodItem._id}>
         <td>
           <Avatar
             src={prodItem?.product?.image ? `${prodItem?.product?.image}` : ""}
             alt="it's me"
           />
         </td>
-        <td>{prodItem?.product?.title}</td>
-        <td>{prodItem?.product?.code}</td>
-        <td>{prodItem?.product?.quantity}</td>
-        <td>{prodItem?.quantity}</td>
+        <td>
+          {prodItem?.product === null ? (
+            <FormattedMessage id="orders.userNull" />
+          ) : (
+            prodItem?.product?.title
+          )}
+        </td>
+        <td>
+          {prodItem?.product === null ? (
+            <FormattedMessage id="orders.userNull" />
+          ) : (
+            prodItem?.product?.code
+          )}
+        </td>
+        <td>
+          {prodItem?.product === null ? (
+            <FormattedMessage id="orders.userNull" />
+          ) : (
+            prodItem?.product?.quantity
+          )}
+        </td>
+        <td>
+          {prodItem === null ? (
+            <FormattedMessage id="orders.userNull" />
+          ) : (
+            prodItem?.quantity
+          )}
+        </td>
       </tr>
     );
   });
@@ -53,19 +78,12 @@ const OrdersDetails = ({ orders }: Props) => {
               width="100%"
             />
           ) : (
-            <IconPhoto size={380} />
+            <IconPhoto size={350} />
           )}
         </Box>
 
         <Box className={classes.left}>
           <Text className={classes.titleHead}>
-            {item?.salesman?.name === null ? (
-              <Text>
-                <FormattedMessage id="loans.foydalanuvchi" />
-              </Text>
-            ) : (
-              item?.salesman?.name
-            )}
             <FormattedMessage id="users.userDts.title" />
           </Text>
           <Box className={classes.boxHeader}>
@@ -73,46 +91,67 @@ const OrdersDetails = ({ orders }: Props) => {
               <Text className={classes.text}>
                 <FormattedMessage id="orders.ordersSalesmen" />
               </Text>
-              <Text className={classes.textStart}>{item?.user?.name}</Text>
+              <Link
+                href={`/admins`}
+                style={{
+                  textDecoration: "none",
+                  borderBottom: "1px solid #1983FF",
+                }}
+              >
+                <Text className={classes.textStart}>
+                  {item?.salesman?.name === null ? (
+                    <FormattedMessage id="orders.userNull" />
+                  ) : (
+                    item?.salesman?.name
+                  )}
+                </Text>
+              </Link>
             </Box>
             <Box className={classes.boxFlex}>
               <Text className={classes.text}>
                 <FormattedMessage id="orders.orderUser" />
               </Text>
-              <Text className={classes.textStart}>
-                {item?.salesman?.name === null ? (
-                  <Text>
-                    <FormattedMessage id="loans.foydalanuvchi" />
-                  </Text>
-                ) : (
-                  item?.salesman?.name
-                )}
-              </Text>
+              <Link
+                href={`/users?details=${item?.user?._id}`}
+                style={{
+                  textDecoration: "none",
+                  borderBottom: "1px solid #1983FF",
+                }}
+              >
+                <Text className={classes.textStart}>{item?.user?.name}</Text>
+              </Link>
             </Box>
 
             <Box className={classes.boxFlex}>
               <Text className={classes.text}>
-                <FormattedMessage id="orders.ordersQuantity" />
+                <FormattedMessage id="orders.userPhone" />
               </Text>
-              <Text className={classes.textStart}>
-                {item?.cart?.[0].quantity}
-              </Text>
+              <a
+                href={`tel://${item?.user?.phone}`}
+                style={{
+                  textDecoration: "none",
+                  borderBottom: "1px solid #1983FF",
+                }}
+              >
+                <Text className={classes.textStart}>{item?.user?.phone}</Text>
+              </a>
             </Box>
             <Box className={classes.boxFlex}>
               <Text className={classes.text}>
-                <FormattedMessage id="orders.ordersQuantity" />
+                <FormattedMessage id="orders.userworkplace" />
               </Text>
-              <Text className={classes.textStart}>{item?.cart?.[0].price}</Text>
+
+              <Text className={classes.textStart}>{item?.user?.workplace}</Text>
             </Box>
             <Box className={classes.boxFlex}>
               <Text className={classes.text}>
-                <FormattedMessage id="orders.ordersPrice" />
+                <FormattedMessage id="orders.userExtr" />
               </Text>
-              <Text className={classes.textStart}>{item?.total}</Text>
+              <Text className={classes.textStart}>{item?.user?.extra}</Text>
             </Box>
             <Box className={classes.boxFlex}>
               <Text className={classes.text}>
-                <FormattedMessage id="orders.updateOrder" />
+                <FormattedMessage id="orders.createOrder" />
               </Text>
               <Text className={classes.textStart}>
                 <FormattedDate
@@ -147,11 +186,11 @@ const OrdersDetails = ({ orders }: Props) => {
         <Table sx={{ minWidth: 700 }} verticalSpacing="sm" highlightOnHover>
           <TableHead
             data={{
+              orderImage: true,
               orderTitleProduct: true,
               ordersProductId: true,
               ordersQuantity: true,
               ordersQuantityAll: true,
-              ordersPrice: true,
             }}
             prefix="orders"
           />

@@ -6,9 +6,27 @@ const useProducts = () => {
   const { mutate } = useSWRConfig();
 
   return {
-    useFetchProduct: (page = 1) =>
-      useSWR([RequestQueryKeys.getProducts, page], (_, page) =>
-        productFetchers.getProducts(page)
+    useFetchProduct: (
+      page = 1,
+      options = {
+        perPage: 10,
+        minQuantity: false,
+        noPrice: false,
+      }
+    ) =>
+      useSWR(
+        [
+          RequestQueryKeys.getProducts,
+          page,
+          options?.minQuantity,
+          options?.noPrice,
+        ],
+        (_, page, minQuantity, noPrice) =>
+          productFetchers.getProducts(page, {
+            perPage: options?.perPage,
+            minQuantity,
+            noPrice,
+          })
       ),
     addProduct: async (
       body: {
@@ -35,7 +53,7 @@ const useProducts = () => {
           }
         );
         options?.onSuccess && options.onSuccess(res);
-        mutate([RequestQueryKeys.getProducts, 1]);
+        mutate([RequestQueryKeys.getProducts, 1, false, false]);
         return res;
       } catch (error) {
         console.error(error);
@@ -61,7 +79,7 @@ const useProducts = () => {
           }
         );
         options?.onSuccess && options.onSuccess(res);
-        mutate([RequestQueryKeys.getProducts, 1]);
+        mutate([RequestQueryKeys.getProducts, 1, false, false]);
         return res;
       } catch (error) {
         console.error(error);
@@ -84,7 +102,7 @@ const useProducts = () => {
           }
         );
         options?.onSuccess && options.onSuccess(res);
-        mutate([RequestQueryKeys.getProducts, 1]);
+        mutate([RequestQueryKeys.getProducts, 1, false, false]);
         return res;
       } catch (err) {
         console.error(err);

@@ -3,7 +3,7 @@ import { IconMinus, IconPhoto, IconPlus } from "@tabler/icons";
 import React from "react";
 import { useCart } from "react-use-cart";
 
-import useSalesCardStyles from "./ProductsTable/components/card/CardStyle";
+import useSalesCardStyles from "./ProductsTable/styles/CardStyle";
 
 type Props = {
   data: any[];
@@ -65,7 +65,7 @@ const SalesCard: React.FC<{ item: any }> = ({ item }) => {
         <Text>{item.title}</Text>
         <Box className={classes.cardButton}>
           <Text sx={{ fontWeight: "bold" }} fz="sm" fw={500}>
-            {item.price} {item.currency?.name}
+            {item.price.toFixed(2)} {item.currency?.name}
           </Text>
           <Button.Group>
             <Button

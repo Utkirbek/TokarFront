@@ -10,6 +10,7 @@ import { paymentsLocaleUz } from "@modules/payments/locale";
 import { productsLocaleUz } from "@modules/products/locale/locale";
 import { rolesLocaleUz } from "@modules/roles/locale";
 import { permissionsLocaleUz } from "@modules/settings/locale";
+import { shopLocalUz } from "@modules/shopes/locale/locale";
 import { expensesLocaleUz } from "@modules/spend/locale";
 import { usersLocaleUz } from "@modules/users/locale/locale";
 import { checkTilUz, userTilUz } from "@modules/users/locale/localetil";
@@ -36,9 +37,11 @@ const uz = {
   payments: paymentsLocaleUz,
   sthWentWrong: "Xatolik yuz berdi",
   emptyBox: "Sizng obringizda maxsulot qolmadi",
+  serverError: "Server ishlamayapti",
   pageNotFound: "sahifa topilmadi",
-  saveCurrency : "Saqlash",
-  currencyPerm : "Valyuta",
+  saveCurrency: "Saqlash",
+  currencyPerm: "Valyuta",
+  shopes: shopLocalUz,
 
   settings: {
     title: "Sozlamalar",
@@ -56,6 +59,7 @@ const uz = {
     title: "Statistika",
     description: "Statistika ma'lumotlari",
   },
+
   OrdersDetail: {
     titleHead: "Buyurtmalar haqida batafsil ma'lumot",
     orderImage: "Maxsulot rasmi",

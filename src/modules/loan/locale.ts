@@ -5,7 +5,7 @@ export const loanLocaleUz = {
   order: "Summa",
   amount: "Olingan sanasi",
   shouldPay: "Beriladigan sana",
-  userError: "Foydalanuvchi topilmadi",
+  userError: "Topilmadi",
 };
 
 export const loanLocaleEn = {

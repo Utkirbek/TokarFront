@@ -1,3 +1,4 @@
+import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import TableHead from "@components/Table/TableHead";
 import {
   Avatar,
@@ -8,7 +9,7 @@ import {
   Table,
   Text,
 } from "@mantine/core";
-import useStyles from "@modules/products/components/ProductsTable/style";
+import useStyles from "@modules/products/components/ProductsTable/styles";
 import userFetcher from "@services/api/userFetcher";
 import { RequestQueryKeys } from "@utils/constants";
 import { useRouter } from "next/router";
@@ -73,6 +74,7 @@ const UserDetails = () => {
       </tr>
     );
   });
+
   return (
     <Modal size={"85%"} opened={!!userBatfsil} onClose={() => router.back()}>
       <Box className={classes.itemGroup}>
