@@ -67,7 +67,7 @@ const FormProduct: React.FC<{
       discounts: editItem?.discounts ?? [
         { price: 0, quantity: 0, key: randomId() },
       ],
-      currency: editItem?.currency ?? "63635d7850b0f6000826a6ac",
+      currency: editItem?.currency?._id ?? "63635d7850b0f6000826a6ac",
       minQuantity: editItem?.minQuantity ?? 5,
       image: editItem?.image ?? "",
     },
@@ -174,7 +174,6 @@ const FormProduct: React.FC<{
           <ImageUploader
             urlsRef={imagesRef}
             dropzoneProps={{
-              sx: {},
               pb: 0,
             }}
           />
@@ -215,7 +214,7 @@ const FormProduct: React.FC<{
           />
         </If>
         <If hasPerm={Permissions.products.add.originalPrice}>
-          <TextInput
+          <NumberInput
             className={classes.inputStyle}
             label={intl.formatMessage({ id: "products.form.orgLabel" })}
             placeholder={intl.formatMessage({ id: "products.form.orgLabel" })}

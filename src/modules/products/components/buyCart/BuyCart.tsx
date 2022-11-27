@@ -1,6 +1,7 @@
 import "dayjs/locale/uz-latn";
 
 import ComponentToPrint from "@components/print/ComponentToPrint";
+import TextEllipsis from "@components/TextEllipsis/TextEllipsis";
 import WithLoading from "@hoc/WithLoading";
 import useUser from "@hooks/shared/useUser";
 import useNotification from "@hooks/useNotification";
@@ -27,6 +28,7 @@ import { FormattedMessage, FormattedNumber, useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
 import { useCart } from "react-use-cart";
 
+import ContentEditable from "../contentEditable/ContentEditable";
 import datas from "./data";
 import useStyles from "./styleCard";
 
@@ -48,7 +50,8 @@ const BuyCart: React.FC<{}> = () => {
     content: () => componentRef.current,
   });
 
-  const { isEmpty, items, removeItem, cartTotal, emptyCart } = useCart();
+  const { isEmpty, items, removeItem, cartTotal, emptyCart, updateItem } =
+    useCart();
 
   const form = useForm({
     initialValues: {
@@ -117,16 +120,16 @@ const BuyCart: React.FC<{}> = () => {
                   <Box
                     sx={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <Text
+                    <TextEllipsis
+                      maxChars={60}
+                      text={item.title}
                       sx={{
                         whiteSpace: "nowrap",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         maxWidth: "90%",
                       }}
-                    >
-                      {item.title.substring(0, 60)}
-                    </Text>
+                    />
                     <ActionIcon>
                       <IconTrash
                         color="red"
@@ -142,20 +145,36 @@ const BuyCart: React.FC<{}> = () => {
                     }}
                   >
                     <Text>
-                      {item.quantity}x {item.price}
-                      <span>&nbsp;So&apos;m</span>
-                    </Text>
-                    <Text sx={{ fontWeight: "bold" }}>
-                      <span
-                        suppressContentEditableWarning
-                        contentEditable
+                      <ContentEditable
+                        value={item.quantity}
+                        onFinish={(value) => {
+                          updateItem(item._id, {
+                            quantity: value,
+                          });
+                        }}
                         style={{
                           border: "0.2px solid",
                           padding: "0 5px",
                         }}
-                      >
-                        {item.price * item.quantity}{" "}
-                      </span>
+                      />
+                      {item.unit}
+                      &nbsp;
+                      {item.price}
+                      <span>&nbsp;So&apos;m</span>
+                    </Text>
+                    <Text sx={{ fontWeight: "bold" }}>
+                      <ContentEditable
+                        value={item.price * item.quantity}
+                        onFinish={(val) => {
+                          updateItem(item._id, {
+                            price: +val,
+                          });
+                        }}
+                        style={{
+                          border: "0.2px solid",
+                          padding: "0 5px",
+                        }}
+                      />
                       <span>&nbsp;So&apos;m</span>
                     </Text>
                   </Box>

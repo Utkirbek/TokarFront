@@ -19,7 +19,7 @@ import { Permissions } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
 import { useRouter } from "next/router";
 import { memo, useCallback, useMemo } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, FormattedNumber } from "react-intl";
 import { useCart } from "react-use-cart";
 
 import { productsTableHead } from "../constants";
@@ -78,7 +78,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
             key={item._id}
             className={cx({
               [classes.minStock]: item.quantity <= item.minQuantity || minStock,
-              [classes.noPriceWarning]: item.price === 0,
+              [classes.noPriceWarning]: !item.price || !item.originalPrice,
             })}
           >
             <td>
@@ -101,13 +101,22 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
             <td>{item.code}</td>
             <If hasPerm={Permissions.products.originalPrice}>
               <td>
-                {item.originalPrice} {item.currency?.name}
+                <FormattedNumber
+                  value={item.originalPrice}
+                  style="currency"
+                  currency={item.currency?.name}
+                />
               </td>
             </If>
 
             <If hasPerm={Permissions.products.price}>
               <td>
-                {item.price.toFixed(2)}_UZS/{item.unit}
+                <FormattedNumber
+                  value={item.calculatedPrice || item.price}
+                  style="currency"
+                  currency="UZS"
+                />
+                /{item.unit}
               </td>
             </If>
 
@@ -157,7 +166,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
           </tr>
         );
       }),
-    [data]
+    [data, minStock]
   );
 
   return (
