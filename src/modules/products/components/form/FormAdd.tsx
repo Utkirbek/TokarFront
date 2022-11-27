@@ -51,10 +51,12 @@ const FormProduct: React.FC<{
       discounts: editItem?.discounts ?? [{ price: 0, quantity: 0 }],
       currency: editItem?.currency ?? "63635d7850b0f6000826a6ac",
       minQuantity: editItem?.minQuantity ?? 5,
+      image: editItem?.image ?? "",
     },
   });
 
   const handleSubmit = async (values: {
+    image: string;
     currency: string;
     title: string;
     code: string | number;
@@ -78,9 +80,13 @@ const FormProduct: React.FC<{
           onSuccess: () => {
             showSuccessNotification;
           },
+          onError: () => {
+            showErrorNotification;
+          },
         }
       );
     } else {
+      showLoadingNotification();
       handleClose();
       addProduct(
         {

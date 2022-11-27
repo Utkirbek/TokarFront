@@ -1,15 +1,13 @@
 import useUser from "@hooks/shared/useUser";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
-import { Button, Drawer, Group, Table, Text } from "@mantine/core";
+import { ActionIcon, Button, Drawer, Group, Table, Text } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
-import { showNotification, updateNotification } from "@mantine/notifications";
+import { showNotification } from "@mantine/notifications";
 import useRoles from "@services/hooks/useRoles";
-import { IconCheck, IconPencil, IconTrash } from "@tabler/icons";
+import { IconPencil, IconTrash } from "@tabler/icons";
 import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-
-import WithLoading from "@/hoc/WithLoading";
 
 import RolesDrawer from "./RolesDrawer";
 
@@ -80,28 +78,26 @@ function TableCard() {
           <Group spacing="sm">
             {item.permissions.map((permission: any) => (
               <Text key={permission._id}>
-                {intl.formatMessage({ id: `perms.${permission.name}` })}
+                <FormattedMessage id={`perms.${permission.name}`} />
               </Text>
             ))}
           </Group>
         </td>
 
         <td>
-          {item.name == name ? (
-            <IconTrash style={{ color: "red", cursor: "no-drop" }} />
-          ) : (
-            <IconTrash
-              onClick={() => openDeleteModal(item._id, item.name)}
-              style={{ color: "red", cursor: "pointer" }}
-            />
-          )}
-          <IconPencil
-            onClick={onEditClick.bind(null, item)}
-            style={{
-              cursor: "pointer",
-              marginLeft: "30px",
-            }}
-          />
+          <ActionIcon variant="default" style={{ marginBottom: 10 }}>
+            {item.name == name ? (
+              <IconTrash style={{ color: "red", cursor: "no-drop" }} />
+            ) : (
+              <IconTrash
+                onClick={() => openDeleteModal(item._id, item.name)}
+                style={{ color: "red" }}
+              />
+            )}
+          </ActionIcon>
+          <ActionIcon variant="default">
+            <IconPencil onClick={onEditClick.bind(null, item)} />
+          </ActionIcon>
         </td>
       </tr>
     );
@@ -117,13 +113,13 @@ function TableCard() {
       <Table highlightOnHover>
         <thead>
           <tr>
-            <th>
+            <th style={{ width: "7%" }}>
               <FormattedMessage id="roles.name" />
             </th>
             <th>
               <FormattedMessage id="roles.permission" />
             </th>
-            <th>
+            <th style={{ width: "6%" }}>
               <FormattedMessage id="action" />
             </th>
             <th></th>
@@ -137,7 +133,8 @@ function TableCard() {
         onClose={onClose}
         padding="xl"
         size="30%"
-        position="right">
+        position="right"
+      >
         <RolesDrawer editItem={editItem} handleClose={onClose} />
       </Drawer>
     </>

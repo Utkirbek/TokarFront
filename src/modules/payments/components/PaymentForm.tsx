@@ -162,7 +162,7 @@ const PaymentsForm: React.FC<{
             })}
             styles={{ rightSection: { pointerEvents: "none" } }}
             label={intl.formatMessage({ id: "payments.select" })}
-            data={["click", "Terminal", "Naqt", "Bo'lib To'lash"]}
+            data={["click", "Terminal", "Naqt"]}
             {...form.getInputProps("paymentMethod")}
             required
           />

@@ -4,7 +4,8 @@ import {
   Box,
   Button,
   Group,
-  Select,
+  MultiSelect,
+  PasswordInput,
   Skeleton,
   Text,
   TextInput,
@@ -13,6 +14,7 @@ import { useForm } from "@mantine/form";
 import useAdmins from "@services/hooks/useAdmins";
 import useSettings from "@services/hooks/useSettings";
 import { IconChevronDown, IconLock } from "@tabler/icons";
+import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 const AdminsDrawer: React.FC<{
@@ -26,6 +28,13 @@ const AdminsDrawer: React.FC<{
   const { showSuccessNotification, showErrorNotification } = useNotification();
 
   const intl = useIntl();
+  const [newRoles, setNewRoles] = useState<string[]>([]);
+
+  const DefaultRoles = editItem?.roles?.map((roles: any) => roles._id);
+  const Roles = roles?.map((item: any) => ({
+    label: intl.formatMessage({ id: `roles.roles.${item.name}` }),
+    value: item._id,
+  }));
 
   const form = useForm({
     initialValues: {
@@ -57,7 +66,7 @@ const AdminsDrawer: React.FC<{
       editAdmin(
         {
           id: editItem._id,
-          values,
+          values: { name: values?.name, roles: newRoles },
         },
         {
           onSuccess: () => {
@@ -118,7 +127,8 @@ const AdminsDrawer: React.FC<{
           condition={!!roles}
           elseChildren={<Skeleton width="100%" height="40px" />}
         >
-          <Select
+          <MultiSelect
+            defaultValue={DefaultRoles ?? []}
             sx={{ width: "100%", margin: "20px  0" }}
             rightSection={<IconChevronDown size={14} />}
             rightSectionWidth={30}
@@ -129,10 +139,8 @@ const AdminsDrawer: React.FC<{
             placeholder={intl.formatMessage({
               id: "admins.input.role.placeholder",
             })}
-            data={roles?.map((item: any) => ({
-              value: item._id,
-              label: item.name,
-            }))}
+            data={Roles}
+            onChange={(value) => setNewRoles(value)}
             {...form.getInputProps("role")}
           />
         </If>
@@ -148,7 +156,7 @@ const AdminsDrawer: React.FC<{
           required
         />
 
-        <TextInput
+        <PasswordInput
           label={intl.formatMessage({
             id: "admins.input.password.label",
           })}
