@@ -69,6 +69,12 @@ const useStyles = createStyles((theme) => ({
   leftIcon: {
     size: 380,
   },
+  discount: {
+    fontSize: "26px",
+    marginTop: 20,
+    fontWeight: 600,
+    color: "#1971C2",
+  },
 }));
 
 export default useStyles;

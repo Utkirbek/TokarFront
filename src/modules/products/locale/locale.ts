@@ -9,6 +9,8 @@ export const productsLocaleUz = {
     currency: "Pul Birligi",
     paymentType: "To'lov turi",
     action: "Amallar",
+    discountQuantity: "Chegirmadagi soni",
+    discountPrice: "Chegirmadagi Narxi",
     details: "Batafsil",
   },
 
@@ -22,6 +24,7 @@ export const productsLocaleUz = {
   buy: "Sotish",
   no_price: "Narxi yo'q",
   min_quantity: "Kam qolgan tovarlar",
+  discount: "Chegirma haqida Malumot",
 
   form: {
     takePicture: "Rasmni olib tashlash",
@@ -49,7 +52,8 @@ export const productsLocaleUz = {
     productName: "Mahsulot Nomi",
     productCode: "Mahsulot Kodi",
     productPrice: "Mahsulot Narxi",
-    productTotal: "Mahsulot Ombordagi soni",
+    productUnit: "O'lchov Birligi",
+    productTotal: "Jami Mahsulot",
     createProduct: "Yaratilgan Vaqti",
     updateProduct: "Yangilangan Vaqti",
   },
@@ -92,6 +96,7 @@ export const productsLocaleEn = {
   say: "How many days",
   title: "Products",
   buy: "Buy",
+  discount: "Information about the discount",
 
   form: {
     takePicture: "Remove picture",

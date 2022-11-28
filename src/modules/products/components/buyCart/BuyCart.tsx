@@ -110,26 +110,15 @@ const BuyCart: React.FC<{}> = () => {
       <Box
         className={classes.boxHead}
         component="form"
-        onSubmit={form.onSubmit(handleSell)}
-      >
+        onSubmit={form.onSubmit(handleSell)}>
         <Box className={classes.CardBox}>
           <ScrollArea style={{ height: "50vh" }} scrollbarSize={4}>
-            {items.map((item: any) => {
+            {items?.map((item: any) => {
               return (
                 <Card p={"xs"} className={classes.card} key={item._id}>
                   <Box
-                    sx={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <TextEllipsis
-                      maxChars={60}
-                      text={item.title}
-                      sx={{
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        maxWidth: "90%",
-                      }}
-                    />
+                    sx={{ display: "flex", justifyContent: "space-between" }}>
+                    <TextEllipsis text={item?.title} maxChars={60} />
                     <ActionIcon>
                       <IconTrash
                         color="red"
@@ -142,8 +131,7 @@ const BuyCart: React.FC<{}> = () => {
                     sx={{
                       display: "flex",
                       justifyContent: "space-between",
-                    }}
-                  >
+                    }}>
                     <Text>
                       <ContentEditable
                         value={item.quantity}
@@ -212,8 +200,7 @@ const BuyCart: React.FC<{}> = () => {
             />
             <WithLoading
               query={fetchUsersQuery}
-              FallbackLoadingUI={FieldLoader}
-            >
+              FallbackLoadingUI={FieldLoader}>
               <Select
                 sx={{ margin: "10px 0" }}
                 placeholder={intl.formatMessage({
@@ -255,8 +242,7 @@ const BuyCart: React.FC<{}> = () => {
           <Button
             disabled={!form.isValid}
             className={classes.buyBtn}
-            type="submit"
-          >
+            type="submit">
             <FormattedMessage id="products.buyCart.sale" />
           </Button>
         </Box>

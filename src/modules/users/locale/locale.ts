@@ -11,7 +11,7 @@ export const usersLocaleUz = {
   workplace: "Ish joy",
   extra: "Qo'shimcha",
   action: "Amallar",
-  detail : "Batafsil",
+  detail: "Batafsil",
   formTitle:
     "{isNew, select, true {Yangi Foydalanuvchi qo'shish} other {Tahrirlash}}",
   nameLabel: "Ismi",
@@ -22,6 +22,7 @@ export const usersLocaleUz = {
   addressPlaceholder: "Ish joyi",
   additionLabel: "Qo'shimcha malumot",
   additionPlaceholder: "Qo'shimcha malumot",
+
   userDts: {
     title: "Savdo xaqida malumot",
     name: "Ismi",
@@ -43,7 +44,7 @@ export const usersLocaleEn = {
   workplace: "Workplace",
   extra: "Extra",
   action: "Actions",
-  detail : "Detail",
+  detail: "Detail",
   formTitle: "{isNew, select, true {Add New User} other {Edit}}",
   nameLabel: "Name",
   namePlaceholder: "Enter username",
@@ -61,5 +62,7 @@ export const usersLocaleEn = {
     addition: "Addition",
     oldTime: "Created Time",
     newTime: "Updated Time",
+    discountQuantity: "Discount Quantity",
+    discountPrice: "Discount Price",
   },
 };

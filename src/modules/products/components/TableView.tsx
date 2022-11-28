@@ -135,7 +135,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
                   width: 200,
                   display: "flex",
                   gap: 20,
-                  marginRight: -90,
+                  marginRight: -70,
                 }}>
                 <ActionIcon>
                   <IconPencil
@@ -160,7 +160,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
               </div>
             </td>
 
-            <td>
+            <td style={{ padding: "0  40px" }}>
               <Button
                 variant="outline"
                 style={{

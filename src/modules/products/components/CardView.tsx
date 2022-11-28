@@ -49,14 +49,12 @@ const SalesCard: React.FC<{ item: any }> = ({ item }) => {
     <Box
       className={clsx(classes.card, {
         [classes.active]: inCart(item._id),
-      })}
-    >
+      })}>
       {item.image === "" || null ? (
         <Box
           style={{
             textAlign: "center",
-          }}
-        >
+          }}>
           <IconPhoto size={95} />
         </Box>
       ) : (
@@ -80,8 +78,7 @@ const SalesCard: React.FC<{ item: any }> = ({ item }) => {
               variant="outline"
               size="xs"
               disabled={!inCart(item._id)}
-              onClick={dec}
-            >
+              onClick={dec}>
               <IconMinus size={"xs"} />
             </Button>
             <Button size="xs" onClick={handleAddToCart} variant="gradient">

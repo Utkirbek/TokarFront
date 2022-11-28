@@ -1,4 +1,5 @@
-import { Box, Image, Modal, Text } from "@mantine/core";
+import TableHead from "@components/Table/TableHead";
+import { Box, Group, Image, Modal, Table, Text } from "@mantine/core";
 import useStyles from "@modules/products/components/ProductsTable/styles";
 import { IconPhoto } from "@tabler/icons";
 import { useRouter } from "next/router";
@@ -44,28 +45,19 @@ const ProductDetails = ({ products }: Props) => {
               ) : (
                 item?.title
               )}
-              <FormattedMessage id="users.userDts.title" />
             </Text>
             <Box className={classes.boxHeader}>
-              <Box className={classes.boxFlex}>
-                <Text className={classes.text}>
-                  <FormattedMessage id="products.productDetail.productName" />
-                </Text>
-                <Text className={classes.textStart}>
-                  {item?.title === null ? (
-                    <Text>
-                      <FormattedMessage id="loans.foydalanuvchi" />
-                    </Text>
-                  ) : (
-                    item?.title
-                  )}
-                </Text>
-              </Box>
               <Box className={classes.boxFlex}>
                 <Text className={classes.text}>
                   <FormattedMessage id="products.productDetail.productCode" />
                 </Text>
                 <Text className={classes.textStart}>{item?.code}</Text>
+              </Box>
+              <Box className={classes.boxFlex}>
+                <Text className={classes.text}>
+                  <FormattedMessage id="products.productDetail.productUnit" />
+                </Text>
+                <Text className={classes.textStart}>{item?.unit}</Text>
               </Box>
               <Box className={classes.boxFlex}>
                 <Text className={classes.text}>
@@ -111,6 +103,30 @@ const ProductDetails = ({ products }: Props) => {
               </Box>
             </Box>
           </Box>
+        </Box>
+        <Box p={50}>
+          <Text className={classes.discount}>
+            <FormattedMessage id="products.discount" />
+          </Text>
+          <Table style={{ marginTop: 40 }}>
+            <TableHead
+              data={{
+                discountQuantity: true,
+                discountPrice: true,
+              }}
+              prefix={"products.table"}
+            />
+            <tbody>
+              {item?.discounts?.map((el: any) => {
+                return (
+                  <tr key={item._id}>
+                    <td>{el?.quantity}</td>
+                    <td>{el?.price}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
         </Box>
       </Box>
     </Modal>
