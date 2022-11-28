@@ -33,7 +33,7 @@ type Props = {
 
 const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
   const router = useRouter();
-  const { addItem } = useCart();
+  const { addItem, inCart, updateItemQuantity, getItem, items } = useCart();
   const { deleteProducts } = useProducts();
   const { openConfirm } = useConfirmation();
   const { cx, classes } = useTableStyles();
@@ -66,13 +66,22 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
     });
   }, []);
 
+  const handleAddToCart = (item: any) => {
+    if (inCart(item._id)) {
+      const cartItem = getItem(item._id);
+      updateItemQuantity(cartItem._id, cartItem?.quantity + 1);
+    } else {
+      addItem({
+        ...item,
+        id: item._id,
+        price: +item.calculatedPrice,
+      });
+    }
+  };
+
   const rows = useMemo(
     () =>
       data.map((item: any) => {
-        const handleAddToCart = (item: any) => {
-          addItem({ id: item._id, ...item });
-        };
-
         return (
           <tr
             key={item._id}
@@ -166,7 +175,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
           </tr>
         );
       }),
-    [data, minStock]
+    [data, minStock, onEdit, handleAddToCart]
   );
 
   return (
@@ -183,4 +192,4 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
   );
 };
 
-export default memo(TableView);
+export default TableView;

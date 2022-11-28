@@ -1,8 +1,7 @@
 import TextEllipsis from "@components/TextEllipsis/TextEllipsis";
-import { Box, Button, clsx, Grid, Image, Text } from "@mantine/core";
-import { useToggle } from "@mantine/hooks";
+import { Box, Button, clsx, Image, Text } from "@mantine/core";
 import { IconMinus, IconPhoto, IconPlus } from "@tabler/icons";
-import React, { useState } from "react";
+import React from "react";
 import { useCart } from "react-use-cart";
 
 import useSalesCardStyles from "./ProductsTable/styles/CardStyle";
@@ -33,7 +32,11 @@ const SalesCard: React.FC<{ item: any }> = ({ item }) => {
       const cartItem = getItem(item._id);
       updateItemQuantity(item._id, cartItem.quantity + 1);
     } else {
-      addItem({ id: item._id, ...item, price: item.price?.toFixed?.(2) });
+      addItem({
+        ...item,
+        id: item._id,
+        price: Number(item.calculatedPrice)?.toFixed?.(2),
+      });
     }
   };
 
@@ -41,6 +44,7 @@ const SalesCard: React.FC<{ item: any }> = ({ item }) => {
     const cartItem = getItem(item._id);
     updateItemQuantity(item._id, cartItem.quantity - 1);
   };
+
   return (
     <Box
       className={clsx(classes.card, {
@@ -69,7 +73,7 @@ const SalesCard: React.FC<{ item: any }> = ({ item }) => {
         <TextEllipsis text={item.title} maxChars={20} />
         <Box className={classes.cardButton}>
           <Text sx={{ fontWeight: "bold" }} fz="sm" fw={500}>
-            {item.price.toFixed(2)} UZS
+            {item.calculatedPrice?.toFixed?.(2)} UZS
           </Text>
           <Button.Group>
             <Button
