@@ -5,7 +5,7 @@ const useStyles = createStyles((theme) => ({
   titleHead: {
     fontSize: "36px",
     marginBottom: "20px",
-    fontWeight: 700,
+    fontWeight: 600,
     color: "#1971C2",
     [`@media (max-width: 800px)`]: {
       fontSize: 18,
@@ -24,7 +24,7 @@ const useStyles = createStyles((theme) => ({
     flexWrap: "wrap",
   },
   imageBox: {
-    width: "350px",
+    width: "380px",
     height: "350px",
     [`@media (max-width: 800px)`]: {
       width: 200,
@@ -36,7 +36,7 @@ const useStyles = createStyles((theme) => ({
   },
   textStart: {
     textAlign: "start",
-    width: "230px",
+    width: "250px",
     fontSize: "23px",
     [`@media (max-width: 800px)`]: {
       fontSize: 12,

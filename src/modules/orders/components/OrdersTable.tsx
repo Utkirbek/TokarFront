@@ -56,18 +56,11 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
     return (
       <tr key={item._id}>
         <td>
-          <Link href={`/admins?details=${item?.salesman?._id}`}>
-            {item?.salesman?.name}
-          </Link>
-        </td>
-        <td>
           <Link
             href={`/admins`}
             style={{
-              borderBottom: "1px solid #1983FF",
               textDecoration: "none",
-            }}
-          >
+            }}>
             {item?.salesman === null ? (
               <FormattedMessage id="orders.userNull" />
             ) : (
@@ -79,10 +72,8 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
           <Link
             href={`/users?details=${item?.user?._id}`}
             style={{
-              borderBottom: "1px solid #1983FF",
               textDecoration: "none",
-            }}
-          >
+            }}>
             {item?.user === null ? (
               <FormattedMessage id="orders.userNull" />
             ) : (
@@ -94,10 +85,8 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
           <Link
             href={`/payments`}
             style={{
-              borderBottom: "1px solid #1983FF",
               textDecoration: "none",
-            }}
-          >
+            }}>
             {item?.total}
           </Link>
         </td>
@@ -121,13 +110,7 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
           ,&nbsp;
           <FormattedTime value={item?.updatedAt} />
         </td>
-        <td
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-around",
-          }}
-        >
+        <td>
           <If hasPerm={Permissions.orders.delete}>
             <ActionIcon>
               <IconTrash
@@ -136,6 +119,8 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
               />
             </ActionIcon>
           </If>
+        </td>
+        <td>
           <Button
             variant="outline"
             onClick={() => {
@@ -144,8 +129,7 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
                   details: item._id,
                 },
               });
-            }}
-          >
+            }}>
             <FormattedMessage id="more" />
           </Button>
         </td>
@@ -164,6 +148,7 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
             createOrder: true,
             updateOrder: true,
             orderAction: true,
+            ordersDetail: true,
           }}
           prefix="orders"
         />

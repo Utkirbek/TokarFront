@@ -17,6 +17,7 @@ function LoanTable({ dataloan, page, onPageChange, total }: any) {
             order: true,
             amount: true,
             shouldPay: true,
+            details: true,
           }}
           prefix={"loans"}
         />
@@ -30,8 +31,7 @@ function LoanTable({ dataloan, page, onPageChange, total }: any) {
                     style={{
                       borderBottom: "1px solid #1983FF",
                       textDecoration: "none",
-                    }}
-                  >
+                    }}>
                     {item.user === null ? (
                       <Text>
                         <FormattedMessage id="loans.userError" />
@@ -47,8 +47,7 @@ function LoanTable({ dataloan, page, onPageChange, total }: any) {
                     style={{
                       borderBottom: "1px solid #1983FF",
                       textDecoration: "none",
-                    }}
-                  >
+                    }}>
                     {item.amount}
                   </Link>
                 </td>
@@ -81,8 +80,7 @@ function LoanTable({ dataloan, page, onPageChange, total }: any) {
                           details: item._id,
                         },
                       });
-                    }}
-                  >
+                    }}>
                     <FormattedMessage id="products.details" />
                   </Button>
                 </td>

@@ -79,8 +79,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
             className={cx({
               [classes.minStock]: item.quantity <= item.minQuantity || minStock,
               [classes.noPriceWarning]: !item.price || !item.originalPrice,
-            })}
-          >
+            })}>
             <td>
               <Group spacing="sm">
                 <Avatar size={40} src={getCoverImage(item.image)} radius={26} />
@@ -126,10 +125,9 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
                 style={{
                   width: 200,
                   display: "flex",
-                  gap: 15,
+                  gap: 20,
                   marginRight: -90,
-                }}
-              >
+                }}>
                 <ActionIcon>
                   <IconPencil
                     style={{ cursor: "pointer", marginTop: "5px" }}
@@ -152,14 +150,14 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
                 </If>
               </div>
             </td>
+
             <td>
               <Button
                 variant="outline"
                 style={{
                   marginTop: "5px",
                 }}
-                onClick={() => showDetails(item._id)}
-              >
+                onClick={() => showDetails(item._id)}>
                 <FormattedMessage id="products.details" />
               </Button>
             </td>

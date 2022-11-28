@@ -26,14 +26,19 @@ const Settings: NextPage = () => {
   return (
     <If hasPerm={Permissions.settings.view}>
       <WithLoading query={permissionsQuery}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 20,
+            justifyContent: "start",
+          }}>
           <ButtonToggleDark />
           <LanguagePicker />
         </div>
         <Accordion style={{ marginTop: 20 }}>
           <Accordion.Item
-            value={intl.formatMessage({ id: "perms.perm.permissions" })}
-          >
+            value={intl.formatMessage({ id: "perms.perm.permissions" })}>
             <Accordion.Control>
               <FormattedMessage id="perms.perm.permissions" />
             </Accordion.Control>

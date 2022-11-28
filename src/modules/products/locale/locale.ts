@@ -9,7 +9,9 @@ export const productsLocaleUz = {
     currency: "Pul Birligi",
     paymentType: "To'lov turi",
     action: "Amallar",
+    details: "Batafsil",
   },
+
   add: "+ Yangi mahsulot qo'shish",
   addEdit: "{isNew, select, true {Yangi Mahsulot qo'shish} other {Tahrirlash}}",
   description: "Mahsulotlar boshqaruv paneli",
@@ -80,6 +82,7 @@ export const productsLocaleEn = {
     currency: "Currency Unit",
     paymentType: "Payment Type",
     action: "Actions",
+    details: "Details",
   },
   add: "+ Add New Product",
   addEdit: "{isNew, select, true {Add New Product} other {Edit}}",

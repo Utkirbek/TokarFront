@@ -5,6 +5,7 @@ export const productsTableHead = {
   price: true,
   quantity: true,
   action: true,
+  details: true,
 };
 
 const tableHead = {
@@ -17,7 +18,7 @@ const tableHead = {
   currency: "products.table.currency",
   paymentType: "products.table.paymentType",
   action: "action",
-  details: "more",
+  details: "products.details",
 };
 
 export default tableHead;
