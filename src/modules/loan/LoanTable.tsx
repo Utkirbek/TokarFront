@@ -1,5 +1,5 @@
 import TableHead from "@components/Table/TableHead";
-import { Button, ScrollArea, Table, Text } from "@mantine/core";
+import { Button, Pagination, ScrollArea, Table, Text } from "@mantine/core";
 import Link from "next/link";
 import router from "next/router";
 import { memo } from "react";
@@ -7,7 +7,7 @@ import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 
 import LoanBatafsil from "./batafsil/LoanBatafsil";
 
-function LoanTable({ data }: any) {
+function LoanTable({ dataloan, page, onPageChange, total }: any) {
   return (
     <ScrollArea>
       <Table style={{ marginTop: 70 }}>
@@ -17,11 +17,12 @@ function LoanTable({ data }: any) {
             order: true,
             amount: true,
             shouldPay: true,
+            details: true,
           }}
           prefix={"loans"}
         />
         <tbody>
-          {data?.map((item: any) => {
+          {dataloan?.map((item: any) => {
             return (
               <tr key={item._id}>
                 <td>
@@ -30,8 +31,7 @@ function LoanTable({ data }: any) {
                     style={{
                       borderBottom: "1px solid #1983FF",
                       textDecoration: "none",
-                    }}
-                  >
+                    }}>
                     {item.user === null ? (
                       <Text>
                         <FormattedMessage id="loans.userError" />
@@ -47,8 +47,7 @@ function LoanTable({ data }: any) {
                     style={{
                       borderBottom: "1px solid #1983FF",
                       textDecoration: "none",
-                    }}
-                  >
+                    }}>
                     {item.amount}
                   </Link>
                 </td>
@@ -81,8 +80,7 @@ function LoanTable({ data }: any) {
                           details: item._id,
                         },
                       });
-                    }}
-                  >
+                    }}>
                     <FormattedMessage id="products.details" />
                   </Button>
                 </td>
@@ -91,7 +89,23 @@ function LoanTable({ data }: any) {
           })}
         </tbody>
       </Table>
-      <LoanBatafsil loan={data} />
+      <LoanBatafsil loan={dataloan} />
+      <Pagination
+        my={10}
+        page={page}
+        styles={(theme) => ({
+          item: {
+            "&[data-active]": {
+              backgroundImage: theme.fn.gradient({
+                from: "red",
+                to: "yellow",
+              }),
+            },
+          },
+        })}
+        total={total}
+        onChange={onPageChange}
+      />
     </ScrollArea>
   );
 }

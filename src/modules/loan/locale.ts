@@ -6,6 +6,7 @@ export const loanLocaleUz = {
   amount: "Olingan sanasi",
   shouldPay: "Beriladigan sana",
   userError: "Topilmadi",
+  details: "Batafsil",
 };
 
 export const loanLocaleEn = {
@@ -16,4 +17,5 @@ export const loanLocaleEn = {
   amount: "Take date",
   shouldPay: "Give date",
   userError: "User not found",
+  details: "Details",
 };

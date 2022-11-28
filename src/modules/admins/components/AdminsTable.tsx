@@ -109,9 +109,9 @@ function TableCard({ data }: { data: any }) {
             style={{
               display: "flex",
               justifyContent: "start",
+              gap: 10,
               paddingBottom: "20px",
-            }}
-          >
+            }}>
             {item.name == name ? (
               <ActionIcon>
                 <IconTrash style={{ color: "red", cursor: "no-drop" }} />
@@ -137,8 +137,9 @@ function TableCard({ data }: { data: any }) {
                 />
               </ActionIcon>
             </If>
+          </td>
+          <td>
             <Button
-              style={{ marginLeft: "10px" }}
               variant="outline"
               onClick={() => {
                 router.push("/admins", {
@@ -146,8 +147,7 @@ function TableCard({ data }: { data: any }) {
                     details: item._id,
                   },
                 });
-              }}
-            >
+              }}>
               <FormattedMessage id="more" />
             </Button>
           </td>
@@ -164,8 +164,7 @@ function TableCard({ data }: { data: any }) {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-          }}
-        >
+          }}>
           <SearchAutoComplete
             searchResults={searchResults}
             onSearchResults={setSearchResults}
@@ -203,6 +202,9 @@ function TableCard({ data }: { data: any }) {
             <th>
               <FormattedMessage id="admins.deleteEdit" />
             </th>
+            <th>
+              <FormattedMessage id="admins.detail" />
+            </th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
@@ -213,8 +215,7 @@ function TableCard({ data }: { data: any }) {
         onClose={onClose}
         padding="xl"
         size="30%"
-        position="right"
-      >
+        position="right">
         <AdminsDrawer editItem={editItem} handleClose={onClose} />
       </Drawer>
     </>

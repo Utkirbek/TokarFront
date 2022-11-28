@@ -1,15 +1,6 @@
 import TableHead from "@components/Table/TableHead";
-import {
-  Avatar,
-  Box,
-  Image,
-  Modal,
-  ScrollArea,
-  Table,
-  Text,
-} from "@mantine/core";
+import { Box, Group, Modal, ScrollArea, Table, Text } from "@mantine/core";
 import useStyles from "@modules/products/components/ProductsTable/styles";
-import { IconPhoto } from "@tabler/icons";
 import { useRouter } from "next/router";
 import queryString from "query-string";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
@@ -112,8 +103,17 @@ const AdminsDetails = ({ admins }: Props) => {
             </Box>
           </Box>
         </Box>
-        <ScrollArea style={{ marginTop: "20px" }}>
-          <Table sx={{ minWidth: 700 }} verticalSpacing="sm" highlightOnHover>
+        <Group position="center" my={10}>
+          <Text sx={{ fontSize: "32px", color: "#1972C2" }}>
+            <FormattedMessage id="admins.salaryInfo" />
+          </Text>
+        </Group>
+        <Box
+          sx={{
+            width: "100%",
+            margin: "0 auto",
+          }}>
+          <Table verticalSpacing="sm" highlightOnHover>
             <TableHead
               data={{
                 getSalary: true,
@@ -123,7 +123,7 @@ const AdminsDetails = ({ admins }: Props) => {
             />
             <tbody>{rowDetail}</tbody>
           </Table>
-        </ScrollArea>
+        </Box>
       </Box>
     </Modal>
   );
