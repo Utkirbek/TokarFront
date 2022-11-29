@@ -1,9 +1,4 @@
-import {
-  IconCreditCard,
-  IconReportMoney,
-  IconTerminal2,
-  IconWallet,
-} from "@tabler/icons";
+import { IconCreditCard, IconReportMoney, IconTerminal2 } from "@tabler/icons";
 
 const datas: any = [
   {

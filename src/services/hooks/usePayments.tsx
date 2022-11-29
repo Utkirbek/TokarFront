@@ -29,8 +29,8 @@ const usePayments = () => {
             revalidate: true,
           }
         );
+        mutate([RequestQueryKeys.getPayments, 1]);
         options?.onSuccess && options.onSuccess(res);
-        mutate(RequestQueryKeys.getPayments);
         return res;
       } catch (error) {
         console.error(error);
@@ -54,7 +54,7 @@ const usePayments = () => {
           }
         );
         options?.onSuccess && options.onSuccess(res);
-        mutate(RequestQueryKeys.getPayments);
+        mutate([RequestQueryKeys.getPayments, 1]);
         return res;
       } catch (err) {
         console.error(err);

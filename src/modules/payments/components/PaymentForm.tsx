@@ -5,12 +5,14 @@ import {
   Box,
   Button,
   Group,
+  SegmentedControl,
   Select,
   Skeleton,
   Text,
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import datas from "@modules/products/components/buyCart/data";
 import useStyles from "@modules/products/components/form/style/inputStyle";
 import loanFeatchers from "@services/api/loanFetchers";
 import usePayments from "@services/hooks/usePayments";
@@ -59,7 +61,7 @@ const PaymentsForm: React.FC<{
   const form = useForm({
     initialValues: {
       amount: "",
-      paymentMethod: "",
+      paymentMethod: "cash",
       salesman: userId._id,
       loan: "",
     },
@@ -153,21 +155,21 @@ const PaymentsForm: React.FC<{
             type="number"
             required
           />
+          <Box my={30}>
+            <Text my={10}>
+              <FormattedMessage id="payments.select" />
+            </Text>
 
-          <Select
-            sx={{ width: "100%", margin: "20px  0" }}
-            rightSection={<IconChevronDown size={14} />}
-            rightSectionWidth={30}
-            placeholder={intl.formatMessage({
-              id: "payments.select",
-            })}
-            styles={{ rightSection: { pointerEvents: "none" } }}
-            label={intl.formatMessage({ id: "payments.select" })}
-            data={["click", "Terminal", "Naqt"]}
-            {...form.getInputProps("paymentMethod")}
-            required
-          />
-
+            <SegmentedControl
+              fullWidth
+              color="orange"
+              data={datas.map((item: { label: string; value: string }) => ({
+                label: <FormattedMessage id={item.label} />,
+                value: item.value,
+              }))}
+              {...form.getInputProps("paymentMethod")}
+            />
+          </Box>
           <Group position="right" mt="md">
             <Button type="submit">
               <FormattedMessage id="payments.btnSubmit" />
