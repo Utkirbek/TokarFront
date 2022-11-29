@@ -150,6 +150,7 @@ const PaymentsForm: React.FC<{
               id: "payments.amount",
             })}
             {...form.getInputProps("amount")}
+            type="number"
             required
           />
 

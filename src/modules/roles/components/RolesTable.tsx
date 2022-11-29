@@ -71,8 +71,10 @@ function TableCard() {
   const rows = roles?.map((item: any) => {
     return (
       <tr key={item._id}>
-        <td>
-          <Group spacing="sm">{item.name}</Group>
+        <td style={{ width: "8%" }}>
+          <Group spacing="sm">
+            <FormattedMessage id={`roles.roles.${item.name}`} />
+          </Group>
         </td>
         <td>
           <Group spacing="sm">
@@ -90,7 +92,7 @@ function TableCard() {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "space-around",
-            height: "138px",
+            // height: "138px",
           }}
         >
           {item.name == name ? (

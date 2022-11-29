@@ -1,7 +1,7 @@
 export const adminsLocaleUz = {
   delete: {
     modal: {
-      title: "Siz ushbu foydalanuvchini o'chirmoqchimisiz",
+      title: " siz ushbu foydalanuvchini o'chirmoqchimisiz",
       confirmation:
         "{name} ismli ishchingiz sizni tizimdan o'chib ketadi, Rozimisiz?",
     },

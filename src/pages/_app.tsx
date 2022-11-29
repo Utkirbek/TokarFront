@@ -24,8 +24,8 @@ import en from "@/translations/en";
 import uz from "@/translations/uz";
 
 export enum Lang {
-  uz = "uz",
-  en = "en",
+  uz = "Uzbek",
+  en = "English",
 }
 
 function MyApp({ Component, pageProps, router }: AppProps) {

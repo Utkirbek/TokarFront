@@ -24,7 +24,7 @@ export const usersLocaleUz = {
   additionPlaceholder: "Qo'shimcha malumot",
 
   userDts: {
-    title: "Savdo xaqida malumot",
+    title: " savdo xaqida malumot",
     name: "Ismi",
     phone: "Raqami",
     origin: "Ish joyi",

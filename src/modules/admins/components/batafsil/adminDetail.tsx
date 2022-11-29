@@ -112,7 +112,8 @@ const AdminsDetails = ({ admins }: Props) => {
           sx={{
             width: "100%",
             margin: "0 auto",
-          }}>
+          }}
+        >
           <Table verticalSpacing="sm" highlightOnHover>
             <TableHead
               data={{

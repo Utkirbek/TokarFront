@@ -63,6 +63,7 @@ const SpendDrawer: React.FC<{
           label={intl.formatMessage({ id: "expenses.amount" })}
           placeholder={intl.formatMessage({ id: "expenses.amountPlaceholder" })}
           {...form.getInputProps("amount")}
+          type="number"
           required
         />
         <Select
