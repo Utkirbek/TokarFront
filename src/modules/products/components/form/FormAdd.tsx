@@ -13,11 +13,11 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { randomId } from "@mantine/hooks";
 import useCurrency from "@services/hooks/useCurrency";
 import useProducts from "@services/hooks/useProducts";
 import { IconChevronDown, IconTrash } from "@tabler/icons";
 import { Permissions } from "@utils/constants";
+import { nanoid } from "nanoid";
 import { useRef } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -59,13 +59,13 @@ const FormProduct: React.FC<{
     initialValues: {
       title: editItem?.title ?? "",
       code: editItem?.code ?? "",
-      originalPrice: editItem?.originalPrice ?? "",
-      price: editItem?.price ?? "",
+      originalPrice: editItem?.originalPrice ?? 0,
+      price: editItem?.price ?? 0,
       unit: editItem?.unit ?? "D",
-      quantity: editItem?.quantity ?? "",
+      quantity: editItem?.quantity ?? 1,
       description: editItem?.description ?? "",
       discounts: editItem?.discounts ?? [
-        { price: 0, quantity: 0, key: randomId() },
+        { price: 0, quantity: 0, key: nanoid() },
       ],
       currency: editItem?.currency?._id ?? "63635d7850b0f6000826a6ac",
       minQuantity: editItem?.minQuantity ?? 5,
@@ -116,7 +116,7 @@ const FormProduct: React.FC<{
 
   const discountFields = form.values.discounts.map(
     (discount: any, index: number) => (
-      <Group key={discount.key} mt={"xs"}>
+      <Group key={discount.key + index} mt={"xs"}>
         <NumberInput
           label={intl.formatMessage({ id: "products.form.limitLabel" })}
           placeholder={intl.formatMessage({
@@ -278,7 +278,7 @@ const FormProduct: React.FC<{
               form.insertListItem("discounts", {
                 price: 0,
                 quantity: 0,
-                key: randomId(),
+                key: nanoid(),
               });
             }}
           >
