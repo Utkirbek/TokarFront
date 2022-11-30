@@ -1,7 +1,7 @@
 import { createStyles } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
-  rowSelected: {},
+  rowSelected:{},
   titleHead: {
     fontSize: "36px",
     marginBottom: "20px",

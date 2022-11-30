@@ -6,11 +6,13 @@ import { memo } from "react";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 
 import LoanBatafsil from "./batafsil/LoanBatafsil";
+import useStyles from "./component/loanStyle";
 
 function LoanTable({ dataloan, page, onPageChange, total }: any) {
+  const { classes, cx } = useStyles();
   return (
     <ScrollArea>
-      <Table style={{ marginTop: 70 }}>
+      <Table className={classes.loanTable}>
         <TableHead
           data={{
             user: true,
@@ -25,13 +27,8 @@ function LoanTable({ dataloan, page, onPageChange, total }: any) {
           {dataloan?.map((item: any) => {
             return (
               <tr key={item._id}>
-                <td>
-                  <Link
-                    href={`/users?details=${item?.user?._id}`}
-                    style={{
-                      borderBottom: "1px solid #1983FF",
-                      textDecoration: "none",
-                    }}>
+                <td className={classes.loanUserLink}>
+                  <Link href={`/users?details=${item?.user?._id}`}>
                     {item.user === null ? (
                       <Text>
                         <FormattedMessage id="loans.userError" />
@@ -41,13 +38,8 @@ function LoanTable({ dataloan, page, onPageChange, total }: any) {
                     )}
                   </Link>
                 </td>
-                <td>
-                  <Link
-                    href={`/users?details=${item?.user?._id}`}
-                    style={{
-                      borderBottom: "1px solid #1983FF",
-                      textDecoration: "none",
-                    }}>
+                <td className={classes.loanUserLink}>
+                  <Link href={`/users?details=${item?.user?._id}`}>
                     {item.amount}
                   </Link>
                 </td>
@@ -80,7 +72,8 @@ function LoanTable({ dataloan, page, onPageChange, total }: any) {
                           details: item._id,
                         },
                       });
-                    }}>
+                    }}
+                  >
                     <FormattedMessage id="products.details" />
                   </Button>
                 </td>
