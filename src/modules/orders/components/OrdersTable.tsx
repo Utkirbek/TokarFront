@@ -18,6 +18,7 @@ import { useRouter } from "next/router";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 
 import OrdersDetails from "../modalOrder/Orderdetail";
+import useStyles from "./orderStyle";
 
 const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
   const router = useRouter();
@@ -27,7 +28,7 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
     showErrorNotification,
   } = useNotification();
   const { openConfirm } = useConfirmation();
-
+  const { classes, cx } = useStyles();
   const { deleteOrder } = useOrder();
 
   const handleDelete = async function (id: string) {
@@ -55,13 +56,8 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
   const rows = dataorder?.map((item: any) => {
     return (
       <tr key={item._id}>
-        <td>
-          <Link
-            href={`/admins`}
-            style={{
-              textDecoration: "none",
-            }}
-          >
+        <td className={classes.orderTD}>
+          <Link href={`/admins`} className={classes.orderUserLink}>
             {item?.salesman === null ? (
               <FormattedMessage id="orders.userNull" />
             ) : (
@@ -69,12 +65,10 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
             )}
           </Link>
         </td>
-        <td>
+        <td className={classes.orderTD}>
           <Link
             href={`/users?details=${item?.user?._id}`}
-            style={{
-              textDecoration: "none",
-            }}
+            className={classes.orderUserLink}
           >
             {item?.user === null ? (
               <FormattedMessage id="orders.userNull" />
@@ -83,17 +77,12 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
             )}
           </Link>
         </td>
-        <td>
-          <Link
-            href={`/payments`}
-            style={{
-              textDecoration: "none",
-            }}
-          >
-            {item?.total}
+        <td className={classes.orderTD}>
+          <Link href={`/payments`} className={classes.orderUserLink}>
+            {item?.total.toFixed(2)}
           </Link>
         </td>
-        <td>
+        <td className={classes.orderTD}>
           <FormattedDate
             value={item?.createdAt}
             month="numeric"
@@ -103,7 +92,7 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
           ,&nbsp;
           <FormattedTime value={item?.createdAt} />
         </td>
-        <td>
+        <td className={classes.orderTD}>
           <FormattedDate
             value={item?.updatedAt}
             month="numeric"
@@ -118,13 +107,14 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
             <ActionIcon>
               <IconTrash
                 onClick={() => openDeleteModal(item._id, item.name)}
-                style={{ color: "red", cursor: "pointer" }}
+                className={classes.orderTrash}
               />
             </ActionIcon>
           </td>
         </If>
         <td>
           <Button
+            className={classes.orderBtn}
             variant="outline"
             onClick={() => {
               router.push("/orders", {
@@ -143,7 +133,7 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
 
   return (
     <ScrollArea>
-      <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
+      <Table verticalSpacing="sm" highlightOnHover>
         <TableHead
           data={{
             ordersSalesmen: true,
