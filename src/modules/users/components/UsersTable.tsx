@@ -85,32 +85,35 @@ function UsersTable({ data }: any) {
           <td>{item.phone}</td>
           <td>{item.workplace}</td>
           <td>{item.extra}</td>
-          <td
-            style={{
-              display: "flex",
-              justifyContent: "start",
-              gap: 10,
-              paddingBottom: "25px",
-              alignItems: "center",
-            }}>
-            <If hasPerm={Permissions.users.delete}>
-              <ActionIcon>
-                <IconTrash
-                  color="red"
-                  style={{ cursor: "pointer" }}
-                  onClick={onDeleteClick}
-                />
-              </ActionIcon>
-            </If>
-            <If hasPerm={Permissions.users.edit}>
-              <ActionIcon>
-                <IconPencil
-                  style={{ cursor: "pointer", marginRight: "-10px" }}
-                  onClick={handleEdit}
-                />
-              </ActionIcon>
-            </If>
-          </td>
+          <If hasPerm={Permissions.users.action}>
+            <td
+              style={{
+                display: "flex",
+                justifyContent: "start",
+                gap: 10,
+                paddingBottom: "25px",
+                alignItems: "center",
+              }}
+            >
+              <If hasPerm={Permissions.users.delete}>
+                <ActionIcon>
+                  <IconTrash
+                    color="red"
+                    style={{ cursor: "pointer" }}
+                    onClick={onDeleteClick}
+                  />
+                </ActionIcon>
+              </If>
+              <If hasPerm={Permissions.users.edit}>
+                <ActionIcon>
+                  <IconPencil
+                    style={{ cursor: "pointer", marginRight: "-10px" }}
+                    onClick={handleEdit}
+                  />
+                </ActionIcon>
+              </If>
+            </td>
+          </If>
           <td>
             <Button
               variant="outline"
@@ -120,7 +123,8 @@ function UsersTable({ data }: any) {
                     details: item._id,
                   },
                 });
-              }}>
+              }}
+            >
               <FormattedMessage id="more" />
             </Button>
           </td>
@@ -141,7 +145,8 @@ function UsersTable({ data }: any) {
           alignItems: "center",
           justifyContent: "space-between",
           flexWrap: "wrap",
-        }}>
+        }}
+      >
         <SearchAutoComplete
           searchResults={searchResults}
           onSearchResults={setSearchResults}
@@ -153,7 +158,8 @@ function UsersTable({ data }: any) {
             <Button
               className={classes.tex}
               onClick={handleAddNew}
-              variant={"outline"}>
+              variant={"outline"}
+            >
               <FormattedMessage id="users.addNew" />
             </Button>
           </Group>
@@ -171,7 +177,8 @@ function UsersTable({ data }: any) {
         padding="xl"
         size="xl"
         position="right"
-        sx={{ height: "120vh" }}>
+        sx={{ height: "120vh" }}
+      >
         <NewUser
           handleClose={() => toggleOpened(false)}
           editItem={editItem}

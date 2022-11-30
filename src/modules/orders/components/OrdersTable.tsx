@@ -60,7 +60,8 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
             href={`/admins`}
             style={{
               textDecoration: "none",
-            }}>
+            }}
+          >
             {item?.salesman === null ? (
               <FormattedMessage id="orders.userNull" />
             ) : (
@@ -73,7 +74,8 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
             href={`/users?details=${item?.user?._id}`}
             style={{
               textDecoration: "none",
-            }}>
+            }}
+          >
             {item?.user === null ? (
               <FormattedMessage id="orders.userNull" />
             ) : (
@@ -86,7 +88,8 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
             href={`/payments`}
             style={{
               textDecoration: "none",
-            }}>
+            }}
+          >
             {item?.total}
           </Link>
         </td>
@@ -110,16 +113,16 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
           ,&nbsp;
           <FormattedTime value={item?.updatedAt} />
         </td>
-        <td>
-          <If hasPerm={Permissions.orders.delete}>
+        <If hasPerm={Permissions.orders.delete}>
+          <td>
             <ActionIcon>
               <IconTrash
                 onClick={() => openDeleteModal(item._id, item.name)}
                 style={{ color: "red", cursor: "pointer" }}
               />
             </ActionIcon>
-          </If>
-        </td>
+          </td>
+        </If>
         <td>
           <Button
             variant="outline"
@@ -129,7 +132,8 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
                   details: item._id,
                 },
               });
-            }}>
+            }}
+          >
             <FormattedMessage id="more" />
           </Button>
         </td>
@@ -148,7 +152,6 @@ const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
             createOrder: true,
             updateOrder: true,
             orderAction: true,
-            ordersDetail: true,
           }}
           prefix="orders"
         />

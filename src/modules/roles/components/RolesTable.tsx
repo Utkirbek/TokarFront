@@ -71,7 +71,7 @@ function TableCard() {
   const rows = roles?.map((item: any) => {
     return (
       <tr key={item._id}>
-        <td style={{ width: "8%" }}>
+        <td style={{ width: "10%" }}>
           <Group spacing="sm">
             <FormattedMessage id={`roles.roles.${item.name}`} />
           </Group>
@@ -92,7 +92,6 @@ function TableCard() {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "space-around",
-            // height: "138px",
           }}
         >
           {item.name == name ? (
@@ -103,17 +102,12 @@ function TableCard() {
             <ActionIcon>
               <IconTrash
                 onClick={() => openDeleteModal(item._id, item.name)}
-                style={{ color: "red", cursor: "pointer" }}
+                style={{ color: "red" }}
               />
             </ActionIcon>
           )}
           <ActionIcon>
-            <IconPencil
-              onClick={onEditClick.bind(null, item)}
-              style={{
-                cursor: "pointer",
-              }}
-            />
+            <IconPencil onClick={onEditClick.bind(null, item)} />
           </ActionIcon>
         </td>
       </tr>

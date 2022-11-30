@@ -1,5 +1,5 @@
 export const permissionsLocaleUz = {
-  permissions: { all: "Barcha ruxsatlar" },
+  permissions: { all: "Barcha ruxsatlar", view: "Ruxsatlarni ko'rish" },
   product: {
     action: "Mahsulotdagi amallar",
     quantity: "Mahsulot soni",
@@ -8,6 +8,7 @@ export const permissionsLocaleUz = {
     create: "Mahsulot yaratish",
     price: "Mahsulot narxi",
     originalPrice: "Mahsulot asl narxi",
+    sell: "Mahsulotni sotish",
     add: {
       price: "Mahsulotga narx qo'shish",
       originalPrice: "Mahsulotga asl narx qo'shish",
@@ -18,6 +19,9 @@ export const permissionsLocaleUz = {
   users: { view: "Xodimlarni ko'rish", create: "Xodim yaratish" },
   orders: { view: "Savdolarni ko'rish" },
   roles: { view: "Rollarni korish" },
+  currency: { view: "Valyuta ko'rish" },
+  orders_add: "Savdolar qo'shish",
+  settings_view: "Sozlamalarni ko'rish",
   permissions_all: "Barcha ruxsatlar",
   permissions_add: "Ruxsat qo'shish",
   permissions_edit: "Ruxsatni tahrirlash",
@@ -77,7 +81,28 @@ export const permissionsLocaleRu = {
 };
 
 export const permissionsLocaleEn = {
-  permissions: { all: "All permissions" },
+  permissions: { all: "All permissions", view: "View permissions" },
+  product: {
+    action: "Product actions",
+    quantity: "Product quantity",
+    code: "Product Code",
+    name: "Product name",
+    create: "Create Product",
+    price: "Product price",
+    originalPrice: "Product original price",
+    sell: "Sell the product",
+    add: {
+      price: "Add a price to the product",
+      originalPrice: "Add original price to product",
+    },
+  },
+  sidebar: { statistics: { view: "View statistics in panel" } },
+  statistics: { view: "View statistics" },
+  users: { view: "View Employees", create: "Create Employee" },
+  orders: { view: "View orders" },
+  roles: { view: "View roles" },
+  currency: { view: "View currency" },
+  settings_view: "View Settings",
   permissions_all: "All permissions",
   permissions_add: "Add permission",
   permissions_edit: "Edit Permission",
@@ -128,6 +153,5 @@ export const permissionsLocaleEn = {
     cancelTitle: "You have canceled",
     cancelMessage: "You didn't really remove this permission!",
     create: "Product Create",
-    
   },
 };

@@ -87,6 +87,8 @@ export const productsLocaleEn = {
     paymentType: "Payment Type",
     action: "Actions",
     details: "Details",
+    discountQuantity: "Discount Quantity",
+    discountPrice: "Discount Price",
   },
   add: "+ Add New Product",
   addEdit: "{isNew, select, true {Add New Product} other {Edit}}",
@@ -97,6 +99,8 @@ export const productsLocaleEn = {
   title: "Products",
   buy: "Buy",
   discount: "Information about the discount",
+  no_price: "No price",
+  min_quantity: "Low inventory",
 
   form: {
     takePicture: "Remove picture",
@@ -115,6 +119,7 @@ export const productsLocaleEn = {
     limitPlaceholder: "Enter your discounted price",
     limitNumbLabel: "Number in discount",
     minQuantity: "Minimum quantity",
+    addDiscount: "Add discount",
   },
 
   productDetail: {
@@ -126,17 +131,22 @@ export const productsLocaleEn = {
     productTotal: "Number of products in stock",
     createProduct: "Created Time",
     updateProduct: "Updated Time",
+    productUnit: "Unit of Measurement",
   },
 
   buyCart: {
     datatitle: "Cash",
     dataterminal: "Terminal",
-    dataplastic: "Plastic",
+    dataplastik: "Plastic",
     databolibtolash: "Pay in installments",
     totalPrice: "Total Price",
     sale: "Sale",
     whom: "To whom",
     noProduct: "You have no products left",
     enterDay: "Enter Date",
+    sum: "sum",
+    date: "Select a date",
+    initialPayment: "Initial Payment",
+    loan: "National Payment",
   },
 };
