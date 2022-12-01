@@ -53,7 +53,7 @@ function LoanTable({
                     {item.amount}
                   </Link>
                 </td>
-                <td>
+                <td className={classes.LoanTime}>
                   <FormattedDate
                     value={item?.updatedAt}
                     month="numeric"
@@ -63,7 +63,7 @@ function LoanTable({
                   ,&nbsp;
                   <FormattedTime value={item?.updatedAt} />
                 </td>
-                <td>
+                <td className={classes.LoanTime}>
                   <FormattedDate
                     value={item?.shouldPay}
                     month="numeric"
@@ -75,6 +75,7 @@ function LoanTable({
                 </td>
                 <td>
                   <Button
+                    className={classes.loanBtn}
                     variant="outline"
                     onClick={() => {
                       router.push("/loan", {
