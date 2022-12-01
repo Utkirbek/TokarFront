@@ -1,15 +1,17 @@
 import If from "@components/smart/If";
 import WithLoading from "@hoc/WithLoading";
-import kassaFetcher from "@services/api/kassaFetcher";
-import { Permissions, RequestQueryKeys } from "@utils/constants";
+import useKassa from "@services/hooks/useKassa";
+import { Permissions } from "@utils/constants";
 import { useState } from "react";
-import useSWR from "swr";
 
 import KassaTable from "./KassaTable";
 
 function Kassa() {
   const [page, setPage] = useState(1);
-  const getKassa = useSWR(RequestQueryKeys.getKassa, kassaFetcher.getKassa);
+  const { useKassaFeatchers } = useKassa();
+  const getKassa = useKassaFeatchers(page, {
+    perPage: 10,
+  });
   const { data } = getKassa;
   return (
     <If hasPerm={Permissions.kassa.view}>

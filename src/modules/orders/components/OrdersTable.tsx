@@ -8,7 +8,6 @@ import {
   Pagination,
   ScrollArea,
   Table,
-  Text,
 } from "@mantine/core";
 import useOrder from "@services/hooks/useOrder";
 import { IconTrash } from "@tabler/icons";
@@ -20,7 +19,17 @@ import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 import OrdersDetails from "../modalOrder/Orderdetail";
 import useStyles from "./orderStyle";
 
-const OrdersTable = ({ dataorder, page, onPageChange, total }: any) => {
+const OrdersTable = ({
+  dataorder,
+  page,
+  onPageChange,
+  total,
+}: {
+  dataorder: any;
+  page: number;
+  onPageChange: (page: number) => void;
+  total: number;
+}) => {
   const router = useRouter();
   const {
     showLoadingNotification,

@@ -10,8 +10,17 @@ const useOrders = () => {
   const { mutate } = useSWRConfig();
 
   return {
-    useFetchOrders: () =>
-      useSWR(RequestQueryKeys.getOrders, orderFetcher.getOrders),
+    useFetchOrders: (
+      page = 1,
+      options = {
+        perPage: 10,
+      }
+    ) =>
+      useSWR([RequestQueryKeys.getOrders, page], (_, page) =>
+        orderFetcher.getOrders(page, {
+          perPage: options?.perPage,
+        })
+      ),
     addOrder: async (
       body: {
         total: number;

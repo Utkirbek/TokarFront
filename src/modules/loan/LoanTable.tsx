@@ -2,13 +2,23 @@ import TableHead from "@components/Table/TableHead";
 import { Button, Pagination, ScrollArea, Table, Text } from "@mantine/core";
 import Link from "next/link";
 import router from "next/router";
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 
 import LoanBatafsil from "./batafsil/LoanBatafsil";
 import useStyles from "./component/loanStyle";
 
-function LoanTable({ dataloan, page, onPageChange, total }: any) {
+function LoanTable({
+  dataloan,
+  page,
+  onPageChange,
+  total,
+}: {
+  dataloan: any;
+  page: number;
+  onPageChange: (page: number) => void;
+  total: number;
+}) {
   const { classes, cx } = useStyles();
   return (
     <ScrollArea>

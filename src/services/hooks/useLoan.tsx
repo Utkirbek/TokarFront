@@ -4,8 +4,17 @@ import useSWR from "swr";
 
 const useLoan = () => {
   return {
-    useLoanFeatchers: () =>
-      useSWR(RequestQueryKeys.loan, loanFeatchers.getLoan),
+    useLoanFeatchers: (
+      page = 1,
+      options = {
+        perPage: 10,
+      }
+    ) =>
+      useSWR([RequestQueryKeys.loan, page], (_, page) =>
+        loanFeatchers.getLoan(page, {
+          perPage: options?.perPage,
+        })
+      ),
   };
 };
 export default useLoan;

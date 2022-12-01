@@ -1,18 +1,18 @@
 import If from "@components/smart/If";
 import WithLoading from "@hoc/WithLoading";
-import orderFetchers from "@services/api/orderFetchers";
-import { Permissions, RequestQueryKeys } from "@utils/constants";
+import { useToggle } from "@mantine/hooks";
+import useOrders from "@services/hooks/useOrder";
+import { Permissions } from "@utils/constants";
 import { useState } from "react";
-import useSWR from "swr";
 
 import OrdersTable from "./components/OrdersTable";
 
 export default function Orders() {
   const [page, setPage] = useState(1);
-  const ordersQuery = useSWR(
-    RequestQueryKeys.getOrders,
-    orderFetchers.getOrders
-  );
+  const { useFetchOrders } = useOrders();
+  const ordersQuery = useFetchOrders(page, {
+    perPage: 10,
+  });
 
   const { data } = ordersQuery;
 

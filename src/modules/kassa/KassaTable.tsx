@@ -16,7 +16,17 @@ export const kassaLocaleEn = {
   giveTime: "Give time",
 };
 
-function KassaTable({ datakassa, page, onPageChange, total }: any) {
+function KassaTable({
+  datakassa,
+  page,
+  onPageChange,
+  total,
+}: {
+  datakassa: any;
+  page: number;
+  onPageChange: (page: number) => void;
+  total: number;
+}) {
   const rows = datakassa?.map((item: any) => (
     <tr key={item?._id}>
       <td>{item?.amount}</td>
