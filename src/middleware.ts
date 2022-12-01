@@ -15,7 +15,12 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   } else {
     const token = request.cookies.get("token");
-    if (!token && !request.nextUrl.pathname.includes("/auth/sign-in")) {
+    const shopId = request.cookies.get("shopId");
+    const isLoggedIn = request.cookies.get("isLoggedIn");
+    if (
+      (!token || !shopId || !isLoggedIn) &&
+      !request.nextUrl.pathname.includes("/auth/sign-in")
+    ) {
       return NextResponse.rewrite(new URL("/auth/sign-in", request.url));
     }
     return NextResponse.next();

@@ -1,3 +1,5 @@
+import { getCookie } from "cookies-next";
+
 import requests from "./requests";
 
 const loanFeatchers = {
@@ -6,8 +8,17 @@ const loanFeatchers = {
     options = {
       perPage: 10,
     }
-  ) => requests.get(`/loan?page=${page}&size=${options?.perPage}`),
-  getLoanUserID: async (_: string, id: string) =>
-    requests.get(`/loan/user/${id}`),
+  ) => {
+    const shopId = getCookie("shopId");
+
+    return requests.get(
+      `/loan/${shopId}/?page=${page}&size=${options?.perPage}`
+    );
+  },
+  getLoanUserID: async (_: string, id: string) => {
+    const shopId = getCookie("shopId");
+
+    return requests.get(`/loan/user/${shopId}/${id}`);
+  },
 };
 export default loanFeatchers;

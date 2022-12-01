@@ -11,6 +11,7 @@ export const commonUz = {
   search: "Qidiruv",
   clear: "Tozalash",
   noSearchResults: "Qidiruv natijasi topilmadi",
+  next: "Keyingi",
 };
 
 export const commonEn = {
@@ -26,4 +27,5 @@ export const commonEn = {
   search: "Search",
   clear: "Clear",
   noSearchResults: "Qidiruv natijasi topilmadi",
+  next: "Next",
 };

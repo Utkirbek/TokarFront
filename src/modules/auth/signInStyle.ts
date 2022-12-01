@@ -2,16 +2,14 @@ import { createStyles } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
   boxForm: {
-    height: "100vh",
+    minHeight: "100vh",
     display: "flex",
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
   },
   boxLeft: {
-    width: 550,
-    padding: "70px 110px",
-    color: "white",
-    backgroundColor: "rgba(0,0,0, 0.5)",
+    padding: "70px 0 0 0",
     [`@media (max-width: 500px)`]: {
       padding: "30px 50px",
     },
@@ -23,12 +21,6 @@ const useStyles = createStyles((theme) => ({
     [`@media (max-width: 500px)`]: {
       fontSize: 20,
     },
-  },
-  color: {
-    color:
-      theme.colorScheme === "dark"
-        ? theme.fn.rgba(theme.colors[theme.primaryColor][7], 0.2)
-        : theme.colors[theme.primaryColor][0],
   },
 }));
 

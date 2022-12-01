@@ -2,7 +2,7 @@ type User = {
   _id: string;
   email: string;
   name: string;
-  phone: string;
+  phone?: string;
   role: {
     _id: string;
     name: string;

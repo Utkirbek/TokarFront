@@ -1,3 +1,5 @@
+import { getCookie } from "cookies-next";
+
 import requests from "./requests";
 
 const kassaFetcher = {
@@ -6,6 +8,12 @@ const kassaFetcher = {
     options = {
       perPage: 10,
     }
-  ) => requests.get(`/kassa?page=${page}&size=${options?.perPage}`),
+  ) => {
+    const shopId = getCookie("shopId");
+
+    return requests.get(
+      `/kassa/${shopId}?page=${page}&size=${options?.perPage}`
+    );
+  },
 };
 export default kassaFetcher;

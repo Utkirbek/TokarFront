@@ -1,11 +1,24 @@
+import { getCookie } from "cookies-next";
+
 import requests from "./requests";
 
 const orderFetchers = {
-  addSpend: async <T>(body: T) => await requests.post("/spend/add", body),
-  deleteSpend: async (id: string) => requests.delete(`/spend/${id}`),
-  getSpend: async () => requests.get(`/spend`),
-  updateSpend: async (id: string, body: any | Object) =>
-    requests.put(`/spend/${id}`, body),
+  addSpend: async <T>(body: T) => {
+    const shopId = getCookie("shopId");
+    return await requests.post(`/spend/${shopId}/add`, body);
+  },
+  deleteSpend: async (id: string) => {
+    const shopId = getCookie("shopId");
+    return requests.delete(`/spend/${shopId}/${id}`);
+  },
+  getSpend: async () => {
+    const shopId = getCookie("shopId");
+    return requests.get(`/spend/${shopId}`);
+  },
+  updateSpend: async (id: string, body: any | Object) => {
+    const shopId = getCookie("shopId");
+    return requests.put(`/spend/${shopId}/${id}`, body);
+  },
 };
 
 export default orderFetchers;

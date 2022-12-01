@@ -64,7 +64,8 @@ const SpendTable = ({ data }: Props) => {
     toggleDrawerOpen();
     setEditItem({});
   };
-  const rows = data.map((item: any) => {
+
+  const rows = data?.spends?.map((item: any) => {
     return (
       <tr key={item._id}>
         <td>{item?.amount}</td>

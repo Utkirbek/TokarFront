@@ -29,7 +29,7 @@ interface FormAddProps {
   currency: string;
   title: string;
   code: string | number;
-  originalPrice: string | number;
+  originalPrice: number;
   price: string | number;
   unit: string;
   quantity: string | number;
@@ -64,9 +64,7 @@ const FormProduct: React.FC<{
       unit: editItem?.unit ?? "D",
       quantity: editItem?.quantity ?? 1,
       description: editItem?.description ?? "",
-      discounts: editItem?.discounts ?? [
-        { price: 0, quantity: 0, key: nanoid() },
-      ],
+      discounts: editItem?.discounts ?? [],
       currency: editItem?.currency?._id ?? "63635d7850b0f6000826a6ac",
       minQuantity: editItem?.minQuantity ?? 5,
       image: editItem?.image ?? "",
@@ -114,7 +112,7 @@ const FormProduct: React.FC<{
     }
   };
 
-  const discountFields = form.values.discounts.map(
+  const discountFields = form.values.discounts?.map(
     (discount: any, index: number) => (
       <Group key={discount.key + index} mt={"xs"}>
         <NumberInput
@@ -123,6 +121,8 @@ const FormProduct: React.FC<{
             id: "products.form.limitLabel",
           })}
           {...form.getInputProps(`discounts.${index}.price`)}
+          precision={2}
+          min={0}
           hideControls
         />
         <NumberInput
@@ -131,6 +131,7 @@ const FormProduct: React.FC<{
             id: "products.form.limitNumbLabel",
           })}
           {...form.getInputProps(`discounts.${index}.quantity`)}
+          min={0}
           hideControls
         />
         <ActionIcon
@@ -218,6 +219,9 @@ const FormProduct: React.FC<{
             className={classes.inputStyle}
             label={intl.formatMessage({ id: "products.form.orgLabel" })}
             placeholder={intl.formatMessage({ id: "products.form.orgLabel" })}
+            precision={2}
+            min={0}
+            hideControls
             {...form.getInputProps("originalPrice")}
           />
         </If>
@@ -267,6 +271,8 @@ const FormProduct: React.FC<{
           placeholder={intl.formatMessage({
             id: "products.form.minQuantity",
           })}
+          min={0}
+          hideControls
           {...form.getInputProps("minQuantity")}
         />
         <Box>{discountFields}</Box>

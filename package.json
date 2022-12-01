@@ -52,6 +52,7 @@
     "nivo": "^0.31.0",
     "query-string": "^7.1.1",
     "react": "latest",
+    "react-confetti": "^6.1.0",
     "react-dom": "latest",
     "react-error-boundary": "^3.1.4",
     "react-input-mask": "^2.0.4",

@@ -31,6 +31,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
   const token = getCookie("token");
   const [activeId, setActiveId] = useState(null);
   const [fullView, toggleFullView] = useToggle();
+  const shopName = getCookie("shopName");
 
   const activeStyle = {
     background: "#1864AB",
@@ -132,7 +133,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
               <Box className={classes.navDesh}>
                 <Burger opened={fullView} onClick={() => toggleFullView()} />
                 <Link href="/">
-                  <Text className={classes.title}>Tokar</Text>
+                  <Text className={classes.title}>{shopName || "Tokar"}</Text>
                 </Link>
                 <Box ml="auto">
                   <Logout />

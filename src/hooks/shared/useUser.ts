@@ -24,6 +24,7 @@ const initalState: User = {
 type UserAction = {
   updateUser: (user: User) => void;
   authorize: (user: User) => void;
+  authNext: () => void;
   hasPerm: (perm: string) => boolean;
   logout: () => void;
 };
@@ -35,8 +36,7 @@ const useUser = create(
       updateUser: (user) => set({ ...user }),
       authorize: (user: any) =>
         set({
-          isLoggedIn: true,
-          image: user.image,
+          image: user.admin.image,
           name: user.admin.name,
           email: user.admin.email,
           orders: user.admin.orders,
@@ -44,6 +44,11 @@ const useUser = create(
           role: user.admin.role,
           _id: user.admin._id,
         }),
+      authNext: () => {
+        set({
+          isLoggedIn: true,
+        });
+      },
       hasPerm: (perm) =>
         get().permissions?.some(
           (p) => p.name === perm || p.name === Permissions.all
