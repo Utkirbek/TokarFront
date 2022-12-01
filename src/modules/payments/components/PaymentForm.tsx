@@ -13,7 +13,6 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import datas from "@modules/products/components/buyCart/data";
-import useStyles from "@modules/products/components/form/style/inputStyle";
 import loanFeatchers from "@services/api/loanFetchers";
 import usePayments from "@services/hooks/usePayments";
 import useUsers from "@services/hooks/useUser";
@@ -22,6 +21,8 @@ import { RequestQueryKeys } from "@utils/constants";
 import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import useSWR from "swr";
+
+import useStyles from "./paymentStyle";
 
 export const FieldLoader = () => {
   return (
@@ -87,15 +88,14 @@ const PaymentsForm: React.FC<{
 
   return (
     <>
-      <Box sx={{ maxWidth: 440, height: "auto" }} mx="auto">
+      <Box  className={classes.paymentBox} mx="auto">
         <form onSubmit={form.onSubmit(handleSubmit)}>
-          <Text sx={{ textAlign: "center", fontSize: "28px", fontWeight: 700 }}>
+          <Text className={classes.paymentText}>
             <FormattedMessage id="payments.formTitle" />
           </Text>
-
           <WithLoading query={getUserQuery} FallbackLoadingUI={FieldLoader}>
             <Select
-              sx={{ width: "100%", margin: "20px  0" }}
+              className={classes.paymentSelect}
               rightSection={<IconChevronDown size={14} />}
               rightSectionWidth={30}
               placeholder={intl.formatMessage({
@@ -117,7 +117,7 @@ const PaymentsForm: React.FC<{
 
           <WithLoading query={userLoanQuery} FallbackLoadingUI={FieldLoader}>
             <Select
-              sx={{ width: "100%", margin: "20px  0" }}
+            className={classes.paymentSelect}
               rightSection={<IconChevronDown size={14} />}
               rightSectionWidth={30}
               placeholder={intl.formatMessage({
