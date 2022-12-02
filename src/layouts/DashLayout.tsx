@@ -7,7 +7,6 @@ import {
   Box,
   Burger,
   Header,
-  MediaQuery,
   Navbar,
   Text,
   Tooltip,
@@ -47,8 +46,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
         <Tooltip
           label={<FormattedMessage id={item.label} />}
           position="left"
-          withArrow
-        >
+          withArrow>
           <Link
             key={item.label}
             href={item.link}
@@ -56,8 +54,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
             onClick={() => setActiveId(item.id)}
             className={cx(classes.link, {
               linkActive: item.link === router.pathname,
-            })}
-          >
+            })}>
             <item.icon
               className={cx(classes.linkIcon, {
                 iconFull: !fullView,
@@ -90,7 +87,6 @@ function DashLayout({ children }: { children: React.ReactNode }) {
       navbar={
         <Navbar
           hiddenBreakpoint="sm"
-          hidden={!opened}
           width={{
             xs: fullView ? 200 : "min-content",
             lg: fullView ? 220 : "min-content",
@@ -98,8 +94,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
           sx={{
             position: !fullView ? "static" : "fixed",
           }}
-          p={fullView ? "md" : 0}
-        >
+          p={fullView ? "md" : 0}>
           <Box className={classes.container} m={0}>
             {!fullView && (
               <Text className={classes.link}>
@@ -119,17 +114,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
         <If condition={fullView}>
           <Header height={70} p="md">
             <Box
-              style={{ display: "flex", alignItems: "center", height: "100%" }}
-            >
-              <MediaQuery largerThan="xs" styles={{ display: "none" }}>
-                <Burger
-                  opened={opened}
-                  onClick={() => toggleOpened()}
-                  size="sm"
-                  color={theme.colors.gray[6]}
-                  mr="xl"
-                />
-              </MediaQuery>
+              style={{ display: "flex", alignItems: "center", height: "100%" }}>
               <Box className={classes.navDesh}>
                 <Burger opened={fullView} onClick={() => toggleFullView()} />
                 <Link href="/">
@@ -142,8 +127,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
             </Box>
           </Header>
         </If>
-      }
-    >
+      }>
       <Box px={fullView ? 0 : "xs"} sx={{ height: "100%" }}>
         {children}
       </Box>
