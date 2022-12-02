@@ -7,7 +7,8 @@ import { useToggle } from "@mantine/hooks";
 import productFetchers from "@services/api/productFetchers";
 import { IconTable } from "@tabler/icons";
 import { Permissions } from "@utils/constants";
-import { memo, useCallback, useState } from "react";
+import { useRouter } from "next/router";
+import { memo, useCallback, useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { useCart } from "react-use-cart";
 
@@ -42,6 +43,7 @@ function ProductsTable({
   const [salesView, toggleSalesView] = useToggle();
   const [isResultsActive, toggleResultsActive] = useToggle();
 
+  const router = useRouter();
   const { isEmpty } = useCart();
 
   const onEdit = useCallback((item: any) => {
@@ -70,14 +72,35 @@ function ProductsTable({
         case "min_quantity":
           if (noPrice) toggleNoPrice(false);
           toggleMinQuantity();
+          router.push("/products", {
+            query: {
+              min_quantity: !minQuantity,
+              no_price: false,
+              page: 1,
+            },
+          });
           break;
         case "no_price":
           if (minQuantity) toggleMinQuantity(false);
           toggleNoPrice();
+          router.push("/products", {
+            query: {
+              min_quantity: false,
+              no_price: !noPrice,
+              page: 1,
+            },
+          });
           break;
         default:
           if (minQuantity) toggleMinQuantity(false);
           if (noPrice) toggleNoPrice(false);
+          router.push("/products", {
+            query: {
+              min_quantity: false,
+              no_price: false,
+              page: page,
+            },
+          });
           break;
       }
     },

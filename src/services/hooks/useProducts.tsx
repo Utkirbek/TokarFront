@@ -1,9 +1,14 @@
 import productFetchers from "@services/api/productFetchers";
 import { RequestQueryKeys } from "@utils/constants";
+import { useRouter } from "next/router";
+import queryString from "query-string";
 import useSWR, { useSWRConfig } from "swr";
 
 const useProducts = () => {
   const { mutate } = useSWRConfig();
+  const router = useRouter();
+
+  const query = queryString.parseUrl(router.asPath).query;
 
   return {
     useFetchProduct: (
@@ -52,7 +57,12 @@ const useProducts = () => {
             revalidate: true,
           }
         );
-        mutate([RequestQueryKeys.getProducts, 1, false, false]);
+        mutate([
+          RequestQueryKeys.getProducts,
+          Number(query?.page) || 1,
+          query?.min_quantity === "true",
+          query?.no_price === "true",
+        ]);
         options?.onSuccess && options.onSuccess(res);
         return res;
       } catch (error) {
@@ -73,12 +83,14 @@ const useProducts = () => {
       try {
         const res = await mutate(
           RequestQueryKeys.updateProducts,
-          productFetchers.updateProducts(data.id, data.values),
-          {
-            revalidate: true,
-          }
+          productFetchers.updateProducts(data.id, data.values)
         );
-        mutate([RequestQueryKeys.getProducts, 1, false, false]);
+        mutate([
+          RequestQueryKeys.getProducts,
+          Number(query?.page) || 1,
+          query?.min_quantity === "true",
+          query?.no_price === "true",
+        ]);
         options?.onSuccess && options.onSuccess(res);
         return res;
       } catch (error) {
@@ -101,7 +113,12 @@ const useProducts = () => {
             revalidate: true,
           }
         );
-        mutate([RequestQueryKeys.getProducts, 1, false, false]);
+        mutate([
+          RequestQueryKeys.getProducts,
+          Number(query?.page) || 1,
+          query?.min_quantity === "true",
+          query?.no_price === "true",
+        ]);
         options?.onSuccess && options.onSuccess(res);
         return res;
       } catch (err) {

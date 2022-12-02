@@ -57,7 +57,14 @@ const Products = () => {
           data={data?.products}
           total={data?.totalPage}
           page={page}
-          onPageChange={(page: number) => setPage(page)}
+          onPageChange={(page: number) => {
+            setPage(page);
+            router.push("/products", {
+              query: {
+                page,
+              },
+            });
+          }}
           minQuantity={minQuantity}
           noPrice={noPrice}
           toggleMinQuantity={toggleMinQuantity}
