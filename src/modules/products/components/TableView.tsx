@@ -82,6 +82,10 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
   const rows = useMemo(
     () =>
       data.map((item: any) => {
+        const handleAddToCart = (item: any) => {
+          addItem({ id: item._id, ...item, price: +item.calculatedPrice });
+        };
+
         return (
           <tr
             key={item._id}
@@ -136,7 +140,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
                   width: 200,
                   display: "flex",
                   gap: 20,
-                  marginRight: -70,
+                  marginRight: -90,
                 }}
               >
                 <ActionIcon>

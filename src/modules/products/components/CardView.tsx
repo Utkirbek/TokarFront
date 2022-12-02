@@ -33,9 +33,9 @@ const SalesCard: React.FC<{ item: any }> = ({ item }) => {
       updateItemQuantity(item._id, cartItem.quantity + 1);
     } else {
       addItem({
-        ...item,
         id: item._id,
-        price: Number(item.calculatedPrice)?.toFixed?.(2),
+        ...item,
+        price: +item?.calculatedPrice,
       });
     }
   };
@@ -49,12 +49,14 @@ const SalesCard: React.FC<{ item: any }> = ({ item }) => {
     <Box
       className={clsx(classes.card, {
         [classes.active]: inCart(item._id),
-      })}>
+      })}
+    >
       {item.image === "" || null ? (
         <Box
           style={{
             textAlign: "center",
-          }}>
+          }}
+        >
           <IconPhoto size={95} />
         </Box>
       ) : (
@@ -71,14 +73,15 @@ const SalesCard: React.FC<{ item: any }> = ({ item }) => {
         <TextEllipsis text={item.title} maxChars={20} />
         <Box className={classes.cardButton}>
           <Text sx={{ fontWeight: "bold" }} fz="sm" fw={500}>
-            {item.calculatedPrice?.toFixed?.(2)} UZS
+            {+item?.calculatedPrice} UZS
           </Text>
           <Button.Group>
             <Button
               variant="outline"
               size="xs"
               disabled={!inCart(item._id)}
-              onClick={dec}>
+              onClick={dec}
+            >
               <IconMinus size={"xs"} />
             </Button>
             <Button size="xs" onClick={handleAddToCart} variant="gradient">

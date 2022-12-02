@@ -150,7 +150,7 @@ const BuyCart: React.FC<{}> = () => {
                       />
                       {item.unit}
                       &nbsp;
-                      {item.price}
+                      {item?.price}
                       <span>&nbsp;So&apos;m</span>
                     </Text>
                     <Text sx={{ fontWeight: "bold" }}>
