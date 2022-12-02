@@ -76,7 +76,9 @@ function PaymentsTable({ data, page, onPageChange, total }: any) {
             </Text>
           )}
         </td>
-        <td>{item.paymentMethod}</td>
+        <td>
+          <FormattedMessage id={`payments.${item.paymentMethod}`} />
+        </td>
         <td>
           <FormattedTime value={data?.updatedAt} />
           ,&nbsp;
@@ -115,8 +117,7 @@ function PaymentsTable({ data, page, onPageChange, total }: any) {
       <FormDrawer {...{ opened, toggleOpened }}>
         <ScrollArea
           style={{ height: "100%", paddingBottom: 60 }}
-          scrollbarSize={2}
-        >
+          scrollbarSize={2}>
           <PaymentsForm handleClose={() => toggleOpened(false)} />
         </ScrollArea>
       </FormDrawer>

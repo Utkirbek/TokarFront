@@ -5,13 +5,14 @@ import {
   Box,
   Button,
   Group,
+  SegmentedControl,
   Select,
   Skeleton,
   Text,
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import useStyles from "@modules/products/components/form/style/inputStyle";
+import datas from "@modules/products/components/buyCart/data";
 import loanFeatchers from "@services/api/loanFetchers";
 import usePayments from "@services/hooks/usePayments";
 import useUsers from "@services/hooks/useUser";
@@ -20,6 +21,8 @@ import { RequestQueryKeys } from "@utils/constants";
 import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import useSWR from "swr";
+
+import useStyles from "./paymentStyle";
 
 export const FieldLoader = () => {
   return (
@@ -59,7 +62,7 @@ const PaymentsForm: React.FC<{
   const form = useForm({
     initialValues: {
       amount: "",
-      paymentMethod: "",
+      paymentMethod: "cash",
       salesman: userId._id,
       loan: "",
     },
@@ -85,15 +88,14 @@ const PaymentsForm: React.FC<{
 
   return (
     <>
-      <Box sx={{ maxWidth: 440, height: "auto" }} mx="auto">
+      <Box  className={classes.paymentBox} mx="auto">
         <form onSubmit={form.onSubmit(handleSubmit)}>
-          <Text sx={{ textAlign: "center", fontSize: "28px", fontWeight: 700 }}>
+          <Text className={classes.paymentText}>
             <FormattedMessage id="payments.formTitle" />
           </Text>
-
           <WithLoading query={getUserQuery} FallbackLoadingUI={FieldLoader}>
             <Select
-              sx={{ width: "100%", margin: "20px  0" }}
+              className={classes.paymentSelect}
               rightSection={<IconChevronDown size={14} />}
               rightSectionWidth={30}
               placeholder={intl.formatMessage({
@@ -115,7 +117,7 @@ const PaymentsForm: React.FC<{
 
           <WithLoading query={userLoanQuery} FallbackLoadingUI={FieldLoader}>
             <Select
-              sx={{ width: "100%", margin: "20px  0" }}
+            className={classes.paymentSelect}
               rightSection={<IconChevronDown size={14} />}
               rightSectionWidth={30}
               placeholder={intl.formatMessage({
@@ -150,23 +152,24 @@ const PaymentsForm: React.FC<{
               id: "payments.amount",
             })}
             {...form.getInputProps("amount")}
+            type="number"
             required
           />
+          <Box my={30}>
+            <Text my={10}>
+              <FormattedMessage id="payments.select" />
+            </Text>
 
-          <Select
-            sx={{ width: "100%", margin: "20px  0" }}
-            rightSection={<IconChevronDown size={14} />}
-            rightSectionWidth={30}
-            placeholder={intl.formatMessage({
-              id: "payments.select",
-            })}
-            styles={{ rightSection: { pointerEvents: "none" } }}
-            label={intl.formatMessage({ id: "payments.select" })}
-            data={["click", "Terminal", "Naqt"]}
-            {...form.getInputProps("paymentMethod")}
-            required
-          />
-
+            <SegmentedControl
+              fullWidth
+              color="orange"
+              data={datas.map((item: { label: string; value: string }) => ({
+                label: <FormattedMessage id={item.label} />,
+                value: item.value,
+              }))}
+              {...form.getInputProps("paymentMethod")}
+            />
+          </Box>
           <Group position="right" mt="md">
             <Button type="submit">
               <FormattedMessage id="payments.btnSubmit" />

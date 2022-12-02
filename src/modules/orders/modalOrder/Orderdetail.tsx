@@ -36,11 +36,13 @@ const OrdersDetails = ({ orders }: Props) => {
           />
         </td>
         <td>
-          {prodItem?.product === null ? (
-            <FormattedMessage id="orders.userNull" />
-          ) : (
-            prodItem?.product?.title
-          )}
+          <Link href={"/products"}>
+            {prodItem?.product === null ? (
+              <FormattedMessage id="orders.userNull" />
+            ) : (
+              prodItem?.product?.title
+            )}
+          </Link>
         </td>
         <td>
           {prodItem?.product === null ? (
@@ -96,8 +98,7 @@ const OrdersDetails = ({ orders }: Props) => {
                 style={{
                   textDecoration: "none",
                   borderBottom: "1px solid #1983FF",
-                }}
-              >
+                }}>
                 <Text className={classes.textStart}>
                   {item?.salesman?.name === null ? (
                     <FormattedMessage id="orders.userNull" />
@@ -116,8 +117,7 @@ const OrdersDetails = ({ orders }: Props) => {
                 style={{
                   textDecoration: "none",
                   borderBottom: "1px solid #1983FF",
-                }}
-              >
+                }}>
                 <Text className={classes.textStart}>{item?.user?.name}</Text>
               </Link>
             </Box>
@@ -131,8 +131,7 @@ const OrdersDetails = ({ orders }: Props) => {
                 style={{
                   textDecoration: "none",
                   borderBottom: "1px solid #1983FF",
-                }}
-              >
+                }}>
                 <Text className={classes.textStart}>{item?.user?.phone}</Text>
               </a>
             </Box>

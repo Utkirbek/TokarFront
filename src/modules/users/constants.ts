@@ -5,4 +5,5 @@ export const usersTableHead = {
   workplace: true,
   extra: true,
   action: true,
+  detail : true,
 };

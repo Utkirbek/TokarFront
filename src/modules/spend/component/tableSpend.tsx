@@ -1,7 +1,14 @@
 import TableHead from "@components/Table/TableHead";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
-import { Button, Drawer, Group, ScrollArea, Table } from "@mantine/core";
+import {
+  ActionIcon,
+  Button,
+  Drawer,
+  Group,
+  ScrollArea,
+  Table,
+} from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import useSpend from "@services/hooks/useSpend";
 import { IconPencil, IconTrash } from "@tabler/icons";
@@ -57,7 +64,8 @@ const SpendTable = ({ data }: Props) => {
     toggleDrawerOpen();
     setEditItem({});
   };
-  const rows = data.map((item: any) => {
+
+  const rows = data?.spends?.map((item: any) => {
     return (
       <tr key={item._id}>
         <td>{item?.amount}</td>
@@ -84,18 +92,16 @@ const SpendTable = ({ data }: Props) => {
           ,&nbsp;
           <FormattedTime value={item?.updatedAt} />
         </td>
-        <td>
-          <IconTrash
-            onClick={() => openDeleteModal(item._id, item.name)}
-            style={{ color: "red", cursor: "pointer" }}
-          />
-          <IconPencil
-            onClick={onEditClick.bind(null, item)}
-            style={{
-              cursor: "pointer",
-              marginLeft: "30px",
-            }}
-          />
+        <td style={{ display: "flex", gap: 10 }}>
+          <ActionIcon>
+            <IconTrash
+              onClick={() => openDeleteModal(item._id, item.name)}
+              style={{ color: "red" }}
+            />
+          </ActionIcon>
+          <ActionIcon>
+            <IconPencil onClick={onEditClick.bind(null, item)} />
+          </ActionIcon>
         </td>
       </tr>
     );

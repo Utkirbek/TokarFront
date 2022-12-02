@@ -4,6 +4,7 @@ import TableHead from "@components/Table/TableHead";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
 import {
+  ActionIcon,
   Avatar,
   Box,
   Button,
@@ -14,6 +15,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
+import useStyles from "@modules/products/components/ProductsTable/styles/ProductTableStyle";
 import userFetcher from "@services/api/userFetcher";
 import useUsers from "@services/hooks/useUsers";
 import { IconPencil, IconTrash } from "@tabler/icons";
@@ -40,6 +42,7 @@ function UsersTable({ data }: any) {
   const [editItem, setEditItem] = useState({});
   const [opened, toggleOpened] = useToggle();
   const [searchResults, setSearchResults] = useState([]);
+  const { classes } = useStyles();
 
   const { useFetchUsers } = useUsers();
 
@@ -82,18 +85,35 @@ function UsersTable({ data }: any) {
           <td>{item.phone}</td>
           <td>{item.workplace}</td>
           <td>{item.extra}</td>
-          <td>
-            <If hasPerm={Permissions.users.delete}>
-              <IconTrash
-                color="red"
-                style={{ margin: "0  20px", cursor: "pointer" }}
-                onClick={onDeleteClick}
-              />
-            </If>
-            <If hasPerm={Permissions.users.edit}>
-              <IconPencil style={{ cursor: "pointer" }} onClick={handleEdit} />
-            </If>
-          </td>
+          <If hasPerm={Permissions.users.action}>
+            <td
+              style={{
+                display: "flex",
+                justifyContent: "start",
+                gap: 10,
+                paddingBottom: "25px",
+                alignItems: "center",
+              }}
+            >
+              <If hasPerm={Permissions.users.delete}>
+                <ActionIcon>
+                  <IconTrash
+                    color="red"
+                    style={{ cursor: "pointer" }}
+                    onClick={onDeleteClick}
+                  />
+                </ActionIcon>
+              </If>
+              <If hasPerm={Permissions.users.edit}>
+                <ActionIcon>
+                  <IconPencil
+                    style={{ cursor: "pointer", marginRight: "-10px" }}
+                    onClick={handleEdit}
+                  />
+                </ActionIcon>
+              </If>
+            </td>
+          </If>
           <td>
             <Button
               variant="outline"
@@ -124,6 +144,7 @@ function UsersTable({ data }: any) {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          flexWrap: "wrap",
         }}
       >
         <SearchAutoComplete
@@ -134,7 +155,11 @@ function UsersTable({ data }: any) {
         />
         <If hasPerm={Permissions.users.create}>
           <Group position="right" mx={"xl"}>
-            <Button onClick={handleAddNew} variant={"outline"}>
+            <Button
+              className={classes.tex}
+              onClick={handleAddNew}
+              variant={"outline"}
+            >
               <FormattedMessage id="users.addNew" />
             </Button>
           </Group>

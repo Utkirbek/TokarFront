@@ -64,9 +64,27 @@ function ProductsTable({
     toggleResultsActive(false);
   }, []);
 
-  const activeData = isResultsActive ? searchResults : data;
+  const onFilterChipChange = useCallback(
+    (value: string) => {
+      switch (value) {
+        case "min_quantity":
+          if (noPrice) toggleNoPrice(false);
+          toggleMinQuantity();
+          break;
+        case "no_price":
+          if (minQuantity) toggleMinQuantity(false);
+          toggleNoPrice();
+          break;
+        default:
+          if (minQuantity) toggleMinQuantity(false);
+          if (noPrice) toggleNoPrice(false);
+          break;
+      }
+    },
+    [minQuantity, noPrice, toggleMinQuantity, toggleNoPrice]
+  );
 
-  if (data?.length === 0) return <EmptyBox />;
+  const activeData = isResultsActive ? searchResults : data;
 
   return (
     <Box sx={{ height: "100%" }}>
@@ -89,7 +107,11 @@ function ProductsTable({
           justifyContent: "space-between",
         }}
       >
-        <Button variant="light" onClick={() => toggleSalesView()}>
+        <Button
+          style={{ marginRight: 15 }}
+          variant="light"
+          onClick={() => toggleSalesView()}
+        >
           <IconTable />
         </Button>
         <If hasPerm={Permissions.products.create}>
@@ -108,12 +130,38 @@ function ProductsTable({
       <Grid pt={10}>
         <Grid.Col
           span={isEmpty ? 12 : 9}
+          sm={isEmpty ? 12 : 6}
+          md={isEmpty ? 12 : 7}
+          lg={isEmpty ? 12 : 9}
           sx={{
             display: "flex",
             flexFlow: "column",
             justifyContent: "space-between",
           }}
         >
+          <If condition={!salesView}>
+            <Chip.Group
+              position="left"
+              my={5}
+              onChange={onFilterChipChange}
+              defaultValue="clear"
+              value={
+                minQuantity ? "min_quantity" : noPrice ? "no_price" : "clear"
+              }
+            >
+              <If hasPerm={Permissions.products.originalPrice}>
+                <Chip value={"no_price"}>
+                  <FormattedMessage id="products.no_price" />
+                </Chip>
+              </If>
+              <Chip value={"min_quantity"}>
+                <FormattedMessage id="products.min_quantity" />
+              </Chip>
+              <Chip value={"clear"}>
+                <FormattedMessage id="clear" />
+              </Chip>
+            </Chip.Group>
+          </If>
           <If
             condition={activeData?.length === 0}
             elseChildren={
@@ -121,42 +169,23 @@ function ProductsTable({
                 <If
                   condition={salesView}
                   elseChildren={
-                    <Box>
-                      <Chip.Group
-                        position="left"
-                        my={5}
-                        multiple
-                        onChange={(value) => {
-                          if (value.includes("min_quantity")) {
-                            toggleMinQuantity(true);
-                          } else {
-                            toggleMinQuantity(false);
-                          }
-                          if (value.includes("no_price")) {
-                            toggleNoPrice(true);
-                          } else {
-                            toggleNoPrice(false);
-                          }
-                        }}
-                      >
-                        <If hasPerm={Permissions.products.originalPrice}>
-                          <Chip value={"no_price"}>
-                            <FormattedMessage id="products.no_price" />
-                          </Chip>
-                        </If>
-                        <Chip value={"min_quantity"}>
-                          <FormattedMessage id="products.min_quantity" />
-                        </Chip>
-                      </Chip.Group>
-                      <TableView
-                        onEdit={onEdit}
-                        data={activeData}
-                        minStock={minQuantity}
-                      />
-                    </Box>
+                    <TableView
+                      onEdit={onEdit}
+                      data={activeData}
+                      minStock={minQuantity}
+                    />
                   }
                 >
-                  <CardView data={activeData} />
+                  <Box
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      justifyContent: "start",
+                      gap: "13px",
+                    }}
+                  >
+                    <CardView data={activeData} />
+                  </Box>
                 </If>
                 <Pagination
                   my={10}
@@ -181,7 +210,7 @@ function ProductsTable({
           </If>
         </Grid.Col>
         <If condition={!isEmpty}>
-          <Grid.Col span={3}>
+          <Grid.Col span={3} sm={6} md={5} lg={3}>
             <BuyCart />
           </Grid.Col>
         </If>

@@ -1,7 +1,7 @@
 export const adminsLocaleUz = {
   delete: {
     modal: {
-      title: "Siz ushbu foydalanuvchini o'chirmoqchimisiz",
+      title: " siz ushbu foydalanuvchini o'chirmoqchimisiz",
       confirmation:
         "{name} ismli ishchingiz sizni tizimdan o'chib ketadi, Rozimisiz?",
     },
@@ -41,16 +41,18 @@ export const adminsLocaleUz = {
   adminSalaryMsg: "Maoshni  Kiriting",
   toPay: "Maosh Berish",
   back: "Orqaga ",
-  createdTime : "Kiritilgan vaqti",
+  createdTime: "Kiritilgan vaqti",
   salary_percent: "Maosh foizi",
-  giveSalary : "Beriladigan maosh",
+  giveSalary: "Beriladigan maosh",
   earned_salary: "Olingan Maosh",
   give_salary: "Maosh Berish",
   deleteEdit: "Amallar",
   salary: "Maosh",
   getSalary: "Olingan maosh",
   timeGetSalary: "Olingan vaqti",
-  adminTitle : " xaqida ma'lumot",
+  adminTitle: " xaqida ma'lumot",
+  detail: "Batafsil",
+  salaryInfo: "Maosh haqida",
 };
 
 export const adminsLocaleEn = {
@@ -99,10 +101,12 @@ export const adminsLocaleEn = {
   salary_percent: "Salary Percent",
   giveSalary: "Salary to be paid",
   earned_salary: "Earned Salary",
-  titleName : " xaqida ma'lumot",
+  titleName: " xaqida ma'lumot",
   give_salary: "Give Salary",
   deleteEdit: "Delete / Edit",
   salary: "Salary",
   getSalary: "Got salary",
   timeGetSalary: "Time ",
+  detail: "Detail",
+  salaryInfo: "Salary Info",
 };

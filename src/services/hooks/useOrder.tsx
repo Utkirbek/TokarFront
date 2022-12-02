@@ -10,15 +10,33 @@ const useOrders = () => {
   const { mutate } = useSWRConfig();
 
   return {
-    useFetchOrders: () =>
-      useSWR(RequestQueryKeys.getOrders, orderFetcher.getOrders),
+    useFetchOrders: (
+      page = 1,
+      options = {
+        perPage: 10,
+      }
+    ) =>
+      useSWR([RequestQueryKeys.getOrders, page], (_, page) =>
+        orderFetcher.getOrders(page, {
+          perPage: options?.perPage,
+        })
+      ),
     addOrder: async (
       body: {
-        user: string;
+        total: number;
+        paymentMethod: string;
+        loanTotal: string;
+        cashTotal: number;
+        shouldPay: string;
         salesman: string;
-        cart: string;
-        total: string;
-        payment: string;
+        user?: string;
+        hasLoan: boolean;
+        cart: {
+          product: string;
+          quantity: number;
+          price: number;
+          unit?: string;
+        }[];
       },
       options?: {
         onSuccess?: (data: any) => void;

@@ -1,37 +1,44 @@
 import TableHead from "@components/Table/TableHead";
-import { Button, ScrollArea, Table, Text } from "@mantine/core";
+import { Button, Pagination, ScrollArea, Table, Text } from "@mantine/core";
 import Link from "next/link";
 import router from "next/router";
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 
 import LoanBatafsil from "./batafsil/LoanBatafsil";
+import useStyles from "./component/loanStyle";
 
-function LoanTable({ data }: any) {
+function LoanTable({
+  dataloan,
+  page,
+  onPageChange,
+  total,
+}: {
+  dataloan: any;
+  page: number;
+  onPageChange: (page: number) => void;
+  total: number;
+}) {
+  const { classes, cx } = useStyles();
   return (
     <ScrollArea>
-      <Table style={{ marginTop: 70 }}>
+      <Table className={classes.loanTable}>
         <TableHead
           data={{
             user: true,
             order: true,
             amount: true,
             shouldPay: true,
+            details: true,
           }}
           prefix={"loans"}
         />
         <tbody>
-          {data?.map((item: any) => {
+          {dataloan?.map((item: any) => {
             return (
               <tr key={item._id}>
-                <td>
-                  <Link
-                    href={`/users?details=${item?.user?._id}`}
-                    style={{
-                      borderBottom: "1px solid #1983FF",
-                      textDecoration: "none",
-                    }}
-                  >
+                <td className={classes.loanUserLink}>
+                  <Link href={`/users?details=${item?.user?._id}`}>
                     {item.user === null ? (
                       <Text>
                         <FormattedMessage id="loans.userError" />
@@ -41,18 +48,12 @@ function LoanTable({ data }: any) {
                     )}
                   </Link>
                 </td>
-                <td>
-                  <Link
-                    href={`/users?details=${item?.user?._id}`}
-                    style={{
-                      borderBottom: "1px solid #1983FF",
-                      textDecoration: "none",
-                    }}
-                  >
+                <td className={classes.loanUserLink}>
+                  <Link href={`/users?details=${item?.user?._id}`}>
                     {item.amount}
                   </Link>
                 </td>
-                <td>
+                <td className={classes.LoanTime}>
                   <FormattedDate
                     value={item?.updatedAt}
                     month="numeric"
@@ -62,7 +63,7 @@ function LoanTable({ data }: any) {
                   ,&nbsp;
                   <FormattedTime value={item?.updatedAt} />
                 </td>
-                <td>
+                <td className={classes.LoanTime}>
                   <FormattedDate
                     value={item?.shouldPay}
                     month="numeric"
@@ -74,6 +75,7 @@ function LoanTable({ data }: any) {
                 </td>
                 <td>
                   <Button
+                    className={classes.loanBtn}
                     variant="outline"
                     onClick={() => {
                       router.push("/loan", {
@@ -91,7 +93,23 @@ function LoanTable({ data }: any) {
           })}
         </tbody>
       </Table>
-      <LoanBatafsil loan={data} />
+      <LoanBatafsil loan={dataloan} />
+      <Pagination
+        my={10}
+        page={page}
+        styles={(theme) => ({
+          item: {
+            "&[data-active]": {
+              backgroundImage: theme.fn.gradient({
+                from: "red",
+                to: "yellow",
+              }),
+            },
+          },
+        })}
+        total={total}
+        onChange={onPageChange}
+      />
     </ScrollArea>
   );
 }

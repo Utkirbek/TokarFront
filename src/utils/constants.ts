@@ -77,7 +77,7 @@ export const Permissions = {
     edit: "products.edit",
     create: "product.create",
     delete: "products.delete",
-    sell: "products.sell",
+    sell: "product.sell",
     add: {
       originalPrice: "perms.products.add.originalPrice",
       price: "perms.products.add.price",
@@ -112,7 +112,7 @@ export const Permissions = {
     workplace: "users.workplace",
     extra: "users.extra",
     action: "users.action",
-    view: "users.view",
+    view: "users_view",
     create: "users.create",
     edit: "users.edit",
     delete: "users.delete",
@@ -124,7 +124,7 @@ export const Permissions = {
     view: "statistics.view",
   },
   settings: {
-    view: "settings.view",
+    view: "settings_view",
   },
   accounting: {
     view: "accounting.view",

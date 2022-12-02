@@ -1300,12 +1300,12 @@
     "@mantine/ssr" "5.7.0"
     "@mantine/styles" "5.7.0"
 
-"@mantine/notifications@^5.5.5":
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/@mantine/notifications/-/notifications-5.7.0.tgz#f45aeab6b76be5435e0fd6094b0081ff160bdded"
-  integrity sha512-saTwQppTFuZdDZCui3xypl15XJ0Gg1fip972Tj9w3gZGF+rdM7T9bOlN31fHVWpIBEx4Wjm8ArFrOesbGYtVwA==
+"@mantine/notifications@^5.8.3":
+  version "5.8.3"
+  resolved "https://registry.yarnpkg.com/@mantine/notifications/-/notifications-5.8.3.tgz#65950223c516b2a65f8e18dbe59f9e2dc51ff3e5"
+  integrity sha512-uaz6b9XntD/EaWpSReyJ0eFDdELRJ7BFIvTAi3np61qsWthNPVqn7SHhsIr6Q9RzypMI+b09Vpi6RHdySVCtQA==
   dependencies:
-    "@mantine/utils" "5.7.0"
+    "@mantine/utils" "5.8.3"
     react-transition-group "4.4.2"
 
 "@mantine/nprogress@^5.7.1":
@@ -1355,6 +1355,11 @@
   version "5.7.1"
   resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.7.1.tgz#d6890be0650cdd499afd2d954713901672d15711"
   integrity sha512-YHn6BDI2kkmLY6Zdv8MnFaolKbD+sJyCBG1GY0yO6aHiz8/vTxiaTJv7mhro7Pc1XzclDzVJvd9kAd6lzumAyg==
+
+"@mantine/utils@5.8.3":
+  version "5.8.3"
+  resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.8.3.tgz#2cc4b5eb9fcd0465e1e29f444b0e3f2413fc564f"
+  integrity sha512-MprJbMh/z3TbC8yPF2PQftitRwl58w7hvhp7O9fT+9jrvJHKM8V7r15iHMwBw2jgX6zmlksstO7QfhENc0vMHQ==
 
 "@next/env@13.0.2":
   version "13.0.2"
@@ -4503,6 +4508,11 @@ nanoid@^3.3.4:
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.4.tgz#730b67e3cd09e2deacf03c027c81c9d9dbc5e8ab"
   integrity sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==
 
+nanoid@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-4.0.0.tgz#6e144dee117609232c3f415c34b0e550e64999a5"
+  integrity sha512-IgBP8piMxe/gf73RTQx7hmnhwz0aaEXYakvqZyE302IXW3HyVNhdNGC+O2MwMAVhLEnvXlvKtGbtJf6wvHihCg==
+
 natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
@@ -4937,6 +4947,13 @@ randombytes@^2.1.0:
   integrity sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==
   dependencies:
     safe-buffer "^5.1.0"
+
+react-confetti@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/react-confetti/-/react-confetti-6.1.0.tgz#03dc4340d955acd10b174dbf301f374a06e29ce6"
+  integrity sha512-7Ypx4vz0+g8ECVxr88W9zhcQpbeujJAVqL14ZnXJ3I23mOI9/oBVTQ3dkJhUmB0D6XOtCZEM6N0Gm9PMngkORw==
+  dependencies:
+    tween-functions "^1.2.0"
 
 react-dom@latest:
   version "18.2.0"
@@ -5748,6 +5765,11 @@ tunnel-agent@^0.6.0:
   integrity sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==
   dependencies:
     safe-buffer "^5.0.1"
+
+tween-functions@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/tween-functions/-/tween-functions-1.2.0.tgz#1ae3a50e7c60bb3def774eac707acbca73bbc3ff"
+  integrity sha512-PZBtLYcCLtEcjL14Fzb1gSxPBeL7nWvGhO5ZFPGqziCcr8uvHp0NDmdjBchp6KHL+tExcg0m3NISmKxhU394dA==
 
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"

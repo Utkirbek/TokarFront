@@ -1,4 +1,5 @@
-import { Box, Button, Grid, Image, Text } from "@mantine/core";
+import TextEllipsis from "@components/TextEllipsis/TextEllipsis";
+import { Box, Button, clsx, Image, Text } from "@mantine/core";
 import { IconMinus, IconPhoto, IconPlus } from "@tabler/icons";
 import React from "react";
 import { useCart } from "react-use-cart";
@@ -11,13 +12,13 @@ type Props = {
 
 const CardView: React.FC<Props> = ({ data }) => {
   return (
-    <Grid>
+    <>
       {data.map((item) => (
-        <Grid.Col key={item._id} span={2}>
+        <Box key={item._id}>
           <SalesCard item={item} />
-        </Grid.Col>
+        </Box>
       ))}
-    </Grid>
+    </>
   );
 };
 
@@ -26,13 +27,16 @@ export default CardView;
 const SalesCard: React.FC<{ item: any }> = ({ item }) => {
   const { addItem, updateItemQuantity, getItem, inCart } = useCart();
   const { classes } = useSalesCardStyles();
-
   const handleAddToCart = () => {
     if (inCart(item._id)) {
       const cartItem = getItem(item._id);
       updateItemQuantity(item._id, cartItem.quantity + 1);
     } else {
-      addItem({ id: item._id, ...item });
+      addItem({
+        id: item._id,
+        ...item,
+        price: +item?.calculatedPrice,
+      });
     }
   };
 
@@ -42,30 +46,34 @@ const SalesCard: React.FC<{ item: any }> = ({ item }) => {
   };
 
   return (
-    <Box className={classes.card}>
+    <Box
+      className={clsx(classes.card, {
+        [classes.active]: inCart(item._id),
+      })}
+    >
       {item.image === "" || null ? (
         <Box
           style={{
             textAlign: "center",
           }}
         >
-          <IconPhoto size={85} />
+          <IconPhoto size={95} />
         </Box>
       ) : (
         <Image
           radius="md"
-          src={item.image}
+          src={item?.image}
           alt="Random unsplash image"
-          width={178}
-          height={120}
+          width={187}
+          height={110}
         />
       )}
 
       <Box className={classes.cardPadding}>
-        <Text>{item.title}</Text>
+        <TextEllipsis text={item.title} maxChars={20} />
         <Box className={classes.cardButton}>
           <Text sx={{ fontWeight: "bold" }} fz="sm" fw={500}>
-            {item.price.toFixed(2)} {item.currency?.name}
+            {+item?.calculatedPrice} UZS
           </Text>
           <Button.Group>
             <Button

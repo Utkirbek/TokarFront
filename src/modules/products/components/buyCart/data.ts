@@ -1,31 +1,20 @@
-import {
-  IconCreditCard,
-  IconReportMoney,
-  IconTerminal2,
-  IconWallet,
-} from "@tabler/icons";
+import { IconCreditCard, IconReportMoney, IconTerminal2 } from "@tabler/icons";
 
 const datas: any = [
   {
-    id: 1,
-    title: "products.buyCart.datatitle",
+    label: "products.buyCart.datatitle",
+    value: "cash",
     icon: IconReportMoney,
   },
   {
-    id: 2,
-    title: "products.buyCart.dataterminal",
+    label: "products.buyCart.dataterminal",
+    value: "terminal",
     icon: IconTerminal2,
   },
   {
-    id: 3,
-    title: "products.buyCart.dataplastik",
+    label: "products.buyCart.dataplastik",
+    value: "click",
     icon: IconCreditCard,
-  },
-  {
-    id: 4,
-    title: "products.buyCart.databolibtolash",
-    icon: IconWallet,
-    bolin: true,
   },
 ];
 export default datas;

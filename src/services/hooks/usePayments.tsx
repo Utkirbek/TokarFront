@@ -11,10 +11,10 @@ const usePayments = () => {
       ),
     addPayments: async function (
       body: {
-        amount: string;
-        paymentMethod: any;
-        salesman: any;
-        loan: any;
+        amount: number;
+        paymentMethod: string;
+        salesman: string;
+        loan?: string;
       },
       options?: {
         onSuccess?: (data: any) => void;
@@ -29,8 +29,8 @@ const usePayments = () => {
             revalidate: true,
           }
         );
+        mutate([RequestQueryKeys.getPayments, 1]);
         options?.onSuccess && options.onSuccess(res);
-        mutate(RequestQueryKeys.getPayments);
         return res;
       } catch (error) {
         console.error(error);
@@ -54,7 +54,7 @@ const usePayments = () => {
           }
         );
         options?.onSuccess && options.onSuccess(res);
-        mutate(RequestQueryKeys.getPayments);
+        mutate([RequestQueryKeys.getPayments, 1]);
         return res;
       } catch (err) {
         console.error(err);

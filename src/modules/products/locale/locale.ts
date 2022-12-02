@@ -9,7 +9,11 @@ export const productsLocaleUz = {
     currency: "Pul Birligi",
     paymentType: "To'lov turi",
     action: "Amallar",
+    discountQuantity: "Chegirmadagi soni",
+    discountPrice: "Chegirmadagi Narxi",
+    details: "Batafsil",
   },
+
   add: "+ Yangi mahsulot qo'shish",
   addEdit: "{isNew, select, true {Yangi Mahsulot qo'shish} other {Tahrirlash}}",
   description: "Mahsulotlar boshqaruv paneli",
@@ -20,6 +24,7 @@ export const productsLocaleUz = {
   buy: "Sotish",
   no_price: "Narxi yo'q",
   min_quantity: "Kam qolgan tovarlar",
+  discount: "Chegirma haqida Malumot",
 
   form: {
     takePicture: "Rasmni olib tashlash",
@@ -38,6 +43,7 @@ export const productsLocaleUz = {
     limitPlaceholder: "Chegirmadagi narxiini kiriting",
     limitNumbLabel: "Chegirmadagi soni",
     minQuantity: "Mahsulot kamlik miqdori",
+    addDiscount: "Chegirma qo'shish",
   },
 
   productDetail: {
@@ -46,7 +52,8 @@ export const productsLocaleUz = {
     productName: "Mahsulot Nomi",
     productCode: "Mahsulot Kodi",
     productPrice: "Mahsulot Narxi",
-    productTotal: "Mahsulot Ombordagi soni",
+    productUnit: "O'lchov Birligi",
+    productTotal: "Jami Mahsulot",
     createProduct: "Yaratilgan Vaqti",
     updateProduct: "Yangilangan Vaqti",
   },
@@ -54,7 +61,7 @@ export const productsLocaleUz = {
   buyCart: {
     datatitle: "Naqt pul",
     dataterminal: "Terminal",
-    dataplastik: "Plastik",
+    dataplastik: "Click",
     databolibtolash: "Bo'lib to'lash",
     totalPrice: "Umumiy Narxi",
     sale: "Sotish",
@@ -63,6 +70,8 @@ export const productsLocaleUz = {
     enterDay: "Muddatni Kiriting",
     som: "so'm",
     date: "Muddatini tanlang",
+    initialPayment: "Boshlang'ich to'lov",
+    loan: "Nasiya to'lovi",
   },
 };
 
@@ -77,6 +86,9 @@ export const productsLocaleEn = {
     currency: "Currency Unit",
     paymentType: "Payment Type",
     action: "Actions",
+    details: "Details",
+    discountQuantity: "Discount Quantity",
+    discountPrice: "Discount Price",
   },
   add: "+ Add New Product",
   addEdit: "{isNew, select, true {Add New Product} other {Edit}}",
@@ -86,6 +98,9 @@ export const productsLocaleEn = {
   say: "How many days",
   title: "Products",
   buy: "Buy",
+  discount: "Information about the discount",
+  no_price: "No price",
+  min_quantity: "Low inventory",
 
   form: {
     takePicture: "Remove picture",
@@ -104,6 +119,7 @@ export const productsLocaleEn = {
     limitPlaceholder: "Enter your discounted price",
     limitNumbLabel: "Number in discount",
     minQuantity: "Minimum quantity",
+    addDiscount: "Add discount",
   },
 
   productDetail: {
@@ -115,17 +131,22 @@ export const productsLocaleEn = {
     productTotal: "Number of products in stock",
     createProduct: "Created Time",
     updateProduct: "Updated Time",
+    productUnit: "Unit of Measurement",
   },
 
   buyCart: {
     datatitle: "Cash",
     dataterminal: "Terminal",
-    dataplastic: "Plastic",
+    dataplastik: "Plastic",
     databolibtolash: "Pay in installments",
     totalPrice: "Total Price",
     sale: "Sale",
     whom: "To whom",
     noProduct: "You have no products left",
     enterDay: "Enter Date",
+    sum: "sum",
+    date: "Select a date",
+    initialPayment: "Initial Payment",
+    loan: "National Payment",
   },
 };

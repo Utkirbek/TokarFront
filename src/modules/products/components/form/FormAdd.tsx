@@ -2,6 +2,7 @@ import ImageUploader from "@components/ImageUploader";
 import If from "@components/smart/If";
 import useNotification from "@hooks/useNotification";
 import {
+  ActionIcon,
   Box,
   Button,
   Group,
@@ -14,13 +15,28 @@ import {
 import { useForm } from "@mantine/form";
 import useCurrency from "@services/hooks/useCurrency";
 import useProducts from "@services/hooks/useProducts";
-import { IconChevronDown } from "@tabler/icons";
+import { IconChevronDown, IconTrash } from "@tabler/icons";
 import { Permissions } from "@utils/constants";
+import { nanoid } from "nanoid";
 import { useRef } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import unit from "./constants/dataUnit";
 import useStyles from "./style/inputStyle";
+
+interface FormAddProps {
+  image: string;
+  currency: string;
+  title: string;
+  code: string | number;
+  originalPrice: number;
+  price: string | number;
+  unit: string;
+  quantity: string | number;
+  description: string;
+  discounts: { price: number; quantity: number }[];
+  minQuantity: number;
+}
 
 const FormProduct: React.FC<{
   handleClose: () => void;
@@ -39,72 +55,95 @@ const FormProduct: React.FC<{
     showErrorNotification,
   } = useNotification();
 
-  const form = useForm({
+  const form = useForm<FormAddProps>({
     initialValues: {
       title: editItem?.title ?? "",
       code: editItem?.code ?? "",
-      originalPrice: editItem?.originalPrice ?? "",
-      price: editItem?.price ?? "",
+      originalPrice: editItem?.originalPrice ?? 0,
+      price: editItem?.price ?? 0,
       unit: editItem?.unit ?? "D",
-      quantity: editItem?.quantity ?? "",
+      quantity: editItem?.quantity ?? 1,
       description: editItem?.description ?? "",
-      discounts: editItem?.discounts ?? [{ price: 0, quantity: 0 }],
-      currency: editItem?.currency ?? "63635d7850b0f6000826a6ac",
+      discounts: editItem?.discounts ?? [],
+      currency: editItem?.currency?._id ?? "63635d7850b0f6000826a6ac",
       minQuantity: editItem?.minQuantity ?? 5,
       image: editItem?.image ?? "",
     },
   });
 
-  const handleSubmit = async (values: {
-    image: string;
-    currency: string;
-    title: string;
-    code: string | number;
-    originalPrice: string | number;
-    price: string | number;
-    unit: string;
-    quantity: string | number;
-    description: string;
-    discounts: string | number | string[];
-    minQuantity: number;
-  }) => {
+  const handleSubmit = async (values: FormAddProps) => {
+    showLoadingNotification();
     if (!!editItem._id) {
-      showLoadingNotification();
-      handleClose();
       editProduct(
         {
           id: editItem._id,
-          values,
+          values: {
+            ...values,
+            discounts: values.discounts?.map((item) => ({
+              price: item.price,
+              quantity: item.quantity,
+            })),
+          },
         },
         {
-          onSuccess: () => {
-            showSuccessNotification;
-          },
-          onError: () => {
-            showErrorNotification;
-          },
+          onSuccess: () => showSuccessNotification(),
+          onError: () => showErrorNotification(),
         }
       );
-    } else {
-      showLoadingNotification();
       handleClose();
+    } else {
       addProduct(
         {
           ...values,
+          discounts: values.discounts?.map((item) => ({
+            price: item.price,
+            quantity: item.quantity,
+          })),
           image: imagesRef.current?.join(",") ?? "",
         },
         {
           onSuccess: () => {
             showSuccessNotification();
           },
-          onError: () => {
-            showErrorNotification;
-          },
+          onError: () => showErrorNotification(),
         }
       );
+      handleClose();
     }
-    showSuccessNotification;
   };
+
+  const discountFields = form.values.discounts?.map(
+    (discount: any, index: number) => (
+      <Group key={discount.key + index} mt={"xs"}>
+        <NumberInput
+          label={intl.formatMessage({ id: "products.form.limitLabel" })}
+          placeholder={intl.formatMessage({
+            id: "products.form.limitLabel",
+          })}
+          {...form.getInputProps(`discounts.${index}.price`)}
+          precision={2}
+          min={0}
+          hideControls
+        />
+        <NumberInput
+          label={intl.formatMessage({ id: "products.form.limitNumbLabel" })}
+          placeholder={intl.formatMessage({
+            id: "products.form.limitNumbLabel",
+          })}
+          {...form.getInputProps(`discounts.${index}.quantity`)}
+          min={0}
+          hideControls
+        />
+        <ActionIcon
+          color="red"
+          mt={20}
+          onClick={() => form.removeListItem("discounts", index)}
+        >
+          <IconTrash />
+        </ActionIcon>
+      </Group>
+    )
+  );
 
   return (
     <Box sx={{ maxWidth: 440, height: "auto" }} mx="auto">
@@ -114,7 +153,8 @@ const FormProduct: React.FC<{
             fontSize: "24px",
             textAlign: "center",
             fontWeight: 700,
-          }}>
+          }}
+        >
           <FormattedMessage
             id="products.addEdit"
             values={{ isNew: !editItem._id }}
@@ -135,14 +175,14 @@ const FormProduct: React.FC<{
           <ImageUploader
             urlsRef={imagesRef}
             dropzoneProps={{
-              sx: {},
               pb: 0,
             }}
           />
           <Button
             variant="outline"
             sx={{ float: "right", margin: "10px 0" }}
-            hidden>
+            hidden
+          >
             <FormattedMessage id="products.form.takePicture" />
           </Button>
         </Box>
@@ -156,7 +196,8 @@ const FormProduct: React.FC<{
 
         <If
           condition={!!currencies}
-          elseChildren={<Skeleton width="100%" height="40px" />}>
+          elseChildren={<Skeleton width="100%" height="40px" />}
+        >
           <Select
             sx={{ width: "100%", margin: "20px  0" }}
             rightSection={<IconChevronDown size={14} />}
@@ -174,10 +215,13 @@ const FormProduct: React.FC<{
           />
         </If>
         <If hasPerm={Permissions.products.add.originalPrice}>
-          <TextInput
+          <NumberInput
             className={classes.inputStyle}
             label={intl.formatMessage({ id: "products.form.orgLabel" })}
             placeholder={intl.formatMessage({ id: "products.form.orgLabel" })}
+            precision={2}
+            min={0}
+            hideControls
             {...form.getInputProps("originalPrice")}
           />
         </If>
@@ -221,37 +265,36 @@ const FormProduct: React.FC<{
           label={intl.formatMessage({ id: "products.form.prodInfo" })}
           placeholder={intl.formatMessage({ id: "products.form.prodInfo" })}
           {...form.getInputProps("description")}
-          required
         />
         <NumberInput
           label={intl.formatMessage({ id: "products.form.minQuantity" })}
           placeholder={intl.formatMessage({
             id: "products.form.minQuantity",
           })}
+          min={0}
+          hideControls
           {...form.getInputProps("minQuantity")}
         />
-        <Box style={{ display: "flex", gap: 20 }}>
-          <NumberInput
-            label={intl.formatMessage({ id: "products.form.limitLabel" })}
-            placeholder={intl.formatMessage({
-              id: "products.form.limitPlaceholder",
-            })}
-            {...form.getInputProps("discounts.price")}
-          />
-          <NumberInput
-            label={intl.formatMessage({ id: "products.form.limitNumbLabel" })}
-            placeholder={intl.formatMessage({
-              id: "products.form.limitNumbLabel",
-            })}
-            {...form.getInputProps("discounts.quantity")}
-          />
-        </Box>
-
-        <Group position="right" mt="md">
-          <Button type="submit">
-            <FormattedMessage id="addSmth" values={{ isNew: !editItem._id }} />
+        <Box>{discountFields}</Box>
+        <Group position="right">
+          <Button
+            variant="outline"
+            sx={{ float: "right", margin: "10px 0" }}
+            onClick={() => {
+              form.insertListItem("discounts", {
+                price: 0,
+                quantity: 0,
+                key: nanoid(),
+              });
+            }}
+          >
+            <FormattedMessage id="products.form.addDiscount" />
           </Button>
         </Group>
+
+        <Button type="submit" fullWidth>
+          <FormattedMessage id="addSmth" values={{ isNew: !editItem._id }} />
+        </Button>
       </form>
     </Box>
   );

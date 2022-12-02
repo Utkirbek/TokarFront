@@ -2,7 +2,13 @@ import If from "@components/smart/If";
 import TableHead from "@components/Table/TableHead";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
-import { ActionIcon, Button, ScrollArea, Table, Text } from "@mantine/core";
+import {
+  ActionIcon,
+  Button,
+  Pagination,
+  ScrollArea,
+  Table,
+} from "@mantine/core";
 import useOrder from "@services/hooks/useOrder";
 import { IconTrash } from "@tabler/icons";
 import { Permissions } from "@utils/constants";
@@ -11,12 +17,19 @@ import { useRouter } from "next/router";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 
 import OrdersDetails from "../modalOrder/Orderdetail";
+import useStyles from "./orderStyle";
 
-type Props = {
-  data?: any;
-};
-
-const OrdersTable = ({ data }: Props) => {
+const OrdersTable = ({
+  dataorder,
+  page,
+  onPageChange,
+  total,
+}: {
+  dataorder: any;
+  page: number;
+  onPageChange: (page: number) => void;
+  total: number;
+}) => {
   const router = useRouter();
   const {
     showLoadingNotification,
@@ -24,7 +37,7 @@ const OrdersTable = ({ data }: Props) => {
     showErrorNotification,
   } = useNotification();
   const { openConfirm } = useConfirmation();
-
+  const { classes, cx } = useStyles();
   const { deleteOrder } = useOrder();
 
   const handleDelete = async function (id: string) {
@@ -49,22 +62,11 @@ const OrdersTable = ({ data }: Props) => {
       },
     });
 
-  const rows = data.map((item: any) => {
+  const rows = dataorder?.map((item: any) => {
     return (
       <tr key={item._id}>
-        <td>
-          <Link href={`/admins?details=${item?.salesman?._id}`}>
-            {item?.salesman?.name}
-          </Link>
-        </td>
-        <td>
-          <Link
-            href={`/admins`}
-            style={{
-              borderBottom: "1px solid #1983FF",
-              textDecoration: "none",
-            }}
-          >
+        <td className={classes.orderTD}>
+          <Link href={`/admins`} className={classes.orderUserLink}>
             {item?.salesman === null ? (
               <FormattedMessage id="orders.userNull" />
             ) : (
@@ -72,13 +74,10 @@ const OrdersTable = ({ data }: Props) => {
             )}
           </Link>
         </td>
-        <td>
+        <td className={classes.orderTD}>
           <Link
             href={`/users?details=${item?.user?._id}`}
-            style={{
-              borderBottom: "1px solid #1983FF",
-              textDecoration: "none",
-            }}
+            className={classes.orderUserLink}
           >
             {item?.user === null ? (
               <FormattedMessage id="orders.userNull" />
@@ -87,18 +86,12 @@ const OrdersTable = ({ data }: Props) => {
             )}
           </Link>
         </td>
-        <td>
-          <Link
-            href={`/payments`}
-            style={{
-              borderBottom: "1px solid #1983FF",
-              textDecoration: "none",
-            }}
-          >
-            {item?.total}
+        <td className={classes.orderTD}>
+          <Link href={`/payments`} className={classes.orderUserLink}>
+            {item?.total.toFixed(2)}
           </Link>
         </td>
-        <td>
+        <td className={classes.orderTD}>
           <FormattedDate
             value={item?.createdAt}
             month="numeric"
@@ -108,7 +101,7 @@ const OrdersTable = ({ data }: Props) => {
           ,&nbsp;
           <FormattedTime value={item?.createdAt} />
         </td>
-        <td>
+        <td className={classes.orderTD}>
           <FormattedDate
             value={item?.updatedAt}
             month="numeric"
@@ -118,22 +111,19 @@ const OrdersTable = ({ data }: Props) => {
           ,&nbsp;
           <FormattedTime value={item?.updatedAt} />
         </td>
-        <td
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-around",
-          }}
-        >
-          <If hasPerm={Permissions.orders.delete}>
+        <If hasPerm={Permissions.orders.delete}>
+          <td>
             <ActionIcon>
               <IconTrash
                 onClick={() => openDeleteModal(item._id, item.name)}
-                style={{ color: "red", cursor: "pointer" }}
+                className={classes.orderTrash}
               />
             </ActionIcon>
-          </If>
+          </td>
+        </If>
+        <td>
           <Button
+            className={classes.orderBtn}
             variant="outline"
             onClick={() => {
               router.push("/orders", {
@@ -152,7 +142,7 @@ const OrdersTable = ({ data }: Props) => {
 
   return (
     <ScrollArea>
-      <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
+      <Table verticalSpacing="sm" highlightOnHover>
         <TableHead
           data={{
             ordersSalesmen: true,
@@ -166,7 +156,23 @@ const OrdersTable = ({ data }: Props) => {
         />
         <tbody>{rows}</tbody>
       </Table>
-      <OrdersDetails orders={data} />
+      <Pagination
+        my={10}
+        page={page}
+        styles={(theme) => ({
+          item: {
+            "&[data-active]": {
+              backgroundImage: theme.fn.gradient({
+                from: "red",
+                to: "yellow",
+              }),
+            },
+          },
+        })}
+        total={total}
+        onChange={onPageChange}
+      />
+      <OrdersDetails orders={dataorder} />
     </ScrollArea>
   );
 };

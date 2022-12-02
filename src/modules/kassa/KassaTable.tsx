@@ -1,4 +1,5 @@
-import { Table } from "@mantine/core";
+import TableHead from "@components/Table/TableHead";
+import { Pagination, Table } from "@mantine/core";
 import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
 
 export const kassaLocaleUz = {
@@ -15,14 +16,20 @@ export const kassaLocaleEn = {
   giveTime: "Give time",
 };
 
-type Props = {
-  data?: any;
-};
-
-function KassaTable({ data }: Props) {
-  const rows = data.map((item: any) => (
-    <tr key={item._id}>
-      <td>{item.amount}</td>
+function KassaTable({
+  datakassa,
+  page,
+  onPageChange,
+  total,
+}: {
+  datakassa: any;
+  page: number;
+  onPageChange: (page: number) => void;
+  total: number;
+}) {
+  const rows = datakassa?.map((item: any) => (
+    <tr key={item?._id}>
+      <td>{item?.amount}</td>
       <td>
         <FormattedTime value={item?.createdAt} />
         ,&nbsp;
@@ -48,20 +55,32 @@ function KassaTable({ data }: Props) {
 
   return (
     <Table>
-      <thead>
-        <tr>
-          <th>
-            <FormattedMessage id="kassa.price" />
-          </th>
-          <th>
-            <FormattedMessage id="kassa.takeTime" />
-          </th>
-          <th>
-            <FormattedMessage id="kassa.giveTime" />
-          </th>
-        </tr>
-      </thead>
+      <TableHead
+        data={{
+          price: true,
+          takeTime: true,
+          giveTime: true,
+        }}
+        prefix={"kassa"}
+      />
       <tbody>{rows}</tbody>
+
+      <Pagination
+        my={10}
+        page={page}
+        styles={(theme) => ({
+          item: {
+            "&[data-active]": {
+              backgroundImage: theme.fn.gradient({
+                from: "red",
+                to: "yellow",
+              }),
+            },
+          },
+        })}
+        total={total}
+        onChange={onPageChange}
+      />
     </Table>
   );
 }

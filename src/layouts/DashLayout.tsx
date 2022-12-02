@@ -7,7 +7,6 @@ import {
   Box,
   Burger,
   Header,
-  MediaQuery,
   Navbar,
   Text,
   Tooltip,
@@ -31,6 +30,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
   const token = getCookie("token");
   const [activeId, setActiveId] = useState(null);
   const [fullView, toggleFullView] = useToggle();
+  const shopName = getCookie("shopName");
 
   const activeStyle = {
     background: "#1864AB",
@@ -82,14 +82,13 @@ function DashLayout({ children }: { children: React.ReactNode }) {
               : theme.colors.gray[0],
         },
       }}
-      navbarOffsetBreakpoint="sm"
-      asideOffsetBreakpoint="sm"
+      navbarOffsetBreakpoint="xs"
+      asideOffsetBreakpoint="xs"
       navbar={
         <Navbar
           hiddenBreakpoint="sm"
-          hidden={!opened}
           width={{
-            sm: fullView ? 200 : "min-content",
+            xs: fullView ? 200 : "min-content",
             lg: fullView ? 220 : "min-content",
           }}
           sx={{
@@ -116,19 +115,10 @@ function DashLayout({ children }: { children: React.ReactNode }) {
           <Header height={70} p="md">
             <Box
               style={{ display: "flex", alignItems: "center", height: "100%" }}>
-              <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-                <Burger
-                  opened={opened}
-                  onClick={() => toggleOpened()}
-                  size="sm"
-                  color={theme.colors.gray[6]}
-                  mr="xl"
-                />
-              </MediaQuery>
               <Box className={classes.navDesh}>
                 <Burger opened={fullView} onClick={() => toggleFullView()} />
                 <Link href="/">
-                  <Text className={classes.title}>Tokar</Text>
+                  <Text className={classes.title}>{shopName || "Tokar"}</Text>
                 </Link>
                 <Box ml="auto">
                   <Logout />
@@ -138,7 +128,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
           </Header>
         </If>
       }>
-      <Box px={fullView ? 0 : "sm"} sx={{ height: "100%" }}>
+      <Box px={fullView ? 0 : "xs"} sx={{ height: "100%" }}>
         {children}
       </Box>
     </AppShell>

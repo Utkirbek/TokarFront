@@ -71,8 +71,10 @@ function TableCard() {
   const rows = roles?.map((item: any) => {
     return (
       <tr key={item._id}>
-        <td>
-          <Group spacing="sm">{item.name}</Group>
+        <td style={{ width: "10%" }}>
+          <Group spacing="sm">
+            <FormattedMessage id={`roles.roles.${item.name}`} />
+          </Group>
         </td>
         <td>
           <Group spacing="sm">
@@ -84,18 +86,27 @@ function TableCard() {
           </Group>
         </td>
 
-        <td>
-          <ActionIcon variant="default" style={{ marginBottom: 10 }}>
-            {item.name == name ? (
+        <td
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "space-around",
+          }}
+        >
+          {item.name == name ? (
+            <ActionIcon>
               <IconTrash style={{ color: "red", cursor: "no-drop" }} />
-            ) : (
+            </ActionIcon>
+          ) : (
+            <ActionIcon>
               <IconTrash
                 onClick={() => openDeleteModal(item._id, item.name)}
                 style={{ color: "red" }}
               />
-            )}
-          </ActionIcon>
-          <ActionIcon variant="default">
+            </ActionIcon>
+          )}
+          <ActionIcon>
             <IconPencil onClick={onEditClick.bind(null, item)} />
           </ActionIcon>
         </td>
@@ -113,16 +124,15 @@ function TableCard() {
       <Table highlightOnHover>
         <thead>
           <tr>
-            <th style={{ width: "7%" }}>
+            <th style={{ width: "60px" }}>
               <FormattedMessage id="roles.name" />
             </th>
             <th>
               <FormattedMessage id="roles.permission" />
             </th>
-            <th style={{ width: "6%" }}>
+            <th style={{ width: "100px" }}>
               <FormattedMessage id="action" />
             </th>
-            <th></th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>

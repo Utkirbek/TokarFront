@@ -1,8 +1,10 @@
 import If from "@components/smart/If";
 import TableHead from "@components/Table/TableHead";
+import TextEllipsis from "@components/TextEllipsis/TextEllipsis";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
 import {
+  ActionIcon,
   Avatar,
   Button,
   Group,
@@ -17,7 +19,7 @@ import { Permissions } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
 import { useRouter } from "next/router";
 import { memo, useCallback, useMemo } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, FormattedNumber } from "react-intl";
 import { useCart } from "react-use-cart";
 
 import { productsTableHead } from "../constants";
@@ -31,7 +33,7 @@ type Props = {
 
 const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
   const router = useRouter();
-  const { addItem } = useCart();
+  const { addItem, inCart, updateItemQuantity, getItem, items } = useCart();
   const { deleteProducts } = useProducts();
   const { openConfirm } = useConfirmation();
   const { cx, classes } = useTableStyles();
@@ -64,11 +66,24 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
     });
   }, []);
 
+  const handleAddToCart = (item: any) => {
+    if (inCart(item._id)) {
+      const cartItem = getItem(item._id);
+      updateItemQuantity(cartItem._id, cartItem?.quantity + 1);
+    } else {
+      addItem({
+        ...item,
+        id: item._id,
+        price: +item.calculatedPrice,
+      });
+    }
+  };
+
   const rows = useMemo(
     () =>
       data.map((item: any) => {
         const handleAddToCart = (item: any) => {
-          addItem({ id: item._id, ...item });
+          addItem({ id: item._id, ...item, price: +item.calculatedPrice });
         };
 
         return (
@@ -76,7 +91,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
             key={item._id}
             className={cx({
               [classes.minStock]: item.quantity <= item.minQuantity || minStock,
-              [classes.noPriceWarning]: item.price === 0,
+              [classes.noPriceWarning]: !item.price || !item.originalPrice,
             })}
           >
             <td>
@@ -85,15 +100,9 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
                 <Group position="center">
                   <HoverCard width={280} shadow="md">
                     <HoverCard.Target>
-                      {item.title.length > 20 ? (
-                        <Text size="sm" weight={500}>
-                          {item.title.substring(0, 20)}...
-                        </Text>
-                      ) : (
-                        <Text size="sm" weight={500}>
-                          {item.title}
-                        </Text>
-                      )}
+                      <Text size="sm" weight={500}>
+                        <TextEllipsis text={item.title} maxChars={20} />
+                      </Text>
                     </HoverCard.Target>
                     <HoverCard.Dropdown>
                       <Text size="sm">{item.title}</Text>
@@ -105,37 +114,59 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
             <td>{item.code}</td>
             <If hasPerm={Permissions.products.originalPrice}>
               <td>
-                {item.originalPrice} {item.currency?.name}
+                <FormattedNumber
+                  value={item.originalPrice}
+                  style="currency"
+                  currency={item.currency?.name}
+                />
               </td>
             </If>
 
             <If hasPerm={Permissions.products.price}>
               <td>
-                {item.price.toFixed(2)}_UZS/{item.unit}
+                <FormattedNumber
+                  value={item.calculatedPrice || item.price}
+                  style="currency"
+                  currency="UZS"
+                />
+                /{item.unit}
               </td>
             </If>
 
             <td>{item.quantity}</td>
-            <td style={{ width: 200 }}>
-              <IconPencil
-                style={{ cursor: "pointer", marginTop: "5px" }}
-                onClick={() => onEdit(item)}
-              />
-
-              <If hasPerm={Permissions.products.delete}>
-                <IconTrash
-                  color="red"
-                  style={{ margin: "0  20px", cursor: "pointer" }}
-                  onClick={() => openDeleteModal(item._id)}
-                />
-              </If>
-              <If hasPerm={Permissions.products.sell}>
-                <Button onClick={() => handleAddToCart(item)}>
-                  <FormattedMessage id="products.buy" />
-                </Button>
-              </If>
-            </td>
             <td>
+              <div
+                style={{
+                  width: 200,
+                  display: "flex",
+                  gap: 20,
+                  marginRight: -90,
+                }}
+              >
+                <ActionIcon>
+                  <IconPencil
+                    style={{ cursor: "pointer", marginTop: "5px" }}
+                    onClick={() => onEdit(item)}
+                  />
+                </ActionIcon>
+
+                <If hasPerm={Permissions.products.delete}>
+                  <ActionIcon>
+                    <IconTrash
+                      color="red"
+                      onClick={() => openDeleteModal(item._id)}
+                    />
+                  </ActionIcon>
+                </If>
+                <If hasPerm={Permissions.products.sell}>
+                  <Button onClick={() => handleAddToCart(item)}>
+                    <FormattedMessage id="products.buy" />
+                  </Button>
+                </If>
+              </div>
+            </td>
+
+            <td style={{ padding: "0  40px" }}>
               <Button
                 variant="outline"
                 style={{
@@ -149,8 +180,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
           </tr>
         );
       }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data]
+    [data, minStock, onEdit, handleAddToCart]
   );
 
   return (
@@ -167,4 +197,4 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
   );
 };
 
-export default memo(TableView);
+export default TableView;

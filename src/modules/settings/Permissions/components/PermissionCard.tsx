@@ -1,5 +1,5 @@
 import useNotification from "@hooks/useNotification";
-import { Card, Grid, Text, TextInput } from "@mantine/core";
+import { ActionIcon, Card, Grid, Text, TextInput } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
 import PermissionText from "@modules/settings/Permissions/components/PermissionText";
 import useSettings from "@services/hooks/useSettings";
@@ -109,20 +109,24 @@ const PermissionsCard: React.FC<Props> = ({ name, id }) => {
             bottom: 10,
           }}
         >
-          <IconPencil
-            onClick={() => handlePermissionUpdate(name, id)}
-            style={{
-              cursor: "pointer",
-              color: "green",
-            }}
-          />
-          <IconTrash
-            onClick={() => openDeleteModal(id)}
-            style={{
-              cursor: "pointer",
-              color: "red",
-            }}
-          />
+          <ActionIcon>
+            <IconPencil
+              onClick={() => handlePermissionUpdate(name, id)}
+              style={{
+                cursor: "pointer",
+                color: "green",
+              }}
+            />
+          </ActionIcon>
+          <ActionIcon>
+            <IconTrash
+              onClick={() => openDeleteModal(id)}
+              style={{
+                cursor: "pointer",
+                color: "red",
+              }}
+            />
+          </ActionIcon>
         </div>
         <PermissionText name={intl.formatMessage({ id: `perms.${name}` })} />
       </Card>

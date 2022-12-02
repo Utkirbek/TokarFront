@@ -1,38 +1,42 @@
+import ConfettiComponent from "@components/Confetti/Confetti";
 import useUser from "@hooks/shared/useUser";
 import {
   Box,
   Button,
-  ColorScheme,
+  Center,
   Group,
   PasswordInput,
+  SegmentedControl,
+  Skeleton,
   Text,
   TextInput,
-  useMantineColorScheme,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import authFetchers from "@services/api/authFetchers";
+import useShop from "@services/hooks/useShop";
+import { IconBuildingStore } from "@tabler/icons";
 import { RequestQueryKeys } from "@utils/constants";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useErrorHandler } from "react-error-boundary";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useSWRConfig } from "swr";
 
+import AuthStepper from "./components/AuthStepper";
 import useStyles from "./signInStyle";
 
 function SignIn() {
+  const [activeStep, setActiveStep] = useState<0 | 1 | 2>(0);
   const [status, setStatus] = useState<
     "idle" | "success" | "error" | "loading"
   >("idle");
-  const { mutate } = useSWRConfig();
   const { authorize } = useUser();
-  const handleError = useErrorHandler();
   const intl = useIntl();
+  const handleError = useErrorHandler();
+  const { mutate } = useSWRConfig();
   const { classes } = useStyles();
-  const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
 
-  const router = useRouter();
   const form = useForm({
     initialValues: {
       password: "",
@@ -56,9 +60,8 @@ function SignIn() {
       setCookie("token", res.token, {
         expires: new Date(Date.now() + 86400000),
       });
-      delete res.token;
       authorize(res);
-      router.push("/");
+      setActiveStep(1);
       setStatus("success");
     } catch (err) {
       handleError(err);
@@ -66,20 +69,8 @@ function SignIn() {
     }
   };
 
-  return (
-    <Box
-      sx={{
-        width: "100%",
-        height: "100%",
-        minHeight: "100vh",
-        backgroundImage: `
-        linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(9, 06, 25, 0.9)),
-          url(https://t3.ftcdn.net/jpg/04/17/77/78/360_F_417777825_v7o8RvkQhxpZkE0ZBD4xwzri5hGFHkO3.jpg)
-        `,
-        backgroundSize: "cover",
-      }}
-      className={classes.boxForm}
-    >
+  const contents = {
+    0: (
       <Box className={classes.boxLeft}>
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <Text className={classes.text}>
@@ -87,19 +78,10 @@ function SignIn() {
           </Text>
           <TextInput
             withAsterisk
-            label={intl.formatMessage({
-              id: "signIn.textLabel",
-            })}
-            placeholder={intl.formatMessage({
-              id: "signIn.textPlaceholder",
-            })}
+            label={intl.formatMessage({ id: "signIn.textLabel" })}
+            placeholder={intl.formatMessage({ id: "signIn.textPlaceholder" })}
             {...form.getInputProps("email")}
-            sx={{ margin: "20px 0" }}
-            labelProps={{
-              sx: {
-                color: "white",
-              },
-            }}
+            my={10}
             id="email"
             name="email"
             type="email"
@@ -110,11 +92,6 @@ function SignIn() {
             placeholder={intl.formatMessage({
               id: "signIn.passwordPlaceholder",
             })}
-            labelProps={{
-              sx: {
-                color: "white",
-              },
-            }}
             {...form.getInputProps("password")}
             id="password"
             name="password"
@@ -123,13 +100,108 @@ function SignIn() {
           />
           <Group position="right" mt="md">
             <Button loading={status === "loading"} type="submit">
-              <FormattedMessage id="submit" />
+              <FormattedMessage id="next" />
             </Button>
           </Group>
         </form>
       </Box>
+    ),
+    1: <ShopSelectSection onNext={() => setActiveStep(2)} />,
+    2: <ComponentCongrats />,
+  };
+
+  return (
+    <Box className={classes.boxForm}>
+      <AuthStepper activeStep={activeStep} loading={status === "loading"} />
+      {contents[activeStep]}
     </Box>
   );
 }
 
 export default SignIn;
+
+type Shop = { _id: string; location: string; name: string };
+
+const ShopSelectSection = ({ onNext }: { onNext: VoidFunction }) => {
+  const name = useUser((user) => user.name);
+  const { useFetchShop } = useShop();
+  const { data: shopsData, error } = useFetchShop();
+
+  const form = useForm<{
+    shop: string;
+  }>({
+    initialValues: {
+      shop: shopsData?.[0]?._id,
+    },
+  });
+
+  if (!shopsData)
+    return (
+      <Box>
+        <Skeleton width={"100%"} height={200} />
+      </Box>
+    );
+
+  if (error) return <Box>error</Box>;
+
+  const shops = shopsData?.map((shop: Shop) => ({
+    value: shop._id,
+    label: (
+      <Center>
+        <IconBuildingStore size={16} />
+        <Box ml={10}>{shop?.name}</Box>
+      </Center>
+    ),
+  }));
+
+  const handleSubmit = (data: { shop: string }) => {
+    const chosenShop = shopsData?.find((shop: Shop) => shop._id === data.shop);
+    setCookie("shopId", data.shop, {
+      expires: new Date(Date.now() + 86400000),
+    });
+    setCookie("shopName", chosenShop?.name, {
+      expires: new Date(Date.now() + 86400000),
+    });
+    onNext();
+  };
+
+  return (
+    <Box component="form" onSubmit={form.onSubmit(handleSubmit)}>
+      <h1>Xush kelibsiz {name}</h1>
+      <p>Marxamat qilib bugungi ish joyingizni tanlang</p>
+      <SegmentedControl
+        fullWidth
+        data={shops}
+        {...form.getInputProps("shop")}
+      />
+      <Group position="right" mt="md">
+        <Button loading={!shopsData && !error} type="submit">
+          <FormattedMessage id="next" />
+        </Button>
+      </Group>
+    </Box>
+  );
+};
+
+const ComponentCongrats = () => {
+  const { authNext } = useUser();
+  const router = useRouter();
+
+  React.useEffect(() => {
+    const timeout = setTimeout(() => {
+      setCookie("isLoggedIn", true, {
+        expires: new Date(Date.now() + 86400000),
+      });
+      authNext();
+      router.push("/");
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  return (
+    <Box>
+      <ConfettiComponent />
+    </Box>
+  );
+};

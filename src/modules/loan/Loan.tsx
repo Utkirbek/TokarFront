@@ -1,20 +1,27 @@
 import If from "@components/smart/If";
 import WithLoading from "@hoc/WithLoading";
-import DashLayout from "@modules/layout";
-import loanFeatchers from "@services/api/loanFetchers";
-import { Permissions, RequestQueryKeys } from "@utils/constants";
-import React from "react";
-import useSWR from "swr";
+import useLoan from "@services/hooks/useLoan";
+import { Permissions } from "@utils/constants";
+import { useState } from "react";
 
 import LoanTable from "./LoanTable";
 
 function Loan() {
-  const loanData = useSWR(RequestQueryKeys.loan, loanFeatchers.getLoan);
+  const [page, setPage] = useState(1);
+  const { useLoanFeatchers } = useLoan();
+  const loanData = useLoanFeatchers(page, {
+    perPage: 10,
+  });
   const { data } = loanData;
   return (
     <If hasPerm={Permissions.loans.view}>
       <WithLoading withRenderProps query={loanData}>
-        <LoanTable />
+        <LoanTable
+          dataloan={data?.loans}
+          total={data?.totalPage}
+          page={page}
+          onPageChange={(page: number) => setPage(page)}
+        />
       </WithLoading>
     </If>
   );

@@ -53,6 +53,8 @@ const Logout = () => {
         titleId: "logout.title",
         onConfirm: () => {
           removeCookies("token");
+          removeCookies("shopId");
+          removeCookies("isLoggedIn");
           logout();
         },
         onCancel: () => {
