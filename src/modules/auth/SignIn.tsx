@@ -1,4 +1,5 @@
 import ConfettiComponent from "@components/Confetti/Confetti";
+import WithLoading from "@hoc/WithLoading";
 import useUser from "@hooks/shared/useUser";
 import {
   Box,
@@ -21,7 +22,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useErrorHandler } from "react-error-boundary";
 import { FormattedMessage, useIntl } from "react-intl";
-import { useSWRConfig } from "swr";
+import { SWRResponse, useSWRConfig } from "swr";
 
 import AuthStepper from "./components/AuthStepper";
 import useStyles from "./signInStyle";
@@ -106,7 +107,7 @@ function SignIn() {
         </form>
       </Box>
     ),
-    1: <ShopSelectSection onNext={() => setActiveStep(2)} />,
+    1: <ShopsWrapper onNext={() => setActiveStep(2)} />,
     2: <ComponentCongrats />,
   };
 
@@ -122,27 +123,22 @@ export default SignIn;
 
 type Shop = { _id: string; location: string; name: string };
 
-const ShopSelectSection = ({ onNext }: { onNext: VoidFunction }) => {
+const ShopSelectSection = ({
+  onNext,
+  data: shopsData,
+}: {
+  onNext: VoidFunction;
+  data: any;
+}) => {
   const name = useUser((user) => user.name);
-  const { useFetchShop } = useShop();
-  const { data: shopsData, error } = useFetchShop();
 
   const form = useForm<{
     shop: string;
   }>({
     initialValues: {
-      shop: shopsData?.[0]?._id,
+      shop: shopsData?.[1]?._id,
     },
   });
-
-  if (!shopsData)
-    return (
-      <Box>
-        <Skeleton width={"100%"} height={200} />
-      </Box>
-    );
-
-  if (error) return <Box>error</Box>;
 
   const shops = shopsData?.map((shop: Shop) => ({
     value: shop._id,
@@ -175,7 +171,7 @@ const ShopSelectSection = ({ onNext }: { onNext: VoidFunction }) => {
         {...form.getInputProps("shop")}
       />
       <Group position="right" mt="md">
-        <Button loading={!shopsData && !error} type="submit">
+        <Button loading={!shopsData} type="submit">
           <FormattedMessage id="next" />
         </Button>
       </Group>
@@ -203,5 +199,16 @@ const ComponentCongrats = () => {
     <Box>
       <ConfettiComponent />
     </Box>
+  );
+};
+
+const ShopsWrapper = ({ onNext }: { onNext: VoidFunction }) => {
+  const { useFetchShop } = useShop();
+  const shopQuery = useFetchShop();
+
+  return (
+    <WithLoading query={shopQuery} withRenderProps>
+      <ShopSelectSection data={shopQuery.data} onNext={onNext} />
+    </WithLoading>
   );
 };

@@ -172,12 +172,7 @@ const FormProduct: React.FC<{
         />
 
         <Box sx={{ maxHeight: "160px" }}>
-          <ImageUploader
-            urlsRef={imagesRef}
-            dropzoneProps={{
-              pb: 0,
-            }}
-          />
+          <ImageUploader urlsRef={imagesRef} dropzoneProps={{ pb: 0 }} />
           <Button
             variant="outline"
             sx={{ float: "right", margin: "10px 0" }}
