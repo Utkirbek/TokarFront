@@ -8,7 +8,6 @@ import {
   Group,
   PasswordInput,
   SegmentedControl,
-  Skeleton,
   Text,
   TextInput,
 } from "@mantine/core";
@@ -22,7 +21,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useErrorHandler } from "react-error-boundary";
 import { FormattedMessage, useIntl } from "react-intl";
-import { SWRResponse, useSWRConfig } from "swr";
+import { useSWRConfig } from "swr";
 
 import AuthStepper from "./components/AuthStepper";
 import useStyles from "./signInStyle";
@@ -136,7 +135,7 @@ const ShopSelectSection = ({
     shop: string;
   }>({
     initialValues: {
-      shop: shopsData?.[1]?._id,
+      shop: shopsData?.[0]?._id,
     },
   });
 
