@@ -1,4 +1,5 @@
 import ConfettiComponent from "@components/Confetti/Confetti";
+import HeadSkeletonUI from "@components/skeleton/HeadSkeletonUI";
 import WithLoading from "@hoc/WithLoading";
 import useUser from "@hooks/shared/useUser";
 import {
@@ -207,7 +208,7 @@ const ShopsWrapper = ({ onNext }: { onNext: VoidFunction }) => {
   const shopQuery = useFetchShop();
 
   return (
-    <WithLoading query={shopQuery} withRenderProps>
+    <WithLoading query={shopQuery} FallbackLoadingUI={HeadSkeletonUI}>
       <ShopSelectSection data={shopQuery.data} onNext={onNext} />
     </WithLoading>
   );
