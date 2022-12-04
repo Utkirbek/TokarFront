@@ -20,6 +20,7 @@ export const rolesLocaleUz = {
     team: "Jamoa",
     forTeamNew: "Yangi Jamoa",
     user: "Foydalanuvchi",
+    Dasturchi: "Dasturchi",
   },
 };
 
@@ -45,5 +46,6 @@ export const rolesLocaleEn = {
     team: "Team",
     forTeamNew: "New Team",
     user: "User",
+    Dasturchi: "Developer",
   },
 };

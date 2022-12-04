@@ -48,15 +48,13 @@ function UsersTable({ data }: any) {
 
   const usersQuery = useFetchUsers();
   const { data: user } = usersQuery;
+
   const rows = (searchResults.length > 0 ? searchResults : data).map(
     (item: any) => {
       const handleEdit = () => {
         setEditItem(item);
         toggleOpened();
       };
-
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const theme = useMantineTheme();
 
       const onDeleteClick = () => {
         openConfirm(null, {

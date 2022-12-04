@@ -78,7 +78,8 @@ const OrdersTable = ({
         <td className={classes.orderTD}>
           <Link
             href={`/users?details=${item?.user?._id || item?.user}`}
-            className={classes.orderUserLink}>
+            className={classes.orderUserLink}
+          >
             {item?.user === null ? (
               <FormattedMessage id="orders.userNull" />
             ) : (
@@ -131,7 +132,8 @@ const OrdersTable = ({
                   details: item._id,
                 },
               });
-            }}>
+            }}
+          >
             <FormattedMessage id="more" />
           </Button>
         </td>

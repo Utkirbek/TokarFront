@@ -4,8 +4,8 @@ import {
   Box,
   Button,
   Group,
-  MultiSelect,
   PasswordInput,
+  Select,
   Skeleton,
   Text,
   TextInput,
@@ -14,7 +14,6 @@ import { useForm } from "@mantine/form";
 import useAdmins from "@services/hooks/useAdmins";
 import useSettings from "@services/hooks/useSettings";
 import { IconChevronDown, IconLock } from "@tabler/icons";
-import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 const AdminsDrawer: React.FC<{
@@ -25,12 +24,14 @@ const AdminsDrawer: React.FC<{
   const { useGetAllRoles } = useSettings();
   const getRolesQuery = useGetAllRoles();
   const { data: roles } = getRolesQuery;
-  const { showSuccessNotification, showErrorNotification } = useNotification();
+  const {
+    showSuccessNotification,
+    showErrorNotification,
+    showLoadingNotification,
+  } = useNotification();
 
   const intl = useIntl();
-  const [newRoles, setNewRoles] = useState<string[]>([]);
 
-  const DefaultRoles = editItem?.roles?.map((roles: any) => roles._id);
   const Roles = roles?.map((item: any) => ({
     label: intl.formatMessage({ id: `roles.roles.${item.name}` }),
     value: item._id,
@@ -40,8 +41,8 @@ const AdminsDrawer: React.FC<{
     initialValues: {
       name: editItem?.name ?? "",
       email: editItem?.email ?? "",
-      password: editItem?.password ?? "",
-      role: editItem?.role ?? "",
+      password: "",
+      role: editItem?.role?._id ?? "",
       salary_percent: editItem?.salary_percent ?? "",
     },
     validate: {
@@ -61,12 +62,13 @@ const AdminsDrawer: React.FC<{
     password: string;
     salary_percent: string;
   }) => {
+    showLoadingNotification();
     if (!!editItem._id) {
       handleClose();
       editAdmin(
         {
           id: editItem._id,
-          values: { name: values?.name, roles: newRoles },
+          values: values,
         },
         {
           onSuccess: () => {
@@ -127,8 +129,7 @@ const AdminsDrawer: React.FC<{
           condition={!!roles}
           elseChildren={<Skeleton width="100%" height="40px" />}
         >
-          <MultiSelect
-            defaultValue={DefaultRoles ?? []}
+          <Select
             sx={{ width: "100%", margin: "20px  0" }}
             rightSection={<IconChevronDown size={14} />}
             rightSectionWidth={30}
@@ -140,7 +141,6 @@ const AdminsDrawer: React.FC<{
               id: "admins.input.role.placeholder",
             })}
             data={Roles}
-            onChange={(value) => setNewRoles(value)}
             {...form.getInputProps("role")}
           />
         </If>

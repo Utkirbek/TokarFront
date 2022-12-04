@@ -33,7 +33,7 @@ function TableCard({ data }: { data: any }) {
   const [drawerOpen, toggleDrawerOpen] = useToggle();
   const [editItem, setEditItem] = useState({});
   const router = useRouter();
-  const { useFetchAdmins, deleteAdmin } = useAdmins();
+  const { deleteAdmin } = useAdmins();
 
   const {
     showSuccessNotification,

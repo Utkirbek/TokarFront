@@ -10,6 +10,7 @@ const Admins = () => {
   const { useFetchAdmins } = useAdmins();
   const getAdminsQuery = useFetchAdmins();
   const { data: admins } = getAdminsQuery;
+
   return (
     <If hasPerm={Permissions.admins.view}>
       <WithLoading query={getAdminsQuery} withRenderProps>
