@@ -55,14 +55,14 @@ const OrdersDetails = ({ orders }: Props) => {
           {prodItem?.product === null ? (
             <FormattedMessage id="orders.userNull" />
           ) : (
-            prodItem?.product?.quantity
+            prodItem?.quantity
           )}
         </td>
         <td>
           {prodItem === null ? (
             <FormattedMessage id="orders.userNull" />
           ) : (
-            prodItem?.quantity
+            prodItem?.price
           )}
         </td>
       </tr>
@@ -97,7 +97,7 @@ const OrdersDetails = ({ orders }: Props) => {
                 href={`/admins`}
                 style={{
                   textDecoration: "none",
-                  borderBottom: "1px solid #1983FF",
+                  color: "#1972C2",
                 }}>
                 <Text className={classes.textStart}>
                   {item?.salesman?.name === null ? (
@@ -108,40 +108,7 @@ const OrdersDetails = ({ orders }: Props) => {
                 </Text>
               </Link>
             </Box>
-            <Box className={classes.boxFlex}>
-              <Text className={classes.text}>
-                <FormattedMessage id="orders.orderUser" />
-              </Text>
-              <Link
-                href={`/users?details=${item?.user?._id}`}
-                style={{
-                  textDecoration: "none",
-                  borderBottom: "1px solid #1983FF",
-                }}>
-                <Text className={classes.textStart}>{item?.user?.name}</Text>
-              </Link>
-            </Box>
 
-            <Box className={classes.boxFlex}>
-              <Text className={classes.text}>
-                <FormattedMessage id="orders.userPhone" />
-              </Text>
-              <a
-                href={`tel://${item?.user?.phone}`}
-                style={{
-                  textDecoration: "none",
-                  borderBottom: "1px solid #1983FF",
-                }}>
-                <Text className={classes.textStart}>{item?.user?.phone}</Text>
-              </a>
-            </Box>
-            <Box className={classes.boxFlex}>
-              <Text className={classes.text}>
-                <FormattedMessage id="orders.userworkplace" />
-              </Text>
-
-              <Text className={classes.textStart}>{item?.user?.workplace}</Text>
-            </Box>
             <Box className={classes.boxFlex}>
               <Text className={classes.text}>
                 <FormattedMessage id="orders.userExtr" />

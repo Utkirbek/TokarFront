@@ -60,7 +60,7 @@ const data = [
     link: "/payments",
     label: "payments.title",
     icon: IconMoneybag,
-    permission: "payments_view",
+    permission: "payments.view",
   },
   {
     id: 8,

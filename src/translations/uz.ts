@@ -38,7 +38,7 @@ const uz = {
   sthWentWrong: "Xatolik yuz berdi",
   emptyBox: "Hech qanday ma'lumot topilmadi!",
   serverError: "Server ishlamayapti",
-  pageNotFound: "sahifa topilmadi",
+  pageNotFound: "Sahifa topilmadi",
   saveCurrency: "Saqlash",
   currencyPerm: "Valyuta",
   imgUploader: "Iltimos faqat rasmlarni yuklang",
