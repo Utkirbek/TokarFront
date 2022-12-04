@@ -151,7 +151,7 @@ const BuyCart: React.FC<{}> = () => {
                       {item.unit}
                       &nbsp;
                       <ContentEditable
-                        value={item?.price}
+                        value={(+item?.price).toFixed(0)}
                         onFinish={(value) => {
                           updateItem(item._id, {
                             price: value,
@@ -166,7 +166,7 @@ const BuyCart: React.FC<{}> = () => {
                     </Text>
                     <Text sx={{ fontWeight: "bold" }}>
                       <ContentEditable
-                        value={item.price * item.quantity}
+                        value={(item.price * item.quantity).toFixed(0)}
                         onFinish={(val) => {
                           const price = +val / item.quantity;
                           updateItem(item._id, {
