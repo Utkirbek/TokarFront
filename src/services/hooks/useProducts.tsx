@@ -37,10 +37,11 @@ const useProducts = () => {
       body: {
         title: string;
         image: string;
-        code: string | Number;
-        price: string | Number;
-        unit: string | Number;
-        quantity: string | Number;
+        code: string | number;
+        price: string | number;
+        unit: string | number;
+        quantity: string | number;
+        originalPrice: number;
         description: string;
         discounts: any;
       },

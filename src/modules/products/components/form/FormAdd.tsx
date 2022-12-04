@@ -99,6 +99,8 @@ const FormProduct: React.FC<{
       addProduct(
         {
           ...values,
+          price: values.price ?? 0,
+          originalPrice: values.originalPrice ?? 0,
           discounts: values.discounts?.map((item) => ({
             price: item.price,
             quantity: item.quantity,
