@@ -93,6 +93,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
           }}
           sx={{
             position: !fullView ? "static" : "fixed",
+            zIndex: 9,
           }}
           p={fullView ? "md" : 0}>
           <Box className={classes.container} m={0}>

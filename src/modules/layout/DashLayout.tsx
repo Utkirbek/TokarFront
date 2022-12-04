@@ -25,6 +25,10 @@ function DashLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [opened, toggleOpened] = useToggle();
 
+  const hideSidebar = () => {
+    toggleOpened(false);
+  };
+
   const links = data.map((item: any) => {
     return (
       <If hasPerm={item.permission} key={item.label}>
@@ -82,7 +86,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
               <Link href="/">
                 <Text className={classes.title}>Tokar</Text>
               </Link>
-              <Box ml="auto">
+              <Box ml="auto" sx={{ zIndex: 9999 }}>
                 <Logout />
               </Box>
             </Box>
