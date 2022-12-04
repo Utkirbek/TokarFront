@@ -15,10 +15,11 @@ import {
 } from "@mantine/core";
 import useProducts from "@services/hooks/useProducts";
 import { IconPencil, IconTrash } from "@tabler/icons";
+import { floorLastThreeDigits, getNumber } from "@utils";
 import { Permissions } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
 import { useRouter } from "next/router";
-import { memo, useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { FormattedMessage, FormattedNumber } from "react-intl";
 import { useCart } from "react-use-cart";
 
@@ -74,7 +75,9 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
       addItem({
         ...item,
         id: item._id,
-        price: +item.calculatedPrice,
+        price: getNumber(item.calculatedPrice)
+          ? floorLastThreeDigits(item.calculatedPrice)
+          : floorLastThreeDigits(item.price),
       });
     }
   };
@@ -83,7 +86,13 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
     () =>
       data.map((item: any) => {
         const handleAddToCart = (item: any) => {
-          addItem({ id: item._id, ...item, price: +item.calculatedPrice });
+          addItem({
+            id: item._id,
+            ...item,
+            price: getNumber(item.calculatedPrice)
+              ? floorLastThreeDigits(item.calculatedPrice)
+              : floorLastThreeDigits(item.price),
+          });
         };
 
         return (
@@ -125,7 +134,11 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
             <If hasPerm={Permissions.products.price}>
               <td>
                 <FormattedNumber
-                  value={item.calculatedPrice || item.price}
+                  value={
+                    getNumber(item.calculatedPrice)
+                      ? floorLastThreeDigits(item.calculatedPrice)
+                      : floorLastThreeDigits(item.price)
+                  }
                   style="currency"
                   currency="UZS"
                 />

@@ -44,6 +44,17 @@ const ContentEditable = React.forwardRef<HTMLElement, ContentEditableProps>(
         placeholder,
         style,
         onBlur: handleBlur,
+        onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+          }
+        },
+        onKeyUp: (e: React.KeyboardEvent<HTMLDivElement>) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            e.currentTarget.blur();
+          }
+        },
       },
       value
     );

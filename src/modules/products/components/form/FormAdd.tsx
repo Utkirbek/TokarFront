@@ -22,9 +22,10 @@ import { useRef } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import unit from "./constants/dataUnit";
+import PriceGroup from "./PriceGroup";
 import useStyles from "./style/inputStyle";
 
-interface FormAddProps {
+export interface FormAddProps {
   image: string;
   currency: string;
   title: string;
@@ -36,6 +37,7 @@ interface FormAddProps {
   description: string;
   discounts: { price: number; quantity: number }[];
   minQuantity: number;
+  sellingCurrency: string;
 }
 
 const FormProduct: React.FC<{
@@ -59,13 +61,15 @@ const FormProduct: React.FC<{
     initialValues: {
       title: editItem?.title ?? "",
       code: editItem?.code ?? "",
-      originalPrice: editItem?.originalPrice ?? 0,
-      price: editItem?.price ?? 0,
+      originalPrice: editItem?.originalPrice ?? null,
+      price: editItem?.price ?? null,
       unit: editItem?.unit ?? "D",
       quantity: editItem?.quantity ?? 1,
       description: editItem?.description ?? "",
       discounts: editItem?.discounts ?? [],
       currency: editItem?.currency?._id ?? "63635d7850b0f6000826a6ac",
+      sellingCurrency:
+        editItem?.sellingCurrency?._id ?? "63635d7850b0f6000826a6ac",
       minQuantity: editItem?.minQuantity ?? 5,
       image: editItem?.image ?? "",
     },
@@ -148,18 +152,6 @@ const FormProduct: React.FC<{
   return (
     <Box sx={{ maxWidth: 440, height: "auto" }} mx="auto">
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <Text
-          sx={{
-            fontSize: "24px",
-            textAlign: "center",
-            fontWeight: 700,
-          }}
-        >
-          <FormattedMessage
-            id="products.addEdit"
-            values={{ isNew: !editItem._id }}
-          />
-        </Text>
         <TextInput
           className={classes.inputStyle}
           withAsterisk
@@ -189,47 +181,40 @@ const FormProduct: React.FC<{
           required
         />
 
-        <If
-          condition={!!currencies}
-          elseChildren={<Skeleton width="100%" height="40px" />}
-        >
-          <Select
-            sx={{ width: "100%", margin: "20px  0" }}
-            rightSection={<IconChevronDown size={14} />}
-            rightSectionWidth={30}
-            placeholder={intl.formatMessage({
-              id: "products.form.currencyPlaceholder",
-            })}
-            styles={{ rightSection: { pointerEvents: "none" } }}
-            label={intl.formatMessage({ id: "products.form.currencyLabel" })}
-            data={currencies?.map((item: any) => ({
-              value: item._id,
-              label: item.name,
-            }))}
-            {...form.getInputProps("currency")}
-          />
-        </If>
         <If hasPerm={Permissions.products.add.originalPrice}>
-          <NumberInput
-            className={classes.inputStyle}
-            label={intl.formatMessage({ id: "products.form.orgLabel" })}
-            placeholder={intl.formatMessage({ id: "products.form.orgLabel" })}
-            precision={2}
-            min={0}
-            hideControls
-            {...form.getInputProps("originalPrice")}
-          />
+          <If
+            condition={!!currencies}
+            elseChildren={<Skeleton width="100%" height="40px" />}
+          >
+            <PriceGroup
+              currencies={currencies}
+              priceLabel={intl.formatMessage({ id: "products.form.orgLabel" })}
+              pricePlaceholder={intl.formatMessage({
+                id: "products.form.orgLabel",
+              })}
+              form={form}
+              registerType="originalPrice"
+              currencyRegisterType="currency"
+            />
+          </If>
         </If>
 
         <If hasPerm={Permissions.products.add.price}>
-          <TextInput
-            className={classes.inputStyle}
-            label={intl.formatMessage({ id: "products.form.saleLabel" })}
-            placeholder={intl.formatMessage({
-              id: "products.form.salePlaceholder",
-            })}
-            {...form.getInputProps("price")}
-          />
+          <If
+            condition={!!currencies}
+            elseChildren={<Skeleton width="100%" height="40px" />}
+          >
+            <PriceGroup
+              currencies={currencies}
+              priceLabel={intl.formatMessage({ id: "products.form.saleLabel" })}
+              pricePlaceholder={intl.formatMessage({
+                id: "products.form.salePlaceholder",
+              })}
+              form={form}
+              registerType="price"
+              currencyRegisterType="sellingCurrency"
+            />
+          </If>
         </If>
 
         <Select

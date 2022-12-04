@@ -8,8 +8,8 @@ import productFetchers from "@services/api/productFetchers";
 import { IconTable } from "@tabler/icons";
 import { Permissions } from "@utils/constants";
 import { useRouter } from "next/router";
-import { memo, useCallback, useEffect, useState } from "react";
-import { FormattedMessage } from "react-intl";
+import { memo, useCallback, useState } from "react";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useCart } from "react-use-cart";
 
 import BuyCart from "../buyCart/BuyCart";
@@ -37,12 +37,13 @@ function ProductsTable({
   toggleMinQuantity: (bool?: boolean) => void;
   toggleNoPrice: (bool?: boolean) => void;
 }) {
-  const [editItem, setEditItem] = useState({});
+  const [editItem, setEditItem] = useState<{ _id?: string }>({});
   const [searchResults, setSearchResults] = useState([]);
   const [opened, toggleOpened] = useToggle();
   const [salesView, toggleSalesView] = useToggle();
   const [isResultsActive, toggleResultsActive] = useToggle();
 
+  const intl = useIntl();
   const router = useRouter();
   const { isEmpty } = useCart();
 
@@ -111,7 +112,20 @@ function ProductsTable({
 
   return (
     <Box sx={{ height: "100%" }}>
-      <FormDrawer {...{ opened, toggleOpened }}>
+      <FormDrawer
+        {...{
+          opened,
+          toggleOpened,
+          title: intl.formatMessage(
+            {
+              id: "products.addEdit",
+            },
+            {
+              isNew: !editItem._id,
+            }
+          ),
+        }}
+      >
         <ScrollArea
           style={{ height: "100%", paddingBottom: 60 }}
           scrollbarSize={2}

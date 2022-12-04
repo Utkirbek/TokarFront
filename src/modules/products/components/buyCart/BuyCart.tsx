@@ -150,15 +150,27 @@ const BuyCart: React.FC<{}> = () => {
                       />
                       {item.unit}
                       &nbsp;
-                      {item?.price}
+                      <ContentEditable
+                        value={item?.price}
+                        onFinish={(value) => {
+                          updateItem(item._id, {
+                            price: value,
+                          });
+                        }}
+                        style={{
+                          border: "0.2px solid",
+                          padding: "0 5px",
+                        }}
+                      />
                       <span>&nbsp;So&apos;m</span>
                     </Text>
                     <Text sx={{ fontWeight: "bold" }}>
                       <ContentEditable
                         value={item.price * item.quantity}
                         onFinish={(val) => {
+                          const price = +val / item.quantity;
                           updateItem(item._id, {
-                            price: +val,
+                            price,
                           });
                         }}
                         style={{

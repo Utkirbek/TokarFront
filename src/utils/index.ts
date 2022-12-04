@@ -10,3 +10,28 @@ export const getNumber = (value: string | number | null | undefined) => {
 
   return value;
 };
+
+export const floorLastThreeDigits = (num: number | string): number => {
+  if (typeof num === "string") {
+    num = +num;
+  }
+  const strNum = num.toString();
+  if (strNum.includes(".")) {
+    const [int] = strNum.split(".");
+    if (int.length > 3) {
+      const newInt = int.slice(0, -3) + "000";
+      const fixed = Number(newInt).toFixed(2);
+      return +fixed;
+    } else {
+      return +strNum;
+    }
+  } else {
+    if (strNum.length > 3) {
+      const newInt = strNum.slice(0, -3) + "000";
+      const fixed = Number(newInt).toFixed(2);
+      return +fixed;
+    } else {
+      return num;
+    }
+  }
+};

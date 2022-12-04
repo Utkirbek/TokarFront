@@ -5,9 +5,15 @@ type Props = {
   opened: boolean;
   toggleOpened: (bool?: boolean) => void;
   children: React.ReactNode;
+  title?: string;
 };
 
-const FormDrawer: React.FC<Props> = ({ opened, toggleOpened, children }) => {
+const FormDrawer: React.FC<Props> = ({
+  opened,
+  toggleOpened,
+  children,
+  title,
+}) => {
   const theme = useMantineTheme();
 
   return (
@@ -23,6 +29,7 @@ const FormDrawer: React.FC<Props> = ({ opened, toggleOpened, children }) => {
       padding="xl"
       size="xl"
       position="right"
+      title={title}
     >
       {children}
     </Drawer>
