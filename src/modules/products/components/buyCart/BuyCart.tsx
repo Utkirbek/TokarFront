@@ -68,7 +68,9 @@ const BuyCart: React.FC<{}> = () => {
       {
         total: cartTotal,
         paymentMethod: values.paymentMethod,
-        loanTotal: cartTotal.toFixed(2),
+        loanTotal: values.hasLoan
+          ? cartTotal - values.intialPayment
+          : cartTotal,
         cashTotal: values.intialPayment,
         shouldPay: values.paymentDate,
         salesman: _id,

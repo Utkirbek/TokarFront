@@ -25,7 +25,7 @@ const useOrders = () => {
       body: {
         total: number;
         paymentMethod: string;
-        loanTotal: string;
+        loanTotal: number;
         cashTotal: number;
         shouldPay: string;
         salesman: string;
