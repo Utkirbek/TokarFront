@@ -24,7 +24,7 @@ export const usersLocaleUz = {
   additionPlaceholder: "Qo'shimcha malumot",
 
   userDts: {
-    title: " savdo xaqida malumot",
+    title: "Batafsil  malumot",
     name: "Ismi",
     phone: "Raqami",
     origin: "Ish joyi",
@@ -55,7 +55,7 @@ export const usersLocaleEn = {
   additionLabel: "Additional information",
   additionPlaceholder: "Additional Information",
   userDts: {
-    title: " information about",
+    title: "information about",
     name: "Name",
     phone: "Number",
     origin: "Workplace",

@@ -8,7 +8,7 @@ export const orderLocaleUz = {
   ordersQuantityAll: "Mahsulotning umumiy narxi",
   ordersSalesmen: "Sotuvchi",
   ordersProductId: "Maxsulot codi",
-  ordersQuantity: "Maxsulot soni",
+  ordersQuantity: "Sotilgan mahsulot soni",
   ordersDetail: "Batafsil",
   ordersPrice: "Maxsulot narxi",
   createOrder: "Kirtilgan Vaqti",

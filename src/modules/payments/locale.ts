@@ -1,4 +1,5 @@
 export const paymentsLocaleUz = {
+  view: "To'lovlarni ko'rish",
   title: "To'lovlar",
   formTitle: "To'lovlar",
   salesman: "Sotuvchi",
@@ -21,6 +22,7 @@ export const paymentsLocaleUz = {
 };
 
 export const paymentsLocaleEn = {
+  view: "Payments view",
   title: "Payments",
   formTitle: "Payments",
   salesman: "Salesman",
