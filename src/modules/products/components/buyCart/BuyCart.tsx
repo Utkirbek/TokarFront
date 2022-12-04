@@ -1,6 +1,7 @@
 import "dayjs/locale/uz-latn";
 
 import ComponentToPrint from "@components/print/ComponentToPrint";
+import { SelectWithCreate } from "@components/SelectWithCreate";
 import TextEllipsis from "@components/TextEllipsis/TextEllipsis";
 import WithLoading from "@hoc/WithLoading";
 import useUser from "@hooks/shared/useUser";
@@ -14,7 +15,6 @@ import {
   NumberInput,
   ScrollArea,
   SegmentedControl,
-  Select,
   Text,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
@@ -43,7 +43,7 @@ const BuyCart: React.FC<{}> = () => {
     showSuccessNotification,
     showErrorNotification,
   } = useNotification();
-  const { useFetchUsers } = useUsers();
+  const { useFetchUsers, addUser } = useUsers();
   const { _id } = useUser();
 
   const handlePrint = useReactToPrint({
@@ -57,7 +57,7 @@ const BuyCart: React.FC<{}> = () => {
     initialValues: {
       paymentMethod: "cash",
       customer: "",
-      intialPayment: 0,
+      intialPayment: null,
       hasLoan: false,
     },
   });
@@ -217,19 +217,20 @@ const BuyCart: React.FC<{}> = () => {
               query={fetchUsersQuery}
               FallbackLoadingUI={FieldLoader}
             >
-              <Select
-                sx={{ margin: "10px 0" }}
-                placeholder={intl.formatMessage({
-                  id: "products.buyCart.whom",
-                })}
-                label={intl.formatMessage({ id: "products.buyCart.whom" })}
+              <SelectWithCreate
+                label="products.buyCart.whom"
+                placeholder="products.buyCart.whom"
                 data={fetchUsersQuery.data?.map((user: any) => {
                   return {
                     value: user._id,
                     label: user.name,
                   };
                 })}
-                {...form.getInputProps("customer")}
+                registerAs="customer"
+                form={form}
+                onCreate={(value) => {
+                  //TODO modal chiqarib user yaratish imkonini shu yerda berish kerak
+                }}
               />
             </WithLoading>
             {!!form.values.hasLoan && (
@@ -239,6 +240,7 @@ const BuyCart: React.FC<{}> = () => {
                     id: "products.buyCart.initialPayment",
                   })}
                   {...form.getInputProps("intialPayment")}
+                  precision={2}
                   hideControls
                 />
                 <DatePicker

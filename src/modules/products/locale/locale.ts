@@ -65,7 +65,7 @@ export const productsLocaleUz = {
     databolibtolash: "Bo'lib to'lash",
     totalPrice: "Umumiy Narxi",
     sale: "Sotish",
-    whom: "Kimga",
+    whom: "Mijoz",
     noProduct: "Sizda mahsulot qolmadi",
     enterDay: "Muddatni Kiriting",
     som: "so'm",

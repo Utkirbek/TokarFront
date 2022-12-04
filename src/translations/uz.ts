@@ -36,7 +36,7 @@ const uz = {
   loans: loanLocaleUz,
   payments: paymentsLocaleUz,
   sthWentWrong: "Xatolik yuz berdi",
-  emptyBox: "Sizng obringizda maxsulot qolmadi",
+  emptyBox: "Hech qanday ma'lumot topilmadi!",
   serverError: "Server ishlamayapti",
   pageNotFound: "sahifa topilmadi",
   saveCurrency: "Saqlash",

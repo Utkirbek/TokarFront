@@ -76,13 +76,13 @@ const OrdersTable = ({
         </td>
         <td className={classes.orderTD}>
           <Link
-            href={`/users?details=${item?.user?._id}`}
+            href={`/users?details=${item?.user?._id || item?.user}`}
             className={classes.orderUserLink}
           >
             {item?.user === null ? (
               <FormattedMessage id="orders.userNull" />
             ) : (
-              item?.user?.name
+              item?.user?.name || item?.user
             )}
           </Link>
         </td>
