@@ -88,7 +88,7 @@ const PaymentsForm: React.FC<{
 
   return (
     <>
-      <Box  className={classes.paymentBox} mx="auto">
+      <Box className={classes.paymentBox} mx="auto">
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <Text className={classes.paymentText}>
             <FormattedMessage id="payments.formTitle" />
@@ -117,7 +117,7 @@ const PaymentsForm: React.FC<{
 
           <WithLoading query={userLoanQuery} FallbackLoadingUI={FieldLoader}>
             <Select
-            className={classes.paymentSelect}
+              className={classes.paymentSelect}
               rightSection={<IconChevronDown size={14} />}
               rightSectionWidth={30}
               placeholder={intl.formatMessage({

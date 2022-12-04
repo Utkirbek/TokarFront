@@ -35,6 +35,7 @@ const OrdersDetails = ({ orders }: Props) => {
             alt="it's me"
           />
         </td>
+
         <td>
           <Link href={"/products"}>
             {prodItem?.product === null ? (
@@ -44,6 +45,7 @@ const OrdersDetails = ({ orders }: Props) => {
             )}
           </Link>
         </td>
+
         <td>
           {prodItem?.product === null ? (
             <FormattedMessage id="orders.userNull" />
