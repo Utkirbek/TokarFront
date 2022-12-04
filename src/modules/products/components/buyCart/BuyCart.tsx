@@ -33,7 +33,7 @@ import datas from "./data";
 import useStyles from "./styleCard";
 
 const BuyCart: React.FC<{}> = () => {
-  const { classes, cx } = useStyles();
+  const { classes } = useStyles();
   const componentRef = useRef(null);
 
   const intl = useIntl();
@@ -68,9 +68,10 @@ const BuyCart: React.FC<{}> = () => {
       {
         total: cartTotal,
         paymentMethod: values.paymentMethod,
-        loanTotal: values.hasLoan
-          ? cartTotal - values.intialPayment
-          : cartTotal,
+        loanTotal:
+          values.hasLoan && values.intialPayment > 0
+            ? cartTotal - values.intialPayment
+            : cartTotal,
         cashTotal: values.intialPayment,
         shouldPay: values.paymentDate,
         salesman: _id,
