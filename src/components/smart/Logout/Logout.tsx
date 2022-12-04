@@ -68,7 +68,7 @@ const Logout = () => {
   };
 
   return (
-    <Menu openDelay={100} closeDelay={400}>
+    <Menu openDelay={100} closeDelay={400} closeOnEscape zIndex={999}>
       <Menu shadow="md" width={250} withArrow>
         <Menu.Target>
           <Avatar
@@ -87,8 +87,7 @@ const Logout = () => {
             onClick={() => {
               router.push("/products");
             }}
-            icon={<IconBarcode size={18} />}
-          >
+            icon={<IconBarcode size={18} />}>
             <FormattedMessage id="logout.menuProduct" />
           </Menu.Item>
           <If hasPerm={Permissions.statistica.view}>
@@ -96,8 +95,7 @@ const Logout = () => {
               onClick={() => {
                 router.push("/");
               }}
-              icon={<IconChartLine size={18} />}
-            >
+              icon={<IconChartLine size={18} />}>
               <FormattedMessage id="logout.menuStatiks" />
             </Menu.Item>
           </If>
@@ -108,8 +106,7 @@ const Logout = () => {
                 ⌘K
               </Text>
             }
-            onClick={() => spotlight.openSpotlight()}
-          >
+            onClick={() => spotlight.openSpotlight()}>
             <FormattedMessage id="logout.menuSearch" />
           </Menu.Item>
           <Menu.Divider />
@@ -119,8 +116,7 @@ const Logout = () => {
           <Menu.Item
             color="red"
             onClick={openNotifDelete}
-            icon={<IconLogout size={18} />}
-          >
+            icon={<IconLogout size={18} />}>
             <FormattedMessage id="logout.title" />
           </Menu.Item>
         </Menu.Dropdown>
