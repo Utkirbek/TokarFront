@@ -28,7 +28,7 @@ import AuthStepper from "./components/AuthStepper";
 import useStyles from "./signInStyle";
 
 function SignIn() {
-  const [activeStep, setActiveStep] = useState<0 | 1 | 2>(0);
+  const [activeStep, setActiveStep] = useState<0 | 1 | 2 | 3>(0);
   const [status, setStatus] = useState<
     "idle" | "success" | "error" | "loading"
   >("idle");
@@ -108,13 +108,13 @@ function SignIn() {
       </Box>
     ),
     1: <ShopsWrapper onNext={() => setActiveStep(2)} />,
-    2: <ComponentCongrats />,
+    2: <ComponentCongrats onNext={() => setActiveStep(3)} />,
   };
 
   return (
     <Box className={classes.boxForm}>
       <AuthStepper activeStep={activeStep} loading={status === "loading"} />
-      {contents[activeStep]}
+      {contents[activeStep > 2 ? 2 : (activeStep as 0 | 1 | 2)]}
     </Box>
   );
 }
@@ -158,6 +158,9 @@ const ShopSelectSection = ({
     setCookie("shopName", chosenShop?.name, {
       expires: new Date(Date.now() + 86400000),
     });
+    setCookie("isLoggedIn", true, {
+      expires: new Date(Date.now() + 86400000),
+    });
     onNext();
   };
 
@@ -179,15 +182,13 @@ const ShopSelectSection = ({
   );
 };
 
-const ComponentCongrats = () => {
+const ComponentCongrats = ({ onNext }: { onNext: VoidFunction }) => {
   const { authNext } = useUser();
   const router = useRouter();
 
   React.useEffect(() => {
+    onNext();
     const timeout = setTimeout(() => {
-      setCookie("isLoggedIn", true, {
-        expires: new Date(Date.now() + 86400000),
-      });
       authNext();
       router.push("/");
     }, 2000);

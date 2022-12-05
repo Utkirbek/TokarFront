@@ -25,8 +25,8 @@ function DashLayout({ children }: { children: React.ReactNode }) {
   const { classes, cx } = useStyles();
   const theme = useMantineTheme();
   const router = useRouter();
-  const [opened, toggleOpened] = useToggle();
   const isLoggedIn = useUser(selectIsLoggedIn);
+  const isLoggedInCok = getCookie("isLoggedIn");
   const token = getCookie("token");
   const [activeId, setActiveId] = useState(null);
   const [fullView, toggleFullView] = useToggle();
@@ -37,7 +37,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
     color: "white",
   };
 
-  if (!isLoggedIn || !token || router.pathname === "/check")
+  if (!isLoggedIn || !isLoggedInCok || !token || router.pathname === "/check")
     return <>{children}</>;
 
   const links = data.map((item: any) => {
@@ -46,7 +46,8 @@ function DashLayout({ children }: { children: React.ReactNode }) {
         <Tooltip
           label={<FormattedMessage id={item.label} />}
           position="left"
-          withArrow>
+          withArrow
+        >
           <Link
             key={item.label}
             href={item.link}
@@ -54,7 +55,8 @@ function DashLayout({ children }: { children: React.ReactNode }) {
             onClick={() => setActiveId(item.id)}
             className={cx(classes.link, {
               linkActive: item.link === router.pathname,
-            })}>
+            })}
+          >
             <item.icon
               className={cx(classes.linkIcon, {
                 iconFull: !fullView,
@@ -95,7 +97,8 @@ function DashLayout({ children }: { children: React.ReactNode }) {
             position: !fullView ? "static" : "fixed",
             zIndex: 9,
           }}
-          p={fullView ? "md" : 0}>
+          p={fullView ? "md" : 0}
+        >
           <Box className={classes.container} m={0}>
             {!fullView && (
               <Text className={classes.link}>
@@ -115,7 +118,8 @@ function DashLayout({ children }: { children: React.ReactNode }) {
         <If condition={fullView}>
           <Header height={70} p="md">
             <Box
-              style={{ display: "flex", alignItems: "center", height: "100%" }}>
+              style={{ display: "flex", alignItems: "center", height: "100%" }}
+            >
               <Box className={classes.navDesh}>
                 <Burger opened={fullView} onClick={() => toggleFullView()} />
                 <Link href="/">
@@ -128,7 +132,8 @@ function DashLayout({ children }: { children: React.ReactNode }) {
             </Box>
           </Header>
         </If>
-      }>
+      }
+    >
       <Box px={fullView ? 0 : "xs"} sx={{ height: "100%" }}>
         {children}
       </Box>
