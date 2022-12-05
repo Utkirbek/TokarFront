@@ -1,3 +1,4 @@
+import useUser from "@hooks/shared/useUser";
 import { SpotlightAction } from "@mantine/spotlight";
 import { IconHome } from "@tabler/icons";
 import { removeCookies } from "cookies-next";
@@ -8,6 +9,7 @@ import { useIntl } from "react-intl";
 const useNavActions = () => {
   const intl = useIntl();
   const router = useRouter();
+  const { logout } = useUser();
 
   const actions: SpotlightAction[] = useMemo(() => {
     return [
@@ -46,6 +48,9 @@ const useNavActions = () => {
         description: intl.formatMessage({ id: "logout.description" }),
         onTrigger: () => {
           removeCookies("token");
+          removeCookies("shopId");
+          removeCookies("isLoggedIn");
+          logout();
           router.push("/auth/sign-in");
         },
         icon: <IconHome size={18} />,
