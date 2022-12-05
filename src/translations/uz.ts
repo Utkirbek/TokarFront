@@ -59,6 +59,7 @@ const uz = {
   statistics: {
     title: "Statistika",
     description: "Statistika ma'lumotlari",
+    name: "hafta",
   },
 
   OrdersDetail: {

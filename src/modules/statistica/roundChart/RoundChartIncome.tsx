@@ -40,8 +40,8 @@ class RoundChartIncome extends React.Component<any> {
               data={Data}
               margin={config.margin}
               innerRadius={0.4}
-              padAngle={0.7}
-              cornerRadius={3}
+              padAngle={3}
+              cornerRadius={8}
               activeOuterRadiusOffset={8}
               borderWidth={1}
               arcLinkLabelsSkipAngle={10}
@@ -53,7 +53,7 @@ class RoundChartIncome extends React.Component<any> {
               legends={config.legends}
               arcLinkLabelsTextColor={{
                 from: "color",
-                modifiers: [["darker", 1.2]],
+                modifiers: [["darker", 0.5]],
               }}
             />
 

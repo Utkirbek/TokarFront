@@ -1,4 +1,4 @@
-import { Box } from "@mantine/core";
+import { Box, ColorInput } from "@mantine/core";
 import { ResponsiveBar } from "@nivo/bar";
 import React from "react";
 
@@ -56,6 +56,13 @@ class BarChart extends React.Component<any> {
                 tickRotation: 30,
               }}
               labelTextColor={"red"}
+              defs={[
+                {
+                  id: "gradient",
+                  type: "linearGradient",
+                  colors: [{ color: "#000" }],
+                },
+              ]}
             />
             <style jsx>
               {`

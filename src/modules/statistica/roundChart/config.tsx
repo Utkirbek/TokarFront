@@ -1,5 +1,5 @@
 const config: any = {
-  margin: { top: 40, right: 80, bottom: 80, left: 80 },
+  margin: { top: 40, right: 80, bottom: 80, left: 30 },
   defs: [
     {
       id: "dots",
@@ -14,7 +14,7 @@ const config: any = {
       id: "lines",
       type: "patternLines",
       background: "inherit",
-      color: "rgba(255, 255, 255, 0.3)",
+      color: "rgba(255, 255, 25)",
       rotation: -45,
       lineWidth: 6,
       spacing: 10,
@@ -78,7 +78,7 @@ const config: any = {
       translateX: 0,
       translateY: 60,
       itemsSpacing: 35,
-      itemWidth: 70,
+      itemWidth: 50,
       itemHeight: 18,
       itemDirection: "left-to-right",
       itemOpacity: 1,
@@ -89,7 +89,7 @@ const config: any = {
         {
           on: "hover",
           style: {
-            itemTextColor: "#000",
+            itemTextColor: "#fff",
           },
         },
       ],
