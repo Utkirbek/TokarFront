@@ -1,6 +1,7 @@
 import TextEllipsis from "@components/TextEllipsis/TextEllipsis";
 import { Box, Button, clsx, Image, Text } from "@mantine/core";
 import { IconMinus, IconPhoto, IconPlus } from "@tabler/icons";
+import { floorLastThreeDigits, getNumber } from "@utils";
 import React from "react";
 import { useCart } from "react-use-cart";
 
@@ -35,7 +36,9 @@ const SalesCard: React.FC<{ item: any }> = ({ item }) => {
       addItem({
         id: item._id,
         ...item,
-        price: +item?.calculatedPrice,
+        price: getNumber(item.calculatedPrice)
+          ? floorLastThreeDigits(item.calculatedPrice)
+          : floorLastThreeDigits(item.price),
       });
     }
   };
@@ -73,7 +76,10 @@ const SalesCard: React.FC<{ item: any }> = ({ item }) => {
         <TextEllipsis text={item.title} maxChars={20} />
         <Box className={classes.cardButton}>
           <Text sx={{ fontWeight: "bold" }} fz="sm" fw={500}>
-            {+item?.calculatedPrice} UZS
+            {getNumber(item.calculatedPrice)
+              ? floorLastThreeDigits(item.calculatedPrice)
+              : floorLastThreeDigits(item.price)}{" "}
+            UZS
           </Text>
           <Button.Group>
             <Button

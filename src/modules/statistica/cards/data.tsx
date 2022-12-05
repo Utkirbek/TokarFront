@@ -125,21 +125,21 @@ export const infoData = {
   admins: {
     title: "Xodimlar",
     icon3d: "https://cdn.lordicon.com/amxnacxd.json",
-    decrtion: "Xodimlarning umumiy soni va o'shishi",
+    decrtion: "Xodimlarning umumiy soni va o'sishi",
   },
   users: {
-    title: "foydalanuvchlar",
+    title: "Foydalanuvchlar",
     icon3d: "https://cdn.lordicon.com/yrxnwkni.json",
-    decrtion: "Foydalanuvchilarning umumiy soni va o'shishi",
+    decrtion: "Foydalanuvchilarning umumiy soni va o'sishi",
   },
   products: {
-    title: "maxsulotlar",
+    title: "Maxsulotlar",
     icon3d: "https://cdn.lordicon.com/lpddubrl.json ",
-    decrtion: "Maxsulotlarning umumiy soni va o'shishi",
+    decrtion: "Maxsulotlarning umumiy soni va o'sishi",
   },
   kassa: {
-    title: "kassa",
+    title: "Kassa",
     icon3d: "https://cdn.lordicon.com/aloksxkv.json",
-    decrtion: "Sotilgan tavarlarning umumiy soni va o'shishi",
+    decrtion: "Sotilgan mahsulotlarning umumiy soni va o'sishi",
   },
 };

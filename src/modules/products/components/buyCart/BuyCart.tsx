@@ -1,6 +1,7 @@
 import "dayjs/locale/uz-latn";
 
 import ComponentToPrint from "@components/print/ComponentToPrint";
+import { SelectWithCreate } from "@components/SelectWithCreate";
 import TextEllipsis from "@components/TextEllipsis/TextEllipsis";
 import WithLoading from "@hoc/WithLoading";
 import useUser from "@hooks/shared/useUser";
@@ -14,7 +15,6 @@ import {
   NumberInput,
   ScrollArea,
   SegmentedControl,
-  Select,
   Text,
 } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
@@ -33,7 +33,7 @@ import datas from "./data";
 import useStyles from "./styleCard";
 
 const BuyCart: React.FC<{}> = () => {
-  const { classes, cx } = useStyles();
+  const { classes } = useStyles();
   const componentRef = useRef(null);
 
   const intl = useIntl();
@@ -43,7 +43,7 @@ const BuyCart: React.FC<{}> = () => {
     showSuccessNotification,
     showErrorNotification,
   } = useNotification();
-  const { useFetchUsers } = useUsers();
+  const { useFetchUsers, addUser } = useUsers();
   const { _id } = useUser();
 
   const handlePrint = useReactToPrint({
@@ -57,7 +57,7 @@ const BuyCart: React.FC<{}> = () => {
     initialValues: {
       paymentMethod: "cash",
       customer: "",
-      intialPayment: 0,
+      intialPayment: null,
       hasLoan: false,
     },
   });
@@ -68,7 +68,10 @@ const BuyCart: React.FC<{}> = () => {
       {
         total: cartTotal,
         paymentMethod: values.paymentMethod,
-        loanTotal: cartTotal.toFixed(2),
+        loanTotal:
+          values.hasLoan && values.intialPayment > 0
+            ? cartTotal - values.intialPayment
+            : cartTotal,
         cashTotal: values.intialPayment,
         shouldPay: values.paymentDate,
         salesman: _id,
@@ -150,15 +153,27 @@ const BuyCart: React.FC<{}> = () => {
                       />
                       {item.unit}
                       &nbsp;
-                      {item?.price}
+                      <ContentEditable
+                        value={(+item?.price).toFixed(0)}
+                        onFinish={(value) => {
+                          updateItem(item._id, {
+                            price: value,
+                          });
+                        }}
+                        style={{
+                          border: "0.2px solid",
+                          padding: "0 5px",
+                        }}
+                      />
                       <span>&nbsp;So&apos;m</span>
                     </Text>
                     <Text sx={{ fontWeight: "bold" }}>
                       <ContentEditable
-                        value={item.price * item.quantity}
+                        value={(item.price * item.quantity).toFixed(0)}
                         onFinish={(val) => {
+                          const price = +val / item.quantity;
                           updateItem(item._id, {
-                            price: +val,
+                            price,
                           });
                         }}
                         style={{
@@ -205,19 +220,20 @@ const BuyCart: React.FC<{}> = () => {
               query={fetchUsersQuery}
               FallbackLoadingUI={FieldLoader}
             >
-              <Select
-                sx={{ margin: "10px 0" }}
-                placeholder={intl.formatMessage({
-                  id: "products.buyCart.whom",
-                })}
-                label={intl.formatMessage({ id: "products.buyCart.whom" })}
+              <SelectWithCreate
+                label="products.buyCart.whom"
+                placeholder="products.buyCart.whom"
                 data={fetchUsersQuery.data?.map((user: any) => {
                   return {
                     value: user._id,
                     label: user.name,
                   };
                 })}
-                {...form.getInputProps("customer")}
+                registerAs="customer"
+                form={form}
+                onCreate={(value) => {
+                  //TODO modal chiqarib user yaratish imkonini shu yerda berish kerak
+                }}
               />
             </WithLoading>
             {!!form.values.hasLoan && (
@@ -227,6 +243,7 @@ const BuyCart: React.FC<{}> = () => {
                     id: "products.buyCart.initialPayment",
                   })}
                   {...form.getInputProps("intialPayment")}
+                  precision={2}
                   hideControls
                 />
                 <DatePicker

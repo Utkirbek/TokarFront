@@ -12,6 +12,7 @@ export const commonUz = {
   clear: "Tozalash",
   noSearchResults: "Qidiruv natijasi topilmadi",
   next: "Keyingi",
+  nothingFound: "Hech narsa topilmadi",
 };
 
 export const commonEn = {
@@ -28,4 +29,5 @@ export const commonEn = {
   clear: "Clear",
   noSearchResults: "Qidiruv natijasi topilmadi",
   next: "Next",
+  nothingFound: "Nothing found",
 };

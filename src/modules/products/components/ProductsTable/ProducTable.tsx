@@ -7,8 +7,9 @@ import { useToggle } from "@mantine/hooks";
 import productFetchers from "@services/api/productFetchers";
 import { IconTable } from "@tabler/icons";
 import { Permissions } from "@utils/constants";
+import { useRouter } from "next/router";
 import { memo, useCallback, useState } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { useCart } from "react-use-cart";
 
 import BuyCart from "../buyCart/BuyCart";
@@ -36,12 +37,14 @@ function ProductsTable({
   toggleMinQuantity: (bool?: boolean) => void;
   toggleNoPrice: (bool?: boolean) => void;
 }) {
-  const [editItem, setEditItem] = useState({});
+  const [editItem, setEditItem] = useState<{ _id?: string }>({});
   const [searchResults, setSearchResults] = useState([]);
   const [opened, toggleOpened] = useToggle();
   const [salesView, toggleSalesView] = useToggle();
   const [isResultsActive, toggleResultsActive] = useToggle();
 
+  const intl = useIntl();
+  const router = useRouter();
   const { isEmpty } = useCart();
 
   const onEdit = useCallback((item: any) => {
@@ -70,14 +73,35 @@ function ProductsTable({
         case "min_quantity":
           if (noPrice) toggleNoPrice(false);
           toggleMinQuantity();
+          router.push("/products", {
+            query: {
+              min_quantity: !minQuantity,
+              no_price: false,
+              page: 1,
+            },
+          });
           break;
         case "no_price":
           if (minQuantity) toggleMinQuantity(false);
           toggleNoPrice();
+          router.push("/products", {
+            query: {
+              min_quantity: false,
+              no_price: !noPrice,
+              page: 1,
+            },
+          });
           break;
         default:
           if (minQuantity) toggleMinQuantity(false);
           if (noPrice) toggleNoPrice(false);
+          router.push("/products", {
+            query: {
+              min_quantity: false,
+              no_price: false,
+              page: page,
+            },
+          });
           break;
       }
     },
@@ -88,7 +112,20 @@ function ProductsTable({
 
   return (
     <Box sx={{ height: "100%" }}>
-      <FormDrawer {...{ opened, toggleOpened }}>
+      <FormDrawer
+        {...{
+          opened,
+          toggleOpened,
+          title: intl.formatMessage(
+            {
+              id: "products.addEdit",
+            },
+            {
+              isNew: !editItem._id,
+            }
+          ),
+        }}
+      >
         <ScrollArea
           style={{ height: "100%", paddingBottom: 60 }}
           scrollbarSize={2}
