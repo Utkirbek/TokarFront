@@ -63,8 +63,6 @@ const OrdersTable = ({
     });
 
   const rows = dataorder?.map((item: any) => {
-    console.log(item);
-
     return (
       <tr key={item._id}>
         <td className={classes.orderTD}>
