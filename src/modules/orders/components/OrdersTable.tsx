@@ -63,6 +63,8 @@ const OrdersTable = ({
     });
 
   const rows = dataorder?.map((item: any) => {
+    console.log(item);
+
     return (
       <tr key={item._id}>
         <td className={classes.orderTD}>
@@ -78,12 +80,11 @@ const OrdersTable = ({
         <td className={classes.orderTD}>
           <Link
             href={`/users?details=${item?.user?._id || item?.user}`}
-            className={classes.orderUserLink}
-          >
-            {item?.user === null ? (
-              <FormattedMessage id="orders.userNull" />
-            ) : (
+            className={classes.orderUserLink}>
+            {item?.user ? (
               item?.user?.name || item?.user
+            ) : (
+              <FormattedMessage id="orders.userNull" />
             )}
           </Link>
         </td>
@@ -132,8 +133,7 @@ const OrdersTable = ({
                   details: item._id,
                 },
               });
-            }}
-          >
+            }}>
             <FormattedMessage id="more" />
           </Button>
         </td>
@@ -147,6 +147,7 @@ const OrdersTable = ({
         <TableHead
           data={{
             ordersSalesmen: true,
+            orderUser: true,
             paymentOrder: true,
             createOrder: true,
             updateOrder: true,

@@ -31,7 +31,7 @@ export const orderLocaleUz = {
   useExtra: "Mahsulotga tavsif",
   userExtra: "Mahsulotga",
   newTime: "Yangilangan vaqt",
-  userNull: "Topilmadi",
+  userNull: "Tanlanmagan",
   userPhone: "Raqami",
   userworkplace: "Ish joyi",
   userExtr: "Qo'shimcha malumot",
