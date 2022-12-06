@@ -1,23 +1,31 @@
+import WithLoading from "@hoc/WithLoading";
 import { SimpleGrid } from "@mantine/core";
-import statisticFetchers from "@services/api/statisticFetchers";
+import statisticsFetchers from "@services/api/statisticsFetchers";
 import { RequestQueryKeys } from "@utils/constants";
 import useSWR from "swr";
 
 import StatsGrid from "./cards/StatsGrid";
-import ProfitsBar from "./nivoChartBottom/NivoChart";
+import ProfitsBar from "./nivoChartBottom/ProfitsBar";
 import RoundChart from "./roundChart/RoundChart";
 import StatisticsHeadSkeleton from "./Skleton";
 
-function Statistica() {
-  const statistic = useSWR(
+function Statistics() {
+  const statisticInfoQuery = useSWR(
     RequestQueryKeys.statistics,
-    statisticFetchers.getStatistic
+    statisticsFetchers.getStatistics
   );
-  const { data } = statistic;
-  if (!data) return <StatisticsHeadSkeleton />;
+
+  const { data } = statisticInfoQuery;
+
   return (
     <div>
-      <StatsGrid cardData={data} />
+      <WithLoading
+        withRenderProps
+        query={statisticInfoQuery}
+        FallbackLoadingUI={StatisticsHeadSkeleton}
+      >
+        <StatsGrid data={data} />
+      </WithLoading>
       <SimpleGrid
         cols={3}
         spacing="lg"
@@ -36,4 +44,4 @@ function Statistica() {
   );
 }
 
-export default Statistica;
+export default Statistics;

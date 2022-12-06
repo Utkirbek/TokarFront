@@ -67,6 +67,7 @@ export enum RequestQueryKeys {
   addShop = "addShop",
   updateShop = "updateShop",
   deleteShop = "deleteShop",
+  GET_PROFIT_BAR = "getProfitBar",
 }
 
 export const Permissions = {
@@ -117,7 +118,7 @@ export const Permissions = {
   payments: {
     view: "payments.view",
   },
-  statistica: {
+  statistics: {
     view: "statistics.view",
   },
   settings: {
