@@ -1,6 +1,9 @@
-import { Box, ColorInput } from "@mantine/core";
-import { ResponsiveBar } from "@nivo/bar";
+import { Box } from "@mantine/core";
+import { ResponsivePie } from "@nivo/pie";
 import React from "react";
+
+import config from "./config";
+import data from "./data";
 
 class BarChart extends React.Component<any> {
   constructor(props: { sitatisticStaffSalary: any }) {
@@ -11,8 +14,10 @@ class BarChart extends React.Component<any> {
     const propData = this.props.sitatisticStaffSalary;
     for (let i: number = 0; i < propData.length; i++) {
       let d: any = {
-        ranking: propData?.[i]?.name,
+        id: propData?.[i]?.name,
+        label: propData?.[i]?.name,
         value: propData?.[i]?.value,
+        color: data?.[i]?.color,
       };
       Data.push(d);
     }
@@ -32,37 +37,25 @@ class BarChart extends React.Component<any> {
                 : theme.colors.gray[0],
           })}>
           <div className="chart">
-            <ResponsiveBar
+            <ResponsivePie
               data={Data}
-              keys={["value"]}
-              indexBy="ranking"
-              margin={{
-                top: 20,
-                right: 0,
-                bottom: 50,
-                left: 60,
+              margin={config.margin}
+              innerRadius={0.4}
+              padAngle={3}
+              cornerRadius={8}
+              activeOuterRadiusOffset={8}
+              borderWidth={1}
+              arcLinkLabelsSkipAngle={10}
+              arcLinkLabelsThickness={3}
+              arcLinkLabelsColor={{ from: "color" }}
+              arcLabelsSkipAngle={10}
+              defs={config.defs}
+              fill={config.fill}
+              legends={config.legends}
+              arcLinkLabelsTextColor={{
+                from: "color",
+                modifiers: [["darker", 0.5]],
               }}
-              padding={0.6}
-              groupMode="grouped"
-              colors="rgb(232, 168, 56)"
-              axisTop={null}
-              axisRight={null}
-              enableGridX
-              enableGridY
-              enableLabel={false}
-              axisBottom={{
-                tickSize: 0,
-                tickPadding: 20,
-                tickRotation: 30,
-              }}
-              labelTextColor={"red"}
-              defs={[
-                {
-                  id: "gradient",
-                  type: "linearGradient",
-                  colors: [{ color: "#000" }],
-                },
-              ]}
             />
             <style jsx>
               {`

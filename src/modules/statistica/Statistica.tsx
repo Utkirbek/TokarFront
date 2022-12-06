@@ -8,7 +8,7 @@ import { RequestQueryKeys } from "@utils/constants";
 import useSWR from "swr";
 
 import StatsGrid from "./cards/StatsGrid";
-import NivoChart from "./nivoChartBottom/NivoChart";
+import ProfitsBar from "./nivoChartBottom/NivoChart";
 import RoundChartIncome from "./roundChart/RoundChartIncome";
 import RoundChartSpend from "./roundChart/RoundChartSpend";
 import RoundChartStaffSalary from "./roundChart/RoundChartStaffSalary";
@@ -67,7 +67,7 @@ function Statistica() {
           />
         </WithLoading>
       </SimpleGrid>
-      <NivoChart />
+      <ProfitsBar />
     </div>
   );
 }

@@ -5,7 +5,7 @@ import React from "react";
 import data from "../cards/data";
 import config from "./config";
 
-class NivoChart extends React.Component {
+class ProfitsBar extends React.Component {
   render() {
     return (
       <Box
@@ -28,7 +28,7 @@ class NivoChart extends React.Component {
           data={data}
           groupMode="grouped"
           keys={config.keys}
-          indexBy="country"
+          indexBy="week"
           margin={config.margin}
           padding={0}
           valueScale={{ type: "linear" }}
@@ -49,7 +49,7 @@ class NivoChart extends React.Component {
           ariaLabel="Nivo bar chart demo"
           barAriaLabel={function (e) {
             return (
-              e.id + ": " + e.formattedValue + " in country: " + e.indexValue
+              e.id + ": " + e.formattedValue + " Kunlarda: " + e.indexValue
             );
           }}
         />
@@ -57,4 +57,4 @@ class NivoChart extends React.Component {
     );
   }
 }
-export default NivoChart;
+export default ProfitsBar;

@@ -8,6 +8,7 @@ import tableNameData from "@modules/orders/const/tableTitleName";
 import { orderLocaleUz } from "@modules/orders/locale";
 import { paymentsLocaleUz } from "@modules/payments/locale";
 import { productsLocaleUz } from "@modules/products/locale/locale";
+import { profitLocaleUz } from "@modules/profit/locale";
 import { rolesLocaleUz } from "@modules/roles/locale";
 import { permissionsLocaleUz } from "@modules/settings/locale";
 import { shopLocalUz } from "@modules/shopes/locale/locale";
@@ -35,6 +36,7 @@ const uz = {
   orderTil: tableNameData,
   loans: loanLocaleUz,
   payments: paymentsLocaleUz,
+  profit: profitLocaleUz,
   sthWentWrong: "Xatolik yuz berdi",
   emptyBox: "Hech qanday ma'lumot topilmadi!",
   serverError: "Server ishlamayapti",

@@ -1,6 +1,7 @@
 import {
   IconBarcode,
   IconBrandShopee,
+  IconBusinessplan,
   IconChartLine,
   IconCoin,
   IconList,
@@ -89,6 +90,13 @@ const data = [
     label: "shopes.sidebarTitle",
     icon: IconBrandShopee,
     permission: "shop.view",
+  },
+  {
+    id: 13,
+    link: "/profit",
+    label: "profit.sidebarTitle",
+    icon: IconBusinessplan,
+    permission: "profit.view",
   },
 ];
 export default data;

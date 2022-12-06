@@ -1,5 +1,13 @@
 const config: any = {
-  keys: ["hot dog", "burger", "sandwich", "kebab", "fries", "donut"],
+  keys: [
+    "dushanba",
+    "seshanba",
+    "chorshanba",
+    "payshanba",
+    "juma",
+    "shanba",
+    "yakshanba",
+  ],
   margin: { top: 50, right: 130, bottom: 50, left: 60 },
   defs: [
     {
@@ -24,13 +32,13 @@ const config: any = {
   fill: [
     {
       match: {
-        id: "fries",
+        id: "yakshanba",
       },
       id: "dots",
     },
     {
       match: {
-        id: "sandwich",
+        id: "chorshanba",
       },
       id: "lines",
     },
@@ -39,7 +47,7 @@ const config: any = {
     tickSize: 5,
     tickPadding: 5,
     tickRotation: 0,
-    legend: "country",
+    legend: "Foyda jadvali",
     legendPosition: "middle",
     legendOffset: 32,
   },
@@ -47,7 +55,7 @@ const config: any = {
     tickSize: 5,
     tickPadding: 5,
     tickRotation: 0,
-    legend: "food",
+    legend: "Foyda jadvali",
     legendPosition: "middle",
     legendOffset: -40,
   },
@@ -55,6 +63,7 @@ const config: any = {
     from: "color",
     modifiers: [["darker", 1.6]],
   },
+
   borderColor: {
     from: "color",
     modifiers: [["darker", 1.6]],
@@ -73,11 +82,13 @@ const config: any = {
       itemDirection: "left-to-right",
       itemOpacity: 0.85,
       symbolSize: 20,
+      itemTextColor: "rgb(151, 227, 213)",
       effects: [
         {
           on: "hover",
           style: {
             itemOpacity: 1,
+            itemTextColor: "#fff",
           },
         },
       ],

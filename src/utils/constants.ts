@@ -161,4 +161,7 @@ export const Permissions = {
     },
     shop: "shop.view",
   },
+  profit: {
+    view: "profit.view",
+  },
 };
