@@ -1,7 +1,8 @@
 import { Autocomplete, Button, Tooltip } from "@mantine/core";
-import { IconSquareLetterX } from "@tabler/icons";
+import useStyles from "@modules/products/components/form/style/inputStyle";
+import { IconSearch } from "@tabler/icons";
 import { useCallback, useEffect, useState } from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 
 type Props = {
   onSearchResults: (value: any) => void;
@@ -18,6 +19,7 @@ function SearchAutoComplete({
 }: Props) {
   const [value, setValue] = useState("");
   const intl = useIntl();
+  const { classes } = useStyles();
 
   const handleSearch = useCallback(() => {
     if (value.length > 0) {
@@ -48,6 +50,7 @@ function SearchAutoComplete({
         onChange={setValue}
         placeholder="Start typing to see options"
         data={data}
+        className={classes.search}
         rightSection={
           <Button.Group>
             <Tooltip label={intl.formatMessage({ id: "clear" })}>
@@ -59,11 +62,11 @@ function SearchAutoComplete({
                   setValue("");
                 }}
               >
-                <IconSquareLetterX color="red" />
+                X
               </Button>
             </Tooltip>
-            <Button onClick={handleSearch}>
-              <FormattedMessage id="search" />
+            <Button style={{ width: 55 }} onClick={handleSearch}>
+              <IconSearch />
             </Button>
           </Button.Group>
         }
