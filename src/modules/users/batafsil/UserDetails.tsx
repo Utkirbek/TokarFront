@@ -1,4 +1,3 @@
-import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import TableHead from "@components/Table/TableHead";
 import {
   Avatar,
@@ -23,7 +22,7 @@ const UserDetails = () => {
 
   const query = queryString.parse(router.asPath.split("?")[1]);
   const userDetail = useSWR(
-    [RequestQueryKeys.userId, query.details],
+    !!query.details ? [RequestQueryKeys.userId, query.details] : null,
     (_, id) => {
       return userFetcher.getUsersId(id as string);
     }
