@@ -78,26 +78,24 @@ function SignIn() {
             <FormattedMessage id="signIn.title" />
           </Text>
           <TextInput
+            required
             withAsterisk
             label={intl.formatMessage({ id: "signIn.textLabel" })}
             placeholder={intl.formatMessage({ id: "signIn.textPlaceholder" })}
             {...form.getInputProps("email")}
             my={10}
-            id="email"
-            name="email"
-            type="email"
-            required
+            type="text"
+            autoComplete="off"
           />
           <PasswordInput
+            required
+            withAsterisk
             label={intl.formatMessage({ id: "signIn.passwordLabel" })}
             placeholder={intl.formatMessage({
               id: "signIn.passwordPlaceholder",
             })}
             {...form.getInputProps("password")}
-            id="password"
-            name="password"
-            autoComplete={"current-password"}
-            required
+            autoComplete={"off"}
           />
           <Group position="right" mt="md">
             <Button loading={status === "loading"} type="submit">

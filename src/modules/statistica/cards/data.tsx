@@ -1,5 +1,5 @@
 const data: {
-  week: string;
+  xafta: string;
   dushanba: number;
   dushanbaColor: string;
   seshanba: number;
@@ -16,7 +16,7 @@ const data: {
   yakshanbaColor: string;
 }[] = [
   {
-    week: "1 Hafta",
+    xafta: "1 Hafta",
     dushanba: 65,
     dushanbaColor: "hsl(350, 70%, 50%)",
     seshanba: 7,
@@ -33,7 +33,7 @@ const data: {
     yakshanbaColor: "hsl(35, 70%, 50%)",
   },
   {
-    week: "Hafta 2",
+    xafta: "Hafta 2",
     dushanba: 173,
     dushanbaColor: "hsl(296, 70%, 50%)",
     seshanba: 56,
@@ -50,7 +50,7 @@ const data: {
     yakshanbaColor: "hsl(35, 70%, 50%)",
   },
   {
-    week: "Hafta 3",
+    xafta: "Hafta 3",
     dushanba: 12,
     dushanbaColor: "hsl(327, 70%, 50%)",
     seshanba: 84,
@@ -67,7 +67,7 @@ const data: {
     yakshanbaColor: "hsl(35, 70%, 50%)",
   },
   {
-    week: "Hafta 4",
+    xafta: "Hafta 4",
     dushanba: 28,
     dushanbaColor: "hsl(15, 70%, 50%)",
     seshanba: 47,
@@ -90,7 +90,7 @@ export const infoData = {
   admins: {
     title: "Xodimlar",
     icon3d: "https://cdn.lordicon.com/amxnacxd.json",
-    decrtion: "Xodimlarning umumiy soni va o'sishi",
+    decrtion: "Xodimlarning umumiy narxi va o'sishi",
   },
   users: {
     title: "Foydalanuvchlar",

@@ -91,7 +91,7 @@ const Logout = () => {
           >
             <FormattedMessage id="logout.menuProduct" />
           </Menu.Item>
-          <If hasPerm={Permissions.statistica.view}>
+          <If hasPerm={Permissions.statistics.view}>
             <Menu.Item
               onClick={() => {
                 router.push("/");

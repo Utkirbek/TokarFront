@@ -1,14 +1,16 @@
+import TextEllipsis from "@components/TextEllipsis/TextEllipsis";
 import { Box, Group, Paper, SimpleGrid, Text } from "@mantine/core";
 import { IconArrowDownRight, IconArrowUpRight } from "@tabler/icons";
+import { floorLastThreeDigits } from "@utils";
 import { FormattedMessage } from "react-intl";
 
 import { infoData } from "./data";
 import { useStyles } from "./Style";
 
-function StatsGrid({ cardData }: any) {
+function StatsGrid({ data }: any) {
   const { classes } = useStyles();
 
-  const stats = Object.entries(cardData)?.map(
+  const stats = Object.entries(data)?.map(
     ([key, stat]: [any, any], id: any) => {
       const DiffIcon = stat.diff > 0 ? IconArrowUpRight : IconArrowDownRight;
 
@@ -27,21 +29,26 @@ function StatsGrid({ cardData }: any) {
                 </Text>
               </Group>
               <Group align="flex-end" spacing="xs" mt={25}>
-                <Text className={classes.value}>{stat.total}</Text>
+                <Text className={classes.value}>
+                  {floorLastThreeDigits(stat.total)}
+                </Text>
                 <Text
                   color={stat.diff > 0 ? "teal" : "red"}
                   size="sm"
                   weight={500}
                   className={classes.diff}
                 >
-                  <span>{stat.diff}%</span>
+                  <span>{floorLastThreeDigits(stat.diff)}%</span>
                   <DiffIcon size={16} stroke={1.5} />
                 </Text>
               </Group>
 
-              <Text size="xs" color="dimmed" mt={7}>
-                {infoData[key as "admins"].decrtion}
-              </Text>
+              <TextEllipsis
+                text={infoData[key as "admins"].decrtion}
+                size="xs"
+                color="dimmed"
+                mt={7}
+              />
             </Box>
             <Box>
               <lord-icon

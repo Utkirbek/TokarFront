@@ -64,12 +64,16 @@ export enum RequestQueryKeys {
   getSitatisticsIncome = "getSitatisticsIncome",
   getSitatisticsStaffSalary = "getSitatisticsStaffSalary",
   getLoanUserID = "loanUserID",
-  statistics = "statistics",
   userId = "user",
   getShop = "getShop",
   addShop = "addShop",
   updateShop = "updateShop",
   deleteShop = "deleteShop",
+  GET_PROFIT_BAR = "getProfitBar",
+  GET_STAFF_SALARY = "getStaffSalary",
+  GET_STATS = "getStats",
+  GET_SPENT = "getSpent",
+  GET_INCOME = "getIncome",
 }
 
 export const Permissions = {
@@ -120,7 +124,7 @@ export const Permissions = {
   payments: {
     view: "payments.view",
   },
-  statistica: {
+  statistics: {
     view: "statistics.view",
   },
   settings: {

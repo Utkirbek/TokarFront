@@ -140,6 +140,10 @@ const uz = {
     confirm: "Ha",
     cancel: "Yo'q",
   },
+
+  income: "Kirim",
+  spent: "Chiqim",
+  staffSalary: "Xodimlar uchun ish haqi",
 };
 
 export default uz;

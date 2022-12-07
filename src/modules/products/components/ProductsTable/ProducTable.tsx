@@ -15,6 +15,7 @@ import { useCart } from "react-use-cart";
 import BuyCart from "../buyCart/BuyCart";
 import CardView from "../CardView";
 import FormProduct from "../form/FormAdd";
+import useStyles from "../form/style/inputStyle";
 import TableView from "../TableView";
 import ProductDetails from "./components/ProductDetails";
 
@@ -46,6 +47,7 @@ function ProductsTable({
   const intl = useIntl();
   const router = useRouter();
   const { isEmpty } = useCart();
+  const { classes } = useStyles();
 
   const onEdit = useCallback((item: any) => {
     setEditItem(item);
@@ -142,6 +144,7 @@ function ProductsTable({
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          flexWrap: "wrap",
         }}
       >
         <Button
@@ -158,7 +161,11 @@ function ProductsTable({
             onClear={onSearchClear}
             fetcher={productFetchers.getProductByTitle}
           />
-          <Button onClick={handleClick} variant={"outline"}>
+          <Button
+            className={classes.add}
+            onClick={handleClick}
+            variant={"outline"}
+          >
             <FormattedMessage id="products.add" />
           </Button>
         </If>
