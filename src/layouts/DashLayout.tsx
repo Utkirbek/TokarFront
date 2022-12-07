@@ -1,3 +1,4 @@
+import BottomNavigation from "@components/BottomNavigation/BottomNavigation";
 import If from "@components/smart/If";
 import Logout from "@components/smart/Logout";
 import { selectIsLoggedIn } from "@hooks/selectors";
@@ -12,7 +13,7 @@ import {
   Tooltip,
   useMantineTheme,
 } from "@mantine/core";
-import { useToggle } from "@mantine/hooks";
+import { useMediaQuery, useToggle } from "@mantine/hooks";
 import data from "@modules/layout/dataSidebar";
 import useStyles from "@modules/layout/style/dashStyle";
 import { getCookie } from "cookies-next";
@@ -31,6 +32,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
   const [activeId, setActiveId] = useState(null);
   const [fullView, toggleFullView] = useToggle();
   const shopName = getCookie("shopName");
+  const isMobile = useMediaQuery("(max-width: 600px)");
 
   const activeStyle = {
     background: "#1864AB",
@@ -87,32 +89,36 @@ function DashLayout({ children }: { children: React.ReactNode }) {
       navbarOffsetBreakpoint="xs"
       asideOffsetBreakpoint="xs"
       navbar={
-        <Navbar
-          hiddenBreakpoint="sm"
-          width={{
-            xs: fullView ? 200 : "min-content",
-            lg: fullView ? 220 : "min-content",
-          }}
-          sx={{
-            position: !fullView ? "static" : "fixed",
-            zIndex: 9,
-          }}
-          p={fullView ? "md" : 0}
-        >
-          <Box className={classes.container} m={0}>
-            {!fullView && (
-              <Text className={classes.link}>
-                <Burger
-                  size={"sm"}
-                  opened={fullView}
-                  onClick={() => toggleFullView()}
-                />
-              </Text>
-            )}
+        !isMobile ? (
+          <Navbar
+            hiddenBreakpoint="sm"
+            width={{
+              xs: fullView ? "100%" : "min-content",
+              lg: fullView ? 220 : "min-content",
+            }}
+            sx={{
+              position: !fullView ? "static" : "fixed",
+              zIndex: 9,
+            }}
+            p={fullView ? "md" : 0}
+          >
+            <Box className={classes.container} m={0}>
+              {!fullView && (
+                <Text className={classes.link}>
+                  <Burger
+                    size={"sm"}
+                    opened={fullView}
+                    onClick={() => toggleFullView()}
+                  />
+                </Text>
+              )}
 
-            {links}
-          </Box>
-        </Navbar>
+              {links}
+            </Box>
+          </Navbar>
+        ) : (
+          <></>
+        )
       }
       header={
         <If condition={fullView}>
@@ -137,6 +143,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
       <Box px={fullView ? 0 : "xs"} sx={{ height: "100%" }}>
         {children}
       </Box>
+      {isMobile && <BottomNavigation />}
     </AppShell>
   );
 }

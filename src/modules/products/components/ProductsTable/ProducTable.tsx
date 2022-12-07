@@ -2,10 +2,18 @@ import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import FormDrawer from "@components/Drawer/FormDrawer";
 import SearchAutoComplete from "@components/SearchAutoComplete";
 import If from "@components/smart/If";
-import { Box, Button, Chip, Grid, Pagination, ScrollArea } from "@mantine/core";
-import { useToggle } from "@mantine/hooks";
+import {
+  ActionIcon,
+  Box,
+  Button,
+  Chip,
+  Grid,
+  Pagination,
+  ScrollArea,
+} from "@mantine/core";
+import { useMediaQuery, useToggle } from "@mantine/hooks";
 import productFetchers from "@services/api/productFetchers";
-import { IconTable } from "@tabler/icons";
+import { IconPlus, IconTable } from "@tabler/icons";
 import { Permissions } from "@utils/constants";
 import { useRouter } from "next/router";
 import { memo, useCallback, useState } from "react";
@@ -43,6 +51,8 @@ function ProductsTable({
   const [opened, toggleOpened] = useToggle();
   const [salesView, toggleSalesView] = useToggle();
   const [isResultsActive, toggleResultsActive] = useToggle();
+
+  const isMobile = useMediaQuery("(max-width: 600px)");
 
   const intl = useIntl();
   const router = useRouter();
@@ -143,31 +153,29 @@ function ProductsTable({
         sx={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
           flexWrap: "wrap",
+          gap: 5,
         }}
       >
-        <Button
-          style={{ marginRight: 15 }}
-          variant="light"
-          onClick={() => toggleSalesView()}
-        >
+        <Button variant="light" onClick={() => toggleSalesView()}>
           <IconTable />
         </Button>
+        <SearchAutoComplete
+          searchResults={searchResults}
+          onSearchResults={onSearchResults}
+          onClear={onSearchClear}
+          fetcher={productFetchers.getProductByTitle}
+        />
         <If hasPerm={Permissions.products.create}>
-          <SearchAutoComplete
-            searchResults={searchResults}
-            onSearchResults={onSearchResults}
-            onClear={onSearchClear}
-            fetcher={productFetchers.getProductByTitle}
-          />
-          <Button
-            className={classes.add}
-            onClick={handleClick}
-            variant={"outline"}
-          >
-            <FormattedMessage id="products.add" />
-          </Button>
+          <If condition={!isMobile}>
+            <Button
+              className={classes.add}
+              onClick={handleClick}
+              variant={"outline"}
+            >
+              <FormattedMessage id="products.add" />
+            </Button>
+          </If>
         </If>
       </Box>
 
@@ -260,6 +268,20 @@ function ProductsTable({
         </If>
       </Grid>
       <ProductDetails products={data} />
+      {isMobile && (
+        <ActionIcon
+          onClick={handleClick}
+          variant="filled"
+          sx={{
+            position: "fixed",
+            bottom: 60,
+            right: 20,
+          }}
+          size="lg"
+        >
+          <IconPlus />
+        </ActionIcon>
+      )}
     </Box>
   );
 }

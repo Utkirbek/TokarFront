@@ -16,6 +16,7 @@ import { expensesLocaleUz } from "@modules/spend/locale";
 import { usersLocaleUz } from "@modules/users/locale/locale";
 import { checkTilUz, userTilUz } from "@modules/users/locale/localetil";
 
+import { salesLocaleUz } from "./../modules/sales/locale";
 import { commonUz } from "./common/common";
 
 const uz = {
@@ -37,6 +38,7 @@ const uz = {
   loans: loanLocaleUz,
   payments: paymentsLocaleUz,
   profit: profitLocaleUz,
+  sales: salesLocaleUz,
   sthWentWrong: "Xatolik yuz berdi",
   emptyBox: "Hech qanday ma'lumot topilmadi!",
   serverError: "Server ishlamayapti",

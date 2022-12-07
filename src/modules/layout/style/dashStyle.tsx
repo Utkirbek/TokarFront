@@ -81,7 +81,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
     },
     navDesh: {
       width: "97%",
-      margin: "0  auto",
+      margin: "0 auto",
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",

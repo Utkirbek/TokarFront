@@ -1,4 +1,5 @@
 import { Autocomplete, Button, Tooltip } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import useStyles from "@modules/products/components/form/style/inputStyle";
 import { IconSearch } from "@tabler/icons";
 import { useCallback, useEffect, useState } from "react";
@@ -18,6 +19,8 @@ function SearchAutoComplete({
   onClear,
 }: Props) {
   const [value, setValue] = useState("");
+  const isMobile = useMediaQuery("(max-width: 600px)");
+
   const intl = useIntl();
   const { classes } = useStyles();
 
@@ -45,12 +48,15 @@ function SearchAutoComplete({
   return (
     <>
       <Autocomplete
-        sx={{ flexGrow: 1, marginRight: 80 }}
+        className={classes.search}
+        sx={{
+          flexGrow: 1,
+          marginRight: !isMobile ? 60 : 15,
+        }}
         value={value}
         onChange={setValue}
         placeholder="Start typing to see options"
         data={data}
-        className={classes.search}
         rightSection={
           <Button.Group>
             <Tooltip label={intl.formatMessage({ id: "clear" })}>

@@ -148,14 +148,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
 
             <td>{item.quantity}</td>
             <td>
-              <div
-                style={{
-                  width: 200,
-                  display: "flex",
-                  gap: 20,
-                  marginRight: -90,
-                }}
-              >
+              <Group>
                 <ActionIcon>
                   <IconPencil
                     style={{ cursor: "pointer", marginTop: "5px" }}
@@ -176,17 +169,11 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
                     <FormattedMessage id="products.buy" />
                   </Button>
                 </If>
-              </div>
+              </Group>
             </td>
 
-            <td style={{ padding: "0  40px" }}>
-              <Button
-                variant="outline"
-                style={{
-                  marginTop: "5px",
-                }}
-                onClick={() => showDetails(item._id)}
-              >
+            <td>
+              <Button variant="outline" onClick={() => showDetails(item._id)}>
                 <FormattedMessage id="products.details" />
               </Button>
             </td>

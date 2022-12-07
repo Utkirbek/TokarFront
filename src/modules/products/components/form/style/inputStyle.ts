@@ -7,7 +7,7 @@ const useStyles = createStyles(() => ({
   search: {
     minWidth: 120,
     "@media (max-width: 400px)": {
-      maxWidth: 120,
+      maxWidth: "100%",
     },
   },
   add: {

@@ -22,6 +22,13 @@ const data = [
     permission: "statistics_view",
   },
   {
+    id: 14312412,
+    link: "/sales",
+    label: "sales.title",
+    icon: IconChartLine,
+    permission: "sales.view",
+  },
+  {
     id: 2,
     link: "/admins",
     label: "admins.title",
