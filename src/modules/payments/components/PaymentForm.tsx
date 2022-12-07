@@ -56,7 +56,6 @@ const PaymentsForm: React.FC<{
     loanFeatchers.getLoanUserID
   );
   const { data: userLoan } = userLoanQuery;
-
   const userId = useUser();
 
   const form = useForm({
