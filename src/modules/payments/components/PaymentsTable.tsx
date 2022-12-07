@@ -33,62 +33,6 @@ const tableHead = {
 
 function PaymentsTable({ data, page, onPageChange, total }: any) {
   const [opened, toggleOpened] = useToggle();
-
-  const handleOpenDrawer = () => {
-    toggleOpened(true);
-  };
-
-  return (
-    <>
-      <FormDrawer {...{ opened, toggleOpened }}>
-        <ScrollArea
-          style={{ height: "100%", paddingBottom: 60 }}
-          scrollbarSize={2}
-        >
-          <PaymentsForm handleClose={() => toggleOpened(false)} />
-        </ScrollArea>
-      </FormDrawer>
-      <Group position="right" mx={"xl"} my={"xl"}>
-        <Button onClick={handleOpenDrawer} variant={"outline"}>
-          <FormattedMessage id="payments.create" />
-        </Button>
-      </Group>
-
-      <If
-        condition={data?.length === 0}
-        elseChildren={
-          <ScrollArea>
-            <Table verticalSpacing="sm" highlightOnHover>
-              <TableHead data={tableHead} prefix="payments" />
-            </Table>
-            <Pagination
-              my={10}
-              page={page}
-              styles={(theme) => ({
-                item: {
-                  "&[data-active]": {
-                    backgroundImage: theme.fn.gradient({
-                      from: "red",
-                      to: "yellow",
-                    }),
-                  },
-                },
-              })}
-              total={total}
-              onChange={onPageChange}
-            />
-          </ScrollArea>
-        }
-      >
-        <EmptyBox />
-      </If>
-    </>
-  );
-}
-
-export default memo(PaymentsTable);
-
-const TableData = ({ data }: { data: any }) => {
   const {
     showLoadingNotification,
     showSuccessNotification,
@@ -162,5 +106,55 @@ const TableData = ({ data }: { data: any }) => {
     );
   });
 
-  return <tbody>{rows}</tbody>;
-};
+  const handleOpenDrawer = () => {
+    toggleOpened(true);
+  };
+
+  return (
+    <>
+      <FormDrawer {...{ opened, toggleOpened }}>
+        <ScrollArea
+          style={{ height: "100%", paddingBottom: 60 }}
+          scrollbarSize={2}>
+          <PaymentsForm handleClose={() => toggleOpened(false)} />
+        </ScrollArea>
+      </FormDrawer>
+      <Group position="right" mx={"xl"} my={"xl"}>
+        <Button onClick={handleOpenDrawer} variant={"outline"}>
+          <FormattedMessage id="payments.create" />
+        </Button>
+      </Group>
+
+      <If
+        condition={data?.length === 0}
+        elseChildren={
+          <ScrollArea>
+            <Table verticalSpacing="sm" highlightOnHover>
+              <TableHead data={tableHead} prefix="payments" />
+              <tbody>{rows}</tbody>;
+            </Table>
+            <Pagination
+              my={10}
+              page={page}
+              styles={(theme) => ({
+                item: {
+                  "&[data-active]": {
+                    backgroundImage: theme.fn.gradient({
+                      from: "red",
+                      to: "yellow",
+                    }),
+                  },
+                },
+              })}
+              total={total}
+              onChange={onPageChange}
+            />
+          </ScrollArea>
+        }>
+        <EmptyBox />
+      </If>
+    </>
+  );
+}
+
+export default memo(PaymentsTable);

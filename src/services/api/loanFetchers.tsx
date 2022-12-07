@@ -18,7 +18,7 @@ const loanFeatchers = {
   getLoanUserID: async (_: string, id: string) => {
     const shopId = getCookie("shopId");
 
-    return requests.get(`/loan/user/${shopId}/${id}`);
+    return requests.get(`/loan/${shopId}/user/${id}`);
   },
 };
 export default loanFeatchers;
