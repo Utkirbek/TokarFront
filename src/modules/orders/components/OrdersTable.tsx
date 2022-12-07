@@ -76,17 +76,6 @@ const OrdersTable = ({
         </td>
 
         <td className={classes.orderTD}>
-          <Link
-            href={`/users?details=${item?.user?._id || item?.user}`}
-            className={classes.orderUserLink}>
-            {item?.user ? (
-              item?.user?.name || item?.user
-            ) : (
-              <FormattedMessage id="orders.userNull" />
-            )}
-          </Link>
-        </td>
-        <td className={classes.orderTD}>
           <Link href={`/payments`} className={classes.orderUserLink}>
             {item?.total.toFixed(2)}
           </Link>
@@ -145,7 +134,6 @@ const OrdersTable = ({
         <TableHead
           data={{
             ordersSalesmen: true,
-            orderUser: true,
             paymentOrder: true,
             createOrder: true,
             updateOrder: true,
