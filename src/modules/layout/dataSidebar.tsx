@@ -89,7 +89,7 @@ const data = [
     link: "/loan",
     label: "loans.title",
     icon: IconCoin,
-    permission: "loans_view",
+    permission: "loans.view",
   },
   {
     id: 12,
