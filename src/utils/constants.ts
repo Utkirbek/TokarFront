@@ -107,7 +107,7 @@ export const Permissions = {
     edit: "admins.edit",
   },
   kassa: {
-    view: "kassa.read",
+    view: "kassa.view",
   },
   users: {
     image: "user.image",

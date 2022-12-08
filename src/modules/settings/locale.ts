@@ -52,7 +52,15 @@ export const permissionsLocaleUz = {
   orders_edit: "Buyurtmalar tahrirlash",
   orders_delete: "Buyurtmalar o'chirish",
   orders_view: "Buyurtmalar ko'rish",
-  kassas_view: "Kassalar ko'rish",
+  kassa: {
+    view: "Kassalar ko'rish",
+  },
+  loans: {
+    view: "Qarzlarni ko'rish",
+  },
+  profit: {
+    view: "Foyda hisoboti ko'rish",
+  },
   statistics_view: "Statistikani ko'rish",
   perm: {
     allow: "Ruxsat Etilgan Amallar",

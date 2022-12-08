@@ -82,7 +82,7 @@ const data = [
     link: "/kassa",
     label: "kassa.title",
     icon: IconListDetails,
-    permission: "kassa_view",
+    permission: "kassa.view",
   },
   {
     id: 11,

@@ -274,10 +274,11 @@ function ProductsTable({
           variant="filled"
           sx={{
             position: "fixed",
-            bottom: 60,
+            bottom: 70,
             right: 20,
+            borderRadius: "50%",
           }}
-          size="lg"
+          size="xl"
         >
           <IconPlus />
         </ActionIcon>

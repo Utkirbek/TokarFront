@@ -18,20 +18,36 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({}) => {
   return (
     <Paper className={classes.bottom_nav}>
       <Button.Group>
-        <Button className={classes.action_btn} component={Link} href="/users">
+        <Button
+          size="lg"
+          className={classes.action_btn}
+          component={Link}
+          href="/users"
+        >
           <IconUsers />
         </Button>
         <Button
+          size="lg"
           className={classes.action_btn}
           component={Link}
           href="/products"
         >
           <IconClipboardList />
         </Button>
-        <Button className={classes.action_btn} component={Link} href="/sales">
+        <Button
+          size="lg"
+          className={classes.action_btn}
+          component={Link}
+          href="/sales"
+        >
           <IconShoppingCart />
         </Button>
-        <Button className={classes.action_btn} component={Link} href="/orders">
+        <Button
+          size="lg"
+          className={classes.action_btn}
+          component={Link}
+          href="/orders"
+        >
           <IconUserCircle />
         </Button>
       </Button.Group>
