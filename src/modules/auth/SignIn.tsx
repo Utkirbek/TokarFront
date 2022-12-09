@@ -1,5 +1,6 @@
 import ConfettiComponent from "@components/Confetti/Confetti";
 import HeadSkeletonUI from "@components/skeleton/HeadSkeletonUI";
+import { ClassNames } from "@emotion/react";
 import WithLoading from "@hoc/WithLoading";
 import useUser from "@hooks/shared/useUser";
 import {
@@ -7,12 +8,14 @@ import {
   Button,
   Center,
   Group,
+  MediaQuery,
   PasswordInput,
   SegmentedControl,
   Text,
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { useMediaQuery } from "@mantine/hooks";
 import authFetchers from "@services/api/authFetchers";
 import useShop from "@services/hooks/useShop";
 import { IconBuildingStore } from "@tabler/icons";
@@ -161,17 +164,24 @@ const ShopSelectSection = ({
     });
     onNext();
   };
+  const isMobile = useMediaQuery("(max-width: 600px)");
 
   return (
-    <Box component="form" onSubmit={form.onSubmit(handleSubmit)}>
+    <Box
+      component="form"
+      onSubmit={form.onSubmit(handleSubmit)}
+      sx={{ textAlign: "center" }}>
       <h1>Xush kelibsiz {name}</h1>
       <p>Marxamat qilib bugungi ish joyingizni tanlang</p>
-      <SegmentedControl
-        fullWidth
-        data={shops}
-        {...form.getInputProps("shop")}
-      />
-      <Group position="right" mt="md">
+
+      <Group position="center">
+        <SegmentedControl
+          data={shops}
+          {...form.getInputProps("shop")}
+          orientation={isMobile ? "vertical" : null}
+        />
+      </Group>
+      <Group position={isMobile ? "center" : "right"} mt="md">
         <Button loading={!shopsData} type="submit">
           <FormattedMessage id="next" />
         </Button>
