@@ -36,9 +36,7 @@ const SalesCard: React.FC<{ item: any }> = ({ item }) => {
       addItem({
         id: item._id,
         ...item,
-        price: getNumber(item.calculatedPrice)
-          ? floorLastThreeDigits(item.calculatedPrice)
-          : floorLastThreeDigits(item.price),
+        price: getNumber(item.calculatedPrice),
       });
     }
   };
@@ -76,10 +74,7 @@ const SalesCard: React.FC<{ item: any }> = ({ item }) => {
         <TextEllipsis text={item.title} maxChars={20} />
         <Box className={classes.cardButton}>
           <Text sx={{ fontWeight: "bold" }} fz="sm" fw={500}>
-            {getNumber(item.calculatedPrice)
-              ? floorLastThreeDigits(item.calculatedPrice)
-              : floorLastThreeDigits(item.price)}{" "}
-            UZS
+            {getNumber(item.calculatedPrice)} UZS
           </Text>
           <Button.Group>
             <Button

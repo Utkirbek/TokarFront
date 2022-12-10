@@ -1,9 +1,11 @@
+import useNotification from "@hooks/useNotification";
 import fetchers from "@services/api/fetchers";
 import { RequestQueryKeys } from "@utils/constants";
 import { useSWRConfig } from "swr";
 
 const useImageUpload = () => {
   const { mutate } = useSWRConfig();
+  const { showErrorNotification } = useNotification();
 
   return {
     uploadImage: async (
@@ -22,7 +24,8 @@ const useImageUpload = () => {
         options?.onSuccess && options.onSuccess(res);
 
         return res;
-      } catch (error) {
+      } catch (error: any) {
+        showErrorNotification(error?.message);
         console.error(error);
         options?.onError && options.onError(error);
       }

@@ -1,6 +1,6 @@
 export { default as flattenMessages } from "./flattenMessages";
 
-export const getNumber = (value: string | number | null | undefined) => {
+export const getNumber = (value: string | number): number => {
   if (typeof value === "string") {
     if (Number.isNaN(Number(value))) {
       return 0;
@@ -8,7 +8,7 @@ export const getNumber = (value: string | number | null | undefined) => {
     return +value.replace(/[^0-9]/g, "");
   }
 
-  return value;
+  return +value;
 };
 
 export const floorLastThreeDigits = (num: number | string): number => {

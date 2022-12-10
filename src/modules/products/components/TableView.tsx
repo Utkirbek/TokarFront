@@ -75,9 +75,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
       addItem({
         ...item,
         id: item._id,
-        price: getNumber(item.calculatedPrice)
-          ? floorLastThreeDigits(item.calculatedPrice)
-          : floorLastThreeDigits(item.price),
+        price: getNumber(item.calculatedPrice),
       });
     }
   };
@@ -89,9 +87,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
           addItem({
             id: item._id,
             ...item,
-            price: getNumber(item.calculatedPrice)
-              ? floorLastThreeDigits(item.calculatedPrice)
-              : floorLastThreeDigits(item.price),
+            price: getNumber(item.calculatedPrice),
           });
         };
 
@@ -134,11 +130,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
             <If hasPerm={Permissions.products.price}>
               <td>
                 <FormattedNumber
-                  value={
-                    getNumber(item.calculatedPrice)
-                      ? floorLastThreeDigits(item.calculatedPrice)
-                      : floorLastThreeDigits(item.price)
-                  }
+                  value={getNumber(item.calculatedPrice)}
                   style="currency"
                   currency="UZS"
                 />

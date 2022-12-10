@@ -33,9 +33,7 @@ const SearchResultsTable: React.FC<SearchResultsTableProps> = ({
         addItem({
           ...item,
           id: item._id,
-          price: getNumber(item.calculatedPrice)
-            ? floorLastThreeDigits(item.calculatedPrice)
-            : floorLastThreeDigits(item.price),
+          price: getNumber(item.calculatedPrice),
         });
       }
     },

@@ -58,8 +58,10 @@ const ImageUploader: React.FC<Props> = ({ urlsRef, sx, dropzoneProps }) => {
             setStatus("done");
           },
           onError: (err) => {
+            urlsRef.current = [];
             console.error(err);
             setStatus("idle");
+            setFiles([]);
           },
         });
       });
@@ -74,6 +76,7 @@ const ImageUploader: React.FC<Props> = ({ urlsRef, sx, dropzoneProps }) => {
         onReject={(files) => console.warn("rejected files", files)}
         onDrop={(files) => setFiles(files)}
         loading={status === "loading"}
+        maxSize={3 * 1024 * 1024}
         {...dropzoneProps}
       >
         <Group
