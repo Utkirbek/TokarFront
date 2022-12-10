@@ -107,4 +107,9 @@ export const infoData = {
     icon3d: "https://cdn.lordicon.com/aloksxkv.json",
     decrtion: "Sotilgan mahsulotlarning umumiy soni va o'sishi",
   },
+  budget: {
+    title: "Tovarlar xajmi",
+    icon3d: "https://cdn.lordicon.com/nqwqiffl.json",
+    decrtion: "Umummiy tovarlarni so'mdagi equalinty ",
+  },
 };

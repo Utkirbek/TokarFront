@@ -1,8 +1,8 @@
 import { Autocomplete, Button, Tooltip } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
+import { useHotkeys, useMediaQuery } from "@mantine/hooks";
 import useStyles from "@modules/products/components/form/style/inputStyle";
 import { IconSearch } from "@tabler/icons";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
 
 type Props = {
@@ -10,6 +10,7 @@ type Props = {
   searchResults: any;
   fetcher: (value: string) => Promise<any>;
   onClear: () => void;
+  placeholder?: string | React.ComponentType;
 };
 
 function SearchAutoComplete({
@@ -20,9 +21,21 @@ function SearchAutoComplete({
 }: Props) {
   const [value, setValue] = useState("");
   const isMobile = useMediaQuery("(max-width: 600px)");
+  const autoCompleteRef = useRef<HTMLInputElement>(null);
 
   const intl = useIntl();
   const { classes } = useStyles();
+
+  useHotkeys([
+    ["F2", () => autoCompleteRef.current?.focus()],
+    [
+      "alt+c",
+      () => {
+        onClear();
+        setValue("");
+      },
+    ],
+  ]);
 
   const handleSearch = useCallback(() => {
     if (value.length > 0) {
@@ -48,6 +61,7 @@ function SearchAutoComplete({
   return (
     <>
       <Autocomplete
+        icon={<IconSearch />}
         className={classes.search}
         sx={{
           flexGrow: 1,
@@ -55,8 +69,9 @@ function SearchAutoComplete({
         }}
         value={value}
         onChange={setValue}
-        placeholder="Start typing to see options"
+        placeholder={intl.formatMessage({ id: "search" })}
         data={data}
+        ref={autoCompleteRef}
         rightSection={
           <Button.Group>
             <Tooltip label={intl.formatMessage({ id: "clear" })}>
@@ -71,7 +86,7 @@ function SearchAutoComplete({
                 X
               </Button>
             </Tooltip>
-            <Button style={{ width: 55 }} onClick={handleSearch}>
+            <Button onClick={handleSearch}>
               <IconSearch />
             </Button>
           </Button.Group>

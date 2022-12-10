@@ -29,7 +29,7 @@ import { useReactToPrint } from "react-to-print";
 import { useCart } from "react-use-cart";
 
 import ContentEditable from "../contentEditable/ContentEditable";
-import datas from "./data";
+import salesMethods from "./data";
 import useStyles from "./styleCard";
 
 const BuyCart: React.FC<{}> = () => {
@@ -205,10 +205,12 @@ const BuyCart: React.FC<{}> = () => {
             <SegmentedControl
               fullWidth
               color="orange"
-              data={datas.map((item: { label: string; value: string }) => ({
-                label: <FormattedMessage id={item.label} />,
-                value: item.value,
-              }))}
+              data={salesMethods.map(
+                (item: { label: string; value: string }) => ({
+                  label: <FormattedMessage id={item.label} />,
+                  value: item.value,
+                })
+              )}
               {...form.getInputProps("paymentMethod")}
             />
             <Checkbox

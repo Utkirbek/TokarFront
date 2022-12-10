@@ -4,6 +4,7 @@ import {
   IconBusinessplan,
   IconChartLine,
   IconCoin,
+  IconDiscount2,
   IconList,
   IconListDetails,
   IconMoneybag,
@@ -25,7 +26,7 @@ const data = [
     id: 14312412,
     link: "/sales",
     label: "sales.title",
-    icon: IconChartLine,
+    icon: IconDiscount2,
     permission: "sales.view",
   },
   {

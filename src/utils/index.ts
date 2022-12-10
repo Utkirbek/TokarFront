@@ -12,6 +12,8 @@ export const getNumber = (value: string | number | null | undefined) => {
 };
 
 export const floorLastThreeDigits = (num: number | string): number => {
+  if (!num) return +num;
+
   if (typeof num === "string") {
     num = +num;
   }

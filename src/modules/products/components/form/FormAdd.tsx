@@ -71,7 +71,7 @@ const FormProduct: React.FC<{
       sellingCurrency:
         editItem?.sellingCurrency?._id ?? "63635d7850b0f6000826a6ac",
       minQuantity: editItem?.minQuantity ?? 5,
-      image: editItem?.image ?? "",
+      image: editItem?.image || "",
     },
   });
 
@@ -83,6 +83,7 @@ const FormProduct: React.FC<{
           id: editItem._id,
           values: {
             ...values,
+            image: imagesRef.current?.join?.(",") ?? editItem.image,
             discounts: values.discounts?.map((item) => ({
               price: item.price,
               quantity: item.quantity,
@@ -105,7 +106,7 @@ const FormProduct: React.FC<{
             price: item.price,
             quantity: item.quantity,
           })),
-          image: imagesRef.current?.join(",") ?? "",
+          image: imagesRef.current?.join?.(",") ?? "",
         },
         {
           onSuccess: () => {

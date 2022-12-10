@@ -1,6 +1,5 @@
 import ConfettiComponent from "@components/Confetti/Confetti";
 import HeadSkeletonUI from "@components/skeleton/HeadSkeletonUI";
-import { ClassNames } from "@emotion/react";
 import WithLoading from "@hoc/WithLoading";
 import useUser from "@hooks/shared/useUser";
 import {
@@ -8,7 +7,6 @@ import {
   Button,
   Center,
   Group,
-  MediaQuery,
   PasswordInput,
   SegmentedControl,
   Text,
@@ -76,7 +74,7 @@ function SignIn() {
   const contents = {
     0: (
       <Box className={classes.boxLeft}>
-        <form onSubmit={form.onSubmit(handleSubmit)}>
+        <form onSubmit={form.onSubmit(handleSubmit)} autoComplete="off">
           <Text className={classes.text}>
             <FormattedMessage id="signIn.title" />
           </Text>
@@ -89,6 +87,8 @@ function SignIn() {
             my={10}
             type="text"
             autoComplete="off"
+            readOnly
+            onFocus={(e) => e.target.removeAttribute("readonly")}
           />
           <PasswordInput
             required
@@ -99,6 +99,8 @@ function SignIn() {
             })}
             {...form.getInputProps("password")}
             autoComplete={"off"}
+            readOnly
+            onFocus={(e) => e.target.removeAttribute("readonly")}
           />
           <Group position="right" mt="md">
             <Button loading={status === "loading"} type="submit">
@@ -170,7 +172,8 @@ const ShopSelectSection = ({
     <Box
       component="form"
       onSubmit={form.onSubmit(handleSubmit)}
-      sx={{ textAlign: "center" }}>
+      sx={{ textAlign: "center" }}
+    >
       <h1>Xush kelibsiz {name}</h1>
       <p>Marxamat qilib bugungi ish joyingizni tanlang</p>
 

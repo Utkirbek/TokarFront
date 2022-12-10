@@ -11,7 +11,7 @@ export const getSchema = (data: { name: string; value: number }[]) => {
 
   for (let i: number = 0; i < data.length; i++) {
     let d = {
-      id: data?.[i]?.name,
+      id: data?.[i]?.name + i,
       label: data?.[i]?.name,
       value:
         typeof data?.[i]?.value === "number"

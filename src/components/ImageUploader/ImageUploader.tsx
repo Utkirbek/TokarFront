@@ -13,8 +13,8 @@ import {
   FileWithPath,
   IMAGE_MIME_TYPE,
 } from "@mantine/dropzone";
+import useImageUpload from "@services/hooks/useImageUpload";
 import { IconPhoto, IconUpload, IconX } from "@tabler/icons";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 
@@ -27,15 +27,13 @@ type Props = {
 const ImageUploader: React.FC<Props> = ({ urlsRef, sx, dropzoneProps }) => {
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const [status, setStatus] = useState<"idle" | "loading" | "done">("idle");
+  const { uploadImage } = useImageUpload();
 
   const theme = useMantineTheme();
 
-  const upload_url = process.env.NEXT_PUBLIC_CLOUDINARY_URL as string;
-  const upload_preset = process.env
-    .NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET as string;
-
   const previews = files.map((file, index) => {
     const imageUrl = URL.createObjectURL(file);
+
     return (
       <Image
         key={index}
@@ -49,27 +47,21 @@ const ImageUploader: React.FC<Props> = ({ urlsRef, sx, dropzoneProps }) => {
   useEffect(() => {
     if (files?.length > 0) {
       setStatus("loading");
+
       files.forEach((file: File) => {
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("upload_preset", upload_preset);
-        axios({
-          url: upload_url,
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
+
+        uploadImage(formData, {
+          onSuccess: (data) => {
+            urlsRef.current = [...urlsRef.current, data.file];
+            setStatus("done");
           },
-          data: formData,
-        })
-          .then((res) => {
-            urlsRef.current = [...urlsRef.current, res.data.url];
-            if (urlsRef.current.length === files.length) {
-              setStatus("done");
-            }
-          })
-          .catch((err) => {
+          onError: (err) => {
             console.error(err);
-          });
+            setStatus("idle");
+          },
+        });
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,7 +72,7 @@ const ImageUploader: React.FC<Props> = ({ urlsRef, sx, dropzoneProps }) => {
       <Dropzone
         accept={IMAGE_MIME_TYPE}
         onReject={(files) => console.warn("rejected files", files)}
-        onDrop={setFiles}
+        onDrop={(files) => setFiles(files)}
         loading={status === "loading"}
         {...dropzoneProps}
       >

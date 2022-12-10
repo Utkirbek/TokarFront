@@ -26,9 +26,9 @@ const TableHead: React.FC<Props> = ({ data, prefix, permissionOf }) => {
           .map((hd) => (
             <If
               hasPerm={
-                permissionOf
+                permissionOf !== "no-check"
                   ? // @ts-ignore
-                    Permissions[permissionOf][hd]
+                    Permissions[permissionOf]?.[hd]
                   : "no-check"
               }
               key={hd}

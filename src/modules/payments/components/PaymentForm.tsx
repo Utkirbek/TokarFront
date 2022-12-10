@@ -12,7 +12,7 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import datas from "@modules/products/components/buyCart/data";
+import salesMethods from "@modules/products/components/buyCart/data";
 import loanFeatchers from "@services/api/loanFetchers";
 import usePayments from "@services/hooks/usePayments";
 import useUsers from "@services/hooks/useUser";
@@ -162,10 +162,12 @@ const PaymentsForm: React.FC<{
             <SegmentedControl
               fullWidth
               color="orange"
-              data={datas.map((item: { label: string; value: string }) => ({
-                label: <FormattedMessage id={item.label} />,
-                value: item.value,
-              }))}
+              data={salesMethods.map(
+                (item: { label: string; value: string }) => ({
+                  label: <FormattedMessage id={item.label} />,
+                  value: item.value,
+                })
+              )}
               {...form.getInputProps("paymentMethod")}
             />
           </Box>

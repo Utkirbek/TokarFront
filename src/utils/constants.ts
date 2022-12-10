@@ -74,6 +74,7 @@ export enum RequestQueryKeys {
   GET_STATS = "getStats",
   GET_SPENT = "getSpent",
   GET_INCOME = "getIncome",
+  IMAGE_UPLOAD = "imageUpload",
 }
 
 export const Permissions = {

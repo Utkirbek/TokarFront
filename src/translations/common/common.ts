@@ -8,7 +8,7 @@ export const commonUz = {
   action: "Amallar",
   submit: "Yuborish",
   addSmth: "{isNew, select, true {Ro'yxatga Qo'shish} other {Saqlash}}",
-  search: "Qidiruv",
+  search: "F2 - Qidiruv - kodir orqali qidirish uchun + bilan boshlang",
   clear: "Tozalash",
   noSearchResults: "Qidiruv natijasi topilmadi",
   next: "Keyingi",

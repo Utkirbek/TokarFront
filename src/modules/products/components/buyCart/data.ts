@@ -1,6 +1,6 @@
 import { IconCreditCard, IconReportMoney, IconTerminal2 } from "@tabler/icons";
 
-const datas: any = [
+export const salesMethods = [
   {
     label: "products.buyCart.datatitle",
     value: "cash",
@@ -17,4 +17,4 @@ const datas: any = [
     icon: IconCreditCard,
   },
 ];
-export default datas;
+export default salesMethods;
