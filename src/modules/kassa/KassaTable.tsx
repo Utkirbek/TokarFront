@@ -1,10 +1,10 @@
 import TableHead from "@components/Table/TableHead";
 import { Pagination, Table } from "@mantine/core";
-import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
+import { FormattedDate,  FormattedTime } from "react-intl";
 
 export const kassaLocaleUz = {
   title: "Kassa",
-  price: "Narxi",
+  price: "Kassadagi pul",
   takeTime: "Olingan vaqti",
   giveTime: "Berish vaqti",
 };

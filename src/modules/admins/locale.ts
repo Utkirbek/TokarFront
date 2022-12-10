@@ -53,6 +53,8 @@ export const adminsLocaleUz = {
   adminTitle: " xaqida ma'lumot",
   detail: "Batafsil",
   salaryInfo: "Maosh haqida",
+  deleteIcon: "O'chirish",
+  editIcon : "Tahrirlash",
 };
 
 export const adminsLocaleEn = {
@@ -109,4 +111,6 @@ export const adminsLocaleEn = {
   timeGetSalary: "Time ",
   detail: "Detail",
   salaryInfo: "Salary Info",
+  deleteIcon: "Delete",
+  editIcon: "Edit",
 };
