@@ -27,8 +27,8 @@ type Props = {
 const ImageUploader: React.FC<Props> = ({ urlsRef, sx, dropzoneProps }) => {
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const [status, setStatus] = useState<"idle" | "loading" | "done">("idle");
-  const { uploadImage } = useImageUpload();
 
+  const { uploadImage } = useImageUpload();
   const theme = useMantineTheme();
 
   const previews = files.map((file, index) => {
@@ -43,7 +43,7 @@ const ImageUploader: React.FC<Props> = ({ urlsRef, sx, dropzoneProps }) => {
         width={100}
         height={100}
         sx={{
-          objectFit: "cover",
+          objectFit: "contain",
           borderRadius: "md",
           border: `1px solid ${
             theme.colors.gray[theme.colorScheme === "dark" ? 6 : 2]

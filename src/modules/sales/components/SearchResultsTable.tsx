@@ -1,5 +1,7 @@
 import TableHead from "@components/Table/TableHead";
-import { Button, Table } from "@mantine/core";
+import { ActionIcon, Button, Table } from "@mantine/core";
+import { useResizeObserver } from "@mantine/hooks";
+import { IconDragDrop } from "@tabler/icons";
 import { floorLastThreeDigits, getNumber } from "@utils";
 import React, { useCallback, useMemo } from "react";
 import { useCart } from "react-use-cart";
@@ -58,7 +60,7 @@ const SearchResultsTable: React.FC<SearchResultsTableProps> = ({
   }, [searchResults, handleAddToCart]);
 
   return (
-    <Table withColumnBorders>
+    <Table withColumnBorders sx={{ position: "relative" }}>
       <caption>Qidiruv natijalari</caption>
       <TableHead data={ths} prefix="sales" permissionOf="no-check" />
       <tbody>{rows}</tbody>

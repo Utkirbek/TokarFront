@@ -1,9 +1,9 @@
-import { Autocomplete, Button, Tooltip } from "@mantine/core";
+import { Autocomplete, Box, Button, Kbd, Tooltip } from "@mantine/core";
 import { useHotkeys, useMediaQuery } from "@mantine/hooks";
 import useStyles from "@modules/products/components/form/style/inputStyle";
 import { IconSearch } from "@tabler/icons";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 type Props = {
   onSearchResults: (value: any) => void;
@@ -37,16 +37,20 @@ function SearchAutoComplete({
     ],
   ]);
 
-  const handleSearch = useCallback(() => {
-    if (value.length > 0) {
-      fetcher(value).then((res) => {
-        if (!!res && Array.isArray(res)) {
-          onSearchResults(res);
-        }
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value, fetcher]);
+  const handleSearch = useCallback(
+    (event?: React.SyntheticEvent) => {
+      if (event) event.preventDefault();
+      if (value.length > 0) {
+        fetcher(value).then((res) => {
+          if (!!res && Array.isArray(res)) {
+            onSearchResults(res);
+          }
+        });
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    [value, fetcher]
+  );
 
   useEffect(() => {
     if (value.length % 3 === 0) handleSearch();
@@ -59,7 +63,7 @@ function SearchAutoComplete({
   }));
 
   return (
-    <>
+    <Box component="form" onSubmit={handleSearch}>
       <Autocomplete
         icon={<IconSearch />}
         className={classes.search}
@@ -74,7 +78,14 @@ function SearchAutoComplete({
         ref={autoCompleteRef}
         rightSection={
           <Button.Group>
-            <Tooltip label={intl.formatMessage({ id: "clear" })}>
+            <Tooltip
+              label={
+                <Box>
+                  <FormattedMessage id="clear" /> &nbsp;
+                  <Kbd>Alt</Kbd> + <Kbd>c</Kbd>
+                </Box>
+              }
+            >
               <Button
                 variant="subtle"
                 color={"red"}
@@ -86,13 +97,13 @@ function SearchAutoComplete({
                 X
               </Button>
             </Tooltip>
-            <Button onClick={handleSearch}>
+            <Button type="submit" onClick={handleSearch}>
               <IconSearch />
             </Button>
           </Button.Group>
         }
       />
-    </>
+    </Box>
   );
 }
 

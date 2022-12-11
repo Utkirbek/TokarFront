@@ -4,7 +4,7 @@ export const salesLocaleUz = {
   no: "№",
   name: "Nomi",
   code: "Kodi",
-  quantity: "Soni",
+  quantity: "Qiymati",
   sum: "Jami",
   actions: "Amallar",
 };

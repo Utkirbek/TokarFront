@@ -251,6 +251,7 @@ const BuyCart: React.FC<{}> = () => {
                 <DatePicker
                   defaultValue={new Date()}
                   locale="uz-latn"
+                  dropdownType="modal"
                   placeholder={intl.formatMessage({
                     id: "products.buyCart.date",
                   })}
@@ -270,9 +271,7 @@ const BuyCart: React.FC<{}> = () => {
             <FormattedMessage id="products.buyCart.sale" />
           </Button>
         </Box>
-        <Box sx={{ display: "none" }}>
-          <ComponentToPrint ref={componentRef} />
-        </Box>
+        <ComponentToPrint ref={componentRef} />
       </Box>
     </>
   );

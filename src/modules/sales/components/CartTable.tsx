@@ -1,5 +1,6 @@
 import TableHead from "@components/Table/TableHead";
 import { ActionIcon, Group, NumberInput, Table } from "@mantine/core";
+import { useResizeObserver } from "@mantine/hooks";
 import { IconMinus, IconPlus, IconTrash } from "@tabler/icons";
 import { floorLastThreeDigits } from "@utils";
 import React from "react";

@@ -78,7 +78,6 @@ const FormProduct: React.FC<{
   const handleSubmit = async (values: FormAddProps) => {
     showLoadingNotification();
     if (!!editItem._id) {
-      console.log(values, imagesRef.current?.join?.(","));
       editProduct(
         {
           id: editItem._id,
