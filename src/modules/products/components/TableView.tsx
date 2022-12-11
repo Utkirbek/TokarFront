@@ -123,6 +123,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
                   value={item.originalPrice}
                   style="currency"
                   currency={item.currency?.name}
+                  maximumFractionDigits={1}
                 />
               </td>
             </If>
@@ -133,6 +134,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
                   value={getNumber(item.calculatedPrice)}
                   style="currency"
                   currency="UZS"
+                  maximumFractionDigits={1}
                 />
                 /{item.unit}
               </td>

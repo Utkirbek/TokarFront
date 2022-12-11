@@ -5,10 +5,10 @@ export const getNumber = (value: string | number): number => {
     if (Number.isNaN(Number(value))) {
       return 0;
     }
-    return +value.replace(/[^0-9]/g, "");
+    return Number(Number(value).toFixed(1));
   }
 
-  return +value;
+  return Number(value.toFixed(1));
 };
 
 export const floorLastThreeDigits = (num: number | string): number => {
