@@ -1,7 +1,11 @@
 import { SalesPrintData } from "@components/print/SalesPrint";
 import {
   selectIsInstallment,
+  selectIsRefund,
+  selectSearchOrderId,
   selectSetInstallment,
+  selectSetIsRefund,
+  selectSetSearchOrderId,
 } from "@hooks/shared/selectors";
 import useSalesState from "@hooks/shared/useSales";
 import useNotification from "@hooks/useNotification";
@@ -42,17 +46,31 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
   const form = useSalesFormContext();
 
   const setIsInstallment = useSalesState(selectSetInstallment);
+  const setIsRefund = useSalesState(selectSetIsRefund);
+  const isRefund = useSalesState(selectIsRefund);
+  const searchOrderId = useSalesState(selectSearchOrderId);
   const isInstallment = useSalesState(selectIsInstallment);
+  const setSearchOrderId = useSalesState(selectSetSearchOrderId);
 
   const {
     showErrorNotification,
     showLoadingNotification,
     showSuccessNotification,
   } = useNotification();
-  const { addOrder } = useOrders();
+  const { addOrder, editOrder } = useOrders();
 
   const handleInstallment = () => {
     setIsInstallment(!isInstallment);
+  };
+
+  const toggleRefund = () => {
+    if (isRefund && searchOrderId) {
+      setSearchOrderId("");
+      setIsRefund(!isRefund);
+      emptyCart();
+    } else {
+      setIsRefund(!isRefund);
+    }
   };
 
   const sell = (values: SalesFormValues) => {
@@ -80,7 +98,7 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
     };
 
     addOrder(orderData, {
-      onSuccess: () => {
+      onSuccess: (data) => {
         showSuccessNotification();
         setLastSale({
           ...orderData,
@@ -96,14 +114,67 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
     });
   };
 
+  const refund = (values: SalesFormValues) => {
+    // showLoadingNotification();
+
+    const orderData = {
+      total: cartTotal,
+      paymentMethod: values.paymentMethod,
+      loanTotal:
+        isInstallment && values.initialPaymentAmount > 0
+          ? cartTotal - values.initialPaymentAmount
+          : cartTotal,
+      cashTotal: values.initialPaymentAmount,
+      shouldPay: values.installmentDate,
+      salesman: values.salesman,
+      user: values.customer,
+      hasLoan: isInstallment,
+      cart: items.map((item) => {
+        return {
+          product: item.id,
+          quantity: item.quantity!,
+          price: item.price,
+        };
+      }),
+    };
+
+    alert("Tasdiqlanmagan funksiyaga qayta urinilmasin");
+    // editOrder(
+    //   {
+    //     id: searchOrderId,
+    //     values: orderData,
+    //   },
+    //   {
+    //     onSuccess: (data) => {
+    //       showSuccessNotification();
+    //       setLastSale({
+    //         ...orderData,
+    //         total: values.initialPaymentAmount || cartTotal,
+    //         items: items as any,
+    //       });
+    //       emptyCart();
+    //       clearCartMetadata();
+    //     },
+    //     onError: () => {
+    //       showErrorNotification();
+    //     },
+    //   }
+    // );
+  };
+
   const handleSell = (event?: React.SyntheticEvent | KeyboardEvent) => {
-    form.onSubmit(sell)();
+    if (searchOrderId) {
+      form.onSubmit(refund)();
+    } else {
+      form.onSubmit(sell)();
+    }
   };
 
   useHotkeys([
     ["alt+i", handleInstallment],
     ["ctrl + s", handleSell],
     ["alt + s", handleSell],
+    ["alt + r", toggleRefund],
   ]);
 
   return (
@@ -123,8 +194,15 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
           />
         </Group>
         <Group position="right">
-          <Tooltip label="Qaytarish">
-            <ActionIcon size={45}>
+          <Tooltip
+            label={
+              <Box>
+                Qaytarib berish &nbsp;
+                <Kbd>Alt</Kbd> + <Kbd>r</Kbd>
+              </Box>
+            }
+          >
+            <ActionIcon size={45} onClick={toggleRefund}>
               <IconReceiptRefund size={35} />
             </ActionIcon>
           </Tooltip>
@@ -160,7 +238,9 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
               </Box>
             }
           >
-            <Button onClick={handleSell}>Sotish</Button>
+            <Button onClick={handleSell}>
+              {!!searchOrderId ? "Tasdiqlash" : "Sotish"}
+            </Button>
           </Tooltip>
         </Group>
       </Flex>

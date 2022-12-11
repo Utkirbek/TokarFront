@@ -70,7 +70,7 @@ const useOrders = () => {
       try {
         const res = await mutate(
           RequestQueryKeys.updateOrders,
-          orderFetcher.updateOrders(data.id, data.values)
+          orderFetcher.updateOrder(data.id, data.values)
         );
         options?.onSuccess && options.onSuccess(res);
         mutate(RequestQueryKeys.getOrders);
@@ -101,6 +101,13 @@ const useOrders = () => {
         options?.onError && options.onError(err);
       }
     },
+
+    useFetchOrder: (id: string, options: object) =>
+      useSWR(
+        id ? [RequestQueryKeys.GET_ORDER, id] : null,
+        (_, id) => orderFetcher.getOrder(id),
+        options
+      ),
   };
 };
 

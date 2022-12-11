@@ -1,7 +1,8 @@
 import SalesPrint from "@components/print/SalesPrint";
 import SearchAutoComplete from "@components/SearchAutoComplete";
 import If from "@components/smart/If";
-import { selectSalesmanId } from "@hooks/shared/selectors";
+import { selectSalesmanId, selectSearchOrderId } from "@hooks/shared/selectors";
+import useSalesState from "@hooks/shared/useSales";
 import useUser from "@hooks/shared/useUser";
 import { Box, Divider, Grid, ScrollArea } from "@mantine/core";
 import { createFormContext } from "@mantine/form";
@@ -15,6 +16,7 @@ import { CartProvider } from "react-use-cart";
 import ActionsTooltip from "./components/ActionsTooltip";
 import CartTable from "./components/CartTable";
 import { Product } from "./components/constants";
+import Refund from "./components/Refund";
 import SalesInfoArea from "./components/SalesInfoArea";
 import SearchResultsTable from "./components/SearchResultsTable";
 
@@ -34,6 +36,7 @@ const Sales: NextPage = () => {
   const [searchResults, setSearchResults] = useState<Product[]>([]);
   const componentRef = useRef(null);
   const salesmanId = useUser(selectSalesmanId);
+  const searchOrderId = useSalesState(selectSearchOrderId);
 
   const form = useSalesForm({
     initialValues: {
@@ -84,6 +87,9 @@ const Sales: NextPage = () => {
                 <ScrollArea
                   sx={{ height: !searchResults.length ? "80vh" : "45vh" }}
                 >
+                  <If condition={!!searchOrderId}>
+                    <Refund />
+                  </If>
                   <CartTable />
                 </ScrollArea>
                 <If condition={searchResults.length > 0}>

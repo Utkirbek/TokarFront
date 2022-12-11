@@ -25,10 +25,16 @@ const orderFetcher = {
       `/orders/${shopId}/?page=${page}&size=${options?.perPage}`
     );
   },
-  updateOrders: async (id: string, body: any | Object) => {
+  updateOrder: async (id: string, body: any | Object) => {
     const shopId = getCookie("shopId");
 
     return requests.put(`/orders/${shopId}/${id}`, body);
+  },
+
+  getOrder: async (id: string) => {
+    const shopId = getCookie("shopId");
+
+    return requests.get(`/orders/${shopId}/search/${id}`);
   },
 };
 

@@ -1,7 +1,7 @@
 import BottomNavigation from "@components/BottomNavigation/BottomNavigation";
 import If from "@components/smart/If";
 import Logout from "@components/smart/Logout";
-import { selectIsLoggedIn } from "@hooks/selectors";
+import { selectIsLoggedIn } from "@hooks/shared/selectors";
 import useUser from "@hooks/shared/useUser";
 import {
   AppShell,

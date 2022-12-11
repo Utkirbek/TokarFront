@@ -1,8 +1,20 @@
 import If from "@components/smart/If";
-import { selectIsInstallment } from "@hooks/shared/selectors";
+import {
+  selectIsInstallment,
+  selectIsRefund,
+  selectSetSearchOrderId,
+} from "@hooks/shared/selectors";
 import useSalesState from "@hooks/shared/useSales";
-import { Flex, Paper } from "@mantine/core";
-import { createFormContext } from "@mantine/form";
+import {
+  ActionIcon,
+  Box,
+  Flex,
+  Paper,
+  Stack,
+  TextInput,
+  Tooltip,
+} from "@mantine/core";
+import { IconSearch, IconX } from "@tabler/icons";
 import { floorLastThreeDigits } from "@utils";
 import React from "react";
 import { useCart } from "react-use-cart";
@@ -12,8 +24,12 @@ import InstallmentForm from "./InstallmentForm";
 interface SalesInfoAreaProps {}
 
 const SalesInfoArea: React.FC<SalesInfoAreaProps> = ({}) => {
+  const searchInputRef = React.useRef<HTMLInputElement>(null);
+
   const { cartTotal } = useCart();
   const isInstallment = useSalesState(selectIsInstallment);
+  const isRefund = useSalesState(selectIsRefund);
+  const setSearchOrderId = useSalesState(selectSetSearchOrderId);
 
   return (
     <Flex
@@ -25,11 +41,39 @@ const SalesInfoArea: React.FC<SalesInfoAreaProps> = ({}) => {
       px={5}
       pb={5}
     >
-      <Paper my={5}>
-        <h1 style={{ textAlign: "center", margin: 4 }}>
-          {floorLastThreeDigits(cartTotal)}
-        </h1>
-      </Paper>
+      <Stack>
+        <Paper my={5}>
+          <h1 style={{ textAlign: "center", margin: 4 }}>
+            {floorLastThreeDigits(cartTotal)}
+          </h1>
+        </Paper>
+        <If condition={isRefund}>
+          <TextInput
+            label="Savdo Raqami"
+            name="order_id"
+            placeholder="Savdo raqami"
+            ref={searchInputRef}
+            onKeyUp={(e) => {
+              if (e.key === "Enter") {
+                setSearchOrderId(searchInputRef.current?.value || "");
+              }
+            }}
+            rightSection={
+              <Box>
+                <Tooltip label={"Qidirish"}>
+                  <ActionIcon
+                    onClick={() => {
+                      setSearchOrderId(searchInputRef.current?.value || "");
+                    }}
+                  >
+                    <IconSearch />
+                  </ActionIcon>
+                </Tooltip>
+              </Box>
+            }
+          />
+        </If>
+      </Stack>
       <If condition={isInstallment}>
         <InstallmentForm />
       </If>
