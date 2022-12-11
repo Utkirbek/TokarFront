@@ -1,5 +1,6 @@
 import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import FormDrawer from "@components/Drawer/FormDrawer";
+import FormattedLocalTime from "@components/FormattedLocalTime";
 import If from "@components/smart/If";
 import TableHead from "@components/Table/TableHead";
 import useConfirmation from "@hooks/useConfirmation";
@@ -17,7 +18,7 @@ import { useToggle } from "@mantine/hooks";
 import usePayments from "@services/hooks/usePayments";
 import { IconTrash } from "@tabler/icons";
 import { memo } from "react";
-import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
+import { FormattedMessage } from "react-intl";
 
 import PaymentsForm from "./PaymentForm";
 
@@ -74,24 +75,10 @@ function PaymentsTable({ data, page, onPageChange, total }: any) {
           <FormattedMessage id={`payments.${item.paymentMethod}`} />
         </td>
         <td>
-          <FormattedTime value={data?.updatedAt} />
-          ,&nbsp;
-          <FormattedDate
-            value={data?.updatedAt}
-            month="numeric"
-            year="numeric"
-            day="numeric"
-          />
+          <FormattedLocalTime date={item?.createdAt} />
         </td>
         <td>
-          <FormattedTime value={data?.updatedAt} />
-          ,&nbsp;
-          <FormattedDate
-            value={data?.updatedAt}
-            month="numeric"
-            year="numeric"
-            day="numeric"
-          />
+          <FormattedLocalTime date={item?.updatedAt} />
         </td>
 
         <td>

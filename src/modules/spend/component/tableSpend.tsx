@@ -1,3 +1,4 @@
+import FormattedLocalTime from "@components/FormattedLocalTime";
 import TableHead from "@components/Table/TableHead";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
@@ -13,7 +14,7 @@ import { useToggle } from "@mantine/hooks";
 import useSpend from "@services/hooks/useSpend";
 import { IconPencil, IconTrash } from "@tabler/icons";
 import { useState } from "react";
-import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
+import { FormattedMessage } from "react-intl";
 
 import SpendDrawer from "./spendDrawer";
 
@@ -73,24 +74,10 @@ const SpendTable = ({ data }: Props) => {
         <td>{item?.description}</td>
         <td>{item?.spendType}</td>
         <td>
-          <FormattedDate
-            value={item?.createdAt}
-            month="numeric"
-            year="numeric"
-            day="numeric"
-          />
-          ,&nbsp;
-          <FormattedTime value={item?.createdAt} />
+          <FormattedLocalTime date={item?.createdAt} />
         </td>
         <td>
-          <FormattedDate
-            value={item?.updatedAt}
-            month="numeric"
-            year="numeric"
-            day="numeric"
-          />
-          ,&nbsp;
-          <FormattedTime value={item?.updatedAt} />
+          <FormattedLocalTime date={item?.updatedAt} />
         </td>
         <td style={{ display: "flex", gap: 10 }}>
           <ActionIcon>
@@ -134,8 +121,7 @@ const SpendTable = ({ data }: Props) => {
         onClose={onClose}
         padding="xl"
         size="30%"
-        position="right"
-      >
+        position="right">
         <SpendDrawer editItem={editItem} handleClose={onClose} />
       </Drawer>
     </ScrollArea>

@@ -1,3 +1,4 @@
+import FormattedLocalTime from "@components/FormattedLocalTime";
 import TableHead from "@components/Table/TableHead";
 import {
   Avatar,
@@ -13,7 +14,7 @@ import userFetcher from "@services/api/userFetcher";
 import { RequestQueryKeys } from "@utils/constants";
 import { useRouter } from "next/router";
 import queryString from "query-string";
-import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import useSWR from "swr";
 
 const UserDetails = () => {
@@ -40,35 +41,13 @@ const UserDetails = () => {
         </td>
         <td>{item?.amount}</td>
         <td>
-          <FormattedDate
-            value={item?.createdAt}
-            month="numeric"
-            year="numeric"
-            day="numeric"
-          />
-          ,&nbsp;
-          <FormattedTime value={item?.createdAt} />
+          <FormattedLocalTime date={item?.createdAt} />
         </td>
         <td>
-          <FormattedDate
-            value={item?.shouldPay}
-            month="numeric"
-            year="numeric"
-            day="numeric"
-          />
-          ,&nbsp;
-          <FormattedTime value={item?.shouldPay} />
+          <FormattedLocalTime date={item?.shouldPay} />
         </td>
         <td>
-          {" "}
-          <FormattedDate
-            value={item?.updatedAt}
-            month="numeric"
-            year="numeric"
-            day="numeric"
-          />
-          ,&nbsp;
-          <FormattedTime value={item?.updatedAt} />
+          <FormattedLocalTime date={item?.updatedAt} />
         </td>
       </tr>
     );
@@ -137,14 +116,7 @@ const UserDetails = () => {
                   <FormattedMessage id="users.userDts.oldTime" />
                 </Text>
                 <Text className={classes.textStart}>
-                  <FormattedDate
-                    value={userBatfsil?.user.createdAt}
-                    month="numeric"
-                    year="numeric"
-                    day="numeric"
-                  />
-                  ,&nbsp;
-                  <FormattedTime value={userBatfsil?.user.createdAt} />
+                  <FormattedLocalTime date={userBatfsil?.user.createdAt} />
                 </Text>
               </Box>
               <Box className={classes.boxFlex}>
@@ -152,14 +124,7 @@ const UserDetails = () => {
                   <FormattedMessage id="users.userDts.newTime" />
                 </Text>
                 <Text className={classes.textStart}>
-                  <FormattedDate
-                    value={userBatfsil?.user.updatedAt}
-                    month="numeric"
-                    year="numeric"
-                    day="numeric"
-                  />
-                  ,&nbsp;
-                  <FormattedTime value={userBatfsil?.user?.updatedAt} />
+                  <FormattedLocalTime date={userBatfsil?.user.updatedAt} />
                 </Text>
               </Box>
               <Box className={classes.boxFlex}>
@@ -167,14 +132,7 @@ const UserDetails = () => {
                   <FormattedMessage id="users.userDts.shouldPay" />
                 </Text>
                 <Text className={classes.textStart}>
-                  <FormattedDate
-                    value={userBatfsil?.user?.shouldPay}
-                    month="numeric"
-                    year="numeric"
-                    day="numeric"
-                  />
-                  ,&nbsp;
-                  <FormattedTime value={userBatfsil?.user?.shouldPay} />
+                  <FormattedLocalTime date={userBatfsil?.user.shouldPay} />
                 </Text>
               </Box>
             </Box>

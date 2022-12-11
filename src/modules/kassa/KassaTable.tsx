@@ -1,6 +1,6 @@
+import FormattedLocalTime from "@components/FormattedLocalTime";
 import TableHead from "@components/Table/TableHead";
 import { Pagination, Table } from "@mantine/core";
-import { FormattedDate,  FormattedTime } from "react-intl";
 
 export const kassaLocaleUz = {
   title: "Kassa",
@@ -31,24 +31,10 @@ function KassaTable({
     <tr key={item?._id}>
       <td>{item?.amount}</td>
       <td>
-        <FormattedTime value={item?.createdAt} />
-        ,&nbsp;
-        <FormattedDate
-          value={item?.createdAt}
-          month="numeric"
-          year="numeric"
-          day="numeric"
-        />
+        <FormattedLocalTime date={item?.createdAt} />
       </td>
       <td>
-        <FormattedTime value={item.updatedAt} />
-        ,&nbsp;
-        <FormattedDate
-          value={item.updatedAt}
-          month="numeric"
-          year="numeric"
-          day="numeric"
-        />
+        <FormattedLocalTime date={item?.updatedAt} />
       </td>
     </tr>
   ));

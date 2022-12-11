@@ -1,9 +1,10 @@
+import FormattedLocalTime from "@components/FormattedLocalTime";
 import TableHead from "@components/Table/TableHead";
 import { Button, Pagination, ScrollArea, Table, Text } from "@mantine/core";
 import Link from "next/link";
 import router from "next/router";
-import { memo, useCallback } from "react";
-import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
+import { memo } from "react";
+import { FormattedMessage } from "react-intl";
 
 import LoanBatafsil from "./batafsil/LoanBatafsil";
 import useStyles from "./component/loanStyle";
@@ -54,24 +55,10 @@ function LoanTable({
                   </Link>
                 </td>
                 <td className={classes.LoanTime}>
-                  <FormattedDate
-                    value={item?.updatedAt}
-                    month="numeric"
-                    year="numeric"
-                    day="numeric"
-                  />
-                  ,&nbsp;
-                  <FormattedTime value={item?.updatedAt} />
+                  <FormattedLocalTime date={item?.updatedAt} />
                 </td>
                 <td className={classes.LoanTime}>
-                  <FormattedDate
-                    value={item?.shouldPay}
-                    month="numeric"
-                    year="numeric"
-                    day="numeric"
-                  />
-                  ,&nbsp;
-                  <FormattedTime value={item?.shouldPay} />
+                  <FormattedLocalTime date={item?.shouldPay} />
                 </td>
                 <td>
                   <Button
@@ -83,8 +70,7 @@ function LoanTable({
                           details: item._id,
                         },
                       });
-                    }}
-                  >
+                    }}>
                     <FormattedMessage id="products.details" />
                   </Button>
                 </td>

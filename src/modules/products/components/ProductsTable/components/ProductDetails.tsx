@@ -5,7 +5,7 @@ import useStyles from "@modules/products/components/ProductsTable/styles";
 import { IconPhoto } from "@tabler/icons";
 import { useRouter } from "next/router";
 import queryString from "query-string";
-import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
+import { FormattedMessage } from "react-intl";
 
 type Props = {
   products?: any;
@@ -77,14 +77,7 @@ const ProductDetails = ({ products }: Props) => {
                   <FormattedMessage id="users.userDts.oldTime" />
                 </Text>
                 <Text className={classes.textStart}>
-                  <FormattedDate
-                    value={item?.createdAt}
-                    day="2-digit"
-                    month="long"
-                    year="numeric"
-                  />
-                  ,&nbsp;
-                  <FormattedTime value={item?.createdAt} />
+                  <FormattedLocalTime date={item?.createdAt} />
                 </Text>
               </Box>
               <Box className={classes.boxFlex}>

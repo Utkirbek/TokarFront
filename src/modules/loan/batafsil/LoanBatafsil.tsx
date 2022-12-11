@@ -1,9 +1,10 @@
+import FormattedLocalTime from "@components/FormattedLocalTime";
 import { Box, Image, Modal, Text } from "@mantine/core";
 import useStyles from "@modules/products/components/ProductsTable/styles";
 import { IconUser } from "@tabler/icons";
 import { useRouter } from "next/router";
 import queryString from "query-string";
-import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
+import { FormattedMessage } from "react-intl";
 
 type Props = {
   loan?: any;
@@ -68,8 +69,7 @@ const LoanBatafsil = ({ loan }: Props) => {
                   style={{
                     borderBottom: "1px solid #1983FF",
                     textDecoration: "none",
-                  }}
-                >
+                  }}>
                   {item?.user === null ? (
                     <Text className={classes.textStart}>
                       <FormattedMessage id="loans.userError" />
@@ -120,14 +120,7 @@ const LoanBatafsil = ({ loan }: Props) => {
                   <FormattedMessage id="users.userDts.oldTime" />
                 </Text>
                 <Text className={classes.textStart}>
-                  <FormattedDate
-                    value={item?.user?.createdAt}
-                    month="numeric"
-                    year="numeric"
-                    day="numeric"
-                  />
-                  ,&nbsp;
-                  <FormattedTime value={item?.user?.createdAt} />
+                  <FormattedLocalTime date={item?.user?.createdAt} />
                 </Text>
               </Box>
               <Box className={classes.boxFlex}>
@@ -135,14 +128,7 @@ const LoanBatafsil = ({ loan }: Props) => {
                   <FormattedMessage id="users.userDts.newTime" />
                 </Text>
                 <Text className={classes.textStart}>
-                  <FormattedDate
-                    value={item?.user?.updatedAt}
-                    month="numeric"
-                    year="numeric"
-                    day="numeric"
-                  />
-                  ,&nbsp;
-                  <FormattedTime value={item?.user?.updatedAt} />
+                  <FormattedLocalTime date={item?.user?.updatedAt} />
                 </Text>
               </Box>
               <Box className={classes.boxFlex}>
@@ -150,14 +136,7 @@ const LoanBatafsil = ({ loan }: Props) => {
                   <FormattedMessage id="users.userDts.shouldPay" />
                 </Text>
                 <Text className={classes.textStart}>
-                  <FormattedDate
-                    value={item?.shouldPay}
-                    month="numeric"
-                    year="numeric"
-                    day="numeric"
-                  />
-                  ,&nbsp;
-                  <FormattedTime value={item?.shouldPay} />
+                  <FormattedLocalTime date={item?.user?.shouldPay} />
                 </Text>
               </Box>
             </Box>

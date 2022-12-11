@@ -1,3 +1,4 @@
+import FormattedLocalTime from "@components/FormattedLocalTime";
 import If from "@components/smart/If";
 import TableHead from "@components/Table/TableHead";
 import useConfirmation from "@hooks/useConfirmation";
@@ -14,7 +15,7 @@ import { IconTrash } from "@tabler/icons";
 import { Permissions } from "@utils/constants";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
+import { FormattedMessage } from "react-intl";
 
 import OrdersDetails from "../modalOrder/Orderdetail";
 import useStyles from "./orderStyle";
@@ -81,24 +82,10 @@ const OrdersTable = ({
           </Link>
         </td>
         <td className={classes.orderTD}>
-          <FormattedDate
-            value={item?.createdAt}
-            month="numeric"
-            year="numeric"
-            day="numeric"
-          />
-          ,&nbsp;
-          <FormattedTime value={item?.createdAt} />
+          <FormattedLocalTime date={item?.createdAt} />
         </td>
         <td className={classes.orderTD}>
-          <FormattedDate
-            value={item?.updatedAt}
-            month="numeric"
-            year="numeric"
-            day="numeric"
-          />
-          ,&nbsp;
-          <FormattedTime value={item?.updatedAt} />
+          <FormattedLocalTime date={item?.updatedAt} />
         </td>
         <If hasPerm={Permissions.orders.delete}>
           <td>

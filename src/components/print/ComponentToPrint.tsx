@@ -1,7 +1,8 @@
+import FormattedLocalTime from "@components/FormattedLocalTime";
 import useUser from "@hooks/shared/useUser";
 import { Box, Image, Text } from "@mantine/core";
 import React from "react";
-import { FormattedDate, FormattedMessage } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { useCart } from "react-use-cart";
 
 import useStyles from "./PrintStyle";
@@ -19,14 +20,7 @@ const ComponentToPrint = React.forwardRef((props: Props, ref: any) => {
         <FormattedMessage id="checks.vaqti" />
       </Text>
       <Text className={classes.textColor}>
-        <FormattedDate
-          value={new Date()}
-          hour={"numeric"}
-          minute="numeric"
-          year="numeric"
-          month="numeric"
-          day="numeric"
-        />
+        <FormattedLocalTime date={new Date()} />
       </Text>
     </Box>
   );

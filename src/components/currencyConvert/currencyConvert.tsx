@@ -1,3 +1,4 @@
+import FormattedLocalTime from "@components/FormattedLocalTime";
 import TableHead from "@components/Table/TableHead";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
@@ -12,7 +13,7 @@ import {
 import useCurrency from "@services/hooks/useCurrency";
 import { IconTrash } from "@tabler/icons";
 import { useRef } from "react";
-import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
+import { FormattedMessage } from "react-intl";
 
 type Props = {
   data?: any;
@@ -121,24 +122,10 @@ const TableRow = ({
         />
       </td>
       <td>
-        <FormattedTime value={item?.createdAt} />
-        ,&nbsp;
-        <FormattedDate
-          value={item?.createdAt}
-          month="numeric"
-          year="numeric"
-          day="numeric"
-        />
+        <FormattedLocalTime date={item?.createdAt} />
       </td>
       <td>
-        <FormattedTime value={item.updatedAt} />
-        ,&nbsp;
-        <FormattedDate
-          value={item.updatedAt}
-          month="numeric"
-          year="numeric"
-          day="numeric"
-        />
+        <FormattedLocalTime date={item?.updatedAt} />
       </td>
       <td
         style={{
@@ -146,8 +133,7 @@ const TableRow = ({
           alignItems: "center",
           justifyContent: "space-around",
           marginBottom: "-5px",
-        }}
-      >
+        }}>
         <ActionIcon>
           <IconTrash
             onClick={() => openDeleteModal(item._id, item.name)}

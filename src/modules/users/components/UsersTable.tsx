@@ -91,8 +91,7 @@ function UsersTable({ data }: any) {
                 gap: 10,
                 paddingBottom: "25px",
                 alignItems: "center",
-              }}
-            >
+              }}>
               <If hasPerm={Permissions.users.delete}>
                 <ActionIcon>
                   <IconTrash
@@ -121,8 +120,7 @@ function UsersTable({ data }: any) {
                     details: item._id,
                   },
                 });
-              }}
-            >
+              }}>
               <FormattedMessage id="more" />
             </Button>
           </td>
@@ -143,8 +141,7 @@ function UsersTable({ data }: any) {
           alignItems: "center",
           justifyContent: "space-between",
           flexWrap: "wrap",
-        }}
-      >
+        }}>
         <SearchAutoComplete
           searchResults={searchResults}
           onSearchResults={setSearchResults}
@@ -156,8 +153,7 @@ function UsersTable({ data }: any) {
             <Button
               className={classes.tex}
               onClick={handleAddNew}
-              variant={"outline"}
-            >
+              variant={"outline"}>
               <FormattedMessage id="users.addNew" />
             </Button>
           </Group>
@@ -175,8 +171,7 @@ function UsersTable({ data }: any) {
         padding="xl"
         size="xl"
         position="right"
-        sx={{ height: "120vh" }}
-      >
+        sx={{ height: "120vh" }}>
         <NewUser
           handleClose={() => toggleOpened(false)}
           editItem={editItem}

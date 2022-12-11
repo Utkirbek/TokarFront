@@ -1,6 +1,6 @@
+import FormattedLocalTime from "@components/FormattedLocalTime";
 import TableHead from "@components/Table/TableHead";
 import { Pagination, ScrollArea, Table } from "@mantine/core";
-import { FormattedDate, FormattedTime } from "react-intl";
 
 const ProfitTable: React.FC<{
   dataProfit: any;
@@ -12,26 +12,12 @@ const ProfitTable: React.FC<{
     return (
       <tr key={item._id}>
         <td>{item?.shop.name}</td>
-        <td>{item?.amount}</td>
+        <td>{item?.amount.toFixed(2)}</td>
         <td>
-          <FormattedDate
-            value={item?.createdAt}
-            month="numeric"
-            year="numeric"
-            day="numeric"
-          />
-          ,&nbsp;
-          <FormattedTime value={item?.createdAt} />
+          <FormattedLocalTime date={item?.createdAt} />
         </td>
         <td>
-          <FormattedDate
-            value={item?.updatedAt}
-            month="numeric"
-            year="numeric"
-            day="numeric"
-          />
-          ,&nbsp;
-          <FormattedTime value={item?.updatedAt} />
+          <FormattedLocalTime date={item?.updatedAt} />
         </td>
       </tr>
     );

@@ -1,3 +1,4 @@
+import FormattedLocalTime from "@components/FormattedLocalTime";
 import TableHead from "@components/Table/TableHead";
 import {
   Avatar,
@@ -13,7 +14,7 @@ import { IconPhoto } from "@tabler/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import queryString from "query-string";
-import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
+import { FormattedMessage } from "react-intl";
 
 type Props = {
   orders?: any;
@@ -122,14 +123,7 @@ const OrdersDetails = ({ orders }: Props) => {
                 <FormattedMessage id="orders.createOrder" />
               </Text>
               <Text className={classes.textStart}>
-                <FormattedDate
-                  value={item?.createdAt}
-                  month="numeric"
-                  year="numeric"
-                  day="numeric"
-                />
-                ,&nbsp;
-                <FormattedTime value={item?.createdAt} />
+                <FormattedLocalTime date={item?.createdAt} />
               </Text>
             </Box>
             <Box className={classes.boxFlex}>
@@ -137,14 +131,7 @@ const OrdersDetails = ({ orders }: Props) => {
                 <FormattedMessage id="orders.newTime" />
               </Text>
               <Text className={classes.textStart}>
-                <FormattedDate
-                  value={item?.updatedAt}
-                  month="numeric"
-                  year="numeric"
-                  day="numeric"
-                />
-                ,&nbsp;
-                <FormattedTime value={item?.updatedAt} />
+                <FormattedLocalTime date={item?.updatedAt} />
               </Text>
             </Box>
           </Box>

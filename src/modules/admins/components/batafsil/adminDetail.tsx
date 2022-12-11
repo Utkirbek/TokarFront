@@ -1,9 +1,10 @@
+import FormattedLocalTime from "@components/FormattedLocalTime";
 import TableHead from "@components/Table/TableHead";
-import { Box, Group, Modal, ScrollArea, Table, Text } from "@mantine/core";
+import { Box, Group, Modal, Table, Text } from "@mantine/core";
 import useStyles from "@modules/products/components/ProductsTable/styles";
 import { useRouter } from "next/router";
 import queryString from "query-string";
-import { FormattedDate, FormattedMessage, FormattedTime } from "react-intl";
+import { FormattedMessage } from "react-intl";
 
 type Props = {
   admins?: any;
@@ -21,14 +22,7 @@ const AdminsDetails = ({ admins }: Props) => {
       <tr key={item._id}>
         <td>{prodItem?.amount}</td>
         <td>
-          <FormattedDate
-            value={prodItem?.date}
-            month="numeric"
-            year="numeric"
-            day="numeric"
-          />
-          ,&nbsp;
-          <FormattedTime value={prodItem?.date} />
+          <FormattedLocalTime date={prodItem?.data} />
         </td>
       </tr>
     );
@@ -75,14 +69,7 @@ const AdminsDetails = ({ admins }: Props) => {
                   <FormattedMessage id="admins.createdTime" />
                 </Text>
                 <Text className={classes.textStart}>
-                  <FormattedDate
-                    value={item?.createdAt}
-                    month="numeric"
-                    year="numeric"
-                    day="numeric"
-                  />
-                  ,&nbsp;
-                  <FormattedTime value={item?.createdAt} />
+                  <FormattedLocalTime date={item?.createdAt} />
                 </Text>
               </Box>
               <Box className={classes.boxFlex}>
@@ -90,14 +77,7 @@ const AdminsDetails = ({ admins }: Props) => {
                   <FormattedMessage id="orders.newTime" />
                 </Text>
                 <Text className={classes.textStart}>
-                  <FormattedDate
-                    value={item?.updatedAt}
-                    month="numeric"
-                    year="numeric"
-                    day="numeric"
-                  />
-                  ,&nbsp;
-                  <FormattedTime value={item?.updatedAt} />
+                  <FormattedLocalTime date={item?.updatedAt} />
                 </Text>
               </Box>
             </Box>
@@ -112,8 +92,7 @@ const AdminsDetails = ({ admins }: Props) => {
           sx={{
             width: "100%",
             margin: "0 auto",
-          }}
-        >
+          }}>
           <Table verticalSpacing="sm" highlightOnHover>
             <TableHead
               data={{
