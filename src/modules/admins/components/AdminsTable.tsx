@@ -12,29 +12,32 @@ import {
   Table,
   Text,
 } from "@mantine/core";
-import { useToggle } from "@mantine/hooks";
+import { useMediaQuery, useToggle } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
 import adminFetchers from "@services/api/adminFetchers";
 import useAdmins from "@services/hooks/useAdmins";
-import { IconPencil, IconTrash } from "@tabler/icons";
+import { IconPencil, IconPlus, IconTrash } from "@tabler/icons";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { Permissions } from "@/utils/constants";
 
+import AdminCard from "./AdminCard";
 import AdminsDrawer from "./AdminsDrawer";
+import useAdminStyles from "./AdminStyle";
 import AdminsDetails from "./batafsil/adminDetail";
 import Salary from "./Salary";
 
 function TableCard({ data }: { data: any }) {
+  const { classes } = useAdminStyles();
   const { name } = useUser();
   const intl = useIntl();
   const [drawerOpen, toggleDrawerOpen] = useToggle();
-  const [editItem, setEditItem] = useState({});
+  const [editItem, setEditItem] = useState<{ _id?: string }>({});
   const router = useRouter();
   const { deleteAdmin } = useAdmins();
-
+  const isMobile = useMediaQuery("(max-width: 600px)");
   const {
     showSuccessNotification,
     showErrorNotification,
@@ -53,6 +56,11 @@ function TableCard({ data }: { data: any }) {
       },
     });
   };
+
+  const handleClick = useCallback(() => {
+    toggleDrawerOpen(true);
+    setEditItem({});
+  }, []);
 
   const openDeleteModal = (id: string, name: string) =>
     openConfirm(
@@ -98,21 +106,14 @@ function TableCard({ data }: { data: any }) {
           <td>{item.email}</td>
           <td>{item.role?.name}</td>
           <td>{item.salary_percent}%</td>
-          <td>{item.earned_salary}</td>
+          <td>{item.earned_salary.toFixed(2)}</td>
           <td>
             <Group>
               <Salary inpStaff={item._id} />
             </Group>
           </td>
 
-          <td
-            style={{
-              display: "flex",
-              justifyContent: "start",
-              gap: 10,
-              paddingBottom: "20px",
-            }}
-          >
+          <td className={classes.AdminTd}>
             {item.name == name ? (
               <ActionIcon>
                 <IconTrash style={{ color: "red", cursor: "no-drop" }} />
@@ -122,7 +123,7 @@ function TableCard({ data }: { data: any }) {
                 <ActionIcon>
                   <IconTrash
                     onClick={() => openDeleteModal(item._id, item.name)}
-                    style={{ color: "red", cursor: "pointer" }}
+                    className={classes.AdminTrash}
                   />
                 </ActionIcon>
               </If>
@@ -131,10 +132,7 @@ function TableCard({ data }: { data: any }) {
               <ActionIcon>
                 <IconPencil
                   onClick={onEditClick.bind(null, item)}
-                  style={{
-                    cursor: "pointer",
-                    marginRight: "-10px",
-                  }}
+                  className={classes.adminPencil}
                 />
               </ActionIcon>
             </If>
@@ -161,27 +159,21 @@ function TableCard({ data }: { data: any }) {
   return (
     <>
       <If hasPerm={Permissions.admins.create}>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+        <Box className={classes.adminBox}>
           <SearchAutoComplete
             searchResults={searchResults}
             onSearchResults={setSearchResults}
             onClear={() => setSearchResults([])}
             fetcher={adminFetchers.getAdminsByTitle}
           />
-          <Group position="right" mx={"xl"} my={"xl"}>
+          <Group position="right" mx={"xl"} my={"xl"} className={classes.drawerBtn}>
             <Button onClick={onClose} variant={"outline"}>
               <FormattedMessage id="admins.add.title" />
             </Button>
           </Group>
         </Box>
       </If>
-      <Table highlightOnHover>
+      <Table highlightOnHover className={classes.AdminTable}>
         <thead>
           <tr>
             <th>
@@ -212,12 +204,38 @@ function TableCard({ data }: { data: any }) {
         </thead>
         <tbody>{rows}</tbody>
       </Table>
+      <Box className={classes.AdminCard}>
+        <AdminCard
+          data={data}
+          openDeleteModal={openDeleteModal}
+          editOnClick={onEditClick}
+        />
+      </Box>
+
       <AdminsDetails admins={data} />
+
+      {isMobile && (
+        <ActionIcon
+          onClick={handleClick}
+          variant="filled"
+          sx={{
+            position: "fixed",
+            bottom: 60,
+            right: 20,
+            backgroundColor: "#1972C2",
+            borderRadius: "100px",
+          }}
+          size="xl"
+        >
+          <IconPlus />
+        </ActionIcon>
+      )}
       <Drawer
         opened={drawerOpen}
         onClose={onClose}
         padding="xl"
-        size="30%"
+        withOverlay={false}
+        className={classes.admindrawer}
         position="right"
       >
         <AdminsDrawer editItem={editItem} handleClose={onClose} />

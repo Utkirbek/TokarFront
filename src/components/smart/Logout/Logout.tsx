@@ -79,8 +79,8 @@ const Logout = () => {
             sx={{ cursor: "pointer" }}
           />
         </Menu.Target>
-        <Menu.Dropdown>
-          <Menu.Label>
+        <Menu.Dropdown >
+          <Menu.Label >
             <FormattedMessage id="logout.menuLabel" />
           </Menu.Label>
           <Menu.Item
