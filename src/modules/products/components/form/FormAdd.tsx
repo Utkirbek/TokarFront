@@ -143,8 +143,7 @@ const FormProduct: React.FC<{
         <ActionIcon
           color="red"
           mt={20}
-          onClick={() => form.removeListItem("discounts", index)}
-        >
+          onClick={() => form.removeListItem("discounts", index)}>
           <IconTrash />
         </ActionIcon>
       </Group>
@@ -170,8 +169,7 @@ const FormProduct: React.FC<{
           <Button
             variant="outline"
             sx={{ float: "right", margin: "10px 0" }}
-            hidden
-          >
+            hidden>
             <FormattedMessage id="products.form.takePicture" />
           </Button>
         </Box>
@@ -186,8 +184,7 @@ const FormProduct: React.FC<{
         <If hasPerm={Permissions.products.add.originalPrice}>
           <If
             condition={!!currencies}
-            elseChildren={<Skeleton width="100%" height="40px" />}
-          >
+            elseChildren={<Skeleton width="100%" height="40px" />}>
             <PriceGroup
               currencies={currencies}
               priceLabel={intl.formatMessage({ id: "products.form.orgLabel" })}
@@ -204,8 +201,7 @@ const FormProduct: React.FC<{
         <If hasPerm={Permissions.products.add.price}>
           <If
             condition={!!currencies}
-            elseChildren={<Skeleton width="100%" height="40px" />}
-          >
+            elseChildren={<Skeleton width="100%" height="40px" />}>
             <PriceGroup
               currencies={currencies}
               priceLabel={intl.formatMessage({ id: "products.form.saleLabel" })}
@@ -268,8 +264,7 @@ const FormProduct: React.FC<{
                 quantity: 0,
                 key: nanoid(),
               });
-            }}
-          >
+            }}>
             <FormattedMessage id="products.form.addDiscount" />
           </Button>
         </Group>
