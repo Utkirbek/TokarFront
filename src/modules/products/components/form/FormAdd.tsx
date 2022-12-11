@@ -59,17 +59,17 @@ const FormProduct: React.FC<{
 
   const form = useForm<FormAddProps>({
     initialValues: {
-      title: editItem?.title ?? "",
+      title: editItem?.title || "",
       code: editItem?.code ?? "",
       originalPrice: editItem?.originalPrice ?? null,
       price: editItem?.price ?? null,
-      unit: editItem?.unit ?? "D",
+      unit: editItem?.unit || "D",
       quantity: editItem?.quantity ?? 1,
-      description: editItem?.description ?? "",
+      description: editItem?.description || "",
       discounts: editItem?.discounts ?? [],
-      currency: editItem?.currency?._id ?? "63635d7850b0f6000826a6ac",
+      currency: editItem?.currency?._id || "63635d7850b0f6000826a6ac",
       sellingCurrency:
-        editItem?.sellingCurrency?._id ?? "63635d7850b0f6000826a6ac",
+        editItem?.sellingCurrency?._id || "63635d7850b0f6000826a6ac",
       minQuantity: editItem?.minQuantity ?? 5,
       image: editItem?.image || "",
     },
@@ -78,12 +78,13 @@ const FormProduct: React.FC<{
   const handleSubmit = async (values: FormAddProps) => {
     showLoadingNotification();
     if (!!editItem._id) {
+      console.log(values, imagesRef.current?.join?.(","));
       editProduct(
         {
           id: editItem._id,
           values: {
             ...values,
-            image: imagesRef.current?.join?.(",") ?? editItem.image,
+            image: imagesRef.current?.join?.(",") || editItem.image,
             discounts: values.discounts?.map((item) => ({
               price: item.price,
               quantity: item.quantity,

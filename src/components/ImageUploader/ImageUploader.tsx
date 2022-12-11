@@ -40,6 +40,15 @@ const ImageUploader: React.FC<Props> = ({ urlsRef, sx, dropzoneProps }) => {
         src={imageUrl}
         imageProps={{ onLoad: () => URL.revokeObjectURL(imageUrl) }}
         alt="None"
+        width={100}
+        height={100}
+        sx={{
+          objectFit: "cover",
+          borderRadius: "md",
+          border: `1px solid ${
+            theme.colors.gray[theme.colorScheme === "dark" ? 6 : 2]
+          }`,
+        }}
       />
     );
   });
