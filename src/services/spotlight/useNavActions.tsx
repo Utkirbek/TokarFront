@@ -47,6 +47,7 @@ const useNavActions = () => {
         title: intl.formatMessage({ id: "logout.title" }),
         description: intl.formatMessage({ id: "logout.description" }),
         onTrigger: () => {
+          window?.localStorage?.clear?.();
           removeCookies("token");
           removeCookies("shopId");
           removeCookies("isLoggedIn");

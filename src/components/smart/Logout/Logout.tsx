@@ -52,6 +52,7 @@ const Logout = () => {
       {
         titleId: "logout.title",
         onConfirm: () => {
+          window?.localStorage?.clear?.();
           removeCookies("token");
           removeCookies("shopId");
           removeCookies("isLoggedIn");
@@ -60,7 +61,7 @@ const Logout = () => {
         onCancel: () => {
           showNotification({
             title: "Siz bekor qildingiz",
-            message: "Hey there, your code is awesome! 🤥",
+            message: "Siz profildan chiqib ketishni rad etdingiz :)",
           });
         },
       }
@@ -79,8 +80,8 @@ const Logout = () => {
             sx={{ cursor: "pointer" }}
           />
         </Menu.Target>
-        <Menu.Dropdown >
-          <Menu.Label >
+        <Menu.Dropdown>
+          <Menu.Label>
             <FormattedMessage id="logout.menuLabel" />
           </Menu.Label>
           <Menu.Item
