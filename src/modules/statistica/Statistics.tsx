@@ -52,7 +52,6 @@ function Statistics() {
           <PieChart data={spentData?.weeks} labelId="spent" />
         </WithLoading>
         <WithLoading
-          withRenderProps
           query={staffSalaryQuery}
           FallbackLoadingUI={() => <Skeleton height={"35vh"} my={16} />}
         >

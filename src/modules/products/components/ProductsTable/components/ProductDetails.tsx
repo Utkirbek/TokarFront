@@ -1,5 +1,6 @@
+import FormattedLocalTime from "@components/FormattedLocalTime";
 import TableHead from "@components/Table/TableHead";
-import { Box, Group, Image, Modal, Table, Text } from "@mantine/core";
+import { Box, Image, Modal, Table, Text } from "@mantine/core";
 import useStyles from "@modules/products/components/ProductsTable/styles";
 import { IconPhoto } from "@tabler/icons";
 import { useRouter } from "next/router";
@@ -78,9 +79,9 @@ const ProductDetails = ({ products }: Props) => {
                 <Text className={classes.textStart}>
                   <FormattedDate
                     value={item?.createdAt}
-                    month="numeric"
+                    day="2-digit"
+                    month="long"
                     year="numeric"
-                    day="numeric"
                   />
                   ,&nbsp;
                   <FormattedTime value={item?.createdAt} />
@@ -91,14 +92,7 @@ const ProductDetails = ({ products }: Props) => {
                   <FormattedMessage id="users.userDts.newTime" />
                 </Text>
                 <Text className={classes.textStart}>
-                  <FormattedDate
-                    value={item?.updatedAt}
-                    month="numeric"
-                    year="numeric"
-                    day="numeric"
-                  />
-                  ,&nbsp;
-                  <FormattedTime value={item?.updatedAt} />
+                  <FormattedLocalTime date={item?.updatedAt} />
                 </Text>
               </Box>
             </Box>
