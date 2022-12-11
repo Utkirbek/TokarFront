@@ -9,7 +9,6 @@ import {
   NumberInput,
   Select,
   Skeleton,
-  Text,
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";

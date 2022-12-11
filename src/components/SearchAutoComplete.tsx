@@ -63,12 +63,11 @@ function SearchAutoComplete({
   }));
 
   return (
-    <Box component="form" onSubmit={handleSearch}>
+    <Box component="form" onSubmit={handleSearch} sx={{ flexGrow: 1 }}>
       <Autocomplete
         icon={<IconSearch />}
         className={classes.search}
         sx={{
-          flexGrow: 1,
           marginRight: !isMobile ? 60 : 15,
         }}
         value={value}
