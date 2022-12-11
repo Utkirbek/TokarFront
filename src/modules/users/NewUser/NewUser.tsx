@@ -28,7 +28,7 @@ const NewUser: React.FC<{
       phone: editItem?.phone ?? "",
       workplace: editItem?.workplace ?? "",
       extra: editItem?.extra ?? "",
-      image: editItem?.image ?? "",
+      image: editItem?.image || "",
     },
   });
 
@@ -37,7 +37,6 @@ const NewUser: React.FC<{
     phone: string;
     workplace: string;
     extra: string;
-    image: string;
   }) => {
     handleClose();
     showLoadingNotification();
@@ -53,6 +52,7 @@ const NewUser: React.FC<{
           id: editItem._id,
           values: {
             ...values,
+            image: imagesRef.current?.join?.(",") || editItem.image,
           },
         },
         events
