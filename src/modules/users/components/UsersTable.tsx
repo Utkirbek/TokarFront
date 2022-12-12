@@ -5,6 +5,7 @@ import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
 import {
   ActionIcon,
+  Affix,
   Avatar,
   Box,
   Button,
@@ -15,10 +16,9 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
-import useStyles from "@modules/products/components/ProductsTable/styles/ProductTableStyle";
 import userFetcher from "@services/api/userFetcher";
 import useUsers from "@services/hooks/useUsers";
-import { IconPencil, IconTrash } from "@tabler/icons";
+import { IconPencil, IconTrash, IconUserPlus } from "@tabler/icons";
 import { Permissions } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
 import { useRouter } from "next/router";
@@ -28,6 +28,8 @@ import { FormattedMessage } from "react-intl";
 import UserDetails from "../batafsil";
 import { usersTableHead } from "../constants";
 import NewUser from "../NewUser";
+import UserCard from "./UserCard";
+import UserStyle from "./UserStle";
 
 function UsersTable({ data }: any) {
   const {
@@ -42,12 +44,7 @@ function UsersTable({ data }: any) {
   const [editItem, setEditItem] = useState({});
   const [opened, toggleOpened] = useToggle();
   const [searchResults, setSearchResults] = useState([]);
-  const { classes } = useStyles();
-
-  const { useFetchUsers } = useUsers();
-
-  const usersQuery = useFetchUsers();
-  const { data: user } = usersQuery;
+  const { classes } = UserStyle();
 
   const rows = (searchResults.length > 0 ? searchResults : data).map(
     (item: any) => {
@@ -91,7 +88,8 @@ function UsersTable({ data }: any) {
                 gap: 10,
                 paddingBottom: "25px",
                 alignItems: "center",
-              }}>
+              }}
+            >
               <If hasPerm={Permissions.users.delete}>
                 <ActionIcon>
                   <IconTrash
@@ -120,7 +118,8 @@ function UsersTable({ data }: any) {
                     details: item._id,
                   },
                 });
-              }}>
+              }}
+            >
               <FormattedMessage id="more" />
             </Button>
           </td>
@@ -135,29 +134,36 @@ function UsersTable({ data }: any) {
 
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-        }}>
-        <SearchAutoComplete
-          searchResults={searchResults}
-          onSearchResults={setSearchResults}
-          onClear={() => setSearchResults([])}
-          fetcher={userFetcher.getUsersByTitle}
-        />
-        <If hasPerm={Permissions.users.create}>
-          <Group position="right" mx={"xl"}>
-            <Button
-              className={classes.tex}
-              onClick={handleAddNew}
-              variant={"outline"}>
-              <FormattedMessage id="users.addNew" />
-            </Button>
-          </Group>
-        </If>
+      <Box className={classes.userHead}>
+        <Box className={classes.userSerch} style={{ zIndex: 1 }}>
+          <SearchAutoComplete
+            searchResults={searchResults}
+            onSearchResults={setSearchResults}
+            onClear={() => setSearchResults([])}
+            fetcher={userFetcher.getUsersByTitle}
+          />
+        </Box>
+
+        <Box>
+          <Box className={classes.userAdd}>
+            <If hasPerm={Permissions.users.create}>
+              <Group position="right" mx={"xl"}>
+                <Button
+                  className={classes.tex}
+                  onClick={handleAddNew}
+                  variant={"outline"}
+                >
+                  <FormattedMessage id="users.addNew" />
+                </Button>
+              </Group>
+            </If>
+          </Box>
+          <Affix position={{ bottom: 60, right: 20 }}>
+            <Box className={classes.userAddIcon} onClick={handleAddNew}>
+              <IconUserPlus size={25} color={"#fff"} />
+            </Box>
+          </Affix>
+        </Box>
       </Box>
 
       <Drawer
@@ -168,23 +174,25 @@ function UsersTable({ data }: any) {
         }
         opened={opened}
         onClose={() => toggleOpened(false)}
-        padding="xl"
         size="xl"
         position="right"
-        sx={{ height: "120vh" }}>
-        <NewUser
-          handleClose={() => toggleOpened(false)}
-          editItem={editItem}
-          data={user}
-        />
+        sx={{ height: "120vh" }}
+      >
+        <NewUser handleClose={() => toggleOpened(false)} editItem={editItem} />
       </Drawer>
 
       <ScrollArea>
-        <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
-          <TableHead data={usersTableHead} prefix="users" />
-          <tbody>{rows}</tbody>
-        </Table>
+        <Box className={classes.userTable}>
+          <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
+            <TableHead data={usersTableHead} prefix="users" />
+            <tbody>{rows}</tbody>
+          </Table>
+        </Box>
+
         <UserDetails />
+        <Box className={classes.userCard}>
+          <UserCard data={data} />
+        </Box>
       </ScrollArea>
     </>
   );

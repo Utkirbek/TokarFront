@@ -143,13 +143,13 @@ const TableUser = ({ data }: Props) => {
         padding="xl"
         size="xl"
         position="right"
-        sx={{ height: "120vh" }}>
+        sx={{ height: "120vh" }}
+      >
         <NewUser
           handleClose={() => {
             setOpened(false);
           }}
           editItem={editItem}
-          data={data}
         />
       </Drawer>
       <Group position="right" mx={"xl"}>
