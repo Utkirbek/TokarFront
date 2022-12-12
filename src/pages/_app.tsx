@@ -52,14 +52,17 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         defaultLocale="uz"
       >
         <Head>
-          <title>Tokar savdo</title>
+          <title>{process.env.SHOP_NAME} savdo</title>
           <meta name="application-name" content="Store system" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta
             name="apple-mobile-web-app-status-bar-style"
             content="default"
           />
-          <meta name="apple-mobile-web-app-title" content="Tokar store" />
+          <meta
+            name="apple-mobile-web-app-title"
+            content={`${process.env.SHOP_NAME} Savdo`}
+          />
           <meta
             name="description"
             content="Developed by Tespen Software Services"

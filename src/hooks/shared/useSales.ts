@@ -51,7 +51,7 @@ const useSalesState = create(
       setSearchOrderId: (searchOrderId) => set({ searchOrderId }),
     }),
     {
-      name: "tokar-sales",
+      name: "tespen-sales",
     }
   )
 );

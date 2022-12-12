@@ -56,7 +56,7 @@ const useUser = create(
       logout: () => set({ ...initalState }),
     }),
     {
-      name: "tokar-user",
+      name: "tespen-user",
     }
   )
 );
