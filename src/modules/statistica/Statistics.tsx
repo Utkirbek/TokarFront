@@ -32,6 +32,7 @@ function Statistics() {
   return (
     <div>
       <StatisticsFilters
+        isAllTrue={isAllTrue}
         activeShop={activeShopId}
         updateActiveShop={setActiveShopId}
         setIsAllTrue={setIsAllTrue}

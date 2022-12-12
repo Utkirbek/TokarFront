@@ -7,12 +7,14 @@ type Props = {
   updateActiveShop: (shopId: string) => void;
   activeShop: string;
   setIsAllTrue: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+  isAllTrue: boolean;
 };
 
 const StatisticsFilters: React.FC<Props> = ({
   updateActiveShop,
   activeShop,
   setIsAllTrue,
+  isAllTrue,
 }) => {
   const { useFetchShop } = useShop();
 
@@ -21,10 +23,13 @@ const StatisticsFilters: React.FC<Props> = ({
   const onFilterChipChange = (value: string) => {
     switch (value) {
       case "all":
-        setIsAllTrue((prev) => !prev);
+        setIsAllTrue(true);
         break;
       default:
         updateActiveShop(value);
+        if (isAllTrue) {
+          setIsAllTrue(false);
+        }
     }
   };
 
