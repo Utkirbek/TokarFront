@@ -77,6 +77,7 @@ export enum RequestQueryKeys {
   IMAGE_UPLOAD = "imageUpload",
   REFUND = "refund",
   GET_ORDER = "getOrder",
+  GET_ALL_STATISTICS = "getAllStatistics",
 }
 
 export const Permissions = {

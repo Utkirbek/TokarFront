@@ -1,15 +1,23 @@
 import WithLoading from "@hoc/WithLoading";
 import { SimpleGrid, Skeleton } from "@mantine/core";
 import useStatistics from "@services/hooks/useStatistics";
+import { getCookie } from "cookies-next";
+import { useState } from "react";
 
 import ProfitsBar from "./bar/ProfitsBar";
 import StatsGrid from "./cards/StatsGrid";
 import PieChart from "./PieChart/PieChart";
 import StatisticsHeadSkeleton from "./Skleton";
+import StatisticsFilters from "./StatisticsFilters";
 
 function Statistics() {
+  const defaultShopId = getCookie("shopId");
+  const [activeShopId, setActiveShopId] = useState<string>(
+    defaultShopId as string
+  );
+  const [isAllTrue, setIsAllTrue] = useState<boolean>(false);
   const { useFetchStats, useFetchStaffSalary, useFetchSpent, useFetchIncome } =
-    useStatistics();
+    useStatistics(activeShopId);
 
   const statsQuery = useFetchStats();
   const staffSalaryQuery = useFetchStaffSalary();
@@ -23,6 +31,11 @@ function Statistics() {
 
   return (
     <div>
+      <StatisticsFilters
+        activeShop={activeShopId}
+        updateActiveShop={setActiveShopId}
+        setIsAllTrue={setIsAllTrue}
+      />
       <WithLoading
         withRenderProps
         query={statsQuery}
@@ -58,7 +71,7 @@ function Statistics() {
           <PieChart data={staffSalaryData} labelId="staffSalary" />
         </WithLoading>
       </SimpleGrid>
-      <ProfitsBar />
+      <ProfitsBar activeShopId={activeShopId} isAllTrue={isAllTrue} />
     </div>
   );
 }

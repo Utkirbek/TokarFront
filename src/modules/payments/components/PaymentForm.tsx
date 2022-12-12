@@ -13,14 +13,9 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import salesMethods from "@modules/products/components/buyCart/data";
-import loanFeatchers from "@services/api/loanFetchers";
 import usePayments from "@services/hooks/usePayments";
 import useUsers from "@services/hooks/useUser";
-import { IconChevronDown } from "@tabler/icons";
-import { RequestQueryKeys } from "@utils/constants";
-import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import useSWR from "swr";
 
 import useStyles from "./paymentStyle";
 
@@ -33,11 +28,11 @@ export const FieldLoader = () => {
   );
 };
 
+export type PaymentMethod = "cash" | "terminal" | "click";
+
 const PaymentsForm: React.FC<{
   handleClose: () => void;
 }> = ({ handleClose }) => {
-  const [value, setValue] = useState<string | null>(null);
-
   const { classes } = useStyles();
   const intl = useIntl();
   const {
@@ -48,30 +43,26 @@ const PaymentsForm: React.FC<{
 
   const { addPayments } = usePayments();
   const { useFetchUsers } = useUsers();
+
   const getUserQuery = useFetchUsers();
   const { data: users } = getUserQuery;
 
-  const userLoanQuery = useSWR(
-    value ? [RequestQueryKeys.getLoanUserID, value] : null,
-    loanFeatchers.getLoanUserID
-  );
-  const { data: userLoan } = userLoanQuery;
   const userId = useUser();
 
   const form = useForm({
     initialValues: {
-      amount: "",
-      paymentMethod: "cash",
+      amount: 0,
+      paymentMethod: "cash" as PaymentMethod,
       salesman: userId._id,
-      loan: "",
+      userId: "",
     },
   });
 
   const handleSubmit = async (values: {
-    amount: any;
-    paymentMethod: string;
-    salesman: any;
-    loan: any;
+    amount: number;
+    paymentMethod: PaymentMethod;
+    salesman: string;
+    userId: string;
   }) => {
     addPayments(values, {
       onSuccess: () => {
@@ -89,55 +80,18 @@ const PaymentsForm: React.FC<{
     <>
       <Box className={classes.paymentBox} mx="auto">
         <form onSubmit={form.onSubmit(handleSubmit)}>
-          <Text className={classes.paymentText}>
-            <FormattedMessage id="payments.formTitle" />
-          </Text>
           <WithLoading query={getUserQuery} FallbackLoadingUI={FieldLoader}>
             <Select
               className={classes.paymentSelect}
-              rightSection={<IconChevronDown size={14} />}
-              rightSectionWidth={30}
-              placeholder={intl.formatMessage({
-                id: "payments.user",
-              })}
+              placeholder={intl.formatMessage({ id: "payments.user" })}
               styles={{ rightSection: { pointerEvents: "none" } }}
               label={intl.formatMessage({ id: "payments.user" })}
               data={users?.map((item: any) => ({
                 value: item._id,
                 label: item.name,
               }))}
-              onChange={(val) => {
-                setValue(val);
-              }}
-              value={value}
               required
-            />
-          </WithLoading>
-
-          <WithLoading query={userLoanQuery} FallbackLoadingUI={FieldLoader}>
-            <Select
-              className={classes.paymentSelect}
-              rightSection={<IconChevronDown size={14} />}
-              rightSectionWidth={30}
-              placeholder={intl.formatMessage({
-                id: "payments.loanUser",
-              })}
-              styles={{ rightSection: { pointerEvents: "none" } }}
-              label={intl.formatMessage({ id: "payments.loanUser" })}
-              data={
-                Array.isArray(userLoan?.loan)
-                  ? userLoan?.loan
-                      .filter((item: any) => Boolean(item.amount))
-                      .map((item: any) => {
-                        return {
-                          label: item.amount,
-                          value: item._id,
-                        };
-                      })
-                  : []
-              }
-              required
-              {...form.getInputProps("loan")}
+              {...form.getInputProps("userId")}
             />
           </WithLoading>
 
@@ -154,7 +108,7 @@ const PaymentsForm: React.FC<{
             type="number"
             required
           />
-          <Box my={30}>
+          <Box my={10}>
             <Text my={10}>
               <FormattedMessage id="payments.select" />
             </Text>

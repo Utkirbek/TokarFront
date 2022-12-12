@@ -21,7 +21,7 @@ export const floorLastThreeDigits = (num: number | string): number => {
   if (strNum.includes(".")) {
     const [int] = strNum.split(".");
     if (int.length > 3) {
-      const newInt = int.slice(0, -3) + "000";
+      const newInt = int.slice(0, -2) + "00";
       const fixed = Number(newInt).toFixed(2);
       return +fixed;
     } else {
@@ -29,7 +29,7 @@ export const floorLastThreeDigits = (num: number | string): number => {
     }
   } else {
     if (strNum.length > 3) {
-      const newInt = strNum.slice(0, -3) + "000";
+      const newInt = strNum.slice(0, -2) + "00";
       const fixed = Number(newInt).toFixed(2);
       return +fixed;
     } else {

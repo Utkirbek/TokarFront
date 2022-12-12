@@ -3,33 +3,57 @@ import { getCookie } from "cookies-next";
 import requests from "./requests";
 
 const statisticsFetchers = {
-  getStatistics: async () => {
+  getStatistics: async (filterShopId?: string) => {
     const shopId = getCookie("shopId");
 
-    return requests.get(`/statistics/${shopId}/main`);
+    return requests.get(`/statistics/${filterShopId || shopId}/main`);
   },
-  getProfitBar: async () => {
+  getProfitBar: async ({
+    filterShopId,
+    isAllTrue,
+  }: {
+    filterShopId?: string;
+    isAllTrue: boolean;
+  }) => {
     const shopId = getCookie("shopId");
 
-    return requests.get(`/statistics/${shopId}/bar`);
-  },
-
-  getStaffSalary: async () => {
-    const shopId = getCookie("shopId");
-
-    return requests.get(`/statistics/${shopId}/pie/staffSalary`);
-  },
-
-  getSpent: async () => {
-    const shopId = getCookie("shopId");
-
-    return requests.get(`/statistics/${shopId}/pie/spend`);
+    return requests.get(
+      `/statistics/${filterShopId || shopId}/bar${
+        isAllTrue ? "?isAll=true" : ""
+      }`
+    );
   },
 
-  getIncome: async () => {
+  getStaffSalary: async (filterShopId?: string) => {
     const shopId = getCookie("shopId");
 
-    return requests.get(`/statistics/${shopId}/pie/income`);
+    return requests.get(
+      `/statistics/${filterShopId || shopId}/pie/staffSalary`
+    );
+  },
+
+  getSpent: async (filterShopId?: string) => {
+    const shopId = getCookie("shopId");
+
+    return requests.get(`/statistics/${filterShopId || shopId}/pie/spend`);
+  },
+
+  getIncome: async (filterShopId?: string) => {
+    const shopId = getCookie("shopId");
+
+    return requests.get(`/statistics/${filterShopId || shopId}/pie/income`);
+  },
+
+  fetchAllStatistics: async (filterShopId?: string) => {
+    const shopId = getCookie("shopId");
+
+    return Promise.all([
+      requests.get(`/statistics/${filterShopId || shopId}/main`),
+      requests.get(`/statistics/${filterShopId || shopId}/bar`),
+      requests.get(`/statistics/${filterShopId || shopId}/pie/staffSalary`),
+      requests.get(`/statistics/${filterShopId || shopId}/pie/spend`),
+      requests.get(`/statistics/${filterShopId || shopId}/pie/income`),
+    ]);
   },
 };
 

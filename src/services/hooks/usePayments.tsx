@@ -14,7 +14,7 @@ const usePayments = () => {
         amount: number;
         paymentMethod: string;
         salesman: string;
-        loan?: string;
+        userId: string;
       },
       options?: {
         onSuccess?: (data: any) => void;

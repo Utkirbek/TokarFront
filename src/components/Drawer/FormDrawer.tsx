@@ -5,7 +5,7 @@ type Props = {
   opened: boolean;
   toggleOpened: (bool?: boolean) => void;
   children: React.ReactNode;
-  title?: string;
+  title?: string | React.ReactNode;
 };
 
 const FormDrawer: React.FC<Props> = ({

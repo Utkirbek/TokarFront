@@ -55,9 +55,15 @@ const createSevenDaysStructure = (data: { date: string; value: number }[]) => {
   return forWeeks;
 };
 
-const ProfitsBar = () => {
-  const { useFetchProfitBar } = useStatistics();
-  const profitsBarQuery = useFetchProfitBar();
+const ProfitsBar = ({
+  activeShopId,
+  isAllTrue,
+}: {
+  activeShopId: string;
+  isAllTrue: boolean;
+}) => {
+  const { useFetchProfitBar } = useStatistics(activeShopId);
+  const profitsBarQuery = useFetchProfitBar(isAllTrue);
 
   const { data: profitData, error } = profitsBarQuery;
 

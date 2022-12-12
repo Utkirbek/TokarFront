@@ -13,6 +13,7 @@ export const commonUz = {
   noSearchResults: "Qidiruv natijasi topilmadi",
   next: "Keyingi",
   nothingFound: "Hech narsa topilmadi",
+  all: "Hammasi",
 };
 
 export const commonEn = {

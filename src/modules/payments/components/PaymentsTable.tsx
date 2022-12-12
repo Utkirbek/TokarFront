@@ -99,10 +99,14 @@ function PaymentsTable({ data, page, onPageChange, total }: any) {
 
   return (
     <>
-      <FormDrawer {...{ opened, toggleOpened }}>
+      <FormDrawer
+        {...{ opened, toggleOpened }}
+        title={<FormattedMessage id="payments.formTitle" />}
+      >
         <ScrollArea
           style={{ height: "100%", paddingBottom: 60 }}
-          scrollbarSize={2}>
+          scrollbarSize={2}
+        >
           <PaymentsForm handleClose={() => toggleOpened(false)} />
         </ScrollArea>
       </FormDrawer>
@@ -116,9 +120,9 @@ function PaymentsTable({ data, page, onPageChange, total }: any) {
         condition={data?.length === 0}
         elseChildren={
           <ScrollArea>
-            <Table verticalSpacing="sm" highlightOnHover>
+            <Table miw={800} verticalSpacing="sm" highlightOnHover>
               <TableHead data={tableHead} prefix="payments" />
-              <tbody>{rows}</tbody>;
+              <tbody>{rows}</tbody>
             </Table>
             <Pagination
               my={10}
@@ -137,7 +141,8 @@ function PaymentsTable({ data, page, onPageChange, total }: any) {
               onChange={onPageChange}
             />
           </ScrollArea>
-        }>
+        }
+      >
         <EmptyBox />
       </If>
     </>
