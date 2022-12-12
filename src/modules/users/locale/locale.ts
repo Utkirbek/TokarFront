@@ -1,6 +1,6 @@
 export const usersLocaleUz = {
   debt: "Qarzi",
-  productPicture: "Maxsulot rasmi",
+  productPicture: "Foydalanuvchi rasmi",
   timeTaken: "Olingan vaqti",
   updatedTime: "Yangilangan vaqti",
   yourTime: "To'lashi kerak vaqti",
@@ -24,7 +24,7 @@ export const usersLocaleUz = {
   additionPlaceholder: "Qo'shimcha malumot",
 
   userDts: {
-    title: "Batafsil  malumot",
+    title: " Batafsil  malumot",
     name: "Ismi",
     phone: "Raqami",
     origin: "Ish joyi",

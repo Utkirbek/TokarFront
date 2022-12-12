@@ -37,7 +37,8 @@ function DashLayout({ children }: { children: React.ReactNode }) {
           href={item.link}
           className={cx(classes.link, "test", {
             sidebarLink: item.link === router.pathname,
-          })}>
+          })}
+        >
           <item.icon className={classes.linkIcon} stroke={1.5} />
           <Text>
             <FormattedMessage id={item.label} />
@@ -64,14 +65,16 @@ function DashLayout({ children }: { children: React.ReactNode }) {
           p="md"
           hiddenBreakpoint="sm"
           hidden={!opened}
-          width={{ sm: 200, lg: 270 }}>
+          width={{ sm: 200, lg: 270 }}
+        >
           <Box className={classes.container}>{links}</Box>
         </Navbar>
       }
       header={
         <Header height={70} p="md">
           <Box
-            style={{ display: "flex", alignItems: "center", height: "100%" }}>
+            style={{ display: "flex", alignItems: "center", height: "100%" }}
+          >
             <MediaQuery largerThan="sm" styles={{ display: "none" }}>
               <Burger
                 opened={opened}
@@ -92,7 +95,8 @@ function DashLayout({ children }: { children: React.ReactNode }) {
             </Box>
           </Box>
         </Header>
-      }>
+      }
+    >
       {children}
     </AppShell>
   );

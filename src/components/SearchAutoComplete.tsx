@@ -65,11 +65,8 @@ function SearchAutoComplete({
   return (
     <Box component="form" onSubmit={handleSearch} sx={{ flexGrow: 1 }}>
       <Autocomplete
-        icon={<IconSearch />}
-        className={classes.search}
-        sx={{
-          marginRight: !isMobile ? 60 : 15,
-        }}
+        className={classes.serch}
+        sx={{ flexGrow: 1 }}
         value={value}
         onChange={setValue}
         placeholder={intl.formatMessage({ id: "search" })}

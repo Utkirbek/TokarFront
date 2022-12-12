@@ -140,7 +140,7 @@ function DashLayout({ children }: { children: React.ReactNode }) {
         </If>
       }
     >
-      <Box px={fullView ? 0 : "xs"} sx={{ height: "100%" }}>
+      <Box className={classes.childerns} sx={{ height: "100%" }}>
         {children}
       </Box>
       {isMobile && <BottomNavigation />}

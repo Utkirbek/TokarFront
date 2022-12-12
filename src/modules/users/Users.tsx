@@ -12,13 +12,11 @@ const Users = () => {
   const { data } = usersQuery;
 
   return (
-    <>
-      <If hasPerm={Permissions.users.view}>
-        <WithLoading query={usersQuery}>
-          <UsersTable data={data} />
-        </WithLoading>
-      </If>
-    </>
+    <If hasPerm={Permissions.users.view}>
+      <WithLoading query={usersQuery}>
+        <UsersTable data={data} />
+      </WithLoading>
+    </If>
   );
 };
 export default Users;

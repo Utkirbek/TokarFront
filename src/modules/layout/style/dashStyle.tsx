@@ -15,7 +15,12 @@ const useStyles = createStyles((theme, _params, getRef) => {
       fontSize: 24,
       fontWeight: 700,
     },
-
+    childerns: {
+      padding: "0px 10px",
+      [`@media (max-width: 800px)`]: {
+        padding: "0px",
+      },
+    },
     footer: {
       paddingTop: theme.spacing.md,
       marginTop: theme.spacing.md,

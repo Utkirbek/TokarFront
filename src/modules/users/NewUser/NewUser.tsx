@@ -10,8 +10,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 const NewUser: React.FC<{
   handleClose: () => void;
   editItem: any;
-  data: any;
-}> = ({ handleClose, editItem, data }) => {
+}> = ({ handleClose, editItem }) => {
   const intl = useIntl();
   const imagesRef = useRef<string[]>([]);
   const { classes } = useStyles();
@@ -69,14 +68,15 @@ const NewUser: React.FC<{
   };
 
   return (
-    <Box sx={{ maxWidth: 440 }} mx="auto">
+    <Box mx="auto" className={classes.userForm}>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Text
           sx={{
             fontSize: "24px",
             textAlign: "center",
             fontWeight: 700,
-          }}>
+          }}
+        >
           <FormattedMessage
             id="users.formTitle"
             values={{ isNew: !editItem._id }}
@@ -101,7 +101,8 @@ const NewUser: React.FC<{
           <Button
             variant="outline"
             sx={{ float: "right", margin: "10px 0" }}
-            hidden>
+            hidden
+          >
             Rasmni Olib Tashlash
           </Button>
         </Box>

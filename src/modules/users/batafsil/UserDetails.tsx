@@ -9,7 +9,6 @@ import {
   Table,
   Text,
 } from "@mantine/core";
-import useStyles from "@modules/products/components/ProductsTable/styles";
 import userFetcher from "@services/api/userFetcher";
 import { RequestQueryKeys } from "@utils/constants";
 import { useRouter } from "next/router";
@@ -17,9 +16,11 @@ import queryString from "query-string";
 import { FormattedMessage } from "react-intl";
 import useSWR from "swr";
 
+import useDetailstyles from "./useDetailstyles";
+
 const UserDetails = () => {
   const router = useRouter();
-  const { classes } = useStyles();
+  const { classes } = useDetailstyles();
 
   const query = queryString.parse(router.asPath.split("?")[1]);
   const userDetail = useSWR(
@@ -29,7 +30,6 @@ const UserDetails = () => {
     }
   );
   const { data: userBatfsil } = userDetail;
-
   const rowDetail = userBatfsil?.loans.map((item: any) => {
     return (
       <tr key={item._id}>
