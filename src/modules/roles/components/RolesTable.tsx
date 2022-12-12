@@ -1,8 +1,19 @@
 import useUser from "@hooks/shared/useUser";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
-import { ActionIcon, Button, Drawer, Group, Table, Text } from "@mantine/core";
-import { useToggle } from "@mantine/hooks";
+import {
+  ActionIcon,
+  Box,
+  Button,
+  Card,
+  Drawer,
+  Grid,
+  Group,
+  ScrollArea,
+  Table,
+  Text,
+} from "@mantine/core";
+import { useMediaQuery, useToggle } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
 import useRoles from "@services/hooks/useRoles";
 import { IconPencil, IconTrash } from "@tabler/icons";
@@ -10,17 +21,20 @@ import { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import RolesDrawer from "./RolesDrawer";
+import useRolesStyles from "./rolesStyle";
 
 function TableCard() {
   const { name } = useUser();
   const intl = useIntl();
   const [drawerOpen, toggleDrawerOpen] = useToggle();
   const [editItem, setEditItem] = useState({});
-
+  const { classes } = useRolesStyles();
   const { useFetchRoles, deleteRole } = useRoles();
   const getAdminsQuery = useFetchRoles();
   const { data: roles } = getAdminsQuery;
   const { openConfirm } = useConfirmation();
+  const isIpad = useMediaQuery("(max-width: 1200px)");
+  const isMobile = useMediaQuery("(max-width: 600px)");
   const {
     showLoadingNotification,
     showSuccessNotification,
@@ -86,14 +100,7 @@ function TableCard() {
           </Group>
         </td>
 
-        <td
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "space-around",
-          }}
-        >
+        <td className={classes.rolesActionBtn}>
           {item.name == name ? (
             <ActionIcon>
               <IconTrash style={{ color: "red", cursor: "no-drop" }} />
@@ -121,7 +128,7 @@ function TableCard() {
           <FormattedMessage id="roles.addRoles" />
         </Button>
       </Group>
-      <Table highlightOnHover>
+      <Table highlightOnHover className={classes.grid}>
         <thead>
           <tr>
             <th style={{ width: "60px" }}>
@@ -135,18 +142,62 @@ function TableCard() {
             </th>
           </tr>
         </thead>
-        <tbody>{rows}</tbody>
+        <tbody className={classes.grid}>{rows}</tbody>
       </Table>
 
-      <Drawer
-        opened={drawerOpen}
-        onClose={onClose}
-        padding="xl"
-        size="30%"
-        position="right"
-      >
-        <RolesDrawer editItem={editItem} handleClose={onClose} />
-      </Drawer>
+      <Box className={classes.flex}>
+        {roles?.map((item: any) => (
+          <Grid key={item._id}>
+            <Grid.Col xs={12} sm={5}>
+              <Card className={classes.rolesGrid}>
+                <Group spacing="sm">
+                  <FormattedMessage id={`roles.roles.${item.name}`} />
+                </Group>
+                {item.name == name ? (
+                  <ActionIcon>
+                    <IconTrash style={{ color: "red", cursor: "no-drop" }} />
+                  </ActionIcon>
+                ) : (
+                  <ActionIcon>
+                    <IconTrash
+                      onClick={() => openDeleteModal(item._id, item.name)}
+                      style={{ color: "red" }}
+                    />
+                  </ActionIcon>
+                )}
+                <ActionIcon>
+                  <IconPencil onClick={onEditClick.bind(null, item)} />
+                </ActionIcon>
+              </Card>
+            </Grid.Col>
+            <Grid.Col xs={12} sm={7}>
+              <Card>
+                {item.permissions.map((permission: any) => (
+                  <Text key={permission._id}>
+                    <FormattedMessage id={`perms.${permission.name}`} />
+                  </Text>
+                ))}
+              </Card>
+            </Grid.Col>
+          </Grid>
+        ))}
+      </Box>
+      <Box sx={{ height: "100%",  }}>
+        <Drawer
+          opened={drawerOpen}
+          onClose={onClose}
+          padding="xl"
+          size={isIpad ? ("60%" && isMobile ? "80%" : "60%") : "30%"}
+          position="right"
+        >
+          <ScrollArea
+            style={{ height: "100%", paddingBottom: 60 }}
+            scrollbarSize={2}
+          >
+            <RolesDrawer editItem={editItem} handleClose={onClose} />
+          </ScrollArea>
+        </Drawer>
+      </Box>
     </>
   );
 }

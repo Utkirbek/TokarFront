@@ -108,7 +108,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
           <MantineProvider
             theme={{
               colorScheme,
-              breakpoints: { xs: 500, sm: 800, md: 1000, lg: 1200, xl: 1400 },
+              breakpoints: { xs: 500, sm: 800, md: 1100,  lg: 1200, xl: 1400 },
             }}
             withGlobalStyles
             withNormalizeCSS
