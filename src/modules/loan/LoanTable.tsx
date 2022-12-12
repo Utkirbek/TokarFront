@@ -70,7 +70,8 @@ function LoanTable({
                           details: item._id,
                         },
                       });
-                    }}>
+                    }}
+                  >
                     <FormattedMessage id="products.details" />
                   </Button>
                 </td>
