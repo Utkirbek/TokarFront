@@ -1,18 +1,7 @@
 import { createStyles } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
-  rowSelected:{},
-  titleHead: {
-    fontSize: "36px",
-    marginBottom: "20px",
-    fontWeight: 600,
-    color: "#1971C2",
-    [`@media (max-width: 800px)`]: {
-      fontSize: 18,
-      marginBottom: 15,
-    },
-    textAlign: "center",
-  },
+  rowSelected: {},
   allDisplay: {
     width: "100%",
     minHeight: "75vh",
@@ -21,7 +10,22 @@ const useStyles = createStyles((theme) => ({
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",
-    flexWrap: "wrap",
+    [`@media(max-width: 1200px)`]: {
+      flexWrap: "wrap",
+    },
+  },
+  titleHead: {
+    fontSize: "36px",
+    marginBottom: "20px",
+    fontWeight: 600,
+    color: "#1971C2",
+    "@media (max-width: 800px)": {
+      fontSize: 18,
+      marginBottom: 15,
+    },
+    "@media (max-width: 1200px)": {
+      textAlign: "center",
+    },
   },
   imageBox: {
     width: "380px",
@@ -29,51 +33,88 @@ const useStyles = createStyles((theme) => ({
     [`@media (max-width: 800px)`]: {
       width: 200,
       height: 200,
+      display: "flex",
+      justifyContent: "center",
+    },
+  },
+  image: {
+    width: "100%",
+    objectFit: "cover",
+  },
+  iconImage: {
+    width: "400px",
+    height: "auto",
+    objectFit: "cover",
+    border: "5px solid #000",
+    "@media (max-width: 600px)": {
+      width: "250px",
+      height: "auto",
     },
   },
   left: {
     width: "800px",
-  },
-  textStart: {
-    textAlign: "start",
-    width: "250px",
-    fontSize: "23px",
-    [`@media (max-width: 800px)`]: {
-      fontSize: 12,
+    padding: "50px",
+    "@media (max-width: 600px)": {
+      width: "300px",
+      display: "flex",
+      flexDirection: "row",
+      flexWrap: "wrap",
+      alignItems: "center",
     },
   },
-  boxHeader: {
-    width: "800px",
+  textStart: {
+    width: "250px",
+    fontSize: "23px",
+    "@media (max-width: 600px)": {
+      fontSize: 12,
+    },
+    "@media (min-width: 600px)": {
+      textAlign: "center",
+    },
   },
+
+  boxHeader: {
+    width: "100%",
+    "@media (min-width: 600px": {
+      width: "60%",
+      textAlign: "start",
+    },
+  },
+
   boxFlex: {
-    minWidth: 300,
     display: "flex",
     justifyContent: "space-between",
     marginTop: "5px",
   },
+
   text: {
     minWidth: 130,
-    fontSize: "23px",
-    [`@media (max-width: 800px)`]: {
+    fontSize: "20px",
+    "@media (max-width: 600px)": {
       fontSize: 12,
     },
   },
-  tex: {
-    fontSize: 14,
-    [`@media (max-width: 800px)`]: {
-      fontSize: 12,
-      marginLeft: 100,
-      marginTop: 10,
-    },
-  },
-  leftIcon: {
-    size: 380,
-  },
-  discount: {
+
+  discountTitle: {
     fontSize: "26px",
-    marginTop: 20,
+    marginTop: 10,
     fontWeight: 600,
     color: "#1971C2",
+    "@media (max-width: 600px)": {
+      textAlign: "start",
+      fontSize: 16,
+    },
+  },
+  table: {
+    [`@media(max-width: 950px)`]: {
+      display: "none",
+    },
+  },
+  hide: {
+    display: "none",
+    [`@media(max-width:950px)`]: {
+      display: "flex",
+    },
   },
 }));
 

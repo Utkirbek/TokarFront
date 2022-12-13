@@ -16,6 +16,9 @@ import { useRouter } from "next/router";
 import queryString from "query-string";
 import { FormattedMessage } from "react-intl";
 
+import OrderCard from "../components/OrderCard";
+import DetailCard from "./DetailCard";
+
 type Props = {
   orders?: any;
 };
@@ -83,7 +86,7 @@ const OrdersDetails = ({ orders }: Props) => {
               width="100%"
             />
           ) : (
-            <IconPhoto size={350} />
+            <IconPhoto size={250} />
           )}
         </Box>
 
@@ -101,7 +104,8 @@ const OrdersDetails = ({ orders }: Props) => {
                 style={{
                   textDecoration: "none",
                   color: "#1972C2",
-                }}>
+                }}
+              >
                 <Text className={classes.textStart}>
                   {item?.salesman?.name === null ? (
                     <FormattedMessage id="orders.userNull" />
@@ -138,7 +142,12 @@ const OrdersDetails = ({ orders }: Props) => {
         </Box>
       </Box>
       <ScrollArea style={{ marginTop: "20px" }}>
-        <Table sx={{ minWidth: 700 }} verticalSpacing="sm" highlightOnHover>
+        <Table
+          className={classes.table}
+          sx={{ minWidth: 950 }}
+          verticalSpacing="sm"
+          highlightOnHover
+        >
           <TableHead
             data={{
               orderImage: true,
@@ -151,6 +160,9 @@ const OrdersDetails = ({ orders }: Props) => {
           />
           <tbody>{rowDetail}</tbody>
         </Table>
+        <Box className={classes.hide}>
+          <DetailCard data={orders} />
+        </Box>
       </ScrollArea>
     </Modal>
   );

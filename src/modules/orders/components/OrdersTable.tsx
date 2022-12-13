@@ -5,7 +5,9 @@ import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
 import {
   ActionIcon,
+  Box,
   Button,
+  Grid,
   Pagination,
   ScrollArea,
   Table,
@@ -18,6 +20,7 @@ import { useRouter } from "next/router";
 import { FormattedMessage } from "react-intl";
 
 import OrdersDetails from "../modalOrder/Orderdetail";
+import OrderCard from "./OrderCard";
 import useStyles from "./orderStyle";
 
 const OrdersTable = ({
@@ -77,6 +80,18 @@ const OrdersTable = ({
         </td>
 
         <td className={classes.orderTD}>
+          <Link
+            href={`/users?details=${item?.user?._id || item?.user}`}
+            className={classes.orderUserLink}
+          >
+            {item?.user ? (
+              item?.user?.name || item?.user
+            ) : (
+              <FormattedMessage id="orders.userNull" />
+            )}
+          </Link>
+        </td>
+        <td className={classes.orderTD}>
           <Link href={`/payments`} className={classes.orderUserLink}>
             {item?.total.toFixed(2)}
           </Link>
@@ -107,7 +122,8 @@ const OrdersTable = ({
                   details: item._id,
                 },
               });
-            }}>
+            }}
+          >
             <FormattedMessage id="more" />
           </Button>
         </td>
@@ -117,19 +133,25 @@ const OrdersTable = ({
 
   return (
     <ScrollArea>
-      <Table verticalSpacing="sm" highlightOnHover>
-        <TableHead
-          data={{
-            ordersSalesmen: true,
-            paymentOrder: true,
-            createOrder: true,
-            updateOrder: true,
-            orderAction: true,
-          }}
-          prefix="orders"
-        />
-        <tbody>{rows}</tbody>
-      </Table>
+      <Box className={classes.orderTable}>
+        <Table sx={{ minWidth: 950 }} verticalSpacing="sm" highlightOnHover>
+          <TableHead
+            data={{
+              ordersSalesmen: true,
+              orderUser: true,
+              paymentOrder: true,
+              createOrder: true,
+              updateOrder: true,
+              orderAction: true,
+            }}
+            prefix="orders"
+          />
+          <tbody>{rows}</tbody>
+        </Table>
+      </Box>
+      <Box className={classes.orderCard}>
+        <OrderCard data={dataorder} openDeleteModal={openDeleteModal} />
+      </Box>
       <Pagination
         my={10}
         page={page}
@@ -143,7 +165,9 @@ const OrdersTable = ({
             },
           },
         })}
+        style={{ marginBottom: 50 }}
         total={total}
+        size="sm"
         onChange={onPageChange}
       />
       <OrdersDetails orders={dataorder} />

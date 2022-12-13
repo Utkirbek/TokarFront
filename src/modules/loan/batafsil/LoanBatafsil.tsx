@@ -2,6 +2,7 @@ import FormattedLocalTime from "@components/FormattedLocalTime";
 import { Box, Image, Modal, Text } from "@mantine/core";
 import useStyles from "@modules/products/components/ProductsTable/styles";
 import { IconUser } from "@tabler/icons";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import queryString from "query-string";
 import { FormattedMessage } from "react-intl";
@@ -28,7 +29,7 @@ const LoanBatafsil = ({ loan }: Props) => {
                 width="100%"
               />
             ) : (
-              <IconUser size={380} />
+              <IconUser size={250} />
             )}
           </Box>
 
@@ -64,12 +65,7 @@ const LoanBatafsil = ({ loan }: Props) => {
                 <Text className={classes.text}>
                   <FormattedMessage id="users.userDts.phone" />
                 </Text>
-                <a
-                  href={`tel://${item?.user?.phone}`}
-                  style={{
-                    borderBottom: "1px solid #1983FF",
-                    textDecoration: "none",
-                  }}>
+                <Link href={`tel://${item?.user?.phone}`}>
                   {item?.user === null ? (
                     <Text className={classes.textStart}>
                       <FormattedMessage id="loans.userError" />
@@ -79,7 +75,7 @@ const LoanBatafsil = ({ loan }: Props) => {
                       {item?.user?.phone}
                     </Text>
                   )}
-                </a>
+                </Link>
               </Box>
               <Box className={classes.boxFlex}>
                 <Text className={classes.text}>

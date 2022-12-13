@@ -92,7 +92,7 @@ const ProductDetails = ({ products }: Props) => {
           </Box>
         </Box>
         <Box p={50}>
-          <Text className={classes.discount}>
+          <Text className={classes.discountTitle}>
             <FormattedMessage id="products.discount" />
           </Text>
           <Table style={{ marginTop: 40 }}>
