@@ -30,11 +30,25 @@ const data = [
     permission: "sales.view",
   },
   {
-    id: 2,
-    link: "/admins",
-    label: "admins.title",
-    icon: IconUsers,
-    permission: "admins_view",
+    id: 10,
+    link: "/kassa",
+    label: "kassa.title",
+    icon: IconListDetails,
+    permission: "kassa.view",
+  },
+  {
+    id: 7,
+    link: "/payments",
+    label: "payments.title",
+    icon: IconMoneybag,
+    permission: "payments.view",
+  },
+  {
+    id: 13,
+    link: "/profit",
+    label: "profit.sidebarTitle",
+    icon: IconBusinessplan,
+    permission: "profit.view",
   },
   {
     id: 3,
@@ -43,6 +57,21 @@ const data = [
     icon: IconReportMoney,
     permission: "spends_view",
   },
+  {
+    id: 11,
+    link: "/loan",
+    label: "loans.title",
+    icon: IconCoin,
+    permission: "loans.view",
+  },
+  {
+    id: 2,
+    link: "/admins",
+    label: "admins.title",
+    icon: IconUsers,
+    permission: "admins_view",
+  },
+
   {
     id: 4,
     link: "/users",
@@ -57,20 +86,7 @@ const data = [
     icon: IconBarcode,
     permission: "products_view",
   },
-  {
-    id: 6,
-    link: "/settings",
-    label: "settings.title",
-    icon: IconSettingsAutomation,
-    permission: "settings_view",
-  },
-  {
-    id: 7,
-    link: "/payments",
-    label: "payments.title",
-    icon: IconMoneybag,
-    permission: "payments.view",
-  },
+
   {
     id: 8,
     link: "/orders",
@@ -78,20 +94,7 @@ const data = [
     icon: IconList,
     permission: "orders_view",
   },
-  {
-    id: 10,
-    link: "/kassa",
-    label: "kassa.title",
-    icon: IconListDetails,
-    permission: "kassa.view",
-  },
-  {
-    id: 11,
-    link: "/loan",
-    label: "loans.title",
-    icon: IconCoin,
-    permission: "loans.view",
-  },
+
   {
     id: 12,
     link: "/shopes",
@@ -99,12 +102,13 @@ const data = [
     icon: IconBrandShopee,
     permission: "shop.view",
   },
+
   {
-    id: 13,
-    link: "/profit",
-    label: "profit.sidebarTitle",
-    icon: IconBusinessplan,
-    permission: "profit.view",
+    id: 6,
+    link: "/settings",
+    label: "settings.title",
+    icon: IconSettingsAutomation,
+    permission: "settings_view",
   },
 ];
 export default data;
