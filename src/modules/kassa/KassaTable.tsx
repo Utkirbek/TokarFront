@@ -1,6 +1,6 @@
 import FormattedLocalTime from "@components/FormattedLocalTime";
 import TableHead from "@components/Table/TableHead";
-import { Pagination, Table } from "@mantine/core";
+import { Pagination, ScrollArea, Table } from "@mantine/core";
 
 export const kassaLocaleUz = {
   title: "Kassa",
@@ -40,17 +40,20 @@ function KassaTable({
   ));
 
   return (
-    <Table>
-      <TableHead
-        data={{
-          price: true,
-          takeTime: true,
-          giveTime: true,
-        }}
-        prefix={"kassa"}
-      />
-      <tbody>{rows}</tbody>
-
+    <>
+      <ScrollArea>
+        <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
+          <TableHead
+            data={{
+              price: true,
+              takeTime: true,
+              giveTime: true,
+            }}
+            prefix={"kassa"}
+          />
+          <tbody>{rows}</tbody>
+        </Table>
+      </ScrollArea>
       <Pagination
         my={10}
         page={page}
@@ -67,7 +70,7 @@ function KassaTable({
         total={total}
         onChange={onPageChange}
       />
-    </Table>
+    </>
   );
 }
 

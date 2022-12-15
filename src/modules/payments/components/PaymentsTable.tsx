@@ -7,6 +7,8 @@ import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
 import {
   ActionIcon,
+  Affix,
+  Box,
   Button,
   Group,
   Pagination,
@@ -16,11 +18,12 @@ import {
 } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import usePayments from "@services/hooks/usePayments";
-import { IconTrash } from "@tabler/icons";
+import { IconPlus, IconTrash } from "@tabler/icons";
 import { memo } from "react";
 import { FormattedMessage } from "react-intl";
 
 import PaymentsForm from "./PaymentForm";
+import useStyles from "./paymentStyle";
 
 const tableHead = {
   salesman: true,
@@ -42,6 +45,7 @@ function PaymentsTable({ data, page, onPageChange, total }: any) {
   const { deletePayment } = usePayments();
 
   const { openConfirm } = useConfirmation();
+  const { classes } = useStyles();
 
   const openDeleteModal = (id: string) => {
     openConfirm(null, {
@@ -110,12 +114,18 @@ function PaymentsTable({ data, page, onPageChange, total }: any) {
           <PaymentsForm handleClose={() => toggleOpened(false)} />
         </ScrollArea>
       </FormDrawer>
-      <Group position="right" mx={"xl"} my={"xl"}>
-        <Button onClick={handleOpenDrawer} variant={"outline"}>
-          <FormattedMessage id="payments.create" />
-        </Button>
-      </Group>
-
+      <Box className={classes.paymentsAdd}>
+        <Group position="right" mx={"xl"} my={"xl"}>
+          <Button onClick={handleOpenDrawer} variant={"outline"}>
+            <FormattedMessage id="payments.create" />
+          </Button>
+        </Group>
+      </Box>
+      <Affix position={{ bottom: 60, right: 20 }}>
+        <Box className={classes.paymentsAddIcon} onClick={handleOpenDrawer}>
+          <IconPlus size={25} color={"#fff"} />
+        </Box>
+      </Affix>
       <If
         condition={data?.length === 0}
         elseChildren={
@@ -124,27 +134,27 @@ function PaymentsTable({ data, page, onPageChange, total }: any) {
               <TableHead data={tableHead} prefix="payments" />
               <tbody>{rows}</tbody>
             </Table>
-            <Pagination
-              my={10}
-              page={page}
-              styles={(theme) => ({
-                item: {
-                  "&[data-active]": {
-                    backgroundImage: theme.fn.gradient({
-                      from: "red",
-                      to: "yellow",
-                    }),
-                  },
-                },
-              })}
-              total={total}
-              onChange={onPageChange}
-            />
           </ScrollArea>
         }
       >
         <EmptyBox />
       </If>
+      <Pagination
+        my={10}
+        page={page}
+        styles={(theme) => ({
+          item: {
+            "&[data-active]": {
+              backgroundImage: theme.fn.gradient({
+                from: "red",
+                to: "yellow",
+              }),
+            },
+          },
+        })}
+        total={total}
+        onChange={onPageChange}
+      />
     </>
   );
 }

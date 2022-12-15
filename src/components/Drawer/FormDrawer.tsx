@@ -18,7 +18,7 @@ const FormDrawer: React.FC<Props> = ({
 
   return (
     <Drawer
-      sx={{ minHeight: "100vh" }}
+      style={{ minHeight: "100vh", zIndex: "999" }}
       overlayColor={
         theme.colorScheme === "dark"
           ? theme.colors.dark[9]

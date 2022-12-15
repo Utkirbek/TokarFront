@@ -126,9 +126,11 @@ const PaymentsForm: React.FC<{
             />
           </Box>
           <Group position="right" mt="md">
-            <Button type="submit">
-              <FormattedMessage id="payments.btnSubmit" />
-            </Button>
+            <Box className={classes.paymentsBtn}>
+              <Button type="submit" className={classes.paymentsButton}>
+                <FormattedMessage id="payments.btnSubmit" />
+              </Button>
+            </Box>
           </Group>
         </form>
       </Box>
