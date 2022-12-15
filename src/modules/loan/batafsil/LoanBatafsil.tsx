@@ -7,21 +7,23 @@ import { useRouter } from "next/router";
 import queryString from "query-string";
 import { FormattedMessage } from "react-intl";
 
+import useLoanStyles from "../component/loanStyle";
+
 type Props = {
   loan?: any;
 };
 
 const LoanBatafsil = ({ loan }: Props) => {
   const router = useRouter();
-  const { classes, cx } = useStyles();
+  const { classes, cx } = useLoanStyles();
 
   const query = queryString.parse(router.asPath.split("?")[1]);
   const item = findItem(loan, query.details as string);
   return (
     <Modal size={"85%"} opened={!!item} onClose={() => router.back()}>
-      <Box className={classes.allDisplay}>
-        <Box className={classes.itemGroup}>
-          <Box className={classes.imageBox}>
+      <Box className={classes.loanAllDisplay}>
+        <Box className={classes.loanItemGroup}>
+          <Box className={classes.loanImageBox}>
             {item?.image ? (
               <Image
                 src={item?.image}
@@ -29,7 +31,7 @@ const LoanBatafsil = ({ loan }: Props) => {
                 width="100%"
               />
             ) : (
-              <IconUser size={250} />
+              <IconUser size={230} style={{ width: "100%" }} />
             )}
           </Box>
 
@@ -46,95 +48,91 @@ const LoanBatafsil = ({ loan }: Props) => {
                 </Text>
               )}
             </Text>
-            <Box className={classes.boxHeader}>
-              <Box className={classes.boxFlex}>
-                <Text className={classes.text}>
-                  <FormattedMessage id="users.userDts.name" />
-                </Text>
-                <Text className={classes.textStart}>
-                  {item?.user === null ? (
-                    <Text>
-                      <FormattedMessage id="loans.userError" />
-                    </Text>
-                  ) : (
-                    item?.user?.name
-                  )}
-                </Text>
-              </Box>
-              <Box className={classes.boxFlex}>
-                <Text className={classes.text}>
-                  <FormattedMessage id="users.userDts.phone" />
-                </Text>
-                <Link href={`tel://${item?.user?.phone}`}>
-                  {item?.user === null ? (
-                    <Text className={classes.textStart}>
-                      <FormattedMessage id="loans.userError" />
-                    </Text>
-                  ) : (
-                    <Text className={classes.textStart}>
-                      {item?.user?.phone}
-                    </Text>
-                  )}
-                </Link>
-              </Box>
-              <Box className={classes.boxFlex}>
-                <Text className={classes.text}>
-                  <FormattedMessage id="users.userDts.origin" />
-                </Text>
-                <Text className={classes.textStart}>
-                  {item?.user === null ? (
-                    <Text className={classes.textStart}>
-                      <FormattedMessage id="loans.userError" />
-                    </Text>
-                  ) : (
-                    <Text className={classes.textStart}>
-                      {item?.user?.workplace}
-                    </Text>
-                  )}
-                </Text>
-              </Box>
-              <Box className={classes.boxFlex}>
-                <Text className={classes.text}>
-                  <FormattedMessage id="users.userDts.addition" />
-                </Text>
+            <Box className={classes.boxFlex}>
+              <Text className={classes.text}>
+                <FormattedMessage id="users.userDts.name" />
+              </Text>
+              <Text className={classes.textStart}>
+                {item?.user === null ? (
+                  <Text>
+                    <FormattedMessage id="loans.userError" />
+                  </Text>
+                ) : (
+                  item?.user?.name
+                )}
+              </Text>
+            </Box>
+            <Box className={classes.boxFlex}>
+              <Text className={classes.text}>
+                <FormattedMessage id="users.userDts.phone" />
+              </Text>
+              <a href={`tel://${item?.user?.phone}`}>
                 {item?.user === null ? (
                   <Text className={classes.textStart}>
                     <FormattedMessage id="loans.userError" />
                   </Text>
                 ) : (
-                  <Text className={classes.textStart}>{item?.user?.extra}</Text>
+                  <Text className={classes.textStart}>{item?.user?.phone}</Text>
                 )}
-              </Box>
-              <Box className={classes.boxFlex}>
-                <Text className={classes.text}>
-                  <FormattedMessage id="users.userDts.amount" />
-                </Text>
-                <Text className={classes.textStart}>{item?.amount}</Text>
-              </Box>
-              <Box className={classes.boxFlex}>
-                <Text className={classes.text}>
-                  <FormattedMessage id="users.userDts.oldTime" />
-                </Text>
+              </a>
+            </Box>
+            <Box className={classes.boxFlex}>
+              <Text className={classes.text}>
+                <FormattedMessage id="users.userDts.origin" />
+              </Text>
+              <Text className={classes.textStart}>
+                {item?.user === null ? (
+                  <Text className={classes.textStart}>
+                    <FormattedMessage id="loans.userError" />
+                  </Text>
+                ) : (
+                  <Text className={classes.textStart}>
+                    {item?.user?.workplace}
+                  </Text>
+                )}
+              </Text>
+            </Box>
+            <Box className={classes.boxFlex}>
+              <Text className={classes.text}>
+                <FormattedMessage id="users.userDts.addition" />
+              </Text>
+              {item?.user === null ? (
                 <Text className={classes.textStart}>
-                  <FormattedLocalTime date={item?.user?.createdAt} />
+                  <FormattedMessage id="loans.userError" />
                 </Text>
-              </Box>
-              <Box className={classes.boxFlex}>
-                <Text className={classes.text}>
-                  <FormattedMessage id="users.userDts.newTime" />
-                </Text>
-                <Text className={classes.textStart}>
-                  <FormattedLocalTime date={item?.user?.updatedAt} />
-                </Text>
-              </Box>
-              <Box className={classes.boxFlex}>
-                <Text className={classes.text}>
-                  <FormattedMessage id="users.userDts.shouldPay" />
-                </Text>
-                <Text className={classes.textStart}>
-                  <FormattedLocalTime date={item?.user?.shouldPay} />
-                </Text>
-              </Box>
+              ) : (
+                <Text className={classes.textStart}>{item?.user?.extra}</Text>
+              )}
+            </Box>
+            <Box className={classes.boxFlex}>
+              <Text className={classes.text}>
+                <FormattedMessage id="users.userDts.amount" />
+              </Text>
+              <Text className={classes.textStart}>{item?.amount}</Text>
+            </Box>
+            <Box className={classes.boxFlex}>
+              <Text className={classes.text}>
+                <FormattedMessage id="users.userDts.oldTime" />
+              </Text>
+              <Text className={classes.textStart}>
+                <FormattedLocalTime date={item?.user?.createdAt} />
+              </Text>
+            </Box>
+            <Box className={classes.boxFlex}>
+              <Text className={classes.text}>
+                <FormattedMessage id="users.userDts.newTime" />
+              </Text>
+              <Text className={classes.textStart}>
+                <FormattedLocalTime date={item?.user?.updatedAt} />
+              </Text>
+            </Box>
+            <Box className={classes.boxFlex}>
+              <Text className={classes.text}>
+                <FormattedMessage id="users.userDts.shouldPay" />
+              </Text>
+              <Text className={classes.textStart}>
+                <FormattedLocalTime date={item?.user?.shouldPay} />
+              </Text>
             </Box>
           </Box>
         </Box>

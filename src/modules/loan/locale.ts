@@ -1,5 +1,6 @@
 export const loanLocaleUz = {
   title: "Qarzlar",
+  allLoans : "Jami qarzi",
   description: "Qarzlar jadavali",
   user: "Foydalanuvchi",
   order: "Summa",
@@ -11,6 +12,7 @@ export const loanLocaleUz = {
 
 export const loanLocaleEn = {
   title: "Loans",
+  allLoans: "All Loans",
   description: "Loans schedule",
   user: "User",
   order: "Summa",

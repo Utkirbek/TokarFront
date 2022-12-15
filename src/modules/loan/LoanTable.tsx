@@ -1,13 +1,22 @@
 import FormattedLocalTime from "@components/FormattedLocalTime";
 import TableHead from "@components/Table/TableHead";
-import { Button, Pagination, ScrollArea, Table, Text } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Card,
+  Pagination,
+  ScrollArea,
+  Table,
+  Text,
+} from "@mantine/core";
 import Link from "next/link";
 import router from "next/router";
 import { memo } from "react";
 import { FormattedMessage } from "react-intl";
 
 import LoanBatafsil from "./batafsil/LoanBatafsil";
-import useStyles from "./component/loanStyle";
+import LoanCard from "./component/LoanCard";
+import useLoanStyles from "./component/loanStyle";
 
 function LoanTable({
   dataloan,
@@ -20,9 +29,9 @@ function LoanTable({
   onPageChange: (page: number) => void;
   total: number;
 }) {
-  const { classes, cx } = useStyles();
+  const { classes, cx } = useLoanStyles();
   return (
-    <ScrollArea>
+    <ScrollArea style={{ marginBottom: "30%" }}>
       <Table className={classes.loanTable}>
         <TableHead
           data={{
@@ -80,6 +89,9 @@ function LoanTable({
           })}
         </tbody>
       </Table>
+      <Box className={classes.loanCard}>
+        <LoanCard data={dataloan} />
+      </Box>
       <LoanBatafsil loan={dataloan} />
       <Pagination
         my={10}
