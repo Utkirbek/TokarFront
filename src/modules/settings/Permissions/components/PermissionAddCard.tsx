@@ -41,7 +41,7 @@ export const AddCard = () => {
   };
 
   return (
-    <Grid.Col span={3} lg={3} md={9} xs={10} sm={6}>
+    <Grid.Col lg={3} md={3} xs={12} sm={6}>
       <Card
         sx={{
           display: "flex",

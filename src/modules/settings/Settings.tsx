@@ -32,20 +32,23 @@ const Settings: NextPage = () => {
             alignItems: "center",
             gap: 20,
             justifyContent: "start",
-          }}>
+            marginTop : "60px",
+          }}
+        >
           <ButtonToggleDark />
           <LanguagePicker />
         </div>
         <Accordion style={{ marginTop: 20 }}>
           <Accordion.Item
-            value={intl.formatMessage({ id: "perms.perm.permissions" })}>
+            value={intl.formatMessage({ id: "perms.perm.permissions" })}
+          >
             <Accordion.Control>
               <FormattedMessage id="perms.perm.permissions" />
             </Accordion.Control>
             <Accordion.Panel>
-              <h1>
+              <h2>
                 <FormattedMessage id="perms.perm.allow" />
-              </h1>
+              </h2>
               <Grid>
                 <AddCard />
                 <PermissionsPege />

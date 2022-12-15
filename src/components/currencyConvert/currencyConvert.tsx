@@ -4,9 +4,11 @@ import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
 import {
   ActionIcon,
+  Box,
   Button,
   Group,
   ScrollArea,
+  SimpleGrid,
   Table,
   TextInput,
 } from "@mantine/core";
@@ -15,11 +17,15 @@ import { IconTrash } from "@tabler/icons";
 import { useRef } from "react";
 import { FormattedMessage } from "react-intl";
 
+import CurrencyCard from "./component/currencyCard";
+import useCurrencyStyles from "./component/currencyStyle";
+
 type Props = {
   data?: any;
 };
 
 const CurrencyTable = ({ data }: Props) => {
+  const { classes } = useCurrencyStyles();
   const {
     showLoadingNotification,
     showSuccessNotification,
@@ -56,22 +62,47 @@ const CurrencyTable = ({ data }: Props) => {
     );
   });
 
+  const CardRow = data.map((item: any) => {
+    return (
+      <CurrencyCard
+        item={item}
+        key={item._id}
+        openDeleteModal={openDeleteModal}
+      />
+    );
+  });
+
   return (
     <ScrollArea>
-      <Group position="right" mx={"xl"} my={"xl"}></Group>
-      <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
+      <Table
+        sx={{ minWidth: 800 }}
+        verticalSpacing="sm"
+        className={classes.currencyTable}
+      >
         <TableHead
           data={{
             currency: true,
             currencyAmount: true,
             createdAt: true,
-            updatedAt: true,
             delete: true,
           }}
           prefix={"expenses"}
         />
         <tbody>{rows}</tbody>
       </Table>
+      <SimpleGrid
+        cols={4}
+        spacing="md"
+        breakpoints={[
+          { maxWidth: 900, cols: 3, spacing: "sm" },
+          { maxWidth: 750, cols: 2, spacing: "xs" },
+          { maxWidth: 450, cols: 1, spacing: "xs" },
+        ]}
+      >
+        {CardRow}
+      </SimpleGrid>
+
+      <Box></Box>
     </ScrollArea>
   );
 };
@@ -86,6 +117,7 @@ const TableRow = ({
   openDeleteModal: any;
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const { classes } = useCurrencyStyles();
   const { editCurrency } = useCurrency();
   const {
     showLoadingNotification,
@@ -117,27 +149,18 @@ const TableRow = ({
       <td>
         <TextInput
           defaultValue={item.equalsTo}
-          style={{ width: "100px" }}
           ref={inputRef}
+          className={classes.input}
         />
       </td>
       <td>
         <FormattedLocalTime date={item?.createdAt} />
       </td>
-      <td>
-        <FormattedLocalTime date={item?.updatedAt} />
-      </td>
-      <td
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-around",
-          marginBottom: "-5px",
-        }}>
+      <td className={classes.amalTd}>
         <ActionIcon>
           <IconTrash
+            className={classes.iconTrash}
             onClick={() => openDeleteModal(item._id, item.name)}
-            style={{ color: "red", cursor: "pointer" }}
           />
         </ActionIcon>
         <Button onClick={() => handleCurrencyEdit(item._id)}>

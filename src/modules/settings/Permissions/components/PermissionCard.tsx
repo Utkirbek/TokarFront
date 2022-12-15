@@ -87,7 +87,7 @@ const PermissionsCard: React.FC<Props> = ({ name, id }) => {
     });
 
   return (
-    <Grid.Col span="auto" lg={3} md={14} xs={8} sm={6}>
+    <Grid.Col lg={3} md={3} xs={12} sm={6}>
       <Card
         sx={{
           height: 100,
@@ -106,7 +106,7 @@ const PermissionsCard: React.FC<Props> = ({ name, id }) => {
             justifyContent: "center",
             gap: 20,
             position: "absolute",
-            bottom: 10,
+            bottom: 8,
           }}
         >
           <ActionIcon>
