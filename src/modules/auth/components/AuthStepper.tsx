@@ -6,6 +6,8 @@ import {
 } from "@tabler/icons";
 import React from "react";
 
+import useStyles from "./../signInStyle";
+
 interface AuthStepperProps {
   activeStep: number;
   loading: boolean;
@@ -15,8 +17,15 @@ const AuthStepper: React.FC<AuthStepperProps> = ({
   activeStep = 0,
   loading,
 }) => {
+  const { classes } = useStyles();
   return (
-    <Stepper active={activeStep} breakpoint="sm">
+    <Stepper
+      active={activeStep}
+      breakpoint="sm"
+      size="xl"
+      iconSize={60}
+      className={classes.stepper}
+    >
       <Stepper.Step
         label="Qadam 1"
         description="Account Ma'lumotlari"

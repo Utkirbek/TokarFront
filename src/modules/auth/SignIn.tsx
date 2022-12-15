@@ -103,7 +103,11 @@ function SignIn() {
             onFocus={(e) => e.target.removeAttribute("readonly")}
           />
           <Group position="right" mt="md">
-            <Button loading={status === "loading"} type="submit">
+            <Button
+              loading={status === "loading"}
+              type="submit"
+              className={classes.btn}
+            >
               <FormattedMessage id="next" />
             </Button>
           </Group>
@@ -134,6 +138,7 @@ const ShopSelectSection = ({
   data: any;
 }) => {
   const name = useUser((user) => user.name);
+  const { classes } = useStyles();
 
   const form = useForm<{
     shop: string;
@@ -172,20 +177,23 @@ const ShopSelectSection = ({
     <Box
       component="form"
       onSubmit={form.onSubmit(handleSubmit)}
-      sx={{ textAlign: "center" }}
+      className={classes.category}
     >
-      <h1>Xush kelibsiz {name}</h1>
-      <p>Marxamat qilib bugungi ish joyingizni tanlang</p>
+      <h1 className={classes.titleHeder}>Xush kelibsiz {name}</h1>
+      <p className={classes.titleP}>
+        Marxamat qilib bugungi ish joyingizni tanlang
+      </p>
 
       <Group position="center">
         <SegmentedControl
+          style={{ width: "100%" }}
           data={shops}
           {...form.getInputProps("shop")}
           orientation={isMobile ? "vertical" : null}
         />
       </Group>
       <Group position={isMobile ? "center" : "right"} mt="md">
-        <Button loading={!shopsData} type="submit">
+        <Button loading={!shopsData} type="submit" className={classes.signBtn}>
           <FormattedMessage id="next" />
         </Button>
       </Group>
