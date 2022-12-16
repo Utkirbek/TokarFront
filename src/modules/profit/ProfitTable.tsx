@@ -24,19 +24,21 @@ const ProfitTable: React.FC<{
   });
 
   return (
-    <ScrollArea>
-      <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
-        <TableHead
-          data={{
-            shopName: true,
-            amount: true,
-            createdAt: true,
-            updatedAt: true,
-          }}
-          prefix={"profit"}
-        />
-        <tbody>{rows}</tbody>
-      </Table>
+    <>
+      <ScrollArea>
+        <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
+          <TableHead
+            data={{
+              shopName: true,
+              amount: true,
+              createdAt: true,
+              updatedAt: true,
+            }}
+            prefix={"profit"}
+          />
+          <tbody>{rows}</tbody>
+        </Table>
+      </ScrollArea>
       <Pagination
         my={10}
         page={page}
@@ -53,7 +55,7 @@ const ProfitTable: React.FC<{
         total={total}
         onChange={onPageChange}
       />
-    </ScrollArea>
+    </>
   );
 };
 

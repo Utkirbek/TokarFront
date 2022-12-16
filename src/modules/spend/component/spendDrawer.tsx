@@ -5,10 +5,13 @@ import useSpend from "@services/hooks/useSpend";
 import { IconChevronDown } from "@tabler/icons";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { useSpendStyles } from "./useSpendStyles";
+
 const SpendDrawer: React.FC<{
   handleClose: () => void;
   editItem: any;
 }> = ({ handleClose, editItem }) => {
+  const { classes } = useSpendStyles();
   const intl = useIntl();
   const { editSpend, addSpend } = useSpend();
   const {
@@ -97,9 +100,14 @@ const SpendDrawer: React.FC<{
         />
 
         <Group position="right" mt="md">
-          <Button type="submit">
-            <FormattedMessage id="addSmth" values={{ isNew: !editItem._id }} />
-          </Button>
+          <Box className={classes.btnResponse}>
+            <Button type="submit" className={classes.spendButton}>
+              <FormattedMessage
+                id="addSmth"
+                values={{ isNew: !editItem._id }}
+              />
+            </Button>
+          </Box>
         </Group>
       </form>
     </Box>

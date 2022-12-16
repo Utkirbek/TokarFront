@@ -112,7 +112,6 @@ function DashLayout({ children }: { children: React.ReactNode }) {
                   />
                 </Text>
               )}
-
               {links}
             </Box>
           </Navbar>

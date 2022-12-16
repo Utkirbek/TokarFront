@@ -4,6 +4,8 @@ import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
 import {
   ActionIcon,
+  Affix,
+  Box,
   Button,
   Drawer,
   Group,
@@ -12,17 +14,19 @@ import {
 } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
 import useSpend from "@services/hooks/useSpend";
-import { IconPencil, IconTrash } from "@tabler/icons";
+import { IconPencil, IconPlus, IconTrash } from "@tabler/icons";
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 
 import SpendDrawer from "./spendDrawer";
+import { useSpendStyles } from "./useSpendStyles";
 
 type Props = {
   data?: any;
 };
 
 const SpendTable = ({ data }: Props) => {
+  const { classes } = useSpendStyles();
   const {
     showLoadingNotification,
     showSuccessNotification,
@@ -79,7 +83,13 @@ const SpendTable = ({ data }: Props) => {
         <td>
           <FormattedLocalTime date={item?.updatedAt} />
         </td>
-        <td style={{ display: "flex", gap: 10 }}>
+        <td
+          style={{
+            display: "flex",
+            marginTop: "5px",
+            justifyContent: "space-around",
+          }}
+        >
           <ActionIcon>
             <IconTrash
               onClick={() => openDeleteModal(item._id, item.name)}
@@ -95,36 +105,46 @@ const SpendTable = ({ data }: Props) => {
   });
 
   return (
-    <ScrollArea>
-      <Group position="right" mx={"xl"} my={"xl"}>
-        <Button onClick={onClose} variant={"outline"}>
-          <FormattedMessage id="expenses.title" />
-        </Button>
-      </Group>
-      <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
-        <TableHead
-          data={{
-            amount: true,
-            paymentMethod: true,
-            desc: true,
-            spendType: true,
-            createdAt: true,
-            updatedAt: true,
-            delete: true,
-          }}
-          prefix={"expenses"}
-        />
-        <tbody>{rows}</tbody>
-      </Table>
+    <>
+      <Box className={classes.spendAdd}>
+        <Group position="right" mx={"xl"} my={"xl"}>
+          <Button onClick={onClose} variant={"outline"}>
+            <FormattedMessage id="expenses.title" />
+          </Button>
+        </Group>
+      </Box>
+      <Affix position={{ bottom: 60, right: 20 }}>
+        <Box className={classes.spendAddIcon} onClick={onClose}>
+          <IconPlus size={25} color={"#fff"} />
+        </Box>
+      </Affix>
+      <ScrollArea>
+        <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
+          <TableHead
+            data={{
+              amount: true,
+              paymentMethod: true,
+              desc: true,
+              spendType: true,
+              createdAt: true,
+              updatedAt: true,
+              delete: true,
+            }}
+            prefix={"expenses"}
+          />
+          <tbody>{rows}</tbody>
+        </Table>
+      </ScrollArea>
       <Drawer
         opened={drawerOpen}
         onClose={onClose}
         padding="xl"
-        size="30%"
-        position="right">
+        size="xl"
+        position="right"
+      >
         <SpendDrawer editItem={editItem} handleClose={onClose} />
       </Drawer>
-    </ScrollArea>
+    </>
   );
 };
 
