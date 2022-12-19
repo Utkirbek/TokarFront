@@ -59,7 +59,7 @@ const CartTable: React.FC<CartTableProps> = ({}) => {
             hideControls
             value={item.quantity}
             size="xs"
-            min={1}
+            min={0}
             sx={{
               width: `${
                 item.quantity && item.quantity.toString?.()?.length + 4
