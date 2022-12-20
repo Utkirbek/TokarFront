@@ -1,96 +1,148 @@
+import If from "@components/smart/If";
 import TextEllipsis from "@components/TextEllipsis/TextEllipsis";
-import { Box, Button, clsx, Image, Text } from "@mantine/core";
-import { IconMinus, IconPhoto, IconPlus } from "@tabler/icons";
-import { floorLastThreeDigits, getNumber } from "@utils";
-import React from "react";
-import { useCart } from "react-use-cart";
+import useConfirmation from "@hooks/useConfirmation";
+import useNotification from "@hooks/useNotification";
+import {
+  ActionIcon,
+  Box,
+  Button,
+  Group,
+  Image,
+  Menu,
+  Paper,
+  Text,
+} from "@mantine/core";
+import useProducts from "@services/hooks/useProducts";
+import { IconDots, IconPencil, IconPhoto, IconTrash } from "@tabler/icons";
+import { Permissions } from "@utils/constants";
+import { useRouter } from "next/router";
+import React, { useCallback } from "react";
+import { FormattedMessage } from "react-intl";
 
 import useSalesCardStyles from "./ProductsTable/styles/CardStyle";
 
 type Props = {
   data: any[];
+  onEdit: (item: unknown) => void;
 };
+const CardView: React.FC<Props> = ({ data, onEdit }) => {
+  const { classes } = useSalesCardStyles();
+  const router = useRouter();
+  const { deleteProducts } = useProducts();
+  const { openConfirm } = useConfirmation();
 
-const CardView: React.FC<Props> = ({ data }) => {
+  const {
+    showLoadingNotification,
+    showErrorNotification,
+    showSuccessNotification,
+  } = useNotification();
+
+  const handleDelete = async function (id: string) {
+    showLoadingNotification();
+    deleteProducts(id, {
+      onSuccess: () => showSuccessNotification(),
+      onError: () => showErrorNotification(),
+    });
+  };
+
+  const openDeleteModal = useCallback((id: string) => {
+    openConfirm(null, {
+      onConfirm: () => handleDelete(id),
+    });
+  }, []);
+
+  const Card = () => {
+    return (
+      <>
+        {data.map((item) => (
+          <Paper
+            key={item.id}
+            className={classes.prodactPaper}
+            radius="md"
+            withBorder
+            sx={(theme) => ({
+              backgroundColor:
+                theme.colorScheme === "dark"
+                  ? theme.colors.dark[8]
+                  : theme.white,
+            })}
+          >
+            <Box style={{ textAlign: "center" }}>
+              {item.image == "" ? (
+                <IconPhoto size={90} />
+              ) : (
+                <Image
+                  width={90}
+                  height={90}
+                  src="https://images.unsplash.com/long-image-url-was-here.jpg"
+                  alt="maxsulotYoq"
+                />
+              )}
+            </Box>
+
+            <Box style={{ textAlign: "center" }}>
+              <Text>
+                <TextEllipsis
+                  text={item.title}
+                  maxChars={20}
+                  className={classes.userText}
+                />
+              </Text>
+              <Text align="center" color="dimmed" size="sm">
+                <FormattedMessage id="products.code" />:{item?.code}
+              </Text>
+            </Box>
+            <Button
+              fullWidth
+              mt="xs"
+              onClick={() => {
+                router.push("/products", {
+                  query: {
+                    details: item._id,
+                  },
+                });
+              }}
+            >
+              <FormattedMessage id="more" />
+            </Button>
+            <Box className={classes.prdactPostion}>
+              <Menu withArrow offset={-5} position="bottom-end">
+                <Menu.Target>
+                  <Box>
+                    <IconDots />
+                  </Box>
+                </Menu.Target>
+                <Menu.Dropdown style={{ width: "400px" }}>
+                  <Group>
+                    <ActionIcon>
+                      <IconPencil
+                        style={{ cursor: "pointer", marginTop: "5px" }}
+                        onClick={() => onEdit(item)}
+                      />
+                    </ActionIcon>
+
+                    <If hasPerm={Permissions.products.delete}>
+                      <ActionIcon>
+                        <IconTrash
+                          color="red"
+                          onClick={() => openDeleteModal(item._id)}
+                        />
+                      </ActionIcon>
+                    </If>
+                  </Group>
+                </Menu.Dropdown>
+              </Menu>
+            </Box>
+          </Paper>
+        ))}
+      </>
+    );
+  };
   return (
     <>
-      {data.map((item) => (
-        <Box key={item._id}>
-          <SalesCard item={item} />
-        </Box>
-      ))}
+      <Box className={classes.prodactFlex}>{Card()}</Box>
     </>
   );
 };
 
 export default CardView;
-
-const SalesCard: React.FC<{ item: any }> = ({ item }) => {
-  const { addItem, updateItemQuantity, getItem, inCart } = useCart();
-  const { classes } = useSalesCardStyles();
-  const handleAddToCart = () => {
-    if (inCart(item._id)) {
-      const cartItem = getItem(item._id);
-      updateItemQuantity(item._id, cartItem.quantity + 1);
-    } else {
-      addItem({
-        id: item._id,
-        ...item,
-        price: getNumber(item.calculatedPrice),
-      });
-    }
-  };
-
-  const dec = () => {
-    const cartItem = getItem(item._id);
-    updateItemQuantity(item._id, cartItem.quantity - 1);
-  };
-
-  return (
-    <Box
-      className={clsx(classes.card, {
-        [classes.active]: inCart(item._id),
-      })}
-    >
-      {item.image === "" || null ? (
-        <Box
-          style={{
-            textAlign: "center",
-          }}
-        >
-          <IconPhoto size={95} />
-        </Box>
-      ) : (
-        <Image
-          radius="md"
-          src={item?.image}
-          alt="Random unsplash image"
-          width={187}
-          height={110}
-        />
-      )}
-
-      <Box className={classes.cardPadding}>
-        <TextEllipsis text={item.title} maxChars={20} />
-        <Box className={classes.cardButton}>
-          <Text sx={{ fontWeight: "bold" }} fz="sm" fw={500}>
-            {getNumber(item.calculatedPrice)} UZS
-          </Text>
-          <Button.Group>
-            <Button
-              variant="outline"
-              size="xs"
-              disabled={!inCart(item._id)}
-              onClick={dec}
-            >
-              <IconMinus size={"xs"} />
-            </Button>
-            <Button size="xs" onClick={handleAddToCart} variant="gradient">
-              <IconPlus size={"xs"} />
-            </Button>
-          </Button.Group>
-        </Box>
-      </Box>
-    </Box>
-  );
-};

@@ -1,6 +1,22 @@
 import { createStyles } from "@mantine/core";
 
 const useStyles = createStyles(() => ({
+  tableView: {
+    "@media (max-width: 800px)": {
+      display: "none",
+    },
+  },
+  cardPagination: {
+    "@media (max-width: 800px)": {
+      marginBottom: "40px",
+    },
+  },
+  cardView: {
+    display: "none",
+    "@media (max-width: 800px)": {
+      display: "block",
+    },
+  },
   serch: {
     marginRight: "40px",
     "@media (max-width: 800px)": {

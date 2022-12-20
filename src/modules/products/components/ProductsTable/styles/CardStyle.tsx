@@ -2,26 +2,54 @@ import { createStyles } from "@mantine/core";
 
 const useSalesCardStyles = createStyles(() => {
   return {
-    card: {
-      width: "195px",
-      height: "200px",
-      padding: "2px",
-      borderRadius: "7px",
-      border: "1px solid #444",
-      background: "linear-gradient(180deg,#2196f3, transparent) #3f51b5",
-      cursor: "pointer",
+    prodactPaper: {
+      width: "200px",
+      padding: "8px",
+      position: "relative",
+      [`@media (max-width: 470px)`]: {
+        width: "170px",
+      },
+      [`@media (max-width: 400px)`]: {
+        width: "160px",
+      },
+      [`@media (max-width: 380px)`]: {
+        width: "320px",
+      },
     },
-    active: {
-      background: "linear-gradient(0deg, #E8590C 0%, rgba(45,112,253,1) 100%)",
+    prdactPostion: {
+      position: "absolute",
+      top: "0",
+      right: "5px",
     },
-    cardPadding: {
-      padding: "5px",
+    userText: {
+      textAlign: "center",
+      margin: "auto",
+      fontSize: "16px",
+      [`@media (max-width: 470px)`]: {
+        fontSize: "13px",
+      },
+      [`@media (max-width: 380px)`]: {
+        fontSize: "16px",
+        margin: "auto",
+        textAlign: "center",
+      },
     },
-    cardButton: {
+    prodactFlex: {
       display: "flex",
+      flexWrap: "wrap",
       justifyContent: "space-between",
-      alignItems: "center",
+      gap: "10px",
       marginTop: "5px",
+      marginBottom: "5px",
+      [`@media (max-width: 710px)`]: {
+        justifyContent: "space-around",
+      },
+      [`@media (max-width: 550px)`]: {
+        justifyContent: "space-between",
+      },
+      [`@media (max-width: 380px)`]: {
+        justifyContent: "center",
+      },
     },
   };
 });

@@ -25,6 +25,7 @@ export const productsLocaleUz = {
   no_price: "Narxi yo'q",
   min_quantity: "Kam qolgan tovarlar",
   discount: "Chegirma haqida Malumot",
+  code: "Kodi ",
 
   form: {
     takePicture: "Rasmni olib tashlash",
@@ -98,6 +99,7 @@ export const productsLocaleEn = {
   say: "How many days",
   title: "Products",
   buy: "Buy",
+  code: "Code",
   discount: "Information about the discount",
   no_price: "No price",
   min_quantity: "Low inventory",

@@ -1,4 +1,3 @@
-import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import FormDrawer from "@components/Drawer/FormDrawer";
 import SearchAutoComplete from "@components/SearchAutoComplete";
 import If from "@components/smart/If";
@@ -13,7 +12,7 @@ import {
 } from "@mantine/core";
 import { useMediaQuery, useToggle } from "@mantine/hooks";
 import productFetchers from "@services/api/productFetchers";
-import { IconPlus, IconTable } from "@tabler/icons";
+import { IconPlus } from "@tabler/icons";
 import { Permissions } from "@utils/constants";
 import { useRouter } from "next/router";
 import { memo, useCallback, useState } from "react";
@@ -49,7 +48,6 @@ function ProductsTable({
   const [editItem, setEditItem] = useState<{ _id?: string }>({});
   const [searchResults, setSearchResults] = useState([]);
   const [opened, toggleOpened] = useToggle();
-  const [salesView, toggleSalesView] = useToggle();
   const [isResultsActive, toggleResultsActive] = useToggle();
 
   const isMobile = useMediaQuery("(max-width: 600px)");
@@ -157,9 +155,6 @@ function ProductsTable({
           gap: 5,
         }}
       >
-        <Button variant="light" onClick={() => toggleSalesView()}>
-          <IconTable />
-        </Button>
         <SearchAutoComplete
           searchResults={searchResults}
           onSearchResults={onSearchResults}
@@ -191,75 +186,56 @@ function ProductsTable({
             justifyContent: "space-between",
           }}
         >
-          <If condition={!salesView}>
-            <Chip.Group
-              position="left"
-              my={5}
-              onChange={onFilterChipChange}
-              defaultValue="clear"
-              value={
-                minQuantity ? "min_quantity" : noPrice ? "no_price" : "clear"
-              }
-            >
-              <If hasPerm={Permissions.products.originalPrice}>
-                <Chip value={"no_price"}>
-                  <FormattedMessage id="products.no_price" />
-                </Chip>
-              </If>
-              <Chip value={"min_quantity"}>
-                <FormattedMessage id="products.min_quantity" />
-              </Chip>
-              <Chip value={"clear"}>
-                <FormattedMessage id="clear" />
-              </Chip>
-            </Chip.Group>
-          </If>
-          <If
-            condition={activeData?.length === 0}
-            elseChildren={
-              <>
-                <If
-                  condition={salesView}
-                  elseChildren={
-                    <TableView
-                      onEdit={onEdit}
-                      data={activeData}
-                      minStock={minQuantity}
-                    />
-                  }
-                >
-                  <Box
-                    style={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      justifyContent: "start",
-                      gap: "13px",
-                    }}
-                  >
-                    <CardView data={activeData} />
-                  </Box>
-                </If>
-                <Pagination
-                  my={10}
-                  page={page}
-                  styles={(theme) => ({
-                    item: {
-                      "&[data-active]": {
-                        backgroundImage: theme.fn.gradient({
-                          from: "red",
-                          to: "yellow",
-                        }),
-                      },
-                    },
-                  })}
-                  total={total}
-                  onChange={onPageChange}
-                />
-              </>
+          <Chip.Group
+            position="left"
+            my={5}
+            onChange={onFilterChipChange}
+            defaultValue="clear"
+            value={
+              minQuantity ? "min_quantity" : noPrice ? "no_price" : "clear"
             }
           >
-            <EmptyBox id="noSearchResults" />
-          </If>
+            <If hasPerm={Permissions.products.originalPrice}>
+              <Chip value={"no_price"}>
+                <FormattedMessage id="products.no_price" />
+              </Chip>
+            </If>
+            <Chip value={"min_quantity"}>
+              <FormattedMessage id="products.min_quantity" />
+            </Chip>
+            <Chip value={"clear"}>
+              <FormattedMessage id="clear" />
+            </Chip>
+          </Chip.Group>
+          <Box className={classes.tableView}>
+            <TableView
+              onEdit={onEdit}
+              minStock={minQuantity}
+              data={activeData}
+            />
+          </Box>
+          <Box className={classes.cardView}>
+            <CardView data={activeData} onEdit={onEdit} />
+          </Box>
+          <Box className={classes.cardPagination}>
+            <Pagination
+              siblings={0}
+              my={10}
+              page={page}
+              styles={(theme) => ({
+                item: {
+                  "&[data-active]": {
+                    backgroundImage: theme.fn.gradient({
+                      from: "red",
+                      to: "yellow",
+                    }),
+                  },
+                },
+              })}
+              total={total}
+              onChange={onPageChange}
+            />
+          </Box>
         </Grid.Col>
         <If condition={!isEmpty}>
           <Grid.Col span={3} sm={6} md={5} lg={3}>
@@ -277,6 +253,8 @@ function ProductsTable({
             bottom: 70,
             right: 20,
             borderRadius: "50%",
+            backgroundColor: "#1971C2",
+            color: "#fff",
           }}
           size="xl"
         >
