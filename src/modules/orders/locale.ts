@@ -22,7 +22,7 @@ export const orderLocaleUz = {
   user: "XARIDOR",
   payment: "TO'LOV",
   origin: "MANZIL",
-  code: "CODI",
+  code: "KODI",
   price: "NARXI",
   quantity: "MIQDORI",
   quantityOri: "JAMI MIQDORI",

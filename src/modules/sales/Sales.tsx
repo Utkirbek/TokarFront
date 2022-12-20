@@ -1,7 +1,11 @@
 import SalesPrint from "@components/print/SalesPrint";
 import SearchAutoComplete from "@components/SearchAutoComplete";
 import If from "@components/smart/If";
-import { selectSalesmanId, selectSearchOrderId } from "@hooks/shared/selectors";
+import {
+  selectIsRefund,
+  selectSalesmanId,
+  selectSearchOrderId,
+} from "@hooks/shared/selectors";
 import useSalesState from "@hooks/shared/useSales";
 import useUser from "@hooks/shared/useUser";
 import { Box, Divider, Grid, ScrollArea } from "@mantine/core";
@@ -37,6 +41,7 @@ const Sales: NextPage = () => {
   const componentRef = useRef(null);
   const salesmanId = useUser(selectSalesmanId);
   const searchOrderId = useSalesState(selectSearchOrderId);
+  const isRefund = useSalesState(selectIsRefund);
 
   const form = useSalesForm({
     initialValues: {
@@ -79,6 +84,7 @@ const Sales: NextPage = () => {
               onSearchResults={onSearchResults}
               onClear={onSearchClear}
               fetcher={productFetchers.getProductByTitle}
+              disabled={isRefund}
             />
           </Grid.Col>
           <Grid.Col span={12} sm={12} sx={{ height: "90%" }}>
@@ -92,7 +98,7 @@ const Sales: NextPage = () => {
                   </If>
                   <CartTable />
                 </ScrollArea>
-                <If condition={searchResults.length > 0}>
+                <If condition={searchResults.length > 0 && !isRefund}>
                   <Divider my={10} />
                   <ScrollArea sx={{ height: "32vh" }}>
                     <SearchResultsTable searchResults={searchResults} />

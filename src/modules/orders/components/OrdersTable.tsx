@@ -7,7 +7,6 @@ import {
   ActionIcon,
   Box,
   Button,
-  Grid,
   Pagination,
   ScrollArea,
   Table,
@@ -96,11 +95,9 @@ const OrdersTable = ({
             {item?.total.toFixed(2)}
           </Link>
         </td>
+        <td className={classes.orderTD}>{item.code}</td>
         <td className={classes.orderTD}>
           <FormattedLocalTime date={item?.createdAt} />
-        </td>
-        <td className={classes.orderTD}>
-          <FormattedLocalTime date={item?.updatedAt} />
         </td>
         <If hasPerm={Permissions.orders.delete}>
           <td>
@@ -140,11 +137,12 @@ const OrdersTable = ({
               ordersSalesmen: true,
               orderUser: true,
               paymentOrder: true,
+              code: true,
               createOrder: true,
-              updateOrder: true,
               orderAction: true,
             }}
             prefix="orders"
+            permissionOf="no-check"
           />
           <tbody>{rows}</tbody>
         </Table>

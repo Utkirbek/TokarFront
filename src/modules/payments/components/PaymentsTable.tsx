@@ -131,7 +131,11 @@ function PaymentsTable({ data, page, onPageChange, total }: any) {
         elseChildren={
           <ScrollArea>
             <Table miw={800} verticalSpacing="sm" highlightOnHover>
-              <TableHead data={tableHead} prefix="payments" />
+              <TableHead
+                data={tableHead}
+                prefix="payments"
+                permissionOf="no-check"
+              />
               <tbody>{rows}</tbody>
             </Table>
           </ScrollArea>

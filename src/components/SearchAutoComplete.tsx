@@ -11,6 +11,7 @@ type Props = {
   fetcher: (value: string) => Promise<any>;
   onClear: () => void;
   placeholder?: string | React.ComponentType;
+  disabled?: boolean;
 };
 
 function SearchAutoComplete({
@@ -18,6 +19,7 @@ function SearchAutoComplete({
   fetcher,
   searchResults,
   onClear,
+  disabled,
 }: Props) {
   const [value, setValue] = useState("");
   const isMobile = useMediaQuery("(max-width: 600px)");
@@ -49,7 +51,7 @@ function SearchAutoComplete({
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },
-    [value, fetcher]
+    [value, fetcher, onSearchResults]
   );
 
   useEffect(() => {
@@ -72,6 +74,7 @@ function SearchAutoComplete({
         placeholder={intl.formatMessage({ id: "search" })}
         data={data}
         ref={autoCompleteRef}
+        disabled={disabled}
         rightSection={
           <Button.Group>
             <Tooltip

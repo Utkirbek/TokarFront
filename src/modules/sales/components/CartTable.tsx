@@ -1,4 +1,6 @@
 import TableHead from "@components/Table/TableHead";
+import { selectIsRefund } from "@hooks/shared/selectors";
+import useSalesState from "@hooks/shared/useSales";
 import { ActionIcon, Group, NumberInput, Table } from "@mantine/core";
 import { useResizeObserver } from "@mantine/hooks";
 import { IconMinus, IconPlus, IconTrash } from "@tabler/icons";
@@ -20,6 +22,7 @@ interface CartTableProps {}
 
 const CartTable: React.FC<CartTableProps> = ({}) => {
   const { items, updateItem, updateItemQuantity, removeItem } = useCart();
+  const isRefund = useSalesState(selectIsRefund);
 
   const rows = items.map((item, index) => (
     <tr key={index}>
@@ -31,6 +34,7 @@ const CartTable: React.FC<CartTableProps> = ({}) => {
           hideControls
           min={0}
           precision={1}
+          disabled={isRefund}
           sx={{
             width: `${
               floorLastThreeDigits(item.price).toString?.()?.length + 5
@@ -51,6 +55,7 @@ const CartTable: React.FC<CartTableProps> = ({}) => {
             onClick={() => {
               updateItemQuantity(item.id, item.quantity! - 1);
             }}
+            disabled={item.quantity === 1}
           >
             <IconMinus />
           </ActionIcon>
@@ -60,6 +65,7 @@ const CartTable: React.FC<CartTableProps> = ({}) => {
             value={item.quantity}
             size="xs"
             min={0}
+            max={isRefund ? item.quantity : undefined}
             sx={{
               width: `${
                 item.quantity && item.quantity.toString?.()?.length + 4
@@ -74,6 +80,7 @@ const CartTable: React.FC<CartTableProps> = ({}) => {
             onClick={() => {
               updateItemQuantity(item.id, item.quantity! + 1);
             }}
+            disabled={isRefund}
           >
             <IconPlus />
           </ActionIcon>
@@ -84,6 +91,7 @@ const CartTable: React.FC<CartTableProps> = ({}) => {
           precision={1}
           hideControls
           value={floorLastThreeDigits(item.itemTotal!)}
+          disabled={isRefund}
           sx={{
             width: `${
               item.itemTotal &&

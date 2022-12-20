@@ -83,7 +83,7 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
         isInstallment && values.initialPaymentAmount > 0
           ? cartTotal - values.initialPaymentAmount
           : cartTotal,
-      cashTotal: values.initialPaymentAmount,
+      cashTotal: isInstallment ? values.initialPaymentAmount : cartTotal,
       shouldPay: values.installmentDate,
       salesman: values.salesman,
       user: values.customer,
@@ -115,20 +115,12 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
   };
 
   const refund = (values: SalesFormValues) => {
-    // showLoadingNotification();
+    showLoadingNotification();
 
     const orderData = {
       total: cartTotal,
-      paymentMethod: values.paymentMethod,
-      loanTotal:
-        isInstallment && values.initialPaymentAmount > 0
-          ? cartTotal - values.initialPaymentAmount
-          : cartTotal,
-      cashTotal: values.initialPaymentAmount,
-      shouldPay: values.installmentDate,
+      cashTotal: cartTotal,
       salesman: values.salesman,
-      user: values.customer,
-      hasLoan: isInstallment,
       cart: items.map((item) => {
         return {
           product: item.id,
@@ -138,28 +130,22 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
       }),
     };
 
-    alert("Tasdiqlanmagan funksiyaga qayta urinilmasin");
-    // editOrder(
-    //   {
-    //     id: searchOrderId,
-    //     values: orderData,
-    //   },
-    //   {
-    //     onSuccess: (data) => {
-    //       showSuccessNotification();
-    //       setLastSale({
-    //         ...orderData,
-    //         total: values.initialPaymentAmount || cartTotal,
-    //         items: items as any,
-    //       });
-    //       emptyCart();
-    //       clearCartMetadata();
-    //     },
-    //     onError: () => {
-    //       showErrorNotification();
-    //     },
-    //   }
-    // );
+    editOrder(
+      {
+        id: searchOrderId,
+        values: orderData,
+      },
+      {
+        onSuccess: (data) => {
+          showSuccessNotification();
+          emptyCart();
+          clearCartMetadata();
+        },
+        onError: () => {
+          showErrorNotification();
+        },
+      }
+    );
   };
 
   const handleSell = (event?: React.SyntheticEvent | KeyboardEvent) => {
@@ -207,6 +193,7 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
             </ActionIcon>
           </Tooltip>
           <Tooltip
+            disabled={isRefund}
             label={
               <Box>
                 Nasiya qilish &nbsp;
@@ -214,7 +201,11 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
               </Box>
             }
           >
-            <ActionIcon size={45} onClick={handleInstallment}>
+            <ActionIcon
+              size={45}
+              onClick={handleInstallment}
+              disabled={isRefund}
+            >
               <IconCalendarPlus size={35} />
             </ActionIcon>
           </Tooltip>
