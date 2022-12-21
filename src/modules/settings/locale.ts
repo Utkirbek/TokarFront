@@ -1,5 +1,11 @@
 export const permissionsLocaleUz = {
   permissions: { all: "Barcha ruxsatlar", view: "Ruxsatlarni ko'rish" },
+  sales: {
+    view: "Savdo (sotish bo'limi)",
+  },
+  payments: {
+    view: "To'lovlarni ko'rish",
+  },
   product: {
     action: "Mahsulotdagi amallar",
     quantity: "Mahsulot soni",
@@ -49,17 +55,17 @@ export const permissionsLocaleUz = {
   roles_edit: "Rollar tahrirlash",
   roles_delete: "Rollar o'chirish",
   roles_view: "Rollar ko'rish",
-  orders_edit: "Buyurtmalar tahrirlash",
-  orders_delete: "Buyurtmalar o'chirish",
-  orders_view: "Buyurtmalar ko'rish",
+  orders_edit: "Savdolarni tahrirlash",
+  orders_delete: "Savdolarni o'chirish",
+  orders_view: "Savdolarni ko'rish",
   kassa: {
-    view: "Kassalar ko'rish",
+    view: "Kassani ko'rish",
   },
   loans: {
     view: "Qarzlarni ko'rish",
   },
   profit: {
-    view: "Foyda hisoboti ko'rish",
+    view: "Daromadlarni ko'rish",
   },
   statistics_view: "Statistikani ko'rish",
   perm: {
