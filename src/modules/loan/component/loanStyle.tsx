@@ -8,13 +8,19 @@ const useLoanStyles = createStyles((theme) => ({
   loanAllDisplay: {
     width: "100%",
     minHeight: "75vh",
+    position: "relative",
+    [`@media (max-width: 800px)`]: {
+      height: "90vh",
+    },
   },
   loanItemGroup: {
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",
-    flexWrap: "wrap",
     width: "100%",
+    [`@media (max-width: 800px)`]: {
+      flexWrap: "wrap",
+    },
   },
   loanImageBox: {
     width: "380px",
@@ -41,49 +47,29 @@ const useLoanStyles = createStyles((theme) => ({
 
   textStart: {
     textAlign: "left",
-    minWidth: 300,
     fontSize: "23px",
-    [`@media (max-width: 800px)`]: {
-      minWidth: 180,
-      fontSize: 18,
-    },
-    [`@media (max-width: 520px)`]: {
-      minWidth: 200,
-    },
-    [`@media (max-width: 470px)`]: {
-      fontSize: 12,
-      minWidth: 120,
+    [`@media (max-width: 1000px)`]: {
+      fontSize: 15,
     },
   },
 
   boxFlex: {
-    minWidth: 200,
     display: "flex",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     marginTop: "5px",
-    marginLeft: "35px",
-    [`@media (max-width: 470px)`]: {
-     display:"flex",
-     justifyContent :"space-between",
-     width : "100%",
-     margin : "0"
+    padding: "0px 50px",
+    [`@media (max-width: 800px)`]: {
+      display: "flex",
+      justifyContent: "space-between",
+      width: "100%",
+      margin: "0",
+      padding: "0px 10px",
     },
   },
   text: {
-    minWidth: 200,
     fontSize: "23px",
-    textAlign: "left",
-    [`@media (max-width: 800px)`]: {
-      minWidth: 150,
-      fontSize: 18,
-    },
-    [`@media (max-width: 470px)`]: {
-      fontSize: 12,
-      minWidth: 100,
-    },
-    [`@media (max-width: 390px)`]: {
-      fontSize: 12,
-      minWidth: 80,
+    [`@media (max-width: 1000px)`]: {
+      fontSize: 15,
     },
   },
   loanTrash: {
@@ -123,6 +109,15 @@ const useLoanStyles = createStyles((theme) => ({
     border: "0.2px solid #444",
     borderRadius: "8px",
     fontSize: 14,
+  },
+  modalBtn: {
+    width: "100%",
+    display: "none",
+    position: "absolute",
+    bottom: "0",
+    [`@media (max-width: 800px)`]: {
+      display: "block",
+    },
   },
 }));
 export default useLoanStyles;

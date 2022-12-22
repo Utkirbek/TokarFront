@@ -13,6 +13,15 @@ const useAdminStyles = createStyles((theme) => ({
       width: "90%",
     },
   },
+  modalBtn: {
+    width: "100%",
+    display: "none",
+    position: "absolute",
+    bottom: "0",
+    [`@media (max-width: 800px)`]: {
+      display: "block",
+    },
+  },
   AdminTrash: {
     color: "red",
     cursor: "pointer",
@@ -36,6 +45,7 @@ const useAdminStyles = createStyles((theme) => ({
   adminCardBox: {
     width: "100%",
     height: "200px",
+
     padding: "8px",
     border: "0.2px solid #444",
     borderRadius: "8px",
@@ -86,6 +96,10 @@ const useAdminStyles = createStyles((theme) => ({
   adminAllDisplay: {
     width: "100%",
     minHeight: "75vh",
+    position: "relative",
+    [`@media (max-width: 800px)`]: {
+      height: "90vh",
+    },
   },
 
   adminTitleHead: {
@@ -99,42 +113,27 @@ const useAdminStyles = createStyles((theme) => ({
     },
   },
   adminTextStart: {
-    width: 300,
+    textAlign: "start",
     fontSize: "23px",
     [`@media (max-width: 800px)`]: {
       fontSize: 15,
-    },
-    [`@media (max-width: 630px)`]: {
-      fontSize: 10,
-      minWidth: 200,
-    },
-    [`@media (max-width: 500px)`]: {
-      fontSize: 8,
-      minWidth: 250,
     },
   },
   adminText: {
-    minWidth: 300,
     fontSize: "23px",
     [`@media (max-width: 800px)`]: {
       fontSize: 15,
-    },
-    [`@media (max-width: 665px)`]: {
-      minWidth: 180,
-      marginLeft: "20px",
-      fontSize: 10,
-    },
-    [`@media (max-width: 500px)`]: {
-      fontSize: 8,
-      minWidth: 150,
+      textAlign: "start",
     },
   },
   adminBoxFlex: {
-    minWidth: 300,
     display: "flex",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     marginTop: "5px",
-    marginLeft: "50px",
+    padding: "0px 80px",
+    [`@media (max-width: 500px)`]: {
+      padding: "0px 10px",
+    },
   },
   tableAdminMedia: {
     [`@media (max-width: 500px)`]: {

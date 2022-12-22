@@ -1,5 +1,6 @@
 export const commonUz = {
   more: "Batafsil",
+  backTo: "Ortga",
   confirm: "Tasdiqlash",
   cancel: "Bekor qilish",
   delete: "O'chirish",
@@ -18,6 +19,7 @@ export const commonUz = {
 
 export const commonEn = {
   more: "More",
+  backTo: "Back to",
   confirm: "Confirm",
   cancel: "Cancel",
   delete: "Delete",

@@ -166,7 +166,12 @@ function TableCard({ data }: { data: any }) {
             onClear={() => setSearchResults([])}
             fetcher={adminFetchers.getAdminsByTitle}
           />
-          <Group position="right" mx={"xl"} my={"xl"} className={classes.drawerBtn}>
+          <Group
+            position="right"
+            mx={"xl"}
+            my={"xl"}
+            className={classes.drawerBtn}
+          >
             <Button onClick={onClose} variant={"outline"}>
               <FormattedMessage id="admins.add.title" />
             </Button>

@@ -1,6 +1,7 @@
 import FormattedLocalTime from "@components/FormattedLocalTime";
 import TableHead from "@components/Table/TableHead";
-import { Box, Image, Modal, Table, Text } from "@mantine/core";
+import { Box, Button, Image, Modal, Table, Text } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import useStyles from "@modules/products/components/ProductsTable/styles";
 import { IconPhoto } from "@tabler/icons";
 import { useRouter } from "next/router";
@@ -14,12 +15,18 @@ type Props = {
 const ProductDetails = ({ products }: Props) => {
   const router = useRouter();
   const { classes, cx } = useStyles();
+  const isMobile = useMediaQuery("(max-width: 800px)");
 
   const query = queryString.parse(router.asPath.split("?")[1]);
   const item = findItem(products, query.details as string);
 
   return (
-    <Modal size={"85%"} opened={!!item} onClose={() => router.back()}>
+    <Modal
+      size="85%"
+      fullScreen={isMobile}
+      opened={!!item}
+      onClose={() => router.back()}
+    >
       <Box className={classes.allDisplay}>
         <Box className={classes.itemGroup}>
           <Box className={classes.imageBox}>
@@ -33,7 +40,9 @@ const ProductDetails = ({ products }: Props) => {
                 width="100%"
               />
             ) : (
-              <IconPhoto size={400} />
+              <Box className={classes.iconPhoto}>
+                <IconPhoto size={300} />
+              </Box>
             )}
           </Box>
 
@@ -91,7 +100,7 @@ const ProductDetails = ({ products }: Props) => {
             </Box>
           </Box>
         </Box>
-        <Box p={50}>
+        <Box className={classes.discount}>
           <Text className={classes.discountTitle}>
             <FormattedMessage id="products.discount" />
           </Text>
@@ -114,6 +123,11 @@ const ProductDetails = ({ products }: Props) => {
               })}
             </tbody>
           </Table>
+        </Box>
+        <Box className={classes.modalBtn}>
+          <Button onClick={() => router.back()} fullWidth>
+            <FormattedMessage id="backTo" />
+          </Button>
         </Box>
       </Box>
     </Modal>

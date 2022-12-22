@@ -1,8 +1,7 @@
 import FormattedLocalTime from "@components/FormattedLocalTime";
-import { Box, Image, Modal, Text } from "@mantine/core";
-import useStyles from "@modules/products/components/ProductsTable/styles";
+import { Affix, Box, Button, Image, Modal, Text } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { IconUser } from "@tabler/icons";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import queryString from "query-string";
 import { FormattedMessage } from "react-intl";
@@ -16,11 +15,17 @@ type Props = {
 const LoanBatafsil = ({ loan }: Props) => {
   const router = useRouter();
   const { classes, cx } = useLoanStyles();
+  const isMobile = useMediaQuery("(max-width: 950px)");
 
   const query = queryString.parse(router.asPath.split("?")[1]);
   const item = findItem(loan, query.details as string);
   return (
-    <Modal size={"85%"} opened={!!item} onClose={() => router.back()}>
+    <Modal
+      size="85%"
+      fullScreen={isMobile}
+      opened={!!item}
+      onClose={() => router.back()}
+    >
       <Box className={classes.loanAllDisplay}>
         <Box className={classes.loanItemGroup}>
           <Box className={classes.loanImageBox}>
@@ -135,6 +140,12 @@ const LoanBatafsil = ({ loan }: Props) => {
               </Text>
             </Box>
           </Box>
+        </Box>
+
+        <Box className={classes.modalBtn}>
+          <Button onClick={() => router.back()} fullWidth>
+            <FormattedMessage id="backTo" />
+          </Button>
         </Box>
       </Box>
     </Modal>

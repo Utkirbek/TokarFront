@@ -3,12 +3,14 @@ import TableHead from "@components/Table/TableHead";
 import {
   Avatar,
   Box,
+  Button,
   Image,
   Modal,
   ScrollArea,
   Table,
   Text,
 } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import userFetcher from "@services/api/userFetcher";
 import { RequestQueryKeys } from "@utils/constants";
 import { useRouter } from "next/router";
@@ -21,6 +23,7 @@ import useDetailstyles from "./useDetailstyles";
 const UserDetails = () => {
   const router = useRouter();
   const { classes } = useDetailstyles();
+  const isMobile = useMediaQuery("(max-width: 950px)");
 
   const query = queryString.parse(router.asPath.split("?")[1]);
   const userDetail = useSWR(
@@ -54,7 +57,12 @@ const UserDetails = () => {
   });
 
   return (
-    <Modal size={"85%"} opened={!!userBatfsil} onClose={() => router.back()}>
+    <Modal
+      size="85%"
+      fullScreen={isMobile}
+      opened={!!userBatfsil}
+      onClose={() => router.back()}
+    >
       <Box className={classes.allDisplay}>
         <Box className={classes.itemGroup}>
           <Box className={classes.imageBox}>
@@ -70,7 +78,6 @@ const UserDetails = () => {
                 borderRadius: "15px",
               }}
               width="100%"
-              height="45vh"
               radius="md"
             />
           </Box>
@@ -153,6 +160,11 @@ const UserDetails = () => {
             <tbody>{rowDetail}</tbody>
           </Table>
         </ScrollArea>
+        <Box className={classes.modalBtn}>
+          <Button onClick={() => router.back()} fullWidth>
+            <FormattedMessage id="backTo" />
+          </Button>
+        </Box>
       </Box>
     </Modal>
   );

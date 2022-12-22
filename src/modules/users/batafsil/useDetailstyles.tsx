@@ -15,19 +15,35 @@ const useDetailstyles = createStyles(() => ({
   allDisplay: {
     width: "100%",
     minHeight: "75vh",
-    margin: "auto",
+    position: "relative",
+    [`@media (max-width: 800px)`]: {
+      height: "90vh",
+    },
   },
   itemGroup: {
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",
-    flexWrap: "wrap",
+
+    [`@media (max-width: 500px)`]: {
+      justifyContent: "center",
+    },
+    [`@media (max-width: 1200px)`]: {
+      justifyContent: "center",
+      flexWrap: "wrap",
+    },
   },
   imageBox: {
     width: "380px",
     height: "350px",
-    [`@media (max-width: 800px)`]: {
-      display: "none",
+    [`@media (max-width: 1300px)`]: {
+      width: "300px",
+      height: "300px",
+    },
+    [`@media (max-width: 440px)`]: {
+      width: "300px",
+      height: "300px",
+      marginBottom: "5px",
     },
   },
   left: {
@@ -38,11 +54,9 @@ const useDetailstyles = createStyles(() => ({
   },
   textStart: {
     textAlign: "start",
-    width: "250px",
     fontSize: "23px",
     [`@media (max-width: 800px)`]: {
-      fontSize: 12,
-      width: "150px",
+      fontSize: 15,
     },
   },
   boxHeader: {
@@ -56,15 +70,24 @@ const useDetailstyles = createStyles(() => ({
     display: "flex",
     justifyContent: "space-between",
     marginTop: "5px",
+    padding: "0px 50px",
     [`@media (max-width: 800px)`]: {
-      width: "280px",
+      padding: "0px 10px",
+    },
+  },
+  modalBtn: {
+    width: "100%",
+    display: "none",
+    position: "absolute",
+    bottom: "0",
+    [`@media (max-width: 800px)`]: {
+      display: "block",
     },
   },
   text: {
-    minWidth: 130,
     fontSize: "23px",
     [`@media (max-width: 800px)`]: {
-      fontSize: 12,
+      fontSize: 15,
     },
   },
 
