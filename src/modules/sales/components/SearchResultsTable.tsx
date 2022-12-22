@@ -1,8 +1,6 @@
 import TableHead from "@components/Table/TableHead";
-import { ActionIcon, Button, Table } from "@mantine/core";
-import { useResizeObserver } from "@mantine/hooks";
-import { IconDragDrop } from "@tabler/icons";
-import { floorLastThreeDigits, getNumber } from "@utils";
+import { Button, Table } from "@mantine/core";
+import { getNumber } from "@utils";
 import React, { useCallback, useMemo } from "react";
 import { useCart } from "react-use-cart";
 
@@ -41,7 +39,6 @@ const SearchResultsTable: React.FC<SearchResultsTableProps> = ({
     },
     [inCart, addItem, getItem, updateItemQuantity]
   );
-
   const rows = useMemo(() => {
     return searchResults?.map((resultItem, index) => (
       <tr key={index}>

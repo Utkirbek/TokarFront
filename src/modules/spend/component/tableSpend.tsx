@@ -131,7 +131,6 @@ const SpendTable = ({ data }: Props) => {
               delete: true,
             }}
             prefix={"expenses"}
-            permissionOf={"no-check"}
           />
           <tbody>{rows}</tbody>
         </Table>

@@ -13,7 +13,7 @@ export default function Spend() {
   return (
     <If hasPerm={Permissions.spends.view}>
       <WithLoading withRenderProps query={spendsQuery}>
-        <SpendTable data={data} />
+        <SpendTable />
       </WithLoading>
     </If>
   );

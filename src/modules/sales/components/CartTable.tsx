@@ -1,12 +1,23 @@
 import TableHead from "@components/Table/TableHead";
+import TextEllipsis from "@components/TextEllipsis/TextEllipsis";
 import { selectIsRefund } from "@hooks/shared/selectors";
 import useSalesState from "@hooks/shared/useSales";
-import { ActionIcon, Group, NumberInput, Table } from "@mantine/core";
-import { useResizeObserver } from "@mantine/hooks";
+import {
+  ActionIcon,
+  Avatar,
+  Group,
+  NumberInput,
+  Table,
+  Text,
+} from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { IconMinus, IconPlus, IconTrash } from "@tabler/icons";
 import { floorLastThreeDigits } from "@utils";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 import { useCart } from "react-use-cart";
+
+import SalesDetails from "./SalesDetails";
 
 const ths = {
   no: true,
@@ -22,13 +33,33 @@ interface CartTableProps {}
 
 const CartTable: React.FC<CartTableProps> = ({}) => {
   const { items, updateItem, updateItemQuantity, removeItem } = useCart();
+  const router = useRouter();
   const isRefund = useSalesState(selectIsRefund);
 
   const rows = items.map((item, index) => (
     <tr key={index}>
       <td>{index}</td>
       <td>{item.code}</td>
-      <td>{item.title}</td>
+      <td>
+        <Group spacing="sm">
+          <Avatar
+            size={40}
+            radius={40}
+            src={item.image}
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              router.push(router.pathname, {
+                query: {
+                  details: item._id,
+                },
+              });
+            }}
+          />
+          <div>
+            <TextEllipsis text={item.title} maxChars={40} />
+          </div>
+        </Group>
+      </td>
       <td>
         <NumberInput
           hideControls
@@ -121,6 +152,7 @@ const CartTable: React.FC<CartTableProps> = ({}) => {
       <caption>Tovarlar savadchasi</caption>
       <TableHead data={ths} prefix="sales" permissionOf="no-check" />
       <tbody>{rows}</tbody>
+      <SalesDetails items={items} />
     </Table>
   );
 };

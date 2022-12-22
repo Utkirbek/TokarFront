@@ -10,7 +10,9 @@ import OrdersTable from "./components/OrdersTable";
 export default function Orders() {
   const [page, setPage] = useState(1);
   const { useFetchOrders } = useOrders();
-  const ordersQuery = useFetchOrders(page, { perPage: 10 });
+  const ordersQuery = useFetchOrders(page, {
+    perPage: 10,
+  });
 
   const { data } = ordersQuery;
 

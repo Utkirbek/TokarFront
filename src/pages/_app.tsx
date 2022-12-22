@@ -52,7 +52,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         defaultLocale="uz"
       >
         <Head>
-          <title>{process.env.SHOP_NAME} savdo</title>
+          <title>{process.env.NEXT_PUBLIC_SHOP_NAME} savdo</title>
           <meta name="application-name" content="Store system" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta
@@ -61,7 +61,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
           />
           <meta
             name="apple-mobile-web-app-title"
-            content={`${process.env.SHOP_NAME} Savdo`}
+            content={`${process.env.NEXT_PUBLIC_SHOP_NAME} Savdo`}
           />
           <meta
             name="description"
@@ -111,7 +111,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
           <MantineProvider
             theme={{
               colorScheme,
-              breakpoints: { xs: 500, sm: 800, md: 1100,  lg: 1200, xl: 1400 },
+              breakpoints: { xs: 500, sm: 800, md: 1100, lg: 1200, xl: 1400 },
             }}
             withGlobalStyles
             withNormalizeCSS

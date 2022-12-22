@@ -1,25 +1,11 @@
 import useNotification from "@hooks/useNotification";
-import {
-  Box,
-  Button,
-  Group,
-  SegmentedControl,
-  Select,
-  Text,
-  TextInput,
-} from "@mantine/core";
+import { Box, Button, Group, Select, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import salesMethods from "@modules/products/components/buyCart/data";
 import useSpend from "@services/hooks/useSpend";
 import { IconChevronDown } from "@tabler/icons";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { useSpendStyles } from "./useSpendStyles";
-
-const expenseTypes = [
-  { label: "Investitsiya", value: "invest" },
-  { label: "Xarajat", value: "spend" },
-];
 
 const SpendDrawer: React.FC<{
   handleClose: () => void;
@@ -37,9 +23,9 @@ const SpendDrawer: React.FC<{
   const form = useForm({
     initialValues: {
       amount: editItem?.amount ?? "",
-      paymentMethod: editItem?.paymentMethod ?? "cash",
+      paymentMethod: editItem?.paymentMethod ?? "",
       description: editItem?.description ?? "",
-      spendType: editItem?.spendType ?? "spend",
+      spendType: editItem?.spendType ?? "",
     },
   });
 
@@ -83,7 +69,18 @@ const SpendDrawer: React.FC<{
           type="number"
           required
         />
-
+        <Select
+          sx={{ width: "100%", margin: "20px  0" }}
+          rightSection={<IconChevronDown size={14} />}
+          rightSectionWidth={30}
+          placeholder={intl.formatMessage({
+            id: "payments.select",
+          })}
+          styles={{ rightSection: { pointerEvents: "none" } }}
+          label={intl.formatMessage({ id: "payments.select" })}
+          data={["Click", "Naqt"]}
+          {...form.getInputProps("paymentMethod")}
+        />
         <TextInput
           label={intl.formatMessage({ id: "expenses.comment" })}
           placeholder={intl.formatMessage({
@@ -92,27 +89,14 @@ const SpendDrawer: React.FC<{
           {...form.getInputProps("description")}
           required
         />
-
-        <SegmentedControl
-          mt={15}
-          fullWidth
-          color="green"
-          data={expenseTypes.map((item: { label: string; value: string }) => ({
-            label: <FormattedMessage id={item.label} />,
-            value: item.value,
-          }))}
+        <TextInput
+          style={{ margin: "20px 0" }}
+          label={intl.formatMessage({ id: "expenses.spendType" })}
+          placeholder={intl.formatMessage({
+            id: "expenses.spendTypePlaceholder",
+          })}
           {...form.getInputProps("spendType")}
-        />
-
-        <SegmentedControl
-          mt={15}
-          fullWidth
-          color="orange"
-          data={salesMethods.map((item: { label: string; value: string }) => ({
-            label: <FormattedMessage id={item.label} />,
-            value: item.value,
-          }))}
-          {...form.getInputProps("paymentMethod")}
+          required
         />
 
         <Group position="right" mt="md">
