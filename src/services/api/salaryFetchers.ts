@@ -8,8 +8,9 @@ const salaryFetchers = {
     const shopId = getCookie("shopId");
     return requests.get("/admin/salary")},
   addSalary: async <T>(body: T) => {
+  
     const shopId = getCookie("shopId");
-    return await requests.post("/admin/salary", body)},
+    return await requests.post(`/admin/${shopId}/salary`, body)},
 };
 
 export default salaryFetchers;
