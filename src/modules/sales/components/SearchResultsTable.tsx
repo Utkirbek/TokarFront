@@ -34,6 +34,7 @@ const SearchResultsTable: React.FC<SearchResultsTableProps> = ({
           ...item,
           id: item._id,
           price: getNumber(item.calculatedPrice),
+          maxQuantity: item.quantity,
         });
       }
     },

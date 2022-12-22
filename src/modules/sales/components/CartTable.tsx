@@ -2,19 +2,11 @@ import TableHead from "@components/Table/TableHead";
 import TextEllipsis from "@components/TextEllipsis/TextEllipsis";
 import { selectIsRefund } from "@hooks/shared/selectors";
 import useSalesState from "@hooks/shared/useSales";
-import {
-  ActionIcon,
-  Avatar,
-  Group,
-  NumberInput,
-  Table,
-  Text,
-} from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
+import { ActionIcon, Avatar, Group, NumberInput, Table } from "@mantine/core";
 import { IconMinus, IconPlus, IconTrash } from "@tabler/icons";
 import { floorLastThreeDigits } from "@utils";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React from "react";
 import { useCart } from "react-use-cart";
 
 import SalesDetails from "./SalesDetails";
@@ -50,7 +42,7 @@ const CartTable: React.FC<CartTableProps> = ({}) => {
             onClick={() => {
               router.push(router.pathname, {
                 query: {
-                  details: item._id,
+                  details: isRefund ? item.id : item._id,
                 },
               });
             }}
@@ -86,7 +78,7 @@ const CartTable: React.FC<CartTableProps> = ({}) => {
             onClick={() => {
               updateItemQuantity(item.id, item.quantity! - 1);
             }}
-            disabled={item.quantity === 1}
+            disabled={item.quantity! <= 0}
           >
             <IconMinus />
           </ActionIcon>
@@ -96,22 +88,25 @@ const CartTable: React.FC<CartTableProps> = ({}) => {
             value={item.quantity}
             size="xs"
             min={0}
-            max={isRefund ? item.quantity : undefined}
+            max={item.maxQuantity}
             sx={{
               width: `${
                 item.quantity && item.quantity.toString?.()?.length + 4
               }ch`,
             }}
             onChange={(val) => {
-              if (val) updateItemQuantity(item.id, Number(val));
+              if (val && val <= item.maxQuantity)
+                updateItemQuantity(item.id, Number(val));
             }}
           />
+          <small>{item.unit}</small>
+
           <ActionIcon
             color={"green"}
             onClick={() => {
               updateItemQuantity(item.id, item.quantity! + 1);
             }}
-            disabled={isRefund}
+            disabled={isRefund || item.quantity! >= item.maxQuantity}
           >
             <IconPlus />
           </ActionIcon>

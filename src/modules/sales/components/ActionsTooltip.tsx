@@ -2,6 +2,7 @@ import { SalesPrintData } from "@components/print/SalesPrint";
 import {
   selectIsInstallment,
   selectIsRefund,
+  selectRefundOrderId,
   selectSearchOrderId,
   selectSetInstallment,
   selectSetIsRefund,
@@ -42,7 +43,7 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
   const [, setLastSale] = useLocalStorage<SalesPrintData>({
     key: "last_sale",
   });
-  const { clearCartMetadata, emptyCart, cartTotal, items } = useCart();
+  const { clearCartMetadata, emptyCart, cartTotal, items, isEmpty } = useCart();
   const form = useSalesFormContext();
 
   const setIsInstallment = useSalesState(selectSetInstallment);
@@ -51,6 +52,7 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
   const searchOrderId = useSalesState(selectSearchOrderId);
   const isInstallment = useSalesState(selectIsInstallment);
   const setSearchOrderId = useSalesState(selectSetSearchOrderId);
+  const refundOrderId = useSalesState(selectRefundOrderId);
 
   const {
     showErrorNotification,
@@ -59,9 +61,7 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
   } = useNotification();
   const { addOrder, editOrder } = useOrders();
 
-  const handleInstallment = () => {
-    setIsInstallment(!isInstallment);
-  };
+  const handleInstallment = () => setIsInstallment(!isInstallment);
 
   const toggleRefund = () => {
     if (isRefund && searchOrderId) {
@@ -132,7 +132,7 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
 
     editOrder(
       {
-        id: searchOrderId,
+        id: refundOrderId,
         values: orderData,
       },
       {
@@ -204,7 +204,7 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
             <ActionIcon
               size={45}
               onClick={handleInstallment}
-              disabled={isRefund}
+              disabled={isRefund || isEmpty}
             >
               <IconCalendarPlus size={35} />
             </ActionIcon>
@@ -229,7 +229,7 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
               </Box>
             }
           >
-            <Button onClick={handleSell}>
+            <Button onClick={handleSell} disabled={isEmpty}>
               {!!searchOrderId ? "Tasdiqlash" : "Sotish"}
             </Button>
           </Tooltip>
