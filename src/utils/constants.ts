@@ -102,7 +102,7 @@ export const Permissions = {
     edit: "spends.edit",
     create: "spends.create",
     delete: "spends.delete",
-    view: "spends.read",
+    view: "spends.view",
   },
   admins: {
     view: "admins.read",
