@@ -1,4 +1,5 @@
 import If from "@components/smart/If";
+import TextEllipsis from "@components/TextEllipsis/TextEllipsis";
 import { ActionIcon, Box, Button, Grid, SimpleGrid, Text } from "@mantine/core";
 import useOrders from "@services/hooks/useOrder";
 import { IconTrash } from "@tabler/icons";
@@ -37,22 +38,20 @@ function OrderCard({
                 <Box
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  {item.salesman.length > 15 ? (
-                    <Text size={14}>
-                      {item.salesman.name.substring(0, 15)}...
-                    </Text>
-                  ) : (
-                    <Text size={14}>{item.salesman.name}</Text>
-                  )}
+                  <TextEllipsis
+                    text={item.salesman?.name}
+                    maxChars={15}
+                    size={14}
+                  />
                   <If hasPerm={Permissions.orders.delete}>
-                    <td>
+                    <div>
                       <ActionIcon>
                         <IconTrash
                           onClick={() => openDeleteModal(item._id, item.name)}
                           className={classes.orderTrash}
                         />
                       </ActionIcon>
-                    </td>
+                    </div>
                   </If>
                 </Box>
                 <Text mt={20}>Jami narx {item?.total}</Text>

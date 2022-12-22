@@ -49,7 +49,11 @@ const SearchResultsTable: React.FC<SearchResultsTableProps> = ({
         <td>{resultItem.calculatedPrice}</td>
         <td>{resultItem.quantity}</td>
         <td>
-          <Button size="xs" onClick={() => handleAddToCart(resultItem)}>
+          <Button
+            size="xs"
+            onClick={() => handleAddToCart(resultItem)}
+            disabled={resultItem.quantity <= 0}
+          >
             Sotish
           </Button>
         </td>
