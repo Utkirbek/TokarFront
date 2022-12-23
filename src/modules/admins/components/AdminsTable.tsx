@@ -1,3 +1,4 @@
+import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import SearchAutoComplete from "@components/SearchAutoComplete";
 import If from "@components/smart/If";
 import useUser from "@hooks/shared/useUser";
@@ -178,63 +179,73 @@ function TableCard({ data }: { data: any }) {
           </Group>
         </Box>
       </If>
-      <Table highlightOnHover className={classes.AdminTable}>
-        <thead>
-          <tr>
-            <th>
-              <FormattedMessage id="admins.name" />
-            </th>
-            <th>
-              <FormattedMessage id="admins.email" />
-            </th>
-            <th>
-              <FormattedMessage id="admins.role" />
-            </th>
-            <th>
-              <FormattedMessage id="admins.salary_percent" />
-            </th>
-            <th>
-              <FormattedMessage id="admins.giveSalary" />
-            </th>
-            <th>
-              <FormattedMessage id="admins.give_salary" />
-            </th>
-            <th>
-              <FormattedMessage id="admins.deleteEdit" />
-            </th>
-            <th>
-              <FormattedMessage id="admins.detail" />
-            </th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
-      <Box className={classes.AdminCard}>
-        <AdminCard
-          data={data}
-          openDeleteModal={openDeleteModal}
-          editOnClick={onEditClick}
-        />
-      </Box>
+      <If
+        condition={data?.length === 0}
+        elseChildren={
+          <>
+            <Table highlightOnHover className={classes.AdminTable}>
+              <thead>
+                <tr>
+                  <th>
+                    <FormattedMessage id="admins.name" />
+                  </th>
+                  <th>
+                    <FormattedMessage id="admins.email" />
+                  </th>
+                  <th>
+                    <FormattedMessage id="admins.role" />
+                  </th>
+                  <th>
+                    <FormattedMessage id="admins.salary_percent" />
+                  </th>
+                  <th>
+                    <FormattedMessage id="admins.giveSalary" />
+                  </th>
+                  <th>
+                    <FormattedMessage id="admins.give_salary" />
+                  </th>
+                  <th>
+                    <FormattedMessage id="admins.deleteEdit" />
+                  </th>
+                  <th>
+                    <FormattedMessage id="admins.detail" />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>{rows}</tbody>
+            </Table>
+            <Box className={classes.AdminCard}>
+              <AdminCard
+                data={data}
+                openDeleteModal={openDeleteModal}
+                editOnClick={onEditClick}
+              />
+            </Box>
 
-      <AdminsDetails admins={data} />
+            <AdminsDetails admins={data} />
 
-      {isMobile && (
-        <ActionIcon
-          onClick={handleClick}
-          variant="filled"
-          sx={{
-            position: "fixed",
-            bottom: 60,
-            right: 20,
-            backgroundColor: "#1972C2",
-            borderRadius: "100px",
-          }}
-          size="xl"
-        >
-          <IconPlus />
-        </ActionIcon>
-      )}
+            {isMobile && (
+              <ActionIcon
+                onClick={handleClick}
+                variant="filled"
+                sx={{
+                  position: "fixed",
+                  bottom: 60,
+                  right: 20,
+                  backgroundColor: "#1972C2",
+                  borderRadius: "100px",
+                }}
+                size="xl"
+              >
+                <IconPlus />
+              </ActionIcon>
+            )}
+          </>
+        }
+      >
+        <EmptyBox />
+      </If>
+
       <Drawer
         opened={drawerOpen}
         onClose={onClose}

@@ -1,3 +1,4 @@
+import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import If from "@components/smart/If";
 import WithLoading from "@hoc/WithLoading";
 import { useToggle } from "@mantine/hooks";
@@ -15,6 +16,8 @@ export default function Orders() {
   });
 
   const { data } = ordersQuery;
+  if (ordersQuery.data?.length == undefined || ordersQuery.data?.length == 0)
+    return <EmptyBox />;
 
   return (
     <If hasPerm={Permissions.orders.view}>

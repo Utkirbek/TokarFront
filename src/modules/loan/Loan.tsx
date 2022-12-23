@@ -1,3 +1,4 @@
+import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import If from "@components/smart/If";
 import WithLoading from "@hoc/WithLoading";
 import useLoan from "@services/hooks/useLoan";
@@ -13,6 +14,9 @@ function Loan() {
     perPage: 10,
   });
   const { data } = loanData;
+  if (loanData.data?.length == undefined || loanData.data?.length == 0)
+    return <EmptyBox />;
+
   return (
     <If hasPerm={Permissions.loans.view}>
       <WithLoading withRenderProps query={loanData}>

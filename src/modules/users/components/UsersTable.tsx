@@ -1,3 +1,4 @@
+import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import SearchAutoComplete from "@components/SearchAutoComplete";
 import If from "@components/smart/If";
 import TableHead from "@components/Table/TableHead";
@@ -181,19 +182,30 @@ function UsersTable({ data }: any) {
         <NewUser handleClose={() => toggleOpened(false)} editItem={editItem} />
       </Drawer>
 
-      <ScrollArea>
-        <Box className={classes.userTable}>
-          <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
-            <TableHead data={usersTableHead} prefix="users" />
-            <tbody>{rows}</tbody>
-          </Table>
-        </Box>
+      <If
+        condition={data?.length === 0}
+        elseChildren={
+          <ScrollArea>
+            <Box className={classes.userTable}>
+              <Table
+                sx={{ minWidth: 800 }}
+                verticalSpacing="sm"
+                highlightOnHover
+              >
+                <TableHead data={usersTableHead} prefix="users" />
+                <tbody>{rows}</tbody>
+              </Table>
+            </Box>
 
-        <UserDetails />
-        <Box className={classes.userCard}>
-          <UserCard data={data} />
-        </Box>
-      </ScrollArea>
+            <UserDetails />
+            <Box className={classes.userCard}>
+              <UserCard data={data} />
+            </Box>
+          </ScrollArea>
+        }
+      >
+        <EmptyBox />
+      </If>
     </>
   );
 }

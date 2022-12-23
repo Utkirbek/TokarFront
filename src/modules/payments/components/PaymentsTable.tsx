@@ -129,36 +129,38 @@ function PaymentsTable({ data, page, onPageChange, total }: any) {
       <If
         condition={data?.length === 0}
         elseChildren={
-          <ScrollArea>
-            <Table miw={800} verticalSpacing="sm" highlightOnHover>
-              <TableHead
-                data={tableHead}
-                prefix="payments"
-                permissionOf="no-check"
-              />
-              <tbody>{rows}</tbody>
-            </Table>
-          </ScrollArea>
+          <>
+            <ScrollArea>
+              <Table miw={800} verticalSpacing="sm" highlightOnHover>
+                <TableHead
+                  data={tableHead}
+                  prefix="payments"
+                  permissionOf="no-check"
+                />
+                <tbody>{rows}</tbody>
+              </Table>
+            </ScrollArea>
+            <Pagination
+              my={10}
+              page={page}
+              styles={(theme) => ({
+                item: {
+                  "&[data-active]": {
+                    backgroundImage: theme.fn.gradient({
+                      from: "red",
+                      to: "yellow",
+                    }),
+                  },
+                },
+              })}
+              total={total}
+              onChange={onPageChange}
+            />
+          </>
         }
       >
         <EmptyBox />
       </If>
-      <Pagination
-        my={10}
-        page={page}
-        styles={(theme) => ({
-          item: {
-            "&[data-active]": {
-              backgroundImage: theme.fn.gradient({
-                from: "red",
-                to: "yellow",
-              }),
-            },
-          },
-        })}
-        total={total}
-        onChange={onPageChange}
-      />
     </>
   );
 }

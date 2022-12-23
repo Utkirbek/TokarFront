@@ -1,3 +1,4 @@
+import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import If from "@components/smart/If";
 import WithLoading from "@hoc/WithLoading";
 import useConfirmation from "@hooks/useConfirmation";
@@ -35,7 +36,8 @@ export const Loader = () => {
         alignItems: "center",
         flexWrap: "wrap",
         gap: 20,
-      }}>
+      }}
+    >
       {data.map((item) => {
         return (
           <Box key={item.id}>
@@ -96,7 +98,8 @@ const Shopes = () => {
                   p="lg"
                   radius="md"
                   withBorder
-                  className={classes.Cart}>
+                  className={classes.Cart}
+                >
                   <IconPlus className={classes.plusIcon} />
                 </Card>
               </Link>
@@ -110,13 +113,15 @@ const Shopes = () => {
                   radius="md"
                   withBorder
                   className={classes.Cart}
-                  key={idx}>
+                  key={idx}
+                >
                   <Card.Section
                     sx={{
                       width: "350px",
                       display: "flex",
                       justifyContent: "space-between",
-                    }}>
+                    }}
+                  >
                     <Group position="right">
                       <Button radius="md" m={10} className={classes.more}>
                         <FormattedMessage id="shopes.more" />
@@ -164,7 +169,8 @@ const Shopes = () => {
           onClose={onClose}
           padding="xl"
           size="30%"
-          position="right">
+          position="right"
+        >
           <EditShop editItem={editItem} onClose={onClose} />
         </Drawer>
       </WithLoading>

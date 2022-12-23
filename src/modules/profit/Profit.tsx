@@ -1,3 +1,4 @@
+import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import If from "@components/smart/If";
 import WithLoading from "@hoc/WithLoading";
 import ProfitTable from "@modules/profit/ProfitTable";
@@ -13,6 +14,9 @@ const ProfitModule = () => {
   });
 
   const { data } = getProfit;
+
+  if (getProfit.data?.length == undefined || getProfit.data?.length == 0)
+    return <EmptyBox />;
 
   return (
     <If hasPerm={Permissions.profit.view}>

@@ -1,4 +1,6 @@
+import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import FormattedLocalTime from "@components/FormattedLocalTime";
+import If from "@components/smart/If";
 import TableHead from "@components/Table/TableHead";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
@@ -118,23 +120,31 @@ const SpendTable = ({ data }: Props) => {
           <IconPlus size={25} color={"#fff"} />
         </Box>
       </Affix>
-      <ScrollArea>
-        <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
-          <TableHead
-            data={{
-              amount: true,
-              paymentMethod: true,
-              desc: true,
-              spendType: true,
-              createdAt: true,
-              updatedAt: true,
-              delete: true,
-            }}
-            prefix={"expenses"}
-          />
-          <tbody>{rows}</tbody>
-        </Table>
-      </ScrollArea>
+      <If
+        condition={data?.length === 0 || data?.length === undefined}
+        elseChildren={
+          <ScrollArea>
+            <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
+              <TableHead
+                data={{
+                  amount: true,
+                  paymentMethod: true,
+                  desc: true,
+                  spendType: true,
+                  createdAt: true,
+                  updatedAt: true,
+                  delete: true,
+                }}
+                prefix={"expenses"}
+              />
+              <tbody>{rows}</tbody>
+            </Table>
+          </ScrollArea>
+        }
+      >
+        <EmptyBox />
+      </If>
+
       <Drawer
         opened={drawerOpen}
         onClose={onClose}
