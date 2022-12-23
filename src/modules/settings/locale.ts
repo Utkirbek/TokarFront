@@ -40,7 +40,7 @@ export const permissionsLocaleUz = {
   spends_add: "Xarajatlarni qo'shish",
   spends_edit: "Xarajatlarni tahrirlash",
   spends_delete: "Xarajatlarni o'chirish",
-  spends_view: "..",
+  spends_view: "Xarajatlarni ko'rish",
   users_add: "Klientlarni qo'shish",
   users_image: "Kilentlarni Rasmi",
   users_name: "Kilentlarni Ismi",
@@ -67,7 +67,7 @@ export const permissionsLocaleUz = {
   profit: {
     view: "Daromadlarni ko'rish",
   },
-  spends: { view: "Xarajatlarni  ko'rish" },
+
   statistics_view: "Statistikani ko'rish",
   perm: {
     allow: "Ruxsat Etilgan Amallar",
