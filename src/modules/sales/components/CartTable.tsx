@@ -19,14 +19,15 @@ import { useCart } from "react-use-cart";
 
 import SalesDetails from "./SalesDetails";
 
-const ths = {
-  no: true,
-  code: true,
-  name: true,
-  price: true,
-  quantity: true,
-  sum: true,
-  actions: true,
+const getQuantityPrecision = (unit: string) => {
+  switch (unit) {
+    case /kg/i.test(unit) ? unit : "":
+      return 2;
+    case /g/i.test(unit) ? unit : "":
+      return 0;
+    default:
+      return 1;
+  }
 };
 
 interface CartTableProps {}
@@ -112,7 +113,7 @@ const CartTable: React.FC<CartTableProps> = ({}) => {
               <IconMinus />
             </ActionIcon>
             <NumberInput
-              precision={1}
+              precision={getQuantityPrecision(item.unit)}
               hideControls
               value={item.quantity}
               size="xs"
@@ -120,7 +121,7 @@ const CartTable: React.FC<CartTableProps> = ({}) => {
               max={item.maxQuantity}
               sx={{
                 width: `${
-                  item.quantity && item.quantity.toString?.()?.length + 4
+                  item.quantity && item.quantity.toString?.()?.length + 5
                 }ch`,
               }}
               onChange={(val) => {
@@ -138,7 +139,7 @@ const CartTable: React.FC<CartTableProps> = ({}) => {
                 updateItemQuantity(item.id, item.quantity! + 1);
                 updateDiscount(item, item.quantity! + 1);
               }}
-              disabled={isRefund || item.quantity! >= item.maxQuantity}
+              disabled={item.quantity! >= item.maxQuantity}
             >
               <IconPlus />
             </ActionIcon>
@@ -207,7 +208,16 @@ const CartTable: React.FC<CartTableProps> = ({}) => {
     <Table captionSide="bottom" horizontalSpacing="xs">
       <caption>Tovarlar savadchasi</caption>
       <TableHead
-        data={{ ...ths, discounts: discountMode }}
+        data={{
+          no: true,
+          code: true,
+          name: true,
+          price: true,
+          quantity: true,
+          ...(discountMode && { discounts: true }),
+          sum: true,
+          actions: true,
+        }}
         prefix="sales"
         permissionOf="no-check"
       />
@@ -221,7 +231,7 @@ export default CartTable;
 
 const getClosestDiscount = (discounts: any[], quantity: number) => {
   let closestDiscount = { price: undefined };
-  discounts.forEach((discount) => {
+  discounts?.forEach((discount) => {
     if (discount.quantity <= quantity) {
       closestDiscount = discount;
     }

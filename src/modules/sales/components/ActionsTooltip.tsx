@@ -66,7 +66,11 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
   } = useNotification();
   const { addOrder, editOrder } = useOrders();
 
-  const handleInstallment = () => setIsInstallment(!isInstallment);
+  const handleInstallment = () => {
+    if (!isRefund) {
+      setIsInstallment(!isInstallment);
+    }
+  };
 
   const toggleRefund = () => {
     if (isRefund && searchOrderId) {
@@ -154,10 +158,12 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
   };
 
   const handleSell = (event?: React.SyntheticEvent | KeyboardEvent) => {
-    if (searchOrderId) {
-      form.onSubmit(refund)();
-    } else {
-      form.onSubmit(sell)();
+    if (!isEmpty) {
+      if (searchOrderId) {
+        form.onSubmit(refund)();
+      } else {
+        form.onSubmit(sell)();
+      }
     }
   };
 

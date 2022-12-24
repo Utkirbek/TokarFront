@@ -23,6 +23,7 @@ const Refund: React.FC = ({}) => {
           title: item.product?.title,
           price: item.price,
           quantity: item.quantity,
+          maxQuantity: item.quantity,
           itemTotal: item.price * item.quantity,
         };
       });
