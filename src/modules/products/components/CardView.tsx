@@ -56,7 +56,7 @@ const CardView: React.FC<Props> = ({ data, onEdit }) => {
       <>
         {data.map((item) => (
           <Paper
-            key={item.id}
+            key={item._id}
             className={classes.prodactPaper}
             radius="md"
             withBorder

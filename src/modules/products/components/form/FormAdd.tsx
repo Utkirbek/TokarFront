@@ -120,16 +120,14 @@ const FormProduct: React.FC<{
 
   const discountFields = form.values.discounts?.map(
     (discount: any, index: number) => (
-      <Group key={discount.key + index} mt={"xs"}>
+      <Group key={index} mt="xs">
         <NumberInput
+          hideControls
           label={intl.formatMessage({ id: "products.form.limitLabel" })}
-          placeholder={intl.formatMessage({
-            id: "products.form.limitLabel",
-          })}
+          placeholder={intl.formatMessage({ id: "products.form.limitLabel" })}
           {...form.getInputProps(`discounts.${index}.price`)}
           precision={2}
           min={0}
-          hideControls
         />
         <NumberInput
           label={intl.formatMessage({ id: "products.form.limitNumbLabel" })}

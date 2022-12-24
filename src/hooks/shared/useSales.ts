@@ -11,6 +11,7 @@ export type SalesState = {
   lastSale: any;
   searchOrderId: string;
   refundOrderId: string;
+  dicountMode: boolean;
 };
 
 const initalState: SalesState = {
@@ -23,6 +24,7 @@ const initalState: SalesState = {
   lastSale: null,
   searchOrderId: "",
   refundOrderId: "",
+  dicountMode: false,
 };
 
 export type SalesActions = {
@@ -35,6 +37,7 @@ export type SalesActions = {
   setIsRefund: (isRefund: boolean) => void;
   setSearchOrderId: (searchOrderId: string) => void;
   setRefundOrderId: (refundOrderId: string) => void;
+  setDiscountMode: (dicountMode: boolean) => void;
 };
 
 export type SalesStateType = SalesState & SalesActions;
@@ -53,6 +56,7 @@ const useSalesState = create(
       setIsRefund: (isRefund) => set({ isRefund }),
       setSearchOrderId: (searchOrderId) => set({ searchOrderId }),
       setRefundOrderId: (refundOrderId) => set({ refundOrderId }),
+      setDiscountMode: (dicountMode) => set({ dicountMode }),
     }),
     {
       name: "tespen-sales",

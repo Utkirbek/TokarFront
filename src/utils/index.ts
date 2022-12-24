@@ -37,3 +37,24 @@ export const floorLastThreeDigits = (num: number | string): number => {
     }
   }
 };
+
+export const replaceThreeNumbWithK = (num: number | string): string => {
+  if (typeof num === "string") {
+    num = +num;
+  }
+  const strNum = num.toString();
+  if (strNum.includes(".")) {
+    const [int] = strNum.split(".");
+    if (int.length > 3) {
+      const newInt = int.slice(0, -3) + "k";
+      return newInt;
+    } else {
+      return strNum;
+    }
+  }
+  if (strNum.length > 3) {
+    const newInt = strNum.slice(0, -3) + "k";
+    return newInt;
+  }
+  return strNum;
+};

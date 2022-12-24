@@ -32,7 +32,7 @@ const Settings: NextPage = () => {
             alignItems: "center",
             gap: 20,
             justifyContent: "start",
-            marginTop : "60px",
+            marginTop: "60px",
           }}
         >
           <ButtonToggleDark />

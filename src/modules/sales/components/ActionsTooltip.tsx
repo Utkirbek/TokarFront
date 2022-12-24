@@ -1,9 +1,11 @@
 import { SalesPrintData } from "@components/print/SalesPrint";
 import {
+  selectDiscountMode,
   selectIsInstallment,
   selectIsRefund,
   selectRefundOrderId,
   selectSearchOrderId,
+  selectSetDiscountMode,
   selectSetInstallment,
   selectSetIsRefund,
   selectSetSearchOrderId,
@@ -19,6 +21,7 @@ import {
   Kbd,
   Paper,
   SegmentedControl,
+  Switch,
   Tooltip,
 } from "@mantine/core";
 import { useHotkeys, useLocalStorage } from "@mantine/hooks";
@@ -53,6 +56,8 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
   const isInstallment = useSalesState(selectIsInstallment);
   const setSearchOrderId = useSalesState(selectSetSearchOrderId);
   const refundOrderId = useSalesState(selectRefundOrderId);
+  const discountMode = useSalesState(selectDiscountMode);
+  const setDiscountMode = useSalesState(selectSetDiscountMode);
 
   const {
     showErrorNotification,
@@ -165,7 +170,7 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
 
   return (
     <Paper px={5} py={5}>
-      <Flex justify={"space-between"}>
+      <Flex justify={"space-between"} align="center">
         <Group position="left">
           <SegmentedControl
             fullWidth
@@ -177,6 +182,18 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
               })
             )}
             {...form.getInputProps("paymentMethod")}
+          />
+          <Switch
+            onLabel="Chegirmali"
+            offLabel="Chegirmasiz"
+            size="lg"
+            sx={{
+              "& .mantine-Switch-body": {
+                display: "-webkit-inline-box !important",
+              },
+            }}
+            checked={discountMode}
+            onChange={(event) => setDiscountMode(event.currentTarget.checked)}
           />
         </Group>
         <Group position="right">

@@ -99,10 +99,10 @@ export const Permissions = {
   },
 
   spends: {
-    edit: "spends.edit",
-    create: "spends.create",
-    delete: "spends.delete",
-    view: "spends.view",
+    edit: "spends_edit",
+    create: "spends_create",
+    delete: "spends_delete",
+    view: "spends_view",
   },
   admins: {
     view: "admins.read",

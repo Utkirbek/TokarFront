@@ -49,10 +49,11 @@ const useUser = create(
           isLoggedIn: true,
         });
       },
-      hasPerm: (perm) =>
-        get().permissions?.some(
+      hasPerm: (perm) => {
+        return get().permissions?.some(
           (p) => p.name === perm || p.name === Permissions.all
-        ),
+        );
+      },
       logout: () => set({ ...initalState }),
     }),
     {

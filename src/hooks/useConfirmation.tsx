@@ -19,7 +19,7 @@ const useConfirmation = () => {
       centered: true,
       children: children || (
         <Text size="sm">
-          <FormattedMessage id="default.message" />
+          <FormattedMessage id="confirmation.title" />
         </Text>
       ),
       labels: {
