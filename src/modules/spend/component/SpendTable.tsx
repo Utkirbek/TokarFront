@@ -17,17 +17,16 @@ import {
 import { useToggle } from "@mantine/hooks";
 import useSpend from "@services/hooks/useSpend";
 import { IconPencil, IconPlus, IconTrash } from "@tabler/icons";
+import { data } from "cypress/types/jquery";
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 
 import SpendDrawer from "./spendDrawer";
 import { useSpendStyles } from "./useSpendStyles";
 
-type Props = {
-  data?: any;
-};
-
-const SpendTable = ({ data }: Props) => {
+const SpendTable: React.FC<{
+  dataSpends: any;
+}> = ({ dataSpends }) => {
   const { classes } = useSpendStyles();
   const {
     showLoadingNotification,
@@ -72,7 +71,7 @@ const SpendTable = ({ data }: Props) => {
     setEditItem({});
   };
 
-  const rows = data?.spends?.map((item: any) => {
+  const rows = dataSpends?.spends?.map((item: any) => {
     return (
       <tr key={item._id}>
         <td>{item?.amount}</td>
@@ -120,8 +119,9 @@ const SpendTable = ({ data }: Props) => {
           <IconPlus size={25} color={"#fff"} />
         </Box>
       </Affix>
+
       <If
-        condition={data?.length === 0 || data?.length === undefined}
+        condition={dataSpends?.spends?.length === 0}
         elseChildren={
           <ScrollArea>
             <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
@@ -144,7 +144,6 @@ const SpendTable = ({ data }: Props) => {
       >
         <EmptyBox />
       </If>
-
       <Drawer
         opened={drawerOpen}
         onClose={onClose}

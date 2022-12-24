@@ -96,7 +96,6 @@ function PaymentsTable({ data, page, onPageChange, total }: any) {
       </tr>
     );
   });
-
   const handleOpenDrawer = () => {
     toggleOpened(true);
   };

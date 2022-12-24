@@ -1,4 +1,3 @@
-import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import If from "@components/smart/If";
 import WithLoading from "@hoc/WithLoading";
 import useKassa from "@services/hooks/useKassa";
@@ -14,9 +13,6 @@ function Kassa() {
     perPage: 10,
   });
   const { data } = getKassa;
-
-  if (getKassa.data?.length == undefined || getKassa.data?.length == 0)
-    return <EmptyBox />;
 
   return (
     <If hasPerm={Permissions.kassa.view}>

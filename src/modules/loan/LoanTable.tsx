@@ -1,3 +1,4 @@
+import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import FormattedLocalTime from "@components/FormattedLocalTime";
 import TableHead from "@components/Table/TableHead";
 import {
@@ -30,6 +31,9 @@ function LoanTable({
   total: number;
 }) {
   const { classes, cx } = useLoanStyles();
+
+  if (dataloan?.length === 0) return <EmptyBox />;
+
   return (
     <ScrollArea style={{ marginBottom: "30%" }}>
       <Table className={classes.loanTable}>

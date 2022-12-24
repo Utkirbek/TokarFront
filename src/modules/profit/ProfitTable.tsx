@@ -1,3 +1,4 @@
+import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import FormattedLocalTime from "@components/FormattedLocalTime";
 import TableHead from "@components/Table/TableHead";
 import { Pagination, ScrollArea, Table } from "@mantine/core";
@@ -8,6 +9,8 @@ const ProfitTable: React.FC<{
   onPageChange: (page: number) => void;
   total: number;
 }> = ({ dataProfit, page, onPageChange, total }) => {
+  if (dataProfit?.length === 0) return <EmptyBox />;
+
   const rows = dataProfit?.map((item: any) => {
     return (
       <tr key={item._id}>

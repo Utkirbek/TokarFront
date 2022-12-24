@@ -16,8 +16,6 @@ export default function Orders() {
   });
 
   const { data } = ordersQuery;
-  if (ordersQuery.data?.length == undefined || ordersQuery.data?.length == 0)
-    return <EmptyBox />;
 
   return (
     <If hasPerm={Permissions.orders.view}>
