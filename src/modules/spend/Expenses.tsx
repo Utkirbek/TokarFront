@@ -4,7 +4,7 @@ import spendFetchers from "@services/api/spendFetchers";
 import { Permissions, RequestQueryKeys } from "@utils/constants";
 import useSWR from "swr";
 
-import SpendTable from "./component/SpendTable";
+import SpendTable from "./component/tableSpend";
 
 export default function Spend() {
   const spendsQuery = useSWR(RequestQueryKeys.getSpend, spendFetchers.getSpend);
@@ -13,7 +13,7 @@ export default function Spend() {
   return (
     <If hasPerm={Permissions.spends.view}>
       <WithLoading withRenderProps query={spendsQuery}>
-        <SpendTable dataSpends={data} />
+        <SpendTable />
       </WithLoading>
     </If>
   );

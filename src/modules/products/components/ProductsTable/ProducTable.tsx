@@ -1,4 +1,3 @@
-import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import FormDrawer from "@components/Drawer/FormDrawer";
 import SearchAutoComplete from "@components/SearchAutoComplete";
 import If from "@components/smart/If";
@@ -215,38 +214,28 @@ function ProductsTable({
               data={activeData}
             />
           </Box>
-
-          <If
-            condition={data?.length === 0}
-            elseChildren={
-              <>
-                <Box className={classes.cardView}>
-                  <CardView data={activeData} onEdit={onEdit} />
-                </Box>
-                <Box className={classes.cardPagination}>
-                  <Pagination
-                    siblings={0}
-                    my={10}
-                    page={page}
-                    styles={(theme) => ({
-                      item: {
-                        "&[data-active]": {
-                          backgroundImage: theme.fn.gradient({
-                            from: "red",
-                            to: "yellow",
-                          }),
-                        },
-                      },
-                    })}
-                    total={total}
-                    onChange={onPageChange}
-                  />
-                </Box>
-              </>
-            }
-          >
-            <EmptyBox />
-          </If>
+          <Box className={classes.cardView}>
+            <CardView data={activeData} onEdit={onEdit} />
+          </Box>
+          <Box className={classes.cardPagination}>
+            <Pagination
+              siblings={0}
+              my={10}
+              page={page}
+              styles={(theme) => ({
+                item: {
+                  "&[data-active]": {
+                    backgroundImage: theme.fn.gradient({
+                      from: "red",
+                      to: "yellow",
+                    }),
+                  },
+                },
+              })}
+              total={total}
+              onChange={onPageChange}
+            />
+          </Box>
         </Grid.Col>
         <If condition={!isEmpty}>
           <Grid.Col span={3} sm={6} md={5} lg={3}>

@@ -1,4 +1,3 @@
-import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import If from "@components/smart/If";
 import WithLoading from "@hoc/WithLoading";
 import { useToggle } from "@mantine/hooks";

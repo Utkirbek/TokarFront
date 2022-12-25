@@ -43,6 +43,7 @@ const UserDetails = () => {
           />
         </td>
         <td>{item?.amount}</td>
+        <td>{item?.loanAmount}</td>
         <td>
           <FormattedLocalTime date={item?.createdAt} />
         </td>
@@ -78,6 +79,7 @@ const UserDetails = () => {
                 borderRadius: "15px",
               }}
               width="100%"
+              // height={280}
               radius="md"
             />
           </Box>
@@ -116,6 +118,14 @@ const UserDetails = () => {
                 </Text>
                 <Text className={classes.textStart}>
                   {userBatfsil?.user?.extra}
+                </Text>
+              </Box>
+              <Box className={classes.boxFlex}>
+                <Text className={classes.text}>
+                  <FormattedMessage id="users.userDts.loanAmount" />
+                </Text>
+                <Text className={classes.textStart}>
+                  {userBatfsil?.user.loan}
                 </Text>
               </Box>
               <Box className={classes.boxFlex}>

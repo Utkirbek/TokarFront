@@ -1,4 +1,3 @@
-import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import FormattedLocalTime from "@components/FormattedLocalTime";
 import If from "@components/smart/If";
 import TableHead from "@components/Table/TableHead";
@@ -130,54 +129,47 @@ const OrdersTable = ({
   });
 
   return (
-    <If
-      condition={dataorder.length === 0}
-      elseChildren={
-        <ScrollArea>
-          <Box className={classes.orderTable}>
-            <Table sx={{ minWidth: 950 }} verticalSpacing="sm" highlightOnHover>
-              <TableHead
-                data={{
-                  ordersSalesmen: true,
-                  orderUser: true,
-                  paymentOrder: true,
-                  code: true,
-                  createOrder: true,
-                  orderAction: true,
-                }}
-                prefix="orders"
-                permissionOf="no-check"
-              />
-              <tbody>{rows}</tbody>
-            </Table>
-          </Box>
-          <Box className={classes.orderCard}>
-            <OrderCard data={dataorder} openDeleteModal={openDeleteModal} />
-          </Box>
-          <Pagination
-            my={10}
-            page={page}
-            styles={(theme) => ({
-              item: {
-                "&[data-active]": {
-                  backgroundImage: theme.fn.gradient({
-                    from: "red",
-                    to: "yellow",
-                  }),
-                },
-              },
-            })}
-            style={{ marginBottom: 50 }}
-            total={total}
-            size="sm"
-            onChange={onPageChange}
+    <ScrollArea>
+      <Box className={classes.orderTable}>
+        <Table sx={{ minWidth: 950 }} verticalSpacing="sm" highlightOnHover>
+          <TableHead
+            data={{
+              ordersSalesmen: true,
+              orderUser: true,
+              paymentOrder: true,
+              code: true,
+              createOrder: true,
+              orderAction: true,
+            }}
+            prefix="orders"
+            permissionOf="no-check"
           />
-          <OrdersDetails orders={dataorder} />
-        </ScrollArea>
-      }
-    >
-      <EmptyBox />
-    </If>
+          <tbody>{rows}</tbody>
+        </Table>
+      </Box>
+      <Box className={classes.orderCard}>
+        <OrderCard data={dataorder} openDeleteModal={openDeleteModal} />
+      </Box>
+      <Pagination
+        my={10}
+        page={page}
+        styles={(theme) => ({
+          item: {
+            "&[data-active]": {
+              backgroundImage: theme.fn.gradient({
+                from: "red",
+                to: "yellow",
+              }),
+            },
+          },
+        })}
+        style={{ marginBottom: 50 }}
+        total={total}
+        size="sm"
+        onChange={onPageChange}
+      />
+      <OrdersDetails orders={dataorder} />
+    </ScrollArea>
   );
 };
 

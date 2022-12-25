@@ -33,6 +33,7 @@ export const usersLocaleUz = {
     newTime: "Yangilangan vaqt",
     shouldPay: "To'lash kerak",
     amount: "Qarzi",
+    loanAmount: "Umumiy qarzi",
   },
 };
 

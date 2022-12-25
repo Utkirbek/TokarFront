@@ -1,4 +1,3 @@
-import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import FormattedLocalTime from "@components/FormattedLocalTime";
 import TableHead from "@components/Table/TableHead";
 import { Pagination, ScrollArea, Table } from "@mantine/core";
@@ -28,8 +27,6 @@ function KassaTable({
   onPageChange: (page: number) => void;
   total: number;
 }) {
-  if (datakassa?.length === 0) return <EmptyBox />;
-
   const rows = datakassa?.map((item: any) => (
     <tr key={item?._id}>
       <td>{item?.amount}</td>

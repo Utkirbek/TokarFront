@@ -13,7 +13,6 @@ function Loan() {
     perPage: 10,
   });
   const { data } = loanData;
-
   return (
     <If hasPerm={Permissions.loans.view}>
       <WithLoading withRenderProps query={loanData}>

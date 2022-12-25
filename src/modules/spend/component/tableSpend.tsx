@@ -1,6 +1,4 @@
-import EmptyBox from "@assets/icons/EmptyBox/EmptyBox";
 import FormattedLocalTime from "@components/FormattedLocalTime";
-import If from "@components/smart/If";
 import TableHead from "@components/Table/TableHead";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
@@ -17,16 +15,17 @@ import {
 import { useToggle } from "@mantine/hooks";
 import useSpend from "@services/hooks/useSpend";
 import { IconPencil, IconPlus, IconTrash } from "@tabler/icons";
-import { data } from "cypress/types/jquery";
 import { useState } from "react";
 import { FormattedMessage } from "react-intl";
 
 import SpendDrawer from "./spendDrawer";
 import { useSpendStyles } from "./useSpendStyles";
 
-const SpendTable: React.FC<{
-  dataSpends: any;
-}> = ({ dataSpends }) => {
+type Props = {
+  data?: any;
+};
+
+const SpendTable = ({ data }: Props) => {
   const { classes } = useSpendStyles();
   const {
     showLoadingNotification,
@@ -71,7 +70,7 @@ const SpendTable: React.FC<{
     setEditItem({});
   };
 
-  const rows = dataSpends?.spends?.map((item: any) => {
+  const rows = data?.spends?.map((item: any) => {
     return (
       <tr key={item._id}>
         <td>{item?.amount}</td>
@@ -119,31 +118,23 @@ const SpendTable: React.FC<{
           <IconPlus size={25} color={"#fff"} />
         </Box>
       </Affix>
-
-      <If
-        condition={dataSpends?.spends?.length === 0}
-        elseChildren={
-          <ScrollArea>
-            <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
-              <TableHead
-                data={{
-                  amount: true,
-                  paymentMethod: true,
-                  desc: true,
-                  spendType: true,
-                  createdAt: true,
-                  updatedAt: true,
-                  delete: true,
-                }}
-                prefix={"expenses"}
-              />
-              <tbody>{rows}</tbody>
-            </Table>
-          </ScrollArea>
-        }
-      >
-        <EmptyBox />
-      </If>
+      <ScrollArea>
+        <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
+          <TableHead
+            data={{
+              amount: true,
+              paymentMethod: true,
+              desc: true,
+              spendType: true,
+              createdAt: true,
+              updatedAt: true,
+              delete: true,
+            }}
+            prefix={"expenses"}
+          />
+          <tbody>{rows}</tbody>
+        </Table>
+      </ScrollArea>
       <Drawer
         opened={drawerOpen}
         onClose={onClose}

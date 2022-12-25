@@ -8,7 +8,7 @@ export const getNumber = (value: string | number): number => {
     return Number(Number(value).toFixed(1));
   }
 
-  return Number(value);
+  return Number(value.toFixed(1));
 };
 
 export const floorLastThreeDigits = (num: number | string): number => {

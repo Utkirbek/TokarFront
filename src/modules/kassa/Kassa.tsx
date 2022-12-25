@@ -13,7 +13,6 @@ function Kassa() {
     perPage: 10,
   });
   const { data } = getKassa;
-
   return (
     <If hasPerm={Permissions.kassa.view}>
       <WithLoading withRenderProps query={getKassa}>
