@@ -11,7 +11,7 @@ function StatsGrid({ data }: any) {
 
   const stats = Object.entries(data)?.map(
     ([key, stat]: [any, any], id: any) => {
-      const DiffIcon = stat.diff > 0 ? IconArrowUpRight : IconArrowDownRight;
+      const DiffIcon = IconArrowUpRight;
 
       return (
         <Paper withBorder p="sm" radius="md" key={id}>
@@ -32,12 +32,12 @@ function StatsGrid({ data }: any) {
                   {floorLastThreeDigits(stat.total)}
                 </Text>
                 <Text
-                  color={stat.diff > 0 ? "teal" : "red"}
+                  color={"teal"}
                   size="sm"
                   weight={500}
                   className={classes.diff}
                 >
-                  <span>{floorLastThreeDigits(stat.diff)}%</span>
+                  <span>{floorLastThreeDigits(10)}%</span>
                   <DiffIcon size={16} stroke={1.5} />
                 </Text>
               </Group>
