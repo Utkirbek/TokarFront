@@ -15,7 +15,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { useSpendStyles } from "./useSpendStyles";
 
 const expenseTypes = [
-  { label: "Investitsiya", value: "invest" },
+  { label: "Sarmoya", value: "invest" },
   { label: "Xarajat", value: "spend" },
 ];
 
