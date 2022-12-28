@@ -25,7 +25,7 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({}) => {
         onClose={() => setOpened(false)}
         padding="xl"
         size="full"
-        style={{ zIndex: "999" }}
+        style={{ zIndex: "99" }}
       >
         <BootomLink setOpened={setOpened} />
       </Drawer>
