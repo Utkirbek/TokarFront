@@ -143,9 +143,9 @@ const uz = {
     cancel: "Yo'q",
   },
 
-  income: "Kirim",
-  spent: "Chiqim",
-  staffSalary: "Xodimlar uchun ish haqi",
+  income: "Kirim 1 oylik, 4 haftaga  bo'lingan holda",
+  spent: "Chiqim 1 oylik, 4 haftaga  bo'lingan holda",
+  staffSalary: "Xodimlar uchun ish haqi 1 oylik",
 };
 
 export default uz;

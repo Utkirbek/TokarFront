@@ -1,4 +1,6 @@
+import { formatedTime } from "@components/FormattedLocalTime/FormattedLocalTime";
 import { Box, Skeleton } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { ResponsiveBar } from "@nivo/bar";
 import useStatistics from "@services/hooks/useStatistics";
 import { floorLastThreeDigits } from "@utils";
@@ -6,53 +8,39 @@ import { floorLastThreeDigits } from "@utils";
 import config from "./config";
 
 const createSevenDaysStructure = (data: { date: string; value: number }[]) => {
-  const forWeeks: {
-    xafta: string;
-    dushanba: number;
-    dushanbaColor: string;
-    seshanba: number;
-    seshanbaColor: string;
-    chorshanba: number;
-    chorshanbaColor: string;
-    payshanba: number;
-    payshanbaColor: string;
-    juma: number;
-    jumaColor: string;
-    shanba: number;
-    shanbaColor: string;
-    yakshanba: number;
-    yakshanbaColor: string;
-  }[] = [];
-
-  data.length = 28;
-
   const getNum = (num: number) =>
     typeof num === "number" ? floorLastThreeDigits(num) : num;
 
-  for (let i = 0; i < data.length; i += 7) {
-    const week = data.slice(i, i + 7);
-    const weekData = {
-      xafta: `Hafta ${i / 7 + 1}`,
-      dushanba: getNum(week[0].value),
-      dushanbaColor: "hsl(350, 70%, 50%)",
-      seshanba: getNum(week[1].value),
-      seshanbaColor: "hsl(69, 70%, 50%)",
-      chorshanba: getNum(week[2].value),
-      chorshanbaColor: "hsl(67, 70%, 50%)",
-      payshanba: getNum(week[3].value),
-      payshanbaColor: "hsl(348, 70%, 50%)",
-      juma: getNum(week[4].value),
-      jumaColor: "hsl(8, 70%, 50%)",
-      shanba: getNum(week[5].value),
-      shanbaColor: "hsl(148, 70%, 50%)",
-      yakshanba: getNum(week[6].value),
-      yakshanbaColor: "hsl(35, 70%, 50%)",
+  const res = data.map((day) => {
+    const sizes = {
+      sm: 0,
+      md: 0,
+      lg: 0,
+      xl: 0,
+      xs: 0,
     };
 
-    forWeeks.push(weekData);
-  }
+    if (day.value > 100000) {
+      sizes.sm = day.value;
+    } else if (day.value > 250000) {
+      sizes.lg = day.value;
+    } else if (day.value > 500000) {
+      sizes.md = day.value;
+    } else if (day.value > 1000000) {
+      sizes.xl = day.value;
+    } else {
+      sizes.xs = day.value;
+    }
 
-  return forWeeks;
+    return {
+      ...sizes,
+
+      foyda: getNum(day?.value),
+      kun: formatedTime(day.date),
+    };
+  });
+
+  return res;
 };
 
 const ProfitsBar = ({
@@ -62,6 +50,7 @@ const ProfitsBar = ({
   activeShopId: string;
   isAllTrue: boolean;
 }) => {
+  const isMobile = useMediaQuery("(max-width: 600px)");
   const { useFetchProfitBar } = useStatistics(activeShopId);
   const profitsBarQuery = useFetchProfitBar(isAllTrue);
 
@@ -69,6 +58,11 @@ const ProfitsBar = ({
 
   if (!profitData) return <Skeleton height={"50vh"} />;
   if (error) return <>Error</>;
+
+  const props = {
+    ...config,
+    height: isMobile ? 900 : 400,
+  };
 
   return (
     <Box
@@ -89,30 +83,40 @@ const ProfitsBar = ({
     >
       <ResponsiveBar
         data={createSevenDaysStructure(profitData)}
-        groupMode="grouped"
-        keys={config.keys}
-        indexBy="xafta"
-        margin={config.margin}
-        padding={0}
-        valueScale={{ type: "linear" }}
-        indexScale={{ type: "band", round: true }}
-        colors={{ scheme: "nivo" }}
-        defs={config.defs}
-        fill={config.fill}
-        borderColor={config.borderColor}
-        axisTop={null}
-        axisRight={null}
-        axisBottom={config.axisBottom}
-        axisLeft={config.axisLeft}
-        labelSkipWidth={12}
-        labelSkipHeight={12}
-        labelTextColor={config.labelTextColor}
-        legends={config.legends}
-        role="application"
-        ariaLabel="Nivo bar chart demo"
-        barAriaLabel={function (e) {
-          return e.id + ": " + e.formattedValue + " Kunlarda: " + e.indexValue;
+        {...props}
+        margin={{ top: 20, right: 30, bottom: 70, left: isMobile ? 40 : 10 }}
+        layout={isMobile ? "horizontal" : "vertical"}
+        tooltip={({ id, value, color, label }) => {
+          return (
+            <div
+              style={{
+                padding: 12,
+                color,
+                background: "#222222",
+              }}
+            >
+              <span>Sana: {formatedTime(label, "LL")}</span>
+              <br />
+              <strong>
+                {typeof id === "string" ? id.toUpperCase() : id}: {value}
+              </strong>
+            </div>
+          );
         }}
+        axisBottom={
+          !isMobile
+            ? {
+                format: (value: string) => formatedTime(value, "DD"),
+              }
+            : null
+        }
+        axisLeft={
+          isMobile
+            ? {
+                format: (value: string) => formatedTime(value, "DD"),
+              }
+            : null
+        }
       />
     </Box>
   );

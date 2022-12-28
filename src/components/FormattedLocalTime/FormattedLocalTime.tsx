@@ -15,3 +15,8 @@ const FormattedLocalTime: React.FC<FormattedLocalTimeProps> = ({ date }) => {
 };
 
 export default FormattedLocalTime;
+
+export const formatedTime = (date: string, format?: string) => {
+  if (format) return dayjs(date).locale("uz-latn").format(format);
+  return dayjs(date).locale("uz-latn").format("MM/DD/YYYY");
+};

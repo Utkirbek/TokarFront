@@ -29,8 +29,6 @@ function Statistics() {
   const { data: spentData } = spentQuery;
   const { data: incomeData } = incomeQuery;
 
-  
-
   return (
     <div>
       <StatisticsFilters

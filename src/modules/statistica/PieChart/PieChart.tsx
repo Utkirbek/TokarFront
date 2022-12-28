@@ -1,3 +1,4 @@
+import { formatedTime } from "@components/FormattedLocalTime/FormattedLocalTime";
 import { Box, Text } from "@mantine/core";
 import { ResponsivePie } from "@nivo/pie";
 import { floorLastThreeDigits } from "@utils";
@@ -6,13 +7,19 @@ import { FormattedMessage } from "react-intl";
 
 import config from "./config";
 
-export const getSchema = (data: { name: string; value: number }[]) => {
+export const getSchema = (
+  data: {
+    name: string;
+    date: string;
+    value: number;
+  }[]
+) => {
   const schema = [];
 
   for (let i: number = 0; i < data.length; i++) {
     let d = {
-      id: data?.[i]?.name + i,
-      label: data?.[i]?.name,
+      id: `${i + 1}. ${data?.[i]?.name || formatedTime(data?.[i]?.date)}`,
+      label: data?.[i]?.name || `${i + 1} - ${formatedTime(data?.[i]?.date)}`,
       value:
         typeof data?.[i]?.value === "number"
           ? floorLastThreeDigits(data?.[i]?.value)
@@ -21,6 +28,7 @@ export const getSchema = (data: { name: string; value: number }[]) => {
     };
     schema.push(d);
   }
+
   return schema;
 };
 

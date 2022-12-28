@@ -1,14 +1,14 @@
 export { default as flattenMessages } from "./flattenMessages";
 
-export const getNumber = (value: string | number): number => {
+export const getNumber = (value: string | number, precision = 1): number => {
   if (typeof value === "string") {
     if (Number.isNaN(Number(value))) {
       return 0;
     }
-    return Number(Number(value).toFixed(1));
+    return Number(Number(value).toFixed(precision));
   }
 
-  return Number(value.toFixed(1));
+  return Number(value.toFixed(precision));
 };
 
 export const floorLastThreeDigits = (num: number | string): number => {

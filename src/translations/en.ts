@@ -68,6 +68,9 @@ const en = {
     cancel: "Cancel",
     confirm: "Delete",
   },
+  income: "enter 1 month, divided into 4 weeks",
+  spent: "The cost is 1 month, divided into 4 weeks",
+  staffSalary: "Salary for employees is 1 month",
 };
 
 export default en;

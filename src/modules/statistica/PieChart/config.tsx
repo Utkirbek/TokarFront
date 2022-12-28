@@ -39,13 +39,13 @@ const config: any = {
       itemDirection: "left-to-right",
       itemOpacity: 0.85,
       symbolSize: 20,
-      itemTextColor: "rgb(151, 227, 213)",
+      itemTextColor: "#1972C2",
       effects: [
         {
           on: "hover",
           style: {
             itemOpacity: 1,
-            itemTextColor: "#fff",
+            itemTextColor: "red",
           },
         },
       ],
