@@ -1,18 +1,35 @@
 import { createStyles } from "@mantine/core";
 
-const useStyles = createStyles(() => ({
+const useStyles = createStyles((theme) => ({
+  Skeleton: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "wrap",
+    gap: 20,
+    [`@media (max-width: 900px)`]: {
+      justifyContent: "center",
+    },
+  },
   box: {
     display: "flex",
     alignItems: "center",
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-evenly",
-    gap: "30px",
+    justifyContent: "start",
+    gap: "15px",
+    [`@media (max-width: 900px)`]: {
+      justifyContent: "center",
+      marginBottom: "40px",
+      gap: "5px",
+    },
   },
   Cart: {
-    width: "350px",
-    height: "350px",
+    padding: "12px",
+    width: "300px",
+    height: "300px",
     margin: "20px",
+    borderRadius: "8px",
     background:
       "linear-gradient(0deg, rgba(53,91,108,1) 27%, rgba(45,112,253,1) 100%)",
   },
@@ -49,8 +66,14 @@ const useStyles = createStyles(() => ({
   },
 
   miniCArt: {
-    marginTop: "80px",
+    marginTop: "50px",
     width: "100%",
+    padding: "15px",
+    borderRadius: "8px",
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[5]
+        : theme.colors.gray[1],
   },
   contact: {
     display: "flex",

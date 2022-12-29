@@ -38,6 +38,7 @@ const ProductDetails = ({ products }: Props) => {
                   objectFit: "cover",
                 }}
                 width="100%"
+                height="100%"
               />
             ) : (
               <Box className={classes.iconPhoto}>

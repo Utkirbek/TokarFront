@@ -68,19 +68,14 @@ const UserDetails = () => {
         <Box className={classes.itemGroup}>
           <Box className={classes.imageBox}>
             <Image
+              radius="md"
               src={
                 userBatfsil?.user?.image
                   ? `${userBatfsil?.user?.image}`
                   : "https://avatars.githubusercontent.com/u/116545667?s=400&u=a38f7d2eb1a58cdc1b7b004d17647db8aefd9d51&v=4"
               }
-              alt={"Bu yerda foydalanuvchi rasmi"}
-              style={{
-                objectFit: "cover",
-                borderRadius: "15px",
-              }}
-              width="100%"
-              // height={280}
-              radius="md"
+              alt="Random unsplash image"
+              height={300}
             />
           </Box>
 
@@ -155,7 +150,12 @@ const UserDetails = () => {
             </Box>
           </Box>
         </Box>
-        <ScrollArea style={{ marginTop: "20px" }}>
+        <ScrollArea
+          style={{
+            marginTop: "20px",
+            height: "180px",
+          }}
+        >
           <Table sx={{ minWidth: 700 }} verticalSpacing="sm" highlightOnHover>
             <TableHead
               data={{

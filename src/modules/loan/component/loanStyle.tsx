@@ -1,6 +1,10 @@
 import { createStyles } from "@mantine/core";
 
 const useLoanStyles = createStyles((theme) => ({
+  loanUserL: {
+    textDecoration: "none",
+    color: "#617ED6",
+  },
   loanUserLink: {
     borderBottom: "1px solid #1983FF",
     textDecoration: "none",

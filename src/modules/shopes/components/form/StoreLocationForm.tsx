@@ -12,7 +12,7 @@ const StoreLocationForm: React.FC<{
 
   return (
     <Group position="center">
-      <form style={{ width: "60%" }}>
+      <form style={{ width: "100%" }}>
         <Group position="center">
           <IconMapPin size={100} color={"#1972C2"} />
         </Group>

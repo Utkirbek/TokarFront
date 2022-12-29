@@ -50,16 +50,23 @@ const NewShop = () => {
       </Text>
       <Box>
         <Box sx={{ width: "60%", margin: "0  auto" }}>
-          <Stepper active={active} onStepClick={setActive} breakpoint="sm">
+          <Stepper
+            active={active}
+            onStepClick={setActive}
+            breakpoint="sm"
+            iconSize={60}
+          >
             <Stepper.Step
               label={intl.formatMessage({ id: "shopes.newShop.formOne" })}
-              description={intl.formatMessage({ id: "shopes.name" })}>
+              description={intl.formatMessage({ id: "shopes.name" })}
+            >
               <StoreNameForm nextStep={nextStep} form={form} />
             </Stepper.Step>
 
             <Stepper.Step
               label={intl.formatMessage({ id: "shopes.newShop.formTwo" })}
-              description={intl.formatMessage({ id: "shopes.address" })}>
+              description={intl.formatMessage({ id: "shopes.address" })}
+            >
               <StoreLocationForm
                 prevStep={prevStep}
                 nextStep={nextStep}
@@ -71,7 +78,8 @@ const NewShop = () => {
               label={intl.formatMessage({ id: "shopes.newShop.formTree" })}
               description={intl.formatMessage({
                 id: "shopes.newShop.confirm",
-              })}>
+              })}
+            >
               <StoreTarifPlanForm
                 prevStep={prevStep}
                 handleSubmit={handleSubmit}
@@ -81,7 +89,8 @@ const NewShop = () => {
             <Stepper.Completed>
               <Group
                 position="center"
-                sx={{ display: "flex", flexDirection: "column" }}>
+                sx={{ display: "flex", flexDirection: "column" }}
+              >
                 <IconCircleCheck size={100} color={"teal"} />
                 <Text size={24}>
                   <FormattedMessage id="shopes.newShop.succsess" />

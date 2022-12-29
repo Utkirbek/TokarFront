@@ -153,21 +153,23 @@ function TableCard() {
                 <Group spacing="sm">
                   <FormattedMessage id={`roles.roles.${item.name}`} />
                 </Group>
-                {item.name == name ? (
+                <Box className={classes.rolesGrid}>
+                  {item.name == name ? (
+                    <ActionIcon>
+                      <IconTrash style={{ color: "red", cursor: "no-drop" }} />
+                    </ActionIcon>
+                  ) : (
+                    <ActionIcon>
+                      <IconTrash
+                        onClick={() => openDeleteModal(item._id, item.name)}
+                        style={{ color: "red" }}
+                      />
+                    </ActionIcon>
+                  )}
                   <ActionIcon>
-                    <IconTrash style={{ color: "red", cursor: "no-drop" }} />
+                    <IconPencil onClick={onEditClick.bind(null, item)} />
                   </ActionIcon>
-                ) : (
-                  <ActionIcon>
-                    <IconTrash
-                      onClick={() => openDeleteModal(item._id, item.name)}
-                      style={{ color: "red" }}
-                    />
-                  </ActionIcon>
-                )}
-                <ActionIcon>
-                  <IconPencil onClick={onEditClick.bind(null, item)} />
-                </ActionIcon>
+                </Box>
               </Card>
             </Grid.Col>
             <Grid.Col xs={12} sm={7}>
@@ -182,12 +184,12 @@ function TableCard() {
           </Grid>
         ))}
       </Box>
-      <Box sx={{ height: "100%",  }}>
+      <Box sx={{ height: "100%" }}>
         <Drawer
           opened={drawerOpen}
           onClose={onClose}
           padding="xl"
-          size={isIpad ? ("60%" && isMobile ? "80%" : "60%") : "30%"}
+          size="xl"
           position="right"
         >
           <ScrollArea

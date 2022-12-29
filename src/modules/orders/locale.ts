@@ -35,6 +35,7 @@ export const orderLocaleUz = {
   userPhone: "Raqami",
   userworkplace: "Ish joyi",
   userExtr: "Qo'shimcha malumot",
+  userExtrText: "Topilmadi",
 };
 
 export const orderLocaleEn = {
@@ -72,4 +73,5 @@ export const orderLocaleEn = {
   userPhone: "Number",
   userworkplace: "Workplace",
   userExtr: "Additional Information",
+  userExtrText: "Not found",
 };

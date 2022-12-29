@@ -36,12 +36,11 @@ const useDetailstyles = createStyles(() => ({
   imageBox: {
     width: "380px",
     height: "350px",
-    marginBottom: "5px",
-    display: "flex",
-    alignItems: "center",
+    padding: "35px",
     [`@media (max-width: 1300px)`]: {
       width: "300px",
       height: "300px",
+      padding: "0px",
     },
     [`@media (max-width: 440px)`]: {
       width: "300px",

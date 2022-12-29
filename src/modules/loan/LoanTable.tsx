@@ -3,7 +3,6 @@ import TableHead from "@components/Table/TableHead";
 import {
   Box,
   Button,
-  Card,
   Pagination,
   ScrollArea,
   Table,
@@ -48,7 +47,10 @@ function LoanTable({
             return (
               <tr key={item._id}>
                 <td className={classes.loanUserLink}>
-                  <Link href={`/users?details=${item?.user?._id}`}>
+                  <Link
+                    href={`/users?details=${item?.user?._id}`}
+                    className={classes.loanUserL}
+                  >
                     {item.user === null ? (
                       <Text>
                         <FormattedMessage id="loans.userError" />

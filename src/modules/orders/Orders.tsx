@@ -1,6 +1,5 @@
 import If from "@components/smart/If";
 import WithLoading from "@hoc/WithLoading";
-import { useToggle } from "@mantine/hooks";
 import useOrders from "@services/hooks/useOrder";
 import { Permissions } from "@utils/constants";
 import { useState } from "react";

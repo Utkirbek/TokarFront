@@ -3,6 +3,7 @@ import { createStyles } from "@mantine/core";
 const useStyles = createStyles((theme) => ({
   orderUserLink: {
     textDecoration: "none",
+    color: "#617ED6",
   },
   orderBtn: {
     width: "85px",

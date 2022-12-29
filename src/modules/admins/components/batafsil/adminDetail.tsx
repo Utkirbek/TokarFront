@@ -1,7 +1,16 @@
 import FormattedLocalTime from "@components/FormattedLocalTime";
 import TableHead from "@components/Table/TableHead";
-import { Box, Button, Group, Modal, Table, Text } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Group,
+  Modal,
+  ScrollArea,
+  Table,
+  Text,
+} from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+import { IconUser } from "@tabler/icons";
 import { useRouter } from "next/router";
 import queryString from "query-string";
 import { FormattedMessage } from "react-intl";
@@ -97,20 +106,22 @@ const AdminsDetails = ({ admins }: Props) => {
             margin: "0 auto",
           }}
         >
-          <Table
-            verticalSpacing="sm"
-            highlightOnHover
-            className={classes.tableAdminMedia}
-          >
-            <TableHead
-              data={{
-                getSalary: true,
-                timeGetSalary: true,
-              }}
-              prefix="admins"
-            />
-            <tbody>{rowDetail}</tbody>
-          </Table>
+          <ScrollArea style={{ height: 180 }}>
+            <Table
+              verticalSpacing="sm"
+              highlightOnHover
+              className={classes.tableAdminMedia}
+            >
+              <TableHead
+                data={{
+                  getSalary: true,
+                  timeGetSalary: true,
+                }}
+                prefix="admins"
+              />
+              <tbody>{rowDetail}</tbody>
+            </Table>
+          </ScrollArea>
         </Box>
         <Box className={classes.modalBtn}>
           <Button onClick={() => router.back()} fullWidth>

@@ -27,6 +27,11 @@ const useStyles = createStyles((theme) => ({
       height: "90vh",
     },
   },
+  table: {
+    [`@media (max-width: 900px)`]: {
+      display: "none",
+    },
+  },
   itemGroup: {
     display: "flex",
     justifyContent: "space-between",
@@ -80,7 +85,7 @@ const useStyles = createStyles((theme) => ({
     height: "auto",
     objectFit: "cover",
     "@media (max-width: 600px)": {
-      width: "250px",
+      width: "200px",
       height: "auto",
     },
   },
@@ -138,7 +143,7 @@ const useStyles = createStyles((theme) => ({
     color: "#1971C2",
     ["@media (max-width: 800px)"]: {
       textAlign: "start",
-      fontSize: 18,
+      fontSize: 16,
     },
   },
   hide: {

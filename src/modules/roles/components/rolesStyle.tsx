@@ -12,6 +12,18 @@ const useRolesStyles = createStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
   },
+  rolbtn: {
+    [`@media  (max-width: 900px)`]: {
+      position: "absolute",
+      bottom: "40px",
+      width: "100%",
+    },
+  },
+  rolbutton: {
+    [`@media  (max-width: 900px)`]: {
+      width: "100%",
+    },
+  },
   grid: {
     [`@media  (max-width: ${theme.breakpoints.md}px)`]: {
       display: "none",

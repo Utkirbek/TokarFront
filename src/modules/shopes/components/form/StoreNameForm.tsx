@@ -10,7 +10,7 @@ const StoreNameForm: React.FC<{
 
   return (
     <Group position="center">
-      <form style={{ width: "60%" }}>
+      <form style={{ width: "100%" }}>
         <TextInput
           withAsterisk
           label={intl.formatMessage({ id: "shopes.name" })}

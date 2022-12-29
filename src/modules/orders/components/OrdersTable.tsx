@@ -3,14 +3,7 @@ import If from "@components/smart/If";
 import TableHead from "@components/Table/TableHead";
 import useConfirmation from "@hooks/useConfirmation";
 import useNotification from "@hooks/useNotification";
-import {
-  ActionIcon,
-  Box,
-  Button,
-  Pagination,
-  ScrollArea,
-  Table,
-} from "@mantine/core";
+import { ActionIcon, Box, Button, Pagination, Table } from "@mantine/core";
 import useOrder from "@services/hooks/useOrder";
 import { IconTrash } from "@tabler/icons";
 import { Permissions } from "@utils/constants";
@@ -129,7 +122,7 @@ const OrdersTable = ({
   });
 
   return (
-    <ScrollArea>
+    <>
       <Box className={classes.orderTable}>
         <Table sx={{ minWidth: 950 }} verticalSpacing="sm" highlightOnHover>
           <TableHead
@@ -169,7 +162,7 @@ const OrdersTable = ({
         onChange={onPageChange}
       />
       <OrdersDetails orders={dataorder} />
-    </ScrollArea>
+    </>
   );
 };
 

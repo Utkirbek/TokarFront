@@ -26,20 +26,13 @@ import data from "./components/skalotanData/data";
 import EditShop from "./editShop/EditDrawer";
 
 export const Loader = () => {
+  const { classes } = useStyles();
   return (
-    <Box
-      my={10}
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        flexWrap: "wrap",
-        gap: 20,
-      }}>
+    <Box my={10} className={classes.Skeleton}>
       {data.map((item) => {
         return (
           <Box key={item.id}>
-            <Skeleton height="350px" width={"300px"} mx={20} />
+            <Skeleton height="300px" width={"300px"} mx={20} />
           </Box>
         );
       })}
@@ -87,84 +80,73 @@ const Shopes = () => {
   return (
     <>
       <WithLoading query={getShopQuery} FallbackLoadingUI={Loader}>
-        <ScrollArea style={{ width: "100%", height: "100vh" }}>
-          <Box className={classes.box}>
+        <Box className={classes.box}>
+          <Box>
             <If hasPerm={Permissions.shop.create}>
               <Link href={"/newShop"}>
-                <Card
-                  shadow="sm"
-                  p="lg"
-                  radius="md"
-                  withBorder
-                  className={classes.Cart}>
+                <Box className={classes.Cart}>
                   <IconPlus className={classes.plusIcon} />
-                </Card>
+                </Box>
               </Link>
             </If>
-
-            {shops?.map((item: any, idx: any) => {
-              return (
-                <Card
-                  shadow="sm"
-                  p="lg"
-                  radius="md"
-                  withBorder
-                  className={classes.Cart}
-                  key={idx}>
-                  <Card.Section
-                    sx={{
-                      width: "350px",
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}>
-                    <Group position="right">
-                      <Button radius="md" m={10} className={classes.more}>
-                        <FormattedMessage id="shopes.more" />
-                      </Button>
-                    </Group>
-                    <Group position="left" mx={20}>
-                      <ActionIcon>
-                        <IconPencil onClick={() => onEditClick(item)} />
-                      </ActionIcon>
-                      <ActionIcon>
-                        <IconTrash
-                          color="red"
-                          onClick={() => openDeleteModal(item._id)}
-                        />
-                      </ActionIcon>
-                    </Group>
-                  </Card.Section>
-
-                  <Card className={classes.miniCArt} radius="md">
-                    <Group position="center" className={classes.col}>
-                      <Group>
-                        <Text weight={500} size={25}>
-                          {item.name}
-                        </Text>
-                      </Group>
-                      <Group>
-                        <IconMapPin />
-                        <Text weight={500} size={15}>
-                          {item.location}
-                        </Text>
-                      </Group>
-
-                      <Button variant="gradient" fullWidth mt="md" radius="md">
-                        <FormattedMessage id="shopes.enter" />
-                      </Button>
-                    </Group>
-                  </Card>
-                </Card>
-              );
-            })}
           </Box>
-        </ScrollArea>
+
+          {shops?.map((item: any, idx: any) => {
+            return (
+              <Box className={classes.Cart} key={idx}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Group position="right">
+                    <Button radius="md" m={10} className={classes.more}>
+                      <FormattedMessage id="shopes.more" />
+                    </Button>
+                  </Group>
+                  <Group position="left">
+                    <ActionIcon>
+                      <IconPencil onClick={() => onEditClick(item)} />
+                    </ActionIcon>
+                    <ActionIcon>
+                      <IconTrash
+                        color="red"
+                        onClick={() => openDeleteModal(item._id)}
+                      />
+                    </ActionIcon>
+                  </Group>
+                </Box>
+
+                <Box className={classes.miniCArt}>
+                  <Group position="center" className={classes.col}>
+                    <Text weight={500} size={23}>
+                      {item.name}
+                    </Text>
+                    <Group>
+                      <IconMapPin />
+                      <Text weight={500} size={15}>
+                        {item.location}
+                      </Text>
+                    </Group>
+
+                    <Button variant="gradient" fullWidth mt="xs" radius="md">
+                      <FormattedMessage id="shopes.enter" />
+                    </Button>
+                  </Group>
+                </Box>
+              </Box>
+            );
+          })}
+        </Box>
+
         <Drawer
           opened={drawerOpen}
           onClose={onClose}
           padding="xl"
-          size="30%"
-          position="right">
+          size="xl"
+          position="right"
+        >
           <EditShop editItem={editItem} onClose={onClose} />
         </Drawer>
       </WithLoading>

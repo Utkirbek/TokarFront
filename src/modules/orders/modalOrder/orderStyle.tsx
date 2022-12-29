@@ -2,6 +2,11 @@ import { createStyles } from "@mantine/core";
 
 const useStyles = createStyles(() => {
   return {
+    table: {
+      [`@media (max-width: 900px)`]: {
+        display: "none",
+      },
+    },
     titleHead: {
       textAlign: "center",
       fontSize: "36px",

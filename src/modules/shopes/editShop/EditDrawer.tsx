@@ -4,10 +4,13 @@ import { useForm } from "@mantine/form";
 import useShop from "@services/hooks/useShop";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import EditStyle from "./EditStyle";
+
 const EditShop: React.FC<{ editItem: any; onClose: () => void }> = ({
   editItem,
   onClose,
 }) => {
+  const { classes } = EditStyle();
   const {
     showSuccessNotification,
     showErrorNotification,
@@ -75,9 +78,15 @@ const EditShop: React.FC<{ editItem: any; onClose: () => void }> = ({
         />
 
         <Group position="right" mt="md">
-          <Button type="submit" onClick={onClose}>
-            <FormattedMessage id="shopes.btnSave" />
-          </Button>
+          <Box className={classes.editBtn}>
+            <Button
+              type="submit"
+              onClick={onClose}
+              className={classes.editbutton}
+            >
+              <FormattedMessage id="shopes.btnSave" />
+            </Button>
+          </Box>
         </Group>
       </form>
     </Box>

@@ -1,6 +1,13 @@
 import { createStyles } from "@mantine/core";
 
 const useAdminStyles = createStyles((theme) => ({
+  adminModal: {
+    display: "flex",
+    [`@media (max-width: 900px)`]: {
+      flexWrap: "wrap",
+      justifyContent: "center",
+    },
+  },
   AdminTd: {
     display: "flex",
     justifyContent: "start",

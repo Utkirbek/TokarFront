@@ -6,6 +6,7 @@ import useNotification from "@hooks/useNotification";
 import {
   ActionIcon,
   Avatar,
+  Box,
   Button,
   Group,
   HoverCard,
@@ -102,18 +103,17 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
             <td>
               <Group spacing="sm">
                 <Avatar size={40} src={getCoverImage(item.image)} radius={26} />
-                <Group position="center">
-                  <HoverCard width={280} shadow="md">
-                    <HoverCard.Target>
-                      <Text size="sm" weight={500}>
-                        <TextEllipsis text={item.title} maxChars={20} />
-                      </Text>
-                    </HoverCard.Target>
-                    <HoverCard.Dropdown>
-                      <Text size="sm">{item.title}</Text>
-                    </HoverCard.Dropdown>
-                  </HoverCard>
-                </Group>
+
+                <HoverCard shadow="md">
+                  <HoverCard.Target>
+                    <Text size="sm" weight={500}>
+                      <TextEllipsis text={item.title} maxChars={20} />
+                    </Text>
+                  </HoverCard.Target>
+                  <HoverCard.Dropdown>
+                    <Text size="sm">{item.title}</Text>
+                  </HoverCard.Dropdown>
+                </HoverCard>
               </Group>
             </td>
             <td>{item.code}</td>
@@ -142,7 +142,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
 
             <td>{item.quantity}</td>
             <td>
-              <Group>
+              <Group spacing="sm">
                 <ActionIcon>
                   <IconPencil
                     style={{ cursor: "pointer", marginTop: "5px" }}
@@ -179,7 +179,7 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
 
   return (
     <ScrollArea>
-      <Table verticalSpacing="sm" highlightOnHover>
+      <Table sx={{ minWidth: 800 }} verticalSpacing="sm" highlightOnHover>
         <TableHead
           data={productsTableHead}
           prefix="products.table"

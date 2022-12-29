@@ -15,12 +15,15 @@ import { FormattedMessage, useIntl } from "react-intl";
 
 import WithLoading from "@/hoc/WithLoading";
 
+import useRolesStyles from "./rolesStyle";
+
 const RolesDrawer: React.FC<{
   handleClose: () => void;
   editItem: any;
 }> = ({ handleClose, editItem }) => {
   const intl = useIntl();
   const [newPermissions, setNewPermissions] = useState<string[]>([]);
+  const { classes } = useRolesStyles();
   const { editRole, addRole } = useRoles();
   const { useFetchAllPermissions } = useSettings();
   const getRolesQuery = useFetchAllPermissions();
@@ -104,12 +107,14 @@ const RolesDrawer: React.FC<{
             maxDropdownHeight={200}
           />
           <Group position="right" mt="md">
-            <Button type="submit">
-              <FormattedMessage
-                id="addSmth"
-                values={{ isNew: !editItem._id }}
-              />
-            </Button>
+            <Box className={classes.rolbtn}>
+              <Button type="submit" className={classes.rolbutton}>
+                <FormattedMessage
+                  id="addSmth"
+                  values={{ isNew: !editItem._id }}
+                />
+              </Button>
+            </Box>
           </Group>
         </form>
       </Box>
