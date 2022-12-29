@@ -28,5 +28,31 @@
       "sizes": "512x512",
       "type": "image/png"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "Yangi mahsulot qo'shish",
+      "short_name": "Yangi mahsulot",
+      "description": "Yangi mahsulot qo'shish oyanasi",
+      "url": "/products?new=true",
+      "icons": [
+        {
+          "src": "/add.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Savdo oynasi",
+      "short_name": "Savdo",
+      "description": "Savdo oynasini ochish",
+      "url": "/sales",
+      "icons": [
+        {
+          "src": "/cart.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
   ]
 }

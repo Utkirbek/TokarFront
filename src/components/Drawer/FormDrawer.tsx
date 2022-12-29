@@ -1,11 +1,13 @@
 import { Drawer, useMantineTheme } from "@mantine/core";
+import { useRouter } from "next/router";
 import React, { memo } from "react";
 
 type Props = {
   opened: boolean;
-  toggleOpened: (bool?: boolean) => void;
+  toggleOpened?: (bool?: boolean) => void;
   children: React.ReactNode;
   title?: string | React.ReactNode;
+  navBack?: boolean;
 };
 
 const FormDrawer: React.FC<Props> = ({
@@ -13,8 +15,10 @@ const FormDrawer: React.FC<Props> = ({
   toggleOpened,
   children,
   title,
+  navBack,
 }) => {
   const theme = useMantineTheme();
+  const router = useRouter();
 
   return (
     <Drawer
@@ -25,7 +29,10 @@ const FormDrawer: React.FC<Props> = ({
           : theme.colors.gray[2]
       }
       opened={opened}
-      onClose={() => toggleOpened(false)}
+      onClose={() => {
+        if (navBack) router.replace(router.pathname);
+        else toggleOpened?.(false);
+      }}
       padding="xl"
       size="xl"
       position="right"

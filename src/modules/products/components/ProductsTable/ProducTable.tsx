@@ -15,7 +15,8 @@ import productFetchers from "@services/api/productFetchers";
 import { IconPlus } from "@tabler/icons";
 import { Permissions } from "@utils/constants";
 import { useRouter } from "next/router";
-import { memo, useCallback, useState } from "react";
+import queryString from "query-string";
+import { memo, useCallback, useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { useCart } from "react-use-cart";
 
@@ -47,7 +48,6 @@ function ProductsTable({
 }) {
   const [editItem, setEditItem] = useState<{ _id?: string }>({});
   const [searchResults, setSearchResults] = useState([]);
-  const [opened, toggleOpened] = useToggle();
   const [isResultsActive, toggleResultsActive] = useToggle();
 
   const isMobile = useMediaQuery("(max-width: 600px)");
@@ -57,14 +57,24 @@ function ProductsTable({
   const { isEmpty } = useCart();
   const { classes } = useStyles();
 
+  const query = queryString.parse(router.asPath.split("?")[1]);
+
   const onEdit = useCallback((item: any) => {
     setEditItem(item);
-    toggleOpened(true);
+    router.push("/products", {
+      query: {
+        new: true,
+      },
+    });
   }, []);
 
   const handleClick = useCallback(() => {
-    toggleOpened(true);
     setEditItem({});
+    router.push("/products", {
+      query: {
+        new: true,
+      },
+    });
   }, []);
 
   const onSearchResults = useCallback((results: any) => {
@@ -123,16 +133,12 @@ function ProductsTable({
   return (
     <Box sx={{ height: "100%" }}>
       <FormDrawer
+        navBack
         {...{
-          opened,
-          toggleOpened,
+          opened: query.new === "true",
           title: intl.formatMessage(
-            {
-              id: "products.addEdit",
-            },
-            {
-              isNew: !editItem._id,
-            }
+            { id: "products.addEdit" },
+            { isNew: !editItem._id }
           ),
         }}
       >
@@ -141,7 +147,7 @@ function ProductsTable({
           scrollbarSize={2}
         >
           <FormProduct
-            handleClose={() => toggleOpened(false)}
+            handleClose={() => router.replace("/products")}
             editItem={editItem}
           />
         </ScrollArea>
@@ -243,7 +249,7 @@ function ProductsTable({
           </Grid.Col>
         </If>
       </Grid>
-      <ProductDetails products={data} />
+      <ProductDetails products={activeData} />
       {isMobile && (
         <ActionIcon
           onClick={handleClick}
