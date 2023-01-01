@@ -105,34 +105,21 @@ const CardView: React.FC<Props> = ({ data, onEdit }) => {
             >
               <FormattedMessage id="more" />
             </Button>
-            <Box className={classes.prdactPostion}>
-              <Menu withArrow offset={-5} position="bottom-end">
-                <Menu.Target>
-                  <Box>
-                    <IconDots />
-                  </Box>
-                </Menu.Target>
-                <Menu.Dropdown style={{ width: "400px" }}>
-                  <Group>
-                    <ActionIcon>
-                      <IconPencil
-                        style={{ cursor: "pointer", marginTop: "5px" }}
-                        onClick={() => onEdit(item)}
-                      />
-                    </ActionIcon>
 
-                    <If hasPerm={Permissions.products.delete}>
-                      <ActionIcon>
-                        <IconTrash
-                          color="red"
-                          onClick={() => openDeleteModal(item._id)}
-                        />
-                      </ActionIcon>
-                    </If>
-                  </Group>
-                </Menu.Dropdown>
-              </Menu>
-            </Box>
+            <Group>
+              <ActionIcon className={classes.pencil}>
+                <IconPencil size={40} onClick={() => onEdit(item)} />
+              </ActionIcon>
+
+              <If hasPerm={Permissions.products.delete}>
+                <ActionIcon className={classes.trash}>
+                  <IconTrash
+                    size={40}
+                    onClick={() => openDeleteModal(item._id)}
+                  />
+                </ActionIcon>
+              </If>
+            </Group>
           </Paper>
         ))}
       </>
@@ -140,7 +127,9 @@ const CardView: React.FC<Props> = ({ data, onEdit }) => {
   };
   return (
     <>
-      <Box className={classes.prodactFlex}>{Card()}</Box>
+      <Box ml={5} className={classes.prodactFlex}>
+        {Card()}
+      </Box>
     </>
   );
 };

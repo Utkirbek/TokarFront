@@ -3,52 +3,45 @@ import { createStyles } from "@mantine/core";
 const useSalesCardStyles = createStyles(() => {
   return {
     prodactPaper: {
-      width: "200px",
+      width: "100%",
       padding: "8px",
       position: "relative",
-      [`@media (max-width: 470px)`]: {
-        width: "170px",
-      },
-      [`@media (max-width: 400px)`]: {
-        width: "160px",
-      },
-      [`@media (max-width: 380px)`]: {
-        width: "320px",
-      },
     },
-    prdactPostion: {
+    trash: {
       position: "absolute",
-      top: "0",
-      right: "5px",
+      top: "0.3rem",
+      right: ".5rem",
+      cursor: "pointer",
+      color: "red",
+      height: "1.6rem",
+      width: "1.6rem",
+    },
+    pencil: {
+      position: "absolute",
+      top: "0.3rem",
+      left: ".5rem",
+      cursor: "pointer",
+      height: "1.6rem",
+      width: "1.6rem",
     },
     userText: {
       textAlign: "center",
       margin: "auto",
       fontSize: "16px",
-      [`@media (max-width: 470px)`]: {
-        fontSize: "13px",
-      },
-      [`@media (max-width: 380px)`]: {
-        fontSize: "16px",
-        margin: "auto",
-        textAlign: "center",
-      },
     },
     prodactFlex: {
-      display: "flex",
-      flexWrap: "wrap",
-      justifyContent: "space-between",
-      gap: "10px",
-      marginTop: "5px",
-      marginBottom: "5px",
-      [`@media (max-width: 710px)`]: {
-        justifyContent: "space-around",
+      display: "grid",
+      gridTemplateColumns: "auto auto auto",
+      gap: "1rem",
+      [`@media (max-width: 600px)`]: {
+        gridTemplateColumns: "auto auto",
       },
-      [`@media (max-width: 550px)`]: {
-        justifyContent: "space-between",
+      [`@media (max-width: 400px)`]: {
+        gridTemplateColumns: "auto auto ",
+        marginLeft: ".4rem",
       },
-      [`@media (max-width: 380px)`]: {
-        justifyContent: "center",
+      [`@media (max-width: 370px)`]: {
+        gridTemplateColumns: "auto",
       },
     },
   };

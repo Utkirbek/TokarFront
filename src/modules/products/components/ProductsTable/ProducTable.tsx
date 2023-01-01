@@ -161,12 +161,14 @@ function ProductsTable({
           gap: 5,
         }}
       >
-        <SearchAutoComplete
-          searchResults={searchResults}
-          onSearchResults={onSearchResults}
-          onClear={onSearchClear}
-          fetcher={productFetchers.getProductByTitle}
-        />
+        <Box className={classes.saerch}>
+          <SearchAutoComplete
+            searchResults={searchResults}
+            onSearchResults={onSearchResults}
+            onClear={onSearchClear}
+            fetcher={productFetchers.getProductByTitle}
+          />
+        </Box>
         <If hasPerm={Permissions.products.create}>
           <If condition={!isMobile}>
             <Button
@@ -195,11 +197,13 @@ function ProductsTable({
           <Chip.Group
             position="left"
             my={5}
+            ml={5}
             onChange={onFilterChipChange}
             defaultValue="clear"
             value={
               minQuantity ? "min_quantity" : noPrice ? "no_price" : "clear"
             }
+            className={classes.flow}
           >
             <If hasPerm={Permissions.products.originalPrice}>
               <Chip value={"no_price"}>

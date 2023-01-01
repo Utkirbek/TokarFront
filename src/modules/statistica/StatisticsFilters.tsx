@@ -1,4 +1,5 @@
-import { Chip } from "@mantine/core";
+import { Chip, createStyles } from "@mantine/core";
+import useStyles from "@modules/products/components/form/style/inputStyle";
 import useShop from "@services/hooks/useShop";
 import React from "react";
 import { FormattedMessage } from "react-intl";
@@ -19,6 +20,7 @@ const StatisticsFilters: React.FC<Props> = ({
   const { useFetchShop } = useShop();
 
   const { data, error } = useFetchShop();
+  const { classes } = useStyles();
 
   const onFilterChipChange = (value: string) => {
     switch (value) {
@@ -36,24 +38,26 @@ const StatisticsFilters: React.FC<Props> = ({
   if (!data || !!error) return null;
 
   return (
-    <Chip.Group
-      position="left"
-      my={5}
-      onChange={onFilterChipChange}
-      defaultValue="clear"
-      value={activeShop}
-    >
-      <Chip value={"all"}>
-        <FormattedMessage id="all" />
-      </Chip>
-      {data.map((shop: { name: string; _id: string }) => {
-        return (
-          <Chip key={shop._id} value={shop._id}>
-            {shop.name}
-          </Chip>
-        );
-      })}
-    </Chip.Group>
+    <div className={classes.flow}>
+      <Chip.Group
+        position="left"
+        my={5}
+        onChange={onFilterChipChange}
+        defaultValue="clear"
+        value={activeShop}
+      >
+        <Chip value={"all"}>
+          <FormattedMessage id="all" />
+        </Chip>
+        {data.map((shop: { name: string; _id: string }) => {
+          return (
+            <Chip key={shop._id} value={shop._id}>
+              {shop.name}
+            </Chip>
+          );
+        })}
+      </Chip.Group>
+    </div>
   );
 };
 

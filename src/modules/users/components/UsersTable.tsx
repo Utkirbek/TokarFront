@@ -23,7 +23,7 @@ import { Permissions } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
 import { useRouter } from "next/router";
 import { memo, useCallback, useState } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 import UserDetails from "../batafsil";
 import { usersTableHead } from "../constants";
@@ -41,10 +41,11 @@ function UsersTable({ data }: any) {
   const theme = useMantineTheme();
   const { openConfirm } = useConfirmation();
   const { deleteUser } = useUsers();
-  const [editItem, setEditItem] = useState({});
+  const [editItem, setEditItem] = useState<{ _id?: string }>({});
   const [opened, toggleOpened] = useToggle();
   const [searchResults, setSearchResults] = useState([]);
   const { classes } = UserStyle();
+  const intl = useIntl();
 
   const rows = (searchResults.length > 0 ? searchResults : data).map(
     (item: any) => {
@@ -172,11 +173,12 @@ function UsersTable({ data }: any) {
             ? theme.colors.dark[9]
             : theme.colors.gray[2]
         }
-        opened={opened}
         onClose={() => toggleOpened(false)}
         size="xl"
         position="right"
         sx={{ height: "120vh" }}
+        {...{ opened, toggleOpened }}
+        title={<FormattedMessage id="users.formTitle" />}
       >
         <NewUser handleClose={() => toggleOpened(false)} editItem={editItem} />
       </Drawer>

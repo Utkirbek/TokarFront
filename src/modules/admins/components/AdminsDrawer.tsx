@@ -168,7 +168,7 @@ const AdminsDrawer: React.FC<{
         />
 
         <Group position="right" mt="md">
-          <Button type="submit">
+          <Button fullWidth type="submit">
             <FormattedMessage
               id="admins.saveEdit"
               values={{ isNew: !editItem._id }}

@@ -65,7 +65,7 @@ function AdminCard({
                       <If hasPerm={Permissions.admins.delete}>
                         <Menu.Item
                           onClick={() => openDeleteModal(item._id, item.name)}
-                          icon={<IconTrash size={18} />}
+                          icon={<IconTrash color="red" size={18} />}
                         >
                           <FormattedMessage id="admins.deleteIcon" />
                         </Menu.Item>

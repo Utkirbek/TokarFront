@@ -70,18 +70,6 @@ const NewUser: React.FC<{
   return (
     <Box mx="auto" className={classes.userForm}>
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <Text
-          sx={{
-            fontSize: "24px",
-            textAlign: "center",
-            fontWeight: 700,
-          }}
-        >
-          <FormattedMessage
-            id="users.formTitle"
-            values={{ isNew: !editItem._id }}
-          />
-        </Text>
         <TextInput
           className={classes.inputStyle}
           withAsterisk
@@ -132,7 +120,7 @@ const NewUser: React.FC<{
         />
 
         <Group position="right" mt="md">
-          <Button type="submit">
+          <Button fullWidth type="submit">
             <FormattedMessage id="addSmth" values={{ isNew: !editItem._id }} />
           </Button>
         </Group>

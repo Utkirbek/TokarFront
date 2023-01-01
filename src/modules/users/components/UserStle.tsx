@@ -2,24 +2,12 @@ import { createStyles } from "@mantine/core";
 
 const UserStle = createStyles(() => ({
   userPaper: {
-    width: "200px",
+    width: "100%",
     padding: "8px",
     position: "relative",
-    [`@media (max-width: 470px)`]: {
-      width: "170px",
-    },
-    [`@media (max-width: 380px)`]: {
-      width: "300px",
-    },
   },
   userText: {
     fontSize: "16px",
-    [`@media (max-width: 470px)`]: {
-      fontSize: "13px",
-    },
-    [`@media (max-width: 380px)`]: {
-      fontSize: "16px",
-    },
   },
   userIconTrash: {
     position: "absolute",
@@ -31,14 +19,19 @@ const UserStle = createStyles(() => ({
     top: "3px",
   },
   userFlex: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    gap: "10px",
-    marginTop: "35px",
-    marginBottom: "45px",
-    [`@media (max-width: 380px)`]: {
-      justifyContent: "center",
+    display: "grid",
+    gridTemplateColumns: "auto auto auto",
+    gap: "1rem",
+    margin: "2.8rem 0",
+    [`@media (max-width: 600px)`]: {
+      gridTemplateColumns: "auto auto",
+    },
+    [`@media (max-width: 400px)`]: {
+      gridTemplateColumns: "auto auto ",
+      marginLeft: ".4rem",
+    },
+    [`@media (max-width: 370px)`]: {
+      gridTemplateColumns: "auto",
     },
   },
 

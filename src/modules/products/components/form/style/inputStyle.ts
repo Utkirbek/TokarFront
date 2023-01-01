@@ -44,5 +44,22 @@ const useStyles = createStyles(() => ({
       maxWidth: "320px",
     },
   },
+  saerch: {
+    width: "85%",
+    [`@media (max-width: 800px)`]: {
+      width: "100%",
+      position: "fixed",
+      top: "5px",
+      left: "0px",
+      right: "0px",
+      zIndex: 999,
+    },
+  },
+  flow: {
+    [`@media (max-width:600px)`]: {
+      marginTop: 20,
+      overflowX: "scroll",
+    },
+  },
 }));
 export default useStyles;

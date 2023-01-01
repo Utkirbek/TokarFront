@@ -2,6 +2,7 @@ import { Button, Drawer, Paper } from "@mantine/core";
 import {
   IconClipboardList,
   IconMenu2,
+  IconShoppingCart,
   IconUserCircle,
   IconUsers,
 } from "@tabler/icons";
@@ -59,9 +60,9 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({}) => {
             size="lg"
             className={classes.action_btn}
             component={Link}
-            href="/orders"
+            href="/sales"
           >
-            <IconUserCircle />
+            <IconShoppingCart />
           </Button>
         </Button.Group>
       </Paper>
