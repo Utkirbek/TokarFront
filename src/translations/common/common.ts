@@ -15,6 +15,11 @@ export const commonUz = {
   next: "Keyingi",
   nothingFound: "Hech narsa topilmadi",
   all: "Hammasi",
+  invest: "Sarmoya",
+  spend: "Xarajat",
+  cash: "Naqt Pul",
+  terminal: "Terminal",
+  click: "Click",
 };
 
 export const commonEn = {

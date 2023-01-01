@@ -74,9 +74,13 @@ const SpendTable = ({ data }: Props) => {
     return (
       <tr key={item._id}>
         <td>{item?.amount}</td>
-        <td>{item?.paymentMethod}</td>
+        <td>
+          <FormattedMessage id={item?.paymentMethod} />
+        </td>
         <td>{item?.description}</td>
-        <td>{item?.spendType}</td>
+        <td>
+          <FormattedMessage id={item?.spendType} />
+        </td>
         <td>
           <FormattedLocalTime date={item?.createdAt} />
         </td>

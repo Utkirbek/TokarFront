@@ -20,8 +20,10 @@ import { floorLastThreeDigits, getNumber } from "@utils";
 import { Permissions } from "@utils/constants";
 import { getCoverImage } from "@utils/getters";
 import { useRouter } from "next/router";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Barcode from "react-barcode";
 import { FormattedMessage, FormattedNumber } from "react-intl";
+import { useReactToPrint } from "react-to-print";
 import { useCart } from "react-use-cart";
 
 import { productsTableHead } from "../constants";
@@ -35,6 +37,8 @@ type Props = {
 
 const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
   const router = useRouter();
+  const barcodeRef = useRef(null);
+  const [activeBarcode, setActiveBarcode] = useState();
   const { addItem, inCart, updateItemQuantity, getItem, items } = useCart();
   const { deleteProducts } = useProducts();
   const { openConfirm } = useConfirmation();
@@ -81,6 +85,18 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
     }
   };
 
+  const handlePrintBarCode = useReactToPrint({
+    content: () => barcodeRef.current,
+  });
+
+  useEffect(() => {
+    if (activeBarcode) {
+      handlePrintBarCode();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeBarcode]);
+
   const rows = useMemo(
     () =>
       data.map((item: any) => {
@@ -102,8 +118,15 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
           >
             <td>
               <Group spacing="sm">
-                <Avatar size={40} src={getCoverImage(item.image)} radius={26} />
-
+                <Avatar
+                  size={40}
+                  src={getCoverImage(item.image)}
+                  radius={26}
+                  sx={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setActiveBarcode(item.code);
+                  }}
+                />
                 <HoverCard shadow="md">
                   <HoverCard.Target>
                     <Text size="sm" weight={500}>
@@ -187,6 +210,28 @@ const TableView: React.FC<Props> = ({ data, onEdit, minStock }) => {
         />
         <tbody>{rows}</tbody>
       </Table>
+      <Box style={{ display: "none" }}>
+        <Box ref={barcodeRef}>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginLeft: "30px",
+              marginTop: "10px",
+            }}
+          >
+            <Barcode
+              // @ts-ignore
+              value={activeBarcode}
+              height={80}
+              width={2.6}
+              textAlign={"center"}
+            />
+          </Box>
+        </Box>
+      </Box>
     </ScrollArea>
   );
 };
