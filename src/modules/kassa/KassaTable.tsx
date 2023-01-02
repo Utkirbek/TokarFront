@@ -1,17 +1,22 @@
 import FormattedLocalTime from "@components/FormattedLocalTime";
 import TableHead from "@components/Table/TableHead";
 import { Pagination, ScrollArea, Table } from "@mantine/core";
+import { FormattedMessage } from "react-intl";
 
 export const kassaLocaleUz = {
   title: "Kassa",
-  price: "Kassadagi pul",
+  cash: "Naqt",
+  terminal: "Terminal",
+  click: "Click",
   takeTime: "Olingan vaqti",
   giveTime: "Berish vaqti",
 };
 
 export const kassaLocaleEn = {
   title: "Cash",
-  price: "Price",
+  cash: "Cash",
+  terminal: "Terminal",
+  click: "Click",
   takeTime: "Taken time",
   giveTime: "Give time",
 };
@@ -29,8 +34,8 @@ function KassaTable({
 }) {
   const rows = datakassa?.map((item: any) => (
     <tr key={item?._id}>
-      <td>{item?.terminal}</td>
       <td>{item?.cash}</td>
+      <td>{item?.terminal}</td>
       <td>{item?.click}</td>
       <td>
         <FormattedLocalTime date={item?.createdAt} />
@@ -45,14 +50,23 @@ function KassaTable({
     <>
       <ScrollArea>
         <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
-          <TableHead
-            data={{
-              price: true,
-              takeTime: true,
-              giveTime: true,
-            }}
-            prefix={"kassa"}
-          />
+          <thead>
+            <td>
+              <FormattedMessage id="kassa.cash" />
+            </td>
+            <td>
+              <FormattedMessage id="kassa.terminal" />
+            </td>
+            <td>
+              <FormattedMessage id="kassa.click" />
+            </td>
+            <td>
+              <FormattedMessage id="kassa.takeTime" />
+            </td>
+            <td>
+              <FormattedMessage id="kassa.giveTime" />
+            </td>
+          </thead>
           <tbody>{rows}</tbody>
         </Table>
       </ScrollArea>
