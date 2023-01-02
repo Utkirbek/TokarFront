@@ -24,6 +24,24 @@ const CartStyle = createStyles(() => ({
       display: "block",
     },
   },
+  right: {
+    [`@media (max-width: 450px)`]: {
+      position: "absolute",
+      bottom: "1rem",
+      right: "17vw",
+      width: "100%",
+      marginBottom: "2rem",
+    },
+  },
+  left: {
+    [`@media (max-width: 450px)`]: {
+      position: "absolute",
+      top: "0",
+      left: "8vw",
+      width: "100%",
+      marginTop: "-3rem",
+    },
+  },
 }));
 
 export default CartStyle;

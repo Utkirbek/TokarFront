@@ -29,7 +29,9 @@ function KassaTable({
 }) {
   const rows = datakassa?.map((item: any) => (
     <tr key={item?._id}>
-      <td>{item?.amount}</td>
+      <td>{item?.terminal}</td>
+      <td>{item?.cash}</td>
+      <td>{item?.click}</td>
       <td>
         <FormattedLocalTime date={item?.createdAt} />
       </td>

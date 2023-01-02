@@ -37,6 +37,7 @@ import { FormattedMessage } from "react-intl";
 import { useCart } from "react-use-cart";
 
 import { SalesFormValues, useSalesFormContext } from "../Sales";
+import CartStyle from "./CartStyle";
 
 interface ActionsTooltipProps {
   handlePrint: VoidFunction;
@@ -65,6 +66,7 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
     showSuccessNotification,
   } = useNotification();
   const { addOrder, editOrder } = useOrders();
+  const { classes } = CartStyle();
 
   const handleInstallment = () => {
     if (!isRefund) {
@@ -176,8 +178,12 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
 
   return (
     <Paper px={5} py={5}>
-      <Flex justify={"space-between"} align="center">
-        <Group position="left">
+      <Flex
+        justify={"space-between"}
+        align="center"
+        style={{ position: "relative", height: "6rem" }}
+      >
+        <Group position="left" className={classes.left}>
           <SegmentedControl
             fullWidth
             color="orange"
@@ -202,7 +208,7 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
             onChange={(event) => setDiscountMode(event.currentTarget.checked)}
           />
         </Group>
-        <Group position="right">
+        <Group position="right" className={classes.right}>
           <Tooltip
             label={
               <Box>
