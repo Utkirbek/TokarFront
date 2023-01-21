@@ -58,3 +58,11 @@ export const replaceThreeNumbWithK = (num: number | string): string => {
   }
   return strNum;
 };
+
+export const isEmptyObject = (obj: any): boolean => {
+  return Object.keys(obj).length === 0 && obj.constructor === Object;
+};
+
+export const isValidString = (str: any): boolean => {
+  return typeof str === "string" && str.trim().length > 0;
+};

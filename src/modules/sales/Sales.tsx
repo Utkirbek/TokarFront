@@ -22,6 +22,7 @@ import CartTable from "./components/CartTable";
 import { Product } from "./components/constants";
 import Refund from "./components/Refund";
 import SalesInfoArea from "./components/SalesInfoArea";
+import SavedSalesDrawer from "./components/SavedSalesDrawer";
 import SearchResultsTable from "./components/SearchResultsTable";
 
 export type SalesFormValues = {
@@ -112,12 +113,16 @@ const Sales: NextPage = () => {
           </Grid.Col>
 
           <Grid.Col span={12} sx={{ height: "5%" }}>
-            <ActionsTooltip handlePrint={handlePrint} />
+            <ActionsTooltip
+              handlePrint={handlePrint}
+              onSearchClear={onSearchClear}
+            />
           </Grid.Col>
         </Grid>
         <Box sx={{ display: "none" }}>
           <SalesPrint ref={componentRef} />
         </Box>
+        <SavedSalesDrawer />
       </CartProvider>
     </SalesFormProvider>
   );

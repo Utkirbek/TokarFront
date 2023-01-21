@@ -10,7 +10,6 @@ import {
   Text,
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import { IconUser } from "@tabler/icons";
 import { useRouter } from "next/router";
 import queryString from "query-string";
 import { FormattedMessage } from "react-intl";

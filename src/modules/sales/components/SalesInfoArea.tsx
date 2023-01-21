@@ -14,7 +14,7 @@ import {
   TextInput,
   Tooltip,
 } from "@mantine/core";
-import { IconSearch, IconX } from "@tabler/icons";
+import { IconSearch } from "@tabler/icons";
 import { floorLastThreeDigits } from "@utils";
 import React from "react";
 import { useCart } from "react-use-cart";
@@ -27,7 +27,7 @@ const SalesInfoArea: React.FC<SalesInfoAreaProps> = ({}) => {
   const searchInputRef = React.useRef<HTMLInputElement>(null);
 
   const { cartTotal } = useCart();
-  const isInstallment = useSalesState(selectIsInstallment);
+
   const isRefund = useSalesState(selectIsRefund);
   const setSearchOrderId = useSalesState(selectSetSearchOrderId);
 
@@ -74,9 +74,8 @@ const SalesInfoArea: React.FC<SalesInfoAreaProps> = ({}) => {
           />
         </If>
       </Stack>
-      <If condition={isInstallment}>
-        <InstallmentForm />
-      </If>
+
+      <InstallmentForm />
     </Flex>
   );
 };

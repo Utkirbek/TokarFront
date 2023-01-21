@@ -19,6 +19,12 @@ export const selectSetInstallment = (state: SalesStateType) =>
   state.setInstallment;
 export const selectSetRefundOrderId = (state: SalesStateType) =>
   state.setRefundOrderId;
+export const selectSavedSales = (state: SalesStateType) => state.savedSales;
+export const selectSaveNewSale = (state: SalesStateType) => state.saveNewSale;
+export const selectRemoveSavedSale = (state: SalesStateType) =>
+  state.removeSavedSale;
+export const selectUpdateSavedSale = (state: SalesStateType) =>
+  state.updateSavedSale;
 
 export const selectSalesmanId = (state: User) => state._id;
 export const selectIsLoggedIn = (state: User) => state.isLoggedIn;

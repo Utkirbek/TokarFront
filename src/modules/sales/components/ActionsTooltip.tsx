@@ -4,6 +4,8 @@ import {
   selectIsInstallment,
   selectIsRefund,
   selectRefundOrderId,
+  selectSavedSales,
+  selectSaveNewSale,
   selectSearchOrderId,
   selectSetDiscountMode,
   selectSetInstallment,
@@ -32,6 +34,8 @@ import {
   IconPrinter,
   IconReceiptRefund,
 } from "@tabler/icons";
+import { isEmptyObject } from "@utils";
+import { useRouter } from "next/router";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import { useCart } from "react-use-cart";
@@ -41,14 +45,19 @@ import CartStyle from "./CartStyle";
 
 interface ActionsTooltipProps {
   handlePrint: VoidFunction;
+  onSearchClear: VoidFunction;
 }
 
-const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
+const ActionsTooltip: React.FC<ActionsTooltipProps> = ({
+  handlePrint,
+  onSearchClear,
+}) => {
   const [, setLastSale] = useLocalStorage<SalesPrintData>({
     key: "last_sale",
   });
   const { clearCartMetadata, emptyCart, cartTotal, items, isEmpty } = useCart();
   const form = useSalesFormContext();
+  const router = useRouter();
 
   const setIsInstallment = useSalesState(selectSetInstallment);
   const setIsRefund = useSalesState(selectSetIsRefund);
@@ -59,6 +68,8 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
   const refundOrderId = useSalesState(selectRefundOrderId);
   const discountMode = useSalesState(selectDiscountMode);
   const setDiscountMode = useSalesState(selectSetDiscountMode);
+  const saveNewSale = useSalesState(selectSaveNewSale);
+  const savedSales = useSalesState(selectSavedSales);
 
   const {
     showErrorNotification,
@@ -79,6 +90,7 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
       setSearchOrderId("");
       setIsRefund(!isRefund);
       emptyCart();
+      clearCartMetadata();
     } else {
       setIsRefund(!isRefund);
     }
@@ -118,6 +130,7 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
         });
         emptyCart();
         clearCartMetadata();
+        onSearchClear();
       },
       onError: () => {
         showErrorNotification();
@@ -151,6 +164,7 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
           showSuccessNotification();
           emptyCart();
           clearCartMetadata();
+          onSearchClear();
         },
         onError: () => {
           showErrorNotification();
@@ -159,7 +173,7 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
     );
   };
 
-  const handleSell = (event?: React.SyntheticEvent | KeyboardEvent) => {
+  const handleSell = () => {
     if (!isEmpty) {
       if (searchOrderId) {
         form.onSubmit(refund)();
@@ -169,20 +183,36 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
     }
   };
 
+  const handleSave = (event: React.SyntheticEvent | KeyboardEvent) => {
+    if (!isEmpty) {
+      const orderData = {
+        date: new Date().toISOString(),
+        cart: items,
+      };
+      saveNewSale(orderData);
+
+      emptyCart();
+      clearCartMetadata();
+      onSearchClear();
+    } else {
+      router.push(router.pathname, {
+        query: {
+          savedSales: true,
+        },
+      });
+    }
+  };
+
   useHotkeys([
     ["alt+i", handleInstallment],
-    ["ctrl + s", handleSell],
+    ["ctrl + s", handleSave],
     ["alt + s", handleSell],
     ["alt + r", toggleRefund],
   ]);
 
   return (
     <Paper px={5} py={5}>
-      <Flex
-        justify={"space-between"}
-        align="center"
-        style={{ position: "relative", height: "6rem" }}
-      >
+      <Flex justify={"space-between"} align="center">
         <Group position="left" className={classes.left}>
           <SegmentedControl
             fullWidth
@@ -209,6 +239,20 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({ handlePrint }) => {
           />
         </Group>
         <Group position="right" className={classes.right}>
+          <Tooltip
+            label={
+              <Box>
+                <Kbd>Ctrl</Kbd> + <Kbd>s</Kbd>
+              </Box>
+            }
+          >
+            <Button
+              onClick={handleSave}
+              disabled={isEmptyObject(savedSales) && isEmpty}
+            >
+              {isEmpty ? "Saqlanganlar" : "Saqlash"}
+            </Button>
+          </Tooltip>
           <Tooltip
             label={
               <Box>

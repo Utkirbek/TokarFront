@@ -12,6 +12,13 @@ export type SalesState = {
   searchOrderId: string;
   refundOrderId: string;
   dicountMode: boolean;
+  savedSales: {
+    [key: string]: {
+      date: string;
+      cart: any;
+      label?: string;
+    };
+  };
 };
 
 const initalState: SalesState = {
@@ -25,6 +32,7 @@ const initalState: SalesState = {
   searchOrderId: "",
   refundOrderId: "",
   dicountMode: false,
+  savedSales: {},
 };
 
 export type SalesActions = {
@@ -38,6 +46,9 @@ export type SalesActions = {
   setSearchOrderId: (searchOrderId: string) => void;
   setRefundOrderId: (refundOrderId: string) => void;
   setDiscountMode: (dicountMode: boolean) => void;
+  saveNewSale: (sale: { date: string; cart: any; label?: string }) => void;
+  removeSavedSale: (dateId: string) => void;
+  updateSavedSale: (dateId: string, label: string) => void;
 };
 
 export type SalesStateType = SalesState & SalesActions;
@@ -57,6 +68,23 @@ const useSalesState = create(
       setSearchOrderId: (searchOrderId) => set({ searchOrderId }),
       setRefundOrderId: (refundOrderId) => set({ refundOrderId }),
       setDiscountMode: (dicountMode) => set({ dicountMode }),
+      saveNewSale: (sale) => {
+        const previousSavedSales = get().savedSales;
+        const newSavedSales = { ...previousSavedSales, [sale.date]: sale };
+        set({ savedSales: newSavedSales });
+      },
+      removeSavedSale: (dateId) => {
+        const previousSavedSales = get().savedSales;
+        const newSavedSales = { ...previousSavedSales };
+        delete newSavedSales[dateId];
+        set({ savedSales: newSavedSales });
+      },
+      updateSavedSale: (dateId, label) => {
+        const previousSavedSales = get().savedSales;
+        const newSavedSales = { ...previousSavedSales };
+        newSavedSales[dateId].label = label;
+        set({ savedSales: newSavedSales });
+      },
     }),
     {
       name: "tespen-sales",

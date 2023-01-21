@@ -43,8 +43,4 @@ const FormDrawer: React.FC<Props> = ({
   );
 };
 
-const areEqual = (prevProps: Props, nextProps: Props) => {
-  return prevProps.opened === nextProps.opened;
-};
-
-export default memo(FormDrawer, areEqual);
+export default memo(FormDrawer);
