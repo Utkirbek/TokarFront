@@ -297,8 +297,7 @@ const ActionsTooltip: React.FC<ActionsTooltipProps> = ({
           <Tooltip
             label={
               <Box>
-                <Kbd>Ctrl</Kbd> + <Kbd>s</Kbd> &nbsp;|&nbsp; <Kbd>Alt</Kbd> +{" "}
-                <Kbd>s</Kbd>
+                <Kbd>Alt</Kbd> + <Kbd>s</Kbd>
               </Box>
             }
           >
