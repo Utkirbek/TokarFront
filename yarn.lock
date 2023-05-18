@@ -1315,12 +1315,12 @@
   dependencies:
     "@mantine/utils" "5.7.1"
 
-"@mantine/spotlight@^5.6.3":
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/@mantine/spotlight/-/spotlight-5.7.0.tgz#48145fdbf3cadffe1c2c17a003648857e4db3ebf"
-  integrity sha512-V3ieuQyg5e6Wtveam17TMmCpqQ+zcERwMhxkgvUmn5XiOdiwT27on+u0MnRl7M0P5wl9pmQCH8Txkvq1VY+uaw==
+"@mantine/spotlight@^5.10.5":
+  version "5.10.5"
+  resolved "https://registry.yarnpkg.com/@mantine/spotlight/-/spotlight-5.10.5.tgz#b7747593a6b5762faa87bc9cf05c093fb2570be4"
+  integrity sha512-OQkuHxswrapRPcKDVSjE3li9oYYMq1Nwg2zlZzHlpzP7oW1qUhbDIVRc1dOzuT+IO7ifY/zeSuYknli7T29pDA==
   dependencies:
-    "@mantine/utils" "5.7.0"
+    "@mantine/utils" "5.10.5"
 
 "@mantine/ssr@5.7.0":
   version "5.7.0"
@@ -1345,6 +1345,11 @@
   dependencies:
     clsx "1.1.1"
     csstype "3.0.9"
+
+"@mantine/utils@5.10.5":
+  version "5.10.5"
+  resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.10.5.tgz#ad620d714e545c6efb7f69d94ce46e3fd2fe01fb"
+  integrity sha512-FGMq4dGs5HhDAtI0z46uzxzKKPmZ3h5uKUyKg1ZHoFR1mBtcUMbB6FylFmHqKFRWlJ5IXqX9dwmiVrLYUOfTmA==
 
 "@mantine/utils@5.7.0":
   version "5.7.0"

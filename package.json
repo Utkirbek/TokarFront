@@ -37,7 +37,7 @@
     "@mantine/next": "^5.5.5",
     "@mantine/notifications": "^5.8.3",
     "@mantine/nprogress": "^5.7.1",
-    "@mantine/spotlight": "^5.6.3",
+    "@mantine/spotlight": "^5.10.5",
     "@nivo/bar": "^0.80.0",
     "@nivo/core": "^0.80.0",
     "@nivo/line": "^0.80.0",
